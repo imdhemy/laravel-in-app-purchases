@@ -1,38 +1,41 @@
 {
-    "name": "spatie/:package_name",
-    "description": ":package_description",
+    "name": "imdhemy/laravel-purchases",
+    "description": "Laravel receipt validator for Google Play",
     "keywords": [
-        "spatie",
-        ":package_name"
+        "laravel-in-app-purchases",
+        "google_play",
+        "in_app_purchases",
+        "laravel"
     ],
-    "homepage": "https://github.com/spatie/:package_name",
+    "homepage": "https://github.com/imdhemy/laravel-in-app-purchases",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": ":author_email",
-            "homepage": "https://spatie.be",
+            "name": "imdhemy",
+            "email": "imdhemy@gmail.com",
+            "homepage": "http://dhemy.studio",
             "role": "Developer"
         }
     ],
     "require": {
-        "php": "^7.4"
+        "php": "^7.1",
+        "google/auth": "^1.9"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.16",
         "orchestra/testbench": "^5.0",
-        "phpunit/phpunit": "^9.0",
+        "phpunit/phpunit": "^8.5",
         "psalm/plugin-laravel": "^1.2",
         "vimeo/psalm": "^3.11"
     },
     "autoload": {
         "psr-4": {
-            "Spatie\\Skeleton\\": "src"
+            "Imdhemy\\Purchases\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Spatie\\Skeleton\\Tests\\": "tests"
+            "Imdhemy\\Purchases\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -47,10 +50,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Spatie\\Skeleton\\SkeletonServiceProvider"
+                "Imdhemy\\Purchases\\PurchaseServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "Spatie\\Skeleton\\SkeletonFacade"
+                "Skeleton": "Imdhemy\\Purchases\\PurchaseFacade"
             }
         }
     },

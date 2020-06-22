@@ -10,7 +10,7 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
-        <testsuite name="Spatie Test Suite">
+        <testsuite name="Imdhemy Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
@@ -25,4 +25,7 @@
         <log type="coverage-text" target="build/coverage.txt"/>
         <log type="coverage-clover" target="build/logs/clover.xml"/>
     </logging>
+    <php>
+        <env name="GOOGLE_APPLICATION_CREDENTIALS" value="google-app-credentials.json" force="true"/>
+    </php>
 </phpunit>
