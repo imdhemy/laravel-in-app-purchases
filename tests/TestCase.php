@@ -2,8 +2,8 @@
 
 namespace Imdhemy\Purchases\Tests;
 
-use Orchestra\Testbench\TestCase as Orchestra;
 use Imdhemy\Purchases\PurchaseServiceProvider;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
