@@ -17,6 +17,7 @@ class CouldNotCreateSubscription extends Exception
     public static function googlePlayPackageNotSet(): self
     {
         $msg = "Google play package is required. check the configuration file.";
+
         return new self($msg);
     }
 }
