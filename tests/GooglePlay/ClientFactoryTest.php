@@ -14,6 +14,7 @@ use Imdhemy\Purchases\Tests\TestCase;
 class ClientFactoryTest extends TestCase
 {
     /**
+     * @group requires_env_vars
      * @test
      * @throws CouldNotCreateGoogleClient
      */
