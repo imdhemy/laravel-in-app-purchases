@@ -17,6 +17,7 @@ class CouldNotCreateGoogleClient extends Exception
     public static function credentialsNotFound(): self
     {
         $msg = "Google app credentials not found in the specified location";
+
         return new self($msg);
     }
 }
