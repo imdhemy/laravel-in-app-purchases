@@ -19,7 +19,8 @@
     ],
     "require": {
         "php": "^7.1",
-        "google/auth": "^1.9"
+        "google/auth": "^1.9",
+        "ext-json": "*"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.16",
