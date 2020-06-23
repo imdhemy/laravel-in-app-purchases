@@ -15,9 +15,10 @@ class ClientFactoryTest extends TestCase
 {
     /**
      * @group requires_env_vars
+     * @test
      * @throws CouldNotCreateGoogleClient
      */
-    public function it_creates_http_client()
+    public function test_it_creates_http_client()
     {
         $client = ClientFactory::create([ClientFactory::SCOPE_ANDROID_PUBLISHER]);
         $this->assertInstanceOf(Client::class, $client);
