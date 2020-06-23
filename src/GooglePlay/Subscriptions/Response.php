@@ -3,6 +3,10 @@
 
 namespace Imdhemy\Purchases\GooglePlay\Subscriptions;
 
+/**
+ * Class Response
+ * @package Imdhemy\Purchases\GooglePlay\Subscriptions
+ */
 class Response
 {
     /**
@@ -151,6 +155,246 @@ class Response
      */
     public static function fromArray(array $attributes): self
     {
-        return new self();
+        $response = new self();
+        self::fillObjectVars($attributes, $response);
+        return $response;
+    }
+
+    /**
+     * @param array $attributes
+     * @param Response $response
+     */
+    private static function fillObjectVars(array $attributes, Response $response): void
+    {
+        $objectVars = array_keys(get_object_vars($response));
+        foreach ($attributes as $key => $value) {
+            if (in_array($key, $objectVars)) {
+                $response->$key = $value;
+            }
+        }
+    }
+
+    /**
+     * @return int
+     */
+    public function getAcknowledgementState(): int
+    {
+        return $this->acknowledgementState;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAutoRenewing(): bool
+    {
+        return $this->autoRenewing;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAutoResumeTimeMillis(): int
+    {
+        return $this->autoResumeTimeMillis;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCancelReason(): int
+    {
+        return $this->cancelReason;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCancelSurveyResult(): array
+    {
+        return $this->cancelSurveyResult;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCountryCode(): string
+    {
+        return $this->countryCode;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDeveloperPayload(): string
+    {
+        return $this->developerPayload;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmailAddress(): string
+    {
+        return $this->emailAddress;
+    }
+
+    /**
+     * @return int
+     */
+    public function getExpiryTimeMillis(): int
+    {
+        return $this->expiryTimeMillis;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFamilyName(): string
+    {
+        return $this->familyName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGivenName(): string
+    {
+        return $this->givenName;
+    }
+
+    /**
+     * @return array
+     */
+    public function getIntroductoryPriceInfo(): array
+    {
+        return $this->introductoryPriceInfo;
+    }
+
+    /**
+     * @return string
+     */
+    public function getKind(): string
+    {
+        return $this->kind;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLinkedPurchaseToken(): string
+    {
+        return $this->linkedPurchaseToken;
+    }
+
+    /**
+     * @return string
+     */
+    public function getObfuscatedExternalAccountId(): string
+    {
+        return $this->obfuscatedExternalAccountId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getObfuscatedExternalProfileId(): string
+    {
+        return $this->obfuscatedExternalProfileId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOrderId(): string
+    {
+        return $this->orderId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPaymentState(): int
+    {
+        return $this->paymentState;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPriceAmountMicros(): int
+    {
+        return $this->priceAmountMicros;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPriceChange(): array
+    {
+        return $this->priceChange;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPriceCurrencyCode(): string
+    {
+        return $this->priceCurrencyCode;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProfileId(): string
+    {
+        return $this->profileId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProfileName(): string
+    {
+        return $this->profileName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPromotionCode(): string
+    {
+        return $this->promotionCode;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPromotionType(): int
+    {
+        return $this->promotionType;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPurchaseType(): int
+    {
+        return $this->purchaseType;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStartTimeMillis(): int
+    {
+        return $this->startTimeMillis;
+    }
+
+    /**
+     * @return int
+     */
+    public function getUserCancellationTimeMillis(): int
+    {
+        return $this->userCancellationTimeMillis;
     }
 }
