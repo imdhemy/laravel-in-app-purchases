@@ -30,9 +30,9 @@ class TestCase extends Orchestra
             'prefix' => '',
         ]);
 
-        /*
-        include_once __DIR__.'/../database/migrations/create_skeleton_table.php.stub';
-        (new \CreatePackageTable())->up();
-        */
+
+        include_once __DIR__.'/../database/migrations/create_subscription_purchases_table.php.stub';
+        (new \CreateSubscriptionPurchasesTable())->up();
+
     }
 }
