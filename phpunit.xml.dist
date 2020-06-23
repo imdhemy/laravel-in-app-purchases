@@ -27,6 +27,5 @@
     </logging>
     <php>
         <env name="GOOGLE_APPLICATION_CREDENTIALS" value="google-app-credentials.json" force="true"/>
-        <env name="GOOGLE_PLAY_PACKAGE" value="com.twigano.fashion" force="true"/>
     </php>
 </phpunit>

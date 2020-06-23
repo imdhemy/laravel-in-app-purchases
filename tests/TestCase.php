@@ -7,6 +7,10 @@ use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
+    const GOOGLE_PLAY_PACKAGE = 'purchases.google_play_package';
+    const SUBSCRIPTION_ID = 'purchases.subscription_id';
+    const PURCHASE_TOKEN = 'purchases.purchase_token';
+
     public function setUp(): void
     {
         parent::setUp();
@@ -30,6 +34,9 @@ class TestCase extends Orchestra
             'prefix' => '',
         ]);
 
+        $app['config']->set(self::GOOGLE_PLAY_PACKAGE, 'com.twigano.fashion');
+        $app['config']->set(self::SUBSCRIPTION_ID . '', 'week_premium');
+        $app['config']->set(self::PURCHASE_TOKEN, 'ghpmfmednnbjkcheljjpdnbn.AO-J1OzOqWsD57dURPVrKYh2Qv-t5Lx9VJtCFLdxMovzAgfdF1CwX35AbH3RYRhAMqApdlgLvw7v1Eog43rWYGhGXODl9_Ir9O2YqcXqLSPM7ojuVr9mpcmUha2LZf3YaCbowk1UJfuc');
 
         include_once __DIR__.'/../database/migrations/create_subscription_purchases_table.php.stub';
         (new \CreateSubscriptionPurchasesTable())->up();

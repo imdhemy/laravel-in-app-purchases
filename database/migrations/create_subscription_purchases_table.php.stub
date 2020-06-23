@@ -16,10 +16,10 @@ class CreateSubscriptionPurchasesTable extends Migration
     {
         Schema::create('subscription_purchases', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('purchaseToken')->unique();
+            $table->text('purchase_token')->unique();
             $table->timestamp('expiry_time');
             $table->timestamp('start_time');
-            $table->decimal('price_amount');
+            $table->unsignedInteger('price_amount_micros');
             $table->string('price_currency_code');
             $table->timestamps();
         });

@@ -21,8 +21,9 @@ class SubscriptionTest extends TestCase
      */
     public function it_can_get_subscription_response()
     {
-        $id = 'week_premium';
-        $token = 'ghpmfmednnbjkcheljjpdnbn.AO-J1OzOqWsD57dURPVrKYh2Qv-t5Lx9VJtCFLdxMovzAgfdF1CwX35AbH3RYRhAMqApdlgLvw7v1Eog43rWYGhGXODl9_Ir9O2YqcXqLSPM7ojuVr9mpcmUha2LZf3YaCbowk1UJfuc';
+        $id = config('purchases.subscription_id');
+        $token = config('purchases.purchase_token');
+
         $response = Subscription::check($id, $token)->getResponse();
         $this->assertInstanceOf(Response::class, $response);
     }

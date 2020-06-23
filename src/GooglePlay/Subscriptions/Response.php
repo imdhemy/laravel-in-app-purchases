@@ -150,6 +150,11 @@ class Response
     private $userCancellationTimeMillis;
 
     /**
+     * @var string
+     */
+    private $purchaseToken;
+
+    /**
      * @param array $attributes
      * @return static
      */
@@ -396,5 +401,21 @@ class Response
     public function getUserCancellationTimeMillis(): int
     {
         return $this->userCancellationTimeMillis;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPurchaseToken(): string
+    {
+        return $this->purchaseToken;
+    }
+
+    /**
+     * @param string $purchaseToken
+     */
+    public function setPurchaseToken(string $purchaseToken): void
+    {
+        $this->purchaseToken = $purchaseToken;
     }
 }

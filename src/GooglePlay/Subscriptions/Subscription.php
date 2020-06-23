@@ -75,6 +75,7 @@ class Subscription
         if (is_null($this->response)) {
             $content = $this->client->get($this->getUri())->getBody()->getContents();
             $this->response = Response::fromArray(json_decode($content, true));
+            $this->response->setPurchaseToken($this->token);
         }
 
         return $this->response;
