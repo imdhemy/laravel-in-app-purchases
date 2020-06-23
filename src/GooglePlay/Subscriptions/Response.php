@@ -157,6 +157,7 @@ class Response
     {
         $response = new self();
         self::fillObjectVars($attributes, $response);
+
         return $response;
     }
 

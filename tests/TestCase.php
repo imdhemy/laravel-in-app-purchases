@@ -33,6 +33,5 @@ class TestCase extends Orchestra
 
         include_once __DIR__.'/../database/migrations/create_subscription_purchases_table.php.stub';
         (new \CreateSubscriptionPurchasesTable())->up();
-
     }
 }
