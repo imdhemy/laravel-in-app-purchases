@@ -13,13 +13,15 @@ Laravel Receipt validator for Google play Billing. After a user has made a purch
 ## Usage
 
 ```php
-use Imdhemy\Purchases\GooglePlay\Subscriptions\Subscription;
+use Imdhemy\Purchases\GooglePlay\Subscriptions\Subscription as GooglePlay;
 
 $subscriptionId = "subscription_id";
 $purchaseToken = "unique_purchase_token";
 
-$receipt = Subscription::check($subscriptionId, $purchaseToken)->getResponse();
-$purchase = Subscription::check($subscriptionId, $purchaseToken)->toLog();
-$isUnique =  Subscription::check($subscriptionId, $purchaseToken)->isUnique();
-$purchase = Subscription::check($subscriptionId, $purchaseToken)->persist(); // throws exception if it is not unique
+$receipt = GooglePlay::check($subscriptionId, $purchaseToken);
+
+if($receipt->isValid()){
+    $receipt->persist();
+    // extend user's subscription
+}
 ```
