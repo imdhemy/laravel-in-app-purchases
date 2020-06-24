@@ -6,8 +6,9 @@ namespace Imdhemy\Purchases\GooglePlay\Subscriptions;
 use GuzzleHttp\Client;
 use Imdhemy\Purchases\Exceptions\CouldNotCreateGoogleClient;
 use Imdhemy\Purchases\Exceptions\CouldNotCreateSubscription;
+use Imdhemy\Purchases\Exceptions\CouldNotPersist;
 use Imdhemy\Purchases\GooglePlay\ClientFactory;
-use Imdhemy\Purchases\Tests\Models\SubscriptionPurchase;
+use Imdhemy\Purchases\Models\SubscriptionPurchase;
 
 /**
  * Class Subscription
@@ -104,5 +105,31 @@ class Subscription
     public function toPurchase(): SubscriptionPurchase
     {
         return SubscriptionPurchase::fromResponse($this->getResponse());
+    }
+
+    /**
+     * @return bool
+     */
+    public function isUnique(): bool
+    {
+        $attributes = ['purchase_token' => $this->token];
+
+        return ! (bool)SubscriptionPurchase::where($attributes)->first();
+    }
+
+    /**
+     * @return SubscriptionPurchase
+     * @throws CouldNotPersist
+     */
+    public function persist(): SubscriptionPurchase
+    {
+        if ($this->isUnique()) {
+            $purchase = $this->toPurchase();
+            $purchase->save();
+
+            return $purchase;
+        }
+
+        throw CouldNotPersist::suscriptionPurchaseNotUnique();
     }
 }

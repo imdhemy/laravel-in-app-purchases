@@ -1,9 +1,10 @@
 <?php
 
 
-namespace Imdhemy\Purchases\Tests\Models;
+namespace Imdhemy\Purchases\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
 use Imdhemy\Purchases\GooglePlay\Subscriptions\Response;
 
 /**
@@ -14,6 +15,7 @@ use Imdhemy\Purchases\GooglePlay\Subscriptions\Response;
  * @property int price_amount_micros
  * @property string price_currency_code
  * @package Imdhemy\Purchases\Tests\Models
+ * @mixin Builder
  */
 class SubscriptionPurchase extends Model
 {

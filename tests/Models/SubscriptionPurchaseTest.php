@@ -7,6 +7,7 @@ use Imdhemy\Purchases\Exceptions\CouldNotCreateGoogleClient;
 use Imdhemy\Purchases\Exceptions\CouldNotCreateSubscription;
 use Imdhemy\Purchases\GooglePlay\Subscriptions\Response;
 use Imdhemy\Purchases\GooglePlay\Subscriptions\Subscription;
+use Imdhemy\Purchases\Models\SubscriptionPurchase;
 use Imdhemy\Purchases\Tests\TestCase;
 
 /**
@@ -66,3 +67,4 @@ class SubscriptionPurchaseTest extends TestCase
         ]);
     }
 }
+
