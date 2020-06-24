@@ -10,14 +10,12 @@ use Imdhemy\Purchases\GooglePlay\Subscriptions\Response;
 /**
  * Class SubscriptionPurchase
  * @property string purchase_token
- * @property int expiry_time
- * @property int start_time
- * @property int price_amount_micros
- * @property string price_currency_code
+ * @property string platform
+ * @property string kind
  * @package Imdhemy\Purchases\Tests\Models
  * @mixin Builder
  */
-class SubscriptionPurchase extends Model
+class PurchaseLog extends Model
 {
     /**
      * @param Response $response
@@ -28,11 +26,22 @@ class SubscriptionPurchase extends Model
         $object = new self();
 
         $object->purchase_token = $response->getPurchaseToken();
-        $object->expiry_time = $response->getExpiryTimeMillis();
-        $object->start_time = $response->getStartTimeMillis();
-        $object->price_amount_micros = $response->getPriceAmountMicros();
-        $object->price_currency_code = $response->getPriceCurrencyCode();
+        $object->platform = $response->getPlatform();
+        $object->kind = $response->getKind();
 
         return $object;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isUnique(): bool
+    {
+        $attributes = [
+            'platform' => $this->platform,
+            'purchase_token' => $this->purchase_token,
+        ];
+
+        return ! (bool)$this->where($attributes)->first();
     }
 }

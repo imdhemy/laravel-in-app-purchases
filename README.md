@@ -19,7 +19,7 @@ $subscriptionId = "subscription_id";
 $purchaseToken = "unique_purchase_token";
 
 $receipt = Subscription::check($subscriptionId, $purchaseToken)->getResponse();
-$purchase = Subscription::check($subscriptionId, $purchaseToken)->toPurchase();
+$purchase = Subscription::check($subscriptionId, $purchaseToken)->toLog();
 $isUnique =  Subscription::check($subscriptionId, $purchaseToken)->isUnique();
 $purchase = Subscription::check($subscriptionId, $purchaseToken)->persist(); // throws exception if it is not unique
 ```

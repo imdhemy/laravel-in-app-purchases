@@ -5,22 +5,20 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 /**
- * Class CreateSubscriptionPurchasesTable
+ * Class CreatePurchaseLogTable
  */
-class CreateSubscriptionPurchasesTable extends Migration
+class CreatePurchaseLogsTable extends Migration
 {
     /**
      * Runs the migrations
      */
     public function up()
     {
-        Schema::create('subscription_purchases', function (Blueprint $table) {
+        Schema::create('purchase_logs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('purchase_token')->unique();
-            $table->timestamp('expiry_time');
-            $table->timestamp('start_time');
-            $table->unsignedInteger('price_amount_micros');
-            $table->string('price_currency_code');
+            $table->string('platform');
+            $table->string('kind');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateSubscriptionPurchasesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subscription_purchases');
+        Schema::dropIfExists('purchase_logs');
     }
 }

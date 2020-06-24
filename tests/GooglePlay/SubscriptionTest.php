@@ -8,7 +8,7 @@ use Imdhemy\Purchases\Exceptions\CouldNotCreateSubscription;
 use Imdhemy\Purchases\Exceptions\CouldNotPersist;
 use Imdhemy\Purchases\GooglePlay\Subscriptions\Response;
 use Imdhemy\Purchases\GooglePlay\Subscriptions\Subscription;
-use Imdhemy\Purchases\Models\SubscriptionPurchase;
+use Imdhemy\Purchases\Models\PurchaseLog;
 use Imdhemy\Purchases\Tests\TestCase;
 
 /**
@@ -55,8 +55,8 @@ class SubscriptionTest extends TestCase
      */
     public function it_can_create_subscription_purchase()
     {
-        $purchase = Subscription::check($this->id, $this->token)->toPurchase();
-        $this->assertInstanceOf(SubscriptionPurchase::class, $purchase);
+        $purchase = Subscription::check($this->id, $this->token)->toLog();
+        $this->assertInstanceOf(PurchaseLog::class, $purchase);
     }
 
     /**
@@ -77,7 +77,7 @@ class SubscriptionTest extends TestCase
      */
     public function it_returns_false_if_it_was_not_unique()
     {
-        factory(SubscriptionPurchase::class)->create([
+        factory(PurchaseLog::class)->create([
             'purchase_token' => $this->token,
         ]);
 
@@ -94,8 +94,8 @@ class SubscriptionTest extends TestCase
     public function it_can_persisted_if_is_unique()
     {
         $purchase = Subscription::check($this->id, $this->token)->persist();
-        $this->assertInstanceOf(SubscriptionPurchase::class, $purchase);
-        $this->assertDatabaseHas('subscription_purchases', [
+        $this->assertInstanceOf(PurchaseLog::class, $purchase);
+        $this->assertDatabaseHas('purchase_logs', [
             'purchase_token' => $this->token,
         ]);
     }
@@ -109,7 +109,7 @@ class SubscriptionTest extends TestCase
     public function it_throws_exception_if_it_was_not_unique_on_persist()
     {
         $this->expectException(CouldNotPersist::class);
-        factory(SubscriptionPurchase::class)->create([
+        factory(PurchaseLog::class)->create([
             'purchase_token' => $this->token,
         ]);
         Subscription::check($this->id, $this->token)->persist();

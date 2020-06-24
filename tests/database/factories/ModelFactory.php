@@ -1,15 +1,14 @@
 <?php
 
 use Faker\Generator;
-use Imdhemy\Purchases\Models\SubscriptionPurchase;
+use Illuminate\Support\Str;
+use Imdhemy\Purchases\Models\PurchaseLog;
 
 /* @var Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(SubscriptionPurchase::class, function (Generator $faker) {
+$factory->define(PurchaseLog::class, function (Generator $faker) {
     return [
         'purchase_token' => bcrypt($faker->unique()->password),
-        'expiry_time' => $faker->unixTime,
-        'start_time' => $faker->unixTime,
-        'price_amount_micros' => $faker->randomNumber(2),
-        'price_currency_code' => $faker->currencyCode,
+        'platform' => 'google_play',
+        'kind' => 'google_play#' .Str::random(),
     ];
 });

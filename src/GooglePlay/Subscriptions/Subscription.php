@@ -8,7 +8,7 @@ use Imdhemy\Purchases\Exceptions\CouldNotCreateGoogleClient;
 use Imdhemy\Purchases\Exceptions\CouldNotCreateSubscription;
 use Imdhemy\Purchases\Exceptions\CouldNotPersist;
 use Imdhemy\Purchases\GooglePlay\ClientFactory;
-use Imdhemy\Purchases\Models\SubscriptionPurchase;
+use Imdhemy\Purchases\Models\PurchaseLog;
 
 /**
  * Class Subscription
@@ -102,11 +102,11 @@ class Subscription
     }
 
     /**
-     * @return SubscriptionPurchase
+     * @return PurchaseLog
      */
-    public function toPurchase(): SubscriptionPurchase
+    public function toLog(): PurchaseLog
     {
-        return SubscriptionPurchase::fromResponse($this->getResponse());
+        return PurchaseLog::fromResponse($this->getResponse());
     }
 
     /**
@@ -114,19 +114,17 @@ class Subscription
      */
     public function isUnique(): bool
     {
-        $attributes = ['purchase_token' => $this->token];
-
-        return ! (bool)SubscriptionPurchase::where($attributes)->first();
+        return $this->toLog()->isUnique();
     }
 
     /**
-     * @return SubscriptionPurchase
+     * @return PurchaseLog
      * @throws CouldNotPersist
      */
-    public function persist(): SubscriptionPurchase
+    public function persist(): PurchaseLog
     {
         if ($this->isUnique()) {
-            $purchase = $this->toPurchase();
+            $purchase = $this->toLog();
             $purchase->save();
 
             return $purchase;

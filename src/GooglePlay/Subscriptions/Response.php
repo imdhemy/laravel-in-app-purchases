@@ -9,6 +9,8 @@ namespace Imdhemy\Purchases\GooglePlay\Subscriptions;
  */
 class Response
 {
+    const PLATFORM_GOOGLE_PLAY = 'google_play';
+
     /**
      * @var int Possible values are 0. Yet to be acknowledged or 1. acknowledged
      */
@@ -418,5 +420,13 @@ class Response
     public function setPurchaseToken(string $purchaseToken): void
     {
         $this->purchaseToken = $purchaseToken;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPlatform(): string
+    {
+        return self::PLATFORM_GOOGLE_PLAY;
     }
 }

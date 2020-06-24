@@ -7,7 +7,7 @@ use Imdhemy\Purchases\Exceptions\CouldNotCreateGoogleClient;
 use Imdhemy\Purchases\Exceptions\CouldNotCreateSubscription;
 use Imdhemy\Purchases\GooglePlay\Subscriptions\Response;
 use Imdhemy\Purchases\GooglePlay\Subscriptions\Subscription;
-use Imdhemy\Purchases\Models\SubscriptionPurchase;
+use Imdhemy\Purchases\Models\PurchaseLog;
 use Imdhemy\Purchases\Tests\TestCase;
 
 /**
@@ -19,7 +19,7 @@ class SubscriptionPurchaseTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * @var SubscriptionPurchase
+     * @var PurchaseLog
      */
     private $purchase;
 
@@ -39,7 +39,7 @@ class SubscriptionPurchaseTest extends TestCase
         $id = config(self::SUBSCRIPTION_ID);
         $token = config(self::PURCHASE_TOKEN);
         $this->response = Subscription::check($id, $token)->getResponse();
-        $this->purchase = SubscriptionPurchase::fromResponse($this->response);
+        $this->purchase = PurchaseLog::fromResponse($this->response);
     }
 
     /**
@@ -48,7 +48,7 @@ class SubscriptionPurchaseTest extends TestCase
      */
     public function it_can_be_created_from_response()
     {
-        $this->assertInstanceOf(SubscriptionPurchase::class, $this->purchase);
+        $this->assertInstanceOf(PurchaseLog::class, $this->purchase);
     }
 
     /**
@@ -58,12 +58,8 @@ class SubscriptionPurchaseTest extends TestCase
     {
         $this->purchase->save();
 
-        $this->assertDatabaseHas('subscription_purchases', [
+        $this->assertDatabaseHas('purchase_logs', [
             'purchase_token' => $this->response->getPurchaseToken(),
-            'expiry_time' => $this->response->getExpiryTimeMillis(),
-            'start_time' => $this->response->getStartTimeMillis(),
-            'price_amount_micros' => $this->response->getPriceAmountMicros(),
-            'price_currency_code' => $this->response->getPriceCurrencyCode(),
         ]);
     }
 }
