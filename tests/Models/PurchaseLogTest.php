@@ -11,10 +11,10 @@ use Imdhemy\Purchases\Models\PurchaseLog;
 use Imdhemy\Purchases\Tests\TestCase;
 
 /**
- * Class SubscriptionPurchaseTest
+ * Class PurchaseLogTest
  * @package Imdhemy\Purchases\Tests\Models
  */
-class SubscriptionPurchaseTest extends TestCase
+class PurchaseLogTest extends TestCase
 {
     use RefreshDatabase;
 
