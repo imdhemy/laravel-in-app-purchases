@@ -9,3 +9,17 @@ Laravel Receipt validator for Google play Billing. After a user has made a purch
 - Verify that the `purchaseToken` value for the current purchase does not match any previous purchaseToken values. `purchaseToken` is globally unique, so you can safely use this value as a primary key in your database.
 - Use the Purchases.products:get or Purchases.subscriptions:get endpoints in the Google Play Developer API to verify with Google that the purchase is legitimate.
 - If the purchase is legitimate and has not been used in the past, you can then safely grant entitlement to the in-app item or subscription.
+
+## Usage
+
+```php
+use Imdhemy\Purchases\GooglePlay\Subscriptions\Subscription;
+
+$subscriptionId = "subscription_id";
+$purchaseToken = "unique_purchase_token";
+
+$receipt = Subscription::check($subscriptionId, $purchaseToken)->getResponse();
+$purchase = Subscription::check($subscriptionId, $purchaseToken)->toPurchase();
+$isUnique =  Subscription::check($subscriptionId, $purchaseToken)->isUnique();
+$purchase = Subscription::check($subscriptionId, $purchaseToken)->persist(); // throws exception if it is not unique
+```
