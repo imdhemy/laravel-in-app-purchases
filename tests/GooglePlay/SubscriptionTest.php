@@ -114,4 +114,15 @@ class SubscriptionTest extends TestCase
         ]);
         Subscription::check($this->id, $this->token)->persist();
     }
+
+    /**
+     * @test
+     * @throws CouldNotCreateSubscription
+     * @throws CouldNotCreateGoogleClient
+     */
+    public function it_can_validate_a_purchase_receipt()
+    {
+        $isValid = Subscription::check($this->id, $this->token)->isValid();
+        $this->assertFalse($isValid);
+    }
 }

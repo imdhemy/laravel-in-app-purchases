@@ -17,6 +17,8 @@ use Imdhemy\Purchases\Models\SubscriptionPurchase;
 class Subscription
 {
     const URI_FORMAT = "androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s";
+    const PAYMENT_STATE_RECEIVED = 1;
+    const PAYMENT_STATE_FREE_TRIAL = 2;
 
     /**
      * @var string
@@ -131,5 +133,16 @@ class Subscription
         }
 
         throw CouldNotPersist::suscriptionPurchaseNotUnique();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isValid(): bool
+    {
+        $paymentState = $this->getResponse()->getPaymentState();
+        $successPayment = $paymentState === self::PAYMENT_STATE_RECEIVED || $paymentState === self::PAYMENT_STATE_FREE_TRIAL;
+
+        return $successPayment && $this->isUnique();
     }
 }

@@ -209,7 +209,7 @@ class Response
      */
     public function getCancelReason(): int
     {
-        return $this->cancelReason;
+        return $this->cancelReason ?? -1;
     }
 
     /**
@@ -321,7 +321,7 @@ class Response
      */
     public function getPaymentState(): int
     {
-        return $this->paymentState;
+        return $this->paymentState ?? -1;
     }
 
     /**
