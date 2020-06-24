@@ -39,6 +39,7 @@ class ClientFactory
         if (is_null($googleAppCredentials)) {
             throw CouldNotCreateGoogleClient::credentialsNotFound();
         }
+        putenv("GOOGLE_APPLICATION_CREDENTIALS=$googleAppCredentials");
     }
 
     /**
