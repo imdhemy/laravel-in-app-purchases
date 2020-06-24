@@ -130,7 +130,7 @@ class Subscription
             return $purchase;
         }
 
-        throw CouldNotPersist::suscriptionPurchaseNotUnique();
+        throw CouldNotPersist::subscriptionPurchaseNotUnique();
     }
 
     /**
