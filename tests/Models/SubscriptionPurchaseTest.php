@@ -67,4 +67,3 @@ class SubscriptionPurchaseTest extends TestCase
         ]);
     }
 }
-
