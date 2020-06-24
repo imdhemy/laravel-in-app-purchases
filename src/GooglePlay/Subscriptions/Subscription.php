@@ -7,6 +7,7 @@ use GuzzleHttp\Client;
 use Imdhemy\Purchases\Exceptions\CouldNotCreateGoogleClient;
 use Imdhemy\Purchases\Exceptions\CouldNotCreateSubscription;
 use Imdhemy\Purchases\GooglePlay\ClientFactory;
+use Imdhemy\Purchases\Tests\Models\SubscriptionPurchase;
 
 /**
  * Class Subscription
@@ -95,5 +96,13 @@ class Subscription
     private function getUri(): string
     {
         return sprintf(self::URI_FORMAT, $this->getPackageName(), $this->id, $this->token);
+    }
+
+    /**
+     * @return SubscriptionPurchase
+     */
+    public function toPurchase(): SubscriptionPurchase
+    {
+        return SubscriptionPurchase::fromResponse($this->getResponse());
     }
 }
