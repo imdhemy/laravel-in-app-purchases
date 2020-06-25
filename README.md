@@ -22,6 +22,11 @@ Publish and run the migrations:
  php artisan migrate
 ```
 
+Publish the config file:
+```
+php artisan vendor:publish --provider="Imdhemy\Purchases\PurchaseServiceProvider" --tag="config"
+```
+
 ## Usage
 
 ```php
