@@ -10,6 +10,18 @@ Laravel Receipt validator for Google play Billing. After a user has made a purch
 - Use the Purchases.products:get or Purchases.subscriptions:get endpoints in the Google Play Developer API to verify with Google that the purchase is legitimate.
 - If the purchase is legitimate and has not been used in the past, you can then safely grant entitlement to the in-app item or subscription.
 
+## Installation
+Install the package via composer:
+```
+composer require imdhemy/laravel-purchases
+```
+
+Publish and run the migrations:
+```
+ php artisan vendor:publish --provider="Imdhemy\Purchases\PurchaseServiceProvider" --tag="migrations"
+ php artisan migrate
+```
+
 ## Usage
 
 ```php
