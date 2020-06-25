@@ -1,8 +1,8 @@
 # Laravel in-app purchases
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-in-app-purchases.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-in-app-purchases)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/spatie/laravel-in-app-purchases/run-tests?label=tests)](https://github.com/spatie/laravel-in-app-purchases/actions?query=workflow%3Arun-tests+branch%3Amaster)
-[![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-in-app-purchases.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-in-app-purchases)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/imdhemy/laravel-purchases.svg?style=flat-square)](https://packagist.org/packages/imdhemy/laravel-purchases)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/imdhemy/laravel-in-app-purchases/run-tests?label=tests)](https://github.com/imdhemy/laravel-in-app-purchases/actions?query=workflow%3Arun-tests+branch%3Amaster)
+[![Total Downloads](https://img.shields.io/packagist/dt/imdhemy/laravel-purchases.svg?style=flat-square)](https://packagist.org/packages/imdhemy/laravel-purchases)
 
 Laravel Receipt validator for Google play Billing. After a user has made a purchase, you should do the following:
 - Send the corresponding `purchaseToken` to your backend. This means that you should maintain a record of all `purchaseToken` values for all purchases.
