@@ -6,8 +6,8 @@ use Illuminate\Support\ServiceProvider;
 
 class PurchaseServiceProvider extends ServiceProvider
 {
-    const MIGRATION_STUB = '/../database/migrations/create_purchases_logs_table.php.stub';
-    const MIGRATION_NAME = '_create_purchases_logs_table.php';
+    const MIGRATION_STUB = '/../database/migrations/create_purchase_logs_table.php.stub';
+    const MIGRATION_NAME = '_create_purchase_logs_table.php';
     const GROUP_MIGRATIONS = 'migrations';
     const CONFIG_PATH = '/../config/purchases.php';
     const CONFIG_NAME = 'purchases.php';
