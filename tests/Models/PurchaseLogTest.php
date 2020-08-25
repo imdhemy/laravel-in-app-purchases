@@ -37,7 +37,7 @@ class PurchaseLogTest extends TestCase
         parent::setUp();
 
         $id = config(self::SUBSCRIPTION_ID);
-        $token = config(self::PURCHASE_TOKEN);
+        $token = config(self::SUBSCRIPTION_PURCHASE_TOKEN);
         $this->response = Subscription::check($id, $token)->getResponse();
         $this->purchase = PurchaseLog::fromResponse($this->response);
     }

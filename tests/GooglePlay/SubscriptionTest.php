@@ -33,8 +33,8 @@ class SubscriptionTest extends TestCase
     {
         parent::setUp();
 
-        $this->id = config('purchases.subscription_id');
-        $this->token = config('purchases.purchase_token');
+        $this->id = self::SUBSCRIPTION_ID;
+        $this->token = self::SUBSCRIPTION_PURCHASE_TOKEN;
     }
 
     /**
