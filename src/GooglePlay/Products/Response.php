@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Imdhemy\Purchases\GooglePlay\Product;
+namespace Imdhemy\Purchases\GooglePlay\Products;
 
 use Imdhemy\Purchases\GooglePlay\Contracts\ResponseInterface;
 

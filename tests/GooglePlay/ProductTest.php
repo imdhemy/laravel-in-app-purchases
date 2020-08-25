@@ -5,7 +5,7 @@ namespace Imdhemy\Purchases\Tests\GooglePlay;
 
 use Imdhemy\Purchases\Exceptions\CouldNotCreateGoogleClient;
 use Imdhemy\Purchases\GooglePlay\Contracts\ResponseInterface;
-use Imdhemy\Purchases\GooglePlay\Product\Product;
+use Imdhemy\Purchases\GooglePlay\Products\Product;
 use Imdhemy\Purchases\Tests\TestCase;
 
 /**
