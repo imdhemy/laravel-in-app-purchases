@@ -39,4 +39,15 @@ return [
      */
 
     'google_play_package' => env('GOOGLE_PLAY_PACKAGE', 'com.some.thing'),
+
+    /**
+    |-------------------------------------------------------------------------
+    | Sandbox status (iOS only)
+    |-------------------------------------------------------------------------
+    | You can create a sandbox account to test in-app purchases before you make your app available.
+    |
+    | To learn more: https://help.apple.com/app-store-connect/#/dev8b997bee1
+    |
+     */
+    'ios_in_sandbox' => true,
 ];
