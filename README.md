@@ -27,17 +27,37 @@ php artisan vendor:publish --provider="Imdhemy\Purchases\PurchaseServiceProvider
 ```
 
 ## Usage
+### Subscriptions
 
 ```php
-use Imdhemy\Purchases\GooglePlay\Subscriptions\Subscription as GooglePlay;
-
+use Imdhemy\Purchases\GooglePlay\Subscriptions\Subscription as GooglePlaySubscription;
+// ...
 $subscriptionId = "subscription_id";
 $purchaseToken = "unique_purchase_token";
 
-$receipt = GooglePlay::check($subscriptionId, $purchaseToken);
+$receipt = GooglePlaySubscription::check($subscriptionId, $purchaseToken);
 
 if($receipt->isValid()){
     $receipt->persist();
     // extend user's subscription
 }
+
+// ...
+```
+
+### Products
+```php
+use Imdhemy\Purchases\GooglePlay\Products\Product as GooglePlayProduct;
+
+// ...
+$productId = "product_id";
+$purchaseToken = "unique_purchase_token";
+
+$receipt = GooglePlayProduct::check($productId, $purchaseToken);
+if ($receipt->isValid()){
+    $receipt->persist();
+    // Allow the user to access the purchased product
+}
+
+// ...
 ```
