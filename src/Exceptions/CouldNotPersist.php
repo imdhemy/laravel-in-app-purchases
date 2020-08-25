@@ -14,9 +14,9 @@ class CouldNotPersist extends Exception
     /**
      * @return static
      */
-    public static function subscriptionPurchaseNotUnique(): self
+    public static function purchaseNotUnique(): self
     {
-        $msg = "Could not persist the subscription purchase. The specified receipt is not unique.";
+        $msg = "Could not persist the purchase receipt. The specified receipt is not unique.";
 
         return new self($msg);
     }

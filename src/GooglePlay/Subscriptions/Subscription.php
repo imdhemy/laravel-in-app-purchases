@@ -132,7 +132,7 @@ class Subscription implements CheckerInterface
             return $purchase;
         }
 
-        throw CouldNotPersist::subscriptionPurchaseNotUnique();
+        throw CouldNotPersist::purchaseNotUnique();
     }
 
     /**

@@ -5,6 +5,7 @@ namespace Imdhemy\Purchases\GooglePlay\Product;
 
 use GuzzleHttp\Client;
 use Imdhemy\Purchases\Exceptions\CouldNotCreateGoogleClient;
+use Imdhemy\Purchases\Exceptions\CouldNotPersist;
 use Imdhemy\Purchases\GooglePlay\ClientFactory;
 use Imdhemy\Purchases\GooglePlay\Contracts\CheckerInterface;
 use Imdhemy\Purchases\GooglePlay\Contracts\ResponseInterface;
@@ -123,5 +124,21 @@ class Product implements CheckerInterface
     private function toLog(): PurchaseLog
     {
         return PurchaseLog::fromResponse($this->getResponse());
+    }
+
+    /**
+     * @return PurchaseLog
+     * @throws CouldNotPersist
+     */
+    public function persist(): PurchaseLog
+    {
+        if ($this->isUnique()) {
+            $purchase = $this->toLog();
+            $purchase->save();
+
+            return $purchase;
+        }
+
+        throw CouldNotPersist::purchaseNotUnique();
     }
 }
