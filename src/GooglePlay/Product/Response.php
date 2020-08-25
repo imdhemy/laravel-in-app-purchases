@@ -7,6 +7,8 @@ use Imdhemy\Purchases\GooglePlay\Contracts\ResponseInterface;
 
 class Response implements ResponseInterface
 {
+    const PLATFORM_GOOGLE_PLAY = 'google_play';
+
     /**
      * @var string
      */
@@ -16,6 +18,11 @@ class Response implements ResponseInterface
      * @var string
      */
     private $purchaseTimeMillis;
+
+    /**
+     * @var int
+     */
+    private $purchaseState;
 
     /**
      * @var int
@@ -180,10 +187,26 @@ class Response implements ResponseInterface
     }
 
     /**
+     * @return int
+     */
+    public function getPurchaseState(): int
+    {
+        return $this->purchaseState;
+    }
+
+    /**
      * @param string $purchaseToken
      */
     public function setPurchaseToken(string $purchaseToken): void
     {
         $this->purchaseToken = $purchaseToken;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getPlatform(): string
+    {
+        return self::PLATFORM_GOOGLE_PLAY;
     }
 }

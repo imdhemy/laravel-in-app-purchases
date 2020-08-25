@@ -5,7 +5,7 @@ namespace Imdhemy\Purchases\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
-use Imdhemy\Purchases\GooglePlay\Subscriptions\Response;
+use Imdhemy\Purchases\GooglePlay\Contracts\ResponseInterface;
 
 /**
  * Class SubscriptionPurchase
@@ -18,10 +18,10 @@ use Imdhemy\Purchases\GooglePlay\Subscriptions\Response;
 class PurchaseLog extends Model
 {
     /**
-     * @param Response $response
+     * @param ResponseInterface $response
      * @return static
      */
-    public static function fromResponse(Response $response): self
+    public static function fromResponse(ResponseInterface $response): self
     {
         $object = new self();
 

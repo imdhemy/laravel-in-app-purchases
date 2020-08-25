@@ -8,6 +8,7 @@ use Imdhemy\Purchases\Exceptions\CouldNotCreateGoogleClient;
 use Imdhemy\Purchases\GooglePlay\ClientFactory;
 use Imdhemy\Purchases\GooglePlay\Contracts\CheckerInterface;
 use Imdhemy\Purchases\GooglePlay\Contracts\ResponseInterface;
+use Imdhemy\Purchases\Models\PurchaseLog;
 
 /**
  * Class Product
@@ -16,6 +17,7 @@ use Imdhemy\Purchases\GooglePlay\Contracts\ResponseInterface;
 class Product implements CheckerInterface
 {
     const URI_FORMAT = "androidpublisher/v3/applications/%s/purchases/products/%s/tokens/%s";
+    const PURCHASE_STATE_PURCHASED = 0;
 
     /**
      * @var string
@@ -80,7 +82,7 @@ class Product implements CheckerInterface
      */
     public function isValid(): bool
     {
-        // TODO: Implement isValid() method.
+        return $this->isPurchased() && $this->isUnique();
     }
 
     /**
@@ -97,5 +99,29 @@ class Product implements CheckerInterface
     private function getPackageName(): string
     {
         return config('purchases.google_play_package');
+    }
+
+    /**
+     * @return bool
+     */
+    private function isPurchased(): bool
+    {
+        return $this->getResponse()->getPurchaseState() === self::PURCHASE_STATE_PURCHASED;
+    }
+
+    /**
+     * @return bool
+     */
+    private function isUnique(): bool
+    {
+        return $this->toLog()->isUnique();
+    }
+
+    /**
+     * @return PurchaseLog
+     */
+    private function toLog(): PurchaseLog
+    {
+        return PurchaseLog::fromResponse($this->getResponse());
     }
 }

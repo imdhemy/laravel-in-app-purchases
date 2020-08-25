@@ -9,5 +9,15 @@ interface ResponseInterface
     /**
      * @param string $token
      */
-    public function setPurchaseToken(string $token): void ;
+    public function setPurchaseToken(string $token): void;
+
+    /**
+     * @return string
+     */
+    public function getPlatform(): string;
+
+    /**
+     * @return string
+     */
+    public function getKind(): string;
 }

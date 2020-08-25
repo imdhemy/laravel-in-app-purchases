@@ -42,4 +42,14 @@ class ProductTest extends TestCase
             Product::check($this->productId, $this->purchaseToken)->getResponse()
         );
     }
+
+    /**
+     * @test
+     * @throws CouldNotCreateGoogleClient
+     */
+    public function test_it_can_validate_a_receipt()
+    {
+        $receipt = Product::check($this->productId, $this->purchaseToken);
+        $this->assertFalse($receipt->isValid());
+    }
 }
