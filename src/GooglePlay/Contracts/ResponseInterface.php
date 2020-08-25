@@ -3,7 +3,6 @@
 
 namespace Imdhemy\Purchases\GooglePlay\Contracts;
 
-
 interface ResponseInterface
 {
     /**
