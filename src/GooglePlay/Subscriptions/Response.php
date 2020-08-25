@@ -3,11 +3,13 @@
 
 namespace Imdhemy\Purchases\GooglePlay\Subscriptions;
 
+use Imdhemy\Purchases\GooglePlay\Contracts\ResponseInterface;
+
 /**
  * Class Response
  * @package Imdhemy\Purchases\GooglePlay\Subscriptions
  */
-class Response
+class Response implements ResponseInterface
 {
     const PLATFORM_GOOGLE_PLAY = 'google_play';
 

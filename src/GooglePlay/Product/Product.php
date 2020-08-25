@@ -7,7 +7,7 @@ use GuzzleHttp\Client;
 use Imdhemy\Purchases\Exceptions\CouldNotCreateGoogleClient;
 use Imdhemy\Purchases\GooglePlay\ClientFactory;
 use Imdhemy\Purchases\GooglePlay\Contracts\CheckerInterface;
-use Imdhemy\Purchases\GooglePlay\Subscriptions\Response;
+use Imdhemy\Purchases\GooglePlay\Contracts\ResponseInterface;
 
 /**
  * Class Product
@@ -64,7 +64,7 @@ class Product implements CheckerInterface
     /**
      * @return Response
      */
-    public function getResponse(): Response
+    public function getResponse(): ResponseInterface
     {
         if (is_null($this->response)) {
             $content = $this->client->get($this->getUri())->getBody()->getContents();

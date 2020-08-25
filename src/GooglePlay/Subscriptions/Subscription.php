@@ -9,6 +9,7 @@ use Imdhemy\Purchases\Exceptions\CouldNotCreateSubscription;
 use Imdhemy\Purchases\Exceptions\CouldNotPersist;
 use Imdhemy\Purchases\GooglePlay\ClientFactory;
 use Imdhemy\Purchases\GooglePlay\Contracts\CheckerInterface;
+use Imdhemy\Purchases\GooglePlay\Contracts\ResponseInterface;
 use Imdhemy\Purchases\Models\PurchaseLog;
 
 /**
@@ -75,7 +76,7 @@ class Subscription implements CheckerInterface
     /**
      * @return Response
      */
-    public function getResponse(): Response
+    public function getResponse(): ResponseInterface
     {
         if (is_null($this->response)) {
             $content = $this->client->get($this->getUri())->getBody()->getContents();

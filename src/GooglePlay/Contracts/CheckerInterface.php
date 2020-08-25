@@ -13,7 +13,7 @@ interface CheckerInterface
     /**
      * @return Response
      */
-    public function getResponse(): Response;
+    public function getResponse(): ResponseInterface;
 
     /**
      * @return bool

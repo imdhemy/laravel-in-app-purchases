@@ -4,8 +4,8 @@
 namespace Imdhemy\Purchases\Tests\GooglePlay;
 
 use Imdhemy\Purchases\Exceptions\CouldNotCreateGoogleClient;
+use Imdhemy\Purchases\GooglePlay\Contracts\ResponseInterface;
 use Imdhemy\Purchases\GooglePlay\Product\Product;
-use Imdhemy\Purchases\GooglePlay\Subscriptions\Response;
 use Imdhemy\Purchases\Tests\TestCase;
 
 /**
@@ -38,7 +38,7 @@ class ProductTest extends TestCase
     public function test_it_get_receipt_validation_response()
     {
         $this->assertInstanceOf(
-            Response::class,
+            ResponseInterface::class,
             Product::check($this->productId, $this->purchaseToken)->getResponse()
         );
     }
