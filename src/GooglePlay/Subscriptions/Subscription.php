@@ -8,13 +8,14 @@ use Imdhemy\Purchases\Exceptions\CouldNotCreateGoogleClient;
 use Imdhemy\Purchases\Exceptions\CouldNotCreateSubscription;
 use Imdhemy\Purchases\Exceptions\CouldNotPersist;
 use Imdhemy\Purchases\GooglePlay\ClientFactory;
+use Imdhemy\Purchases\GooglePlay\Contracts\CheckerInterface;
 use Imdhemy\Purchases\Models\PurchaseLog;
 
 /**
  * Class Subscription
  * @package Imdhemy\Purchases\GooglePlay
  */
-class Subscription
+class Subscription implements CheckerInterface
 {
     const URI_FORMAT = "androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s";
     const PAYMENT_STATE_RECEIVED = 1;
