@@ -40,6 +40,10 @@ $receipt = GooglePlaySubscription::check($subscriptionId, $purchaseToken);
 if($receipt->isValid()){
     $receipt->persist();
     // extend user's subscription
+
+    if ($receipt->isAutoRenewing()){
+         // schedule next auto-renewing
+    }
 }
 
 // ...
