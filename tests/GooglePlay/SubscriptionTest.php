@@ -55,7 +55,8 @@ class SubscriptionTest extends TestCase
      */
     public function it_can_create_subscription_purchase()
     {
-        $purchase = Subscription::check($this->id, $this->token)->toLog();
+        $token = 'ohdmoncgapnhhmbhcbaofcig.AO-J1OyxlwZ8_pCxxfTSihyWiy32W0Bpc857ulFKaFORzkjYzdVarDWB88lohL_ZvetMBJYrDavB3iuVXvqvkBAiMN8LIV60P21ZOtwsUM7iGfdUVXSEEHTfjbuUnkrU1cHMLcF-lYGs';
+        $purchase = Subscription::check($this->id, $token)->toLog();
         $this->assertInstanceOf(PurchaseLog::class, $purchase);
     }
 
@@ -122,7 +123,22 @@ class SubscriptionTest extends TestCase
      */
     public function it_can_validate_a_purchase_receipt()
     {
-        $isValid = Subscription::check($this->id, $this->token)->isValid();
-        $this->assertFalse($isValid);
+        $token = 'kemninhggjhpklgdkpfkgbmg.AO-J1OxL5tWGJRCkFq_VE2n32A4Dsby62J3B1kjbrBnM-2b3E39DabaNaC2PnCv5oRgQDeqlzvGj_8KBUPpawWwhCohQpKYYCtVeM58Tm01TiKu2mDPY-P6lm24QfIm37UWV-W5RKuJ7';
+        $isValid = Subscription::check($this->id, $token)->isValid();
+        $this->assertTrue($isValid);
+    }
+
+    /**
+     * @test
+     * @throws CouldNotCreateGoogleClient
+     * @throws CouldNotCreateSubscription
+     */
+    public function test_it_checks_testing_card_usage()
+    {
+        $token = 'ohdmoncgapnhhmbhcbaofcig.AO-J1OyxlwZ8_pCxxfTSihyWiy32W0Bpc857ulFKaFORzkjYzdVarDWB88lohL_ZvetMBJYrDavB3iuVXvqvkBAiMN8LIV60P21ZOtwsUM7iGfdUVXSEEHTfjbuUnkrU1cHMLcF-lYGs';
+        $id = 'week_premium';
+
+        $receipt = Subscription::check($id, $token);
+        $this->assertTrue($receipt->isTesting());
     }
 }

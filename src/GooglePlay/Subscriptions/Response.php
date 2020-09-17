@@ -221,7 +221,7 @@ class Response implements ResponseInterface
      */
     public function getCancelSurveyResult(): array
     {
-        return $this->cancelSurveyResult;
+        return $this->cancelSurveyResult ?? [];
     }
 
     /**
@@ -405,7 +405,7 @@ class Response implements ResponseInterface
      */
     public function getUserCancellationTimeMillis(): int
     {
-        return $this->userCancellationTimeMillis;
+        return $this->userCancellationTimeMillis ?? -1;
     }
 
     /**

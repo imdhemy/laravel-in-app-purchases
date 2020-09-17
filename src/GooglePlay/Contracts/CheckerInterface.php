@@ -19,4 +19,9 @@ interface CheckerInterface
      * @return bool
      */
     public function isValid(): bool;
+
+    /**
+     * @return bool
+     */
+    public function isTesting(): bool;
 }

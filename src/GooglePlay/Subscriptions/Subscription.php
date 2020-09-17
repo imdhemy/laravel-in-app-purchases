@@ -3,6 +3,7 @@
 
 namespace Imdhemy\Purchases\GooglePlay\Subscriptions;
 
+use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Imdhemy\Purchases\Exceptions\CouldNotCreateGoogleClient;
 use Imdhemy\Purchases\Exceptions\CouldNotCreateSubscription;
@@ -21,6 +22,7 @@ class Subscription implements CheckerInterface
     const URI_FORMAT = "androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s";
     const PAYMENT_STATE_RECEIVED = 1;
     const PAYMENT_STATE_FREE_TRIAL = 2;
+    const PURCHASE_TYPE_TEST = 0;
 
     /**
      * @var string
@@ -140,9 +142,40 @@ class Subscription implements CheckerInterface
      */
     public function isValid(): bool
     {
-        $paymentState = $this->getResponse()->getPaymentState();
-        $successPayment = $paymentState === self::PAYMENT_STATE_RECEIVED || $paymentState === self::PAYMENT_STATE_FREE_TRIAL;
+        if ($this->isExpired() || ! $this->isUnique()) {
+            return  false;
+        }
 
-        return $successPayment && $this->isUnique();
+        return $this->isTesting() || $this->isValidPayment();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTesting(): bool
+    {
+        $purchaseType = $this->getResponse()->getPurchaseType();
+
+        return $purchaseType === self::PURCHASE_TYPE_TEST;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isExpired(): bool
+    {
+        $response = $this->getResponse();
+
+        return Carbon::createFromTimestampMs($response->getExpiryTimeMillis())->isPast();
+    }
+
+    /**
+     * @return bool
+     */
+    private function isValidPayment(): bool
+    {
+        $paymentState = $this->getResponse()->getPaymentState();
+
+        return $paymentState === self::PAYMENT_STATE_RECEIVED || $paymentState === self::PAYMENT_STATE_FREE_TRIAL;
     }
 }
