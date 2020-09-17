@@ -178,4 +178,9 @@ class Subscription implements CheckerInterface
 
         return $paymentState === self::PAYMENT_STATE_RECEIVED || $paymentState === self::PAYMENT_STATE_FREE_TRIAL;
     }
+
+    public function isAutoRenewing(): bool
+    {
+        return $this->getResponse()->isAutoRenewing();
+    }
 }

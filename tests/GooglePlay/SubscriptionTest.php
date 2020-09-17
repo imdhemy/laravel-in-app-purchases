@@ -2,6 +2,7 @@
 
 namespace Imdhemy\Purchases\Tests\GooglePlay;
 
+use Exception;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Imdhemy\Purchases\Exceptions\CouldNotCreateGoogleClient;
 use Imdhemy\Purchases\Exceptions\CouldNotCreateSubscription;
@@ -140,5 +141,18 @@ class SubscriptionTest extends TestCase
 
         $receipt = Subscription::check($id, $token);
         $this->assertTrue($receipt->isTesting());
+    }
+
+    /**
+     * @test
+     * @throws Exception
+     */
+    public function test_if_auto_renewal_is_activated()
+    {
+        $token = 'mjphmgahhhffogelhpiecaif.AO-J1Ox4F1SLBZMYBZHvJPZBpWV5Tbfq1AUewVU5rKidbbTsHLlqsCTwrpU59nHqhqeLupQaPD_jHCal0IHXhg_XJD4xsLubQ6NVSSmOXEoCqq1YDd01opmdhl0gGaOLL-GoQ2DohGTz';
+        $id = 'week_premium';
+
+        $receipt = Subscription::check($id, $token);
+        $this->assertTrue($receipt->isAutoRenewing());
     }
 }
