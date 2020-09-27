@@ -42,7 +42,7 @@ class PurchaseLogTest extends TestCase
         $receiptResponse = Product::check($id, $token)->getResponse();
         $log = PurchaseLog::fromResponse($receiptResponse);
         $log->save();
-        
+
         $this->assertDatabaseHas('purchase_logs', [
             'purchase_token' => $token,
             'item_id' => $id,
