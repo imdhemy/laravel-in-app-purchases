@@ -19,6 +19,7 @@ class Product implements CheckerInterface
 {
     const URI_FORMAT = "androidpublisher/v3/applications/%s/purchases/products/%s/tokens/%s";
     const PURCHASE_STATE_PURCHASED = 0;
+    const PURCHASE_TYPE_TEST = 0;
 
     /**
      * @var string
@@ -83,7 +84,8 @@ class Product implements CheckerInterface
      */
     public function isValid(): bool
     {
-        return $this->isPurchased() && $this->isUnique();
+        $isValidPurchase = $this->isPurchased() || $this->isTesting();
+        return $isValidPurchase && $this->isUnique();
     }
 
     /**
@@ -140,5 +142,13 @@ class Product implements CheckerInterface
         }
 
         throw CouldNotPersist::purchaseNotUnique();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function isTesting(): bool
+    {
+        return $this->getResponse()->getPurchaseType() === self::PURCHASE_TYPE_TEST;
     }
 }
