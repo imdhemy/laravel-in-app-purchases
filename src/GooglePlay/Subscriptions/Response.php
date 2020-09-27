@@ -159,6 +159,11 @@ class Response implements ResponseInterface
     private $purchaseToken;
 
     /**
+     * @var string
+     */
+    private $itemId;
+
+    /**
      * @param array $attributes
      * @return static
      */
@@ -430,5 +435,13 @@ class Response implements ResponseInterface
     public function getPlatform(): string
     {
         return self::PLATFORM_GOOGLE_PLAY;
+    }
+
+    /**
+     * @return string
+     */
+    public function getItemId(): string
+    {
+        return $this->itemId;
     }
 }

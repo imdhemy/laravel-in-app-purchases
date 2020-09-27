@@ -16,6 +16,7 @@ class CreatePurchaseLogsTable extends Migration
     {
         Schema::create('purchase_logs', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('item_id');
             $table->text('purchase_token')->unique();
             $table->string('platform');
             $table->string('kind');

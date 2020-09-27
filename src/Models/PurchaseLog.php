@@ -12,6 +12,7 @@ use Imdhemy\Purchases\GooglePlay\Contracts\ResponseInterface;
  * @property string purchase_token
  * @property string platform
  * @property string kind
+ * @property string item_id
  * @package Imdhemy\Purchases\Tests\Models
  * @mixin Builder
  */
@@ -28,6 +29,7 @@ class PurchaseLog extends Model
         $object->purchase_token = $response->getPurchaseToken();
         $object->platform = $response->getPlatform();
         $object->kind = $response->getKind();
+        $object->item_id = $response->getItemId();
 
         return $object;
     }

@@ -82,8 +82,10 @@ class Subscription implements CheckerInterface
     {
         if (is_null($this->response)) {
             $content = $this->client->get($this->getUri())->getBody()->getContents();
-            $this->response = Response::fromArray(json_decode($content, true));
-            $this->response->setPurchaseToken($this->token);
+            $attributes = json_decode($content, true);
+            $attributes['purchaseToken'] = $this->token;
+            $attributes['itemId'] = $this->id;
+            $this->response = Response::fromArray($attributes);
         }
 
         return $this->response;

@@ -72,8 +72,10 @@ class Product implements CheckerInterface
     {
         if (is_null($this->response)) {
             $content = $this->client->get($this->getUri())->getBody()->getContents();
-            $this->response = Response::fromArray(json_decode($content, true));
-            $this->response->setPurchaseToken($this->token);
+            $properties = json_decode($content, true);
+            $properties['itemId'] = $this->id;
+            $properties['purchaseToken'] = $this->token;
+            $this->response = Response::fromArray($properties);
         }
 
         return $this->response;

@@ -19,4 +19,9 @@ interface ResponseInterface
      * @return string
      */
     public function getKind(): string;
+
+    /**
+     * @return string
+     */
+    public function getItemId(): string;
 }

@@ -75,6 +75,11 @@ class Response implements ResponseInterface
     private $obfuscatedExternalProfileId;
 
     /**
+     * @var string
+     */
+    private $itemId;
+
+    /**
      * @param array $properties
      * @return Response
      */
@@ -208,5 +213,13 @@ class Response implements ResponseInterface
     public function getPlatform(): string
     {
         return self::PLATFORM_GOOGLE_PLAY;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getItemId(): string
+    {
+        return $this->itemId;
     }
 }
