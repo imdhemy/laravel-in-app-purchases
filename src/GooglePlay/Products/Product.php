@@ -87,6 +87,7 @@ class Product implements CheckerInterface
     public function isValid(): bool
     {
         $isValidPurchase = $this->isPurchased() || $this->isTesting();
+
         return $isValidPurchase && $this->isUnique();
     }
 
