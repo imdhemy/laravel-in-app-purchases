@@ -31,5 +31,5 @@ interface CheckerInterface
      * @return PurchaseLog
      * @throws CouldNotPersist
      */
-    public function persist(): PurchaseLog
+    public function persist(): PurchaseLog;
 }
