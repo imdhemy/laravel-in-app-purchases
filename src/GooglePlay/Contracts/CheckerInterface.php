@@ -2,7 +2,9 @@
 
 namespace Imdhemy\Purchases\GooglePlay\Contracts;
 
+use Imdhemy\Purchases\Exceptions\CouldNotPersist;
 use Imdhemy\Purchases\GooglePlay\Subscriptions\Response;
+use Imdhemy\Purchases\Models\PurchaseLog;
 
 /**
  * Interface CheckerInterface
@@ -24,4 +26,10 @@ interface CheckerInterface
      * @return bool
      */
     public function isTesting(): bool;
+
+    /**
+     * @return PurchaseLog
+     * @throws CouldNotPersist
+     */
+    public function persist(): PurchaseLog
 }
