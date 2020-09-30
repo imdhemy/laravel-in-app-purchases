@@ -48,7 +48,7 @@ class PurchaseServiceProvider extends ServiceProvider
         foreach (self::MIGRATIONS as $migration) {
             $path = sprintf("migrations/%s_%s.php", date('Y_m_d_His', time()), $migration);
             $migrationPath = database_path($path);
-            $stubPath = __DIR__ . $migration . ".php.stub";
+            $stubPath = __DIR__ . '/'. $migration . ".php.stub";
             $paths[$stubPath] = $migrationPath;
         }
         $this->publishes($paths, self::GROUP_MIGRATIONS);
