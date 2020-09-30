@@ -116,6 +116,7 @@ class PurchaseLog extends Model
     {
         try {
             $checker = $this->getChecker();
+
             return $checker->isValidPayment();
         } catch (Exception $exception) {
             return false;
