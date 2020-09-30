@@ -174,7 +174,7 @@ class Subscription implements CheckerInterface
     /**
      * @return bool
      */
-    private function isValidPayment(): bool
+    public function isValidPayment(): bool
     {
         $paymentState = $this->getResponse()->getPaymentState();
 

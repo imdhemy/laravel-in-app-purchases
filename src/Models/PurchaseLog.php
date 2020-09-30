@@ -3,13 +3,13 @@
 
 namespace Imdhemy\Purchases\Models;
 
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Query\Builder;
 use Imdhemy\Purchases\Exceptions\CouldNotCreateGoogleClient;
 use Imdhemy\Purchases\Exceptions\CouldNotCreateSubscription;
 use Imdhemy\Purchases\GooglePlay\Contracts\ResponseInterface;
-use Imdhemy\Purchases\GooglePlay\Subscriptions\Response;
 use Imdhemy\Purchases\GooglePlay\Subscriptions\Subscription;
 
 /**
@@ -24,9 +24,9 @@ use Imdhemy\Purchases\GooglePlay\Subscriptions\Subscription;
 class PurchaseLog extends Model
 {
     /**
-     * @var Response
+     * @var Subscription
      */
-    protected $subscriptionResponse;
+    protected $subscriptionChecker;
 
     /**
      * @param ResponseInterface $response
@@ -40,7 +40,6 @@ class PurchaseLog extends Model
         $object->platform = $response->getPlatform();
         $object->kind = $response->getKind();
         $object->item_id = $response->getItemId();
-        $object->subscriptionResponse = $response;
 
         return $object;
     }
@@ -83,23 +82,43 @@ class PurchaseLog extends Model
     }
 
     /**
-     * @return Response
+     * @return Subscription
      * @throws CouldNotCreateGoogleClient
      * @throws CouldNotCreateSubscription
      */
-    public function getSubscriptionResponse(): Response
+    public function getChecker(): Subscription
     {
-        if (is_null($this->subscriptionResponse)) {
-            $this->subscriptionResponse = Subscription::check($this->item_id, $this->purchase_token)->getResponse();
+        if (is_null($this->subscriptionChecker)) {
+            $this->subscriptionChecker = Subscription::check($this->item_id, $this->purchase_token);
         }
-        return $this->subscriptionResponse;
+
+        return $this->subscriptionChecker;
     }
 
     /**
-     * @param Response $subscriptionResponse
+     * @return bool
      */
-    public function setSubscriptionResponse(Response $subscriptionResponse): void
+    public function isCancelled(): bool
     {
-        $this->subscriptionResponse = $subscriptionResponse;
+        try {
+            $checker = $this->getChecker();
+
+            return $checker->isCancelled();
+        } catch (Exception $exception) {
+            return true;
+        }
+    }
+
+    /**
+     * @return bool
+     */
+    public function isValidPayment(): bool
+    {
+        try {
+            $checker = $this->getChecker();
+            return $checker->isValidPayment();
+        } catch (Exception $exception) {
+            return false;
+        }
     }
 }

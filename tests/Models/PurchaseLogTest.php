@@ -6,7 +6,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Imdhemy\Purchases\Exceptions\CouldNotCreateGoogleClient;
 use Imdhemy\Purchases\Exceptions\CouldNotCreateSubscription;
 use Imdhemy\Purchases\GooglePlay\Products\Product;
-use Imdhemy\Purchases\GooglePlay\Subscriptions\Response;
 use Imdhemy\Purchases\GooglePlay\Subscriptions\Subscription;
 use Imdhemy\Purchases\Models\FailedRenewal;
 use Imdhemy\Purchases\Models\PurchaseLog;
@@ -66,13 +65,45 @@ class PurchaseLogTest extends TestCase
     /**
      * @test
      */
-    public function test_it_can_get_subscription_response()
+    public function test_it_can_get_subscription_checker()
     {
+        $id = 'week_premium';
         $token = 'cjlbcolbafbjjfapmdkilblj.AO-J1Ox5_dfU1L8iREhniLolz8oNoz3SRgi0NMGgkkmbbqvvk9dy2-E_AI02y1PAnYWTelRKdXQzMclHtaouAHZjb9ISWUIAjlEboIiu4pd84sQXvfsKuTjbWuT5r_v_ZphxrJcPypJs';
+        /** @var PurchaseLog $log */
         $log = factory(PurchaseLog::class)->create([
-            'item_id' => 'week_premium',
+            'item_id' => $id,
             'purchase_token' => $token,
         ]);
-        $this->assertInstanceOf(Response::class, $log->getSubscriptionResponse());
+        $this->assertInstanceOf(Subscription::class, $log->getChecker());
+    }
+
+    /**
+     * @test
+     */
+    public function test_it_can_be_checked_if_cancelled()
+    {
+        $id = 'week_premium';
+        $token = 'cjlbcolbafbjjfapmdkilblj.AO-J1Ox5_dfU1L8iREhniLolz8oNoz3SRgi0NMGgkkmbbqvvk9dy2-E_AI02y1PAnYWTelRKdXQzMclHtaouAHZjb9ISWUIAjlEboIiu4pd84sQXvfsKuTjbWuT5r_v_ZphxrJcPypJs';
+        /** @var PurchaseLog $log */
+        $log = factory(PurchaseLog::class)->create([
+            'item_id' => $id,
+            'purchase_token' => $token,
+        ]);
+        $this->assertTrue($log->isCancelled());
+    }
+
+    /**
+     * @test
+     */
+    public function test_it_can_check_if_it_has_a_valid_payment()
+    {
+        $id = 'week_premium';
+        $token = 'cjlbcolbafbjjfapmdkilblj.AO-J1Ox5_dfU1L8iREhniLolz8oNoz3SRgi0NMGgkkmbbqvvk9dy2-E_AI02y1PAnYWTelRKdXQzMclHtaouAHZjb9ISWUIAjlEboIiu4pd84sQXvfsKuTjbWuT5r_v_ZphxrJcPypJs';
+        /** @var PurchaseLog $log */
+        $log = factory(PurchaseLog::class)->create([
+            'item_id' => $id,
+            'purchase_token' => $token,
+        ]);
+        $this->assertFalse($log->isValidPayment());
     }
 }
