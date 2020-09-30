@@ -6,7 +6,11 @@ namespace Imdhemy\Purchases\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Query\Builder;
+use Imdhemy\Purchases\Exceptions\CouldNotCreateGoogleClient;
+use Imdhemy\Purchases\Exceptions\CouldNotCreateSubscription;
 use Imdhemy\Purchases\GooglePlay\Contracts\ResponseInterface;
+use Imdhemy\Purchases\GooglePlay\Subscriptions\Response;
+use Imdhemy\Purchases\GooglePlay\Subscriptions\Subscription;
 
 /**
  * Class SubscriptionPurchase
@@ -15,11 +19,15 @@ use Imdhemy\Purchases\GooglePlay\Contracts\ResponseInterface;
  * @property string kind
  * @property string item_id
  * @property int id
- * @package Imdhemy\Purchases\Tests\Models
  * @mixin Builder
  */
 class PurchaseLog extends Model
 {
+    /**
+     * @var Response
+     */
+    protected $subscriptionResponse;
+
     /**
      * @param ResponseInterface $response
      * @return static
@@ -32,6 +40,7 @@ class PurchaseLog extends Model
         $object->platform = $response->getPlatform();
         $object->kind = $response->getKind();
         $object->item_id = $response->getItemId();
+        $object->subscriptionResponse = $response;
 
         return $object;
     }
@@ -71,5 +80,26 @@ class PurchaseLog extends Model
     public function getId(): int
     {
         return $this->id;
+    }
+
+    /**
+     * @return Response
+     * @throws CouldNotCreateGoogleClient
+     * @throws CouldNotCreateSubscription
+     */
+    public function getSubscriptionResponse(): Response
+    {
+        if (is_null($this->subscriptionResponse)) {
+            $this->subscriptionResponse = Subscription::check($this->item_id, $this->purchase_token)->getResponse();
+        }
+        return $this->subscriptionResponse;
+    }
+
+    /**
+     * @param Response $subscriptionResponse
+     */
+    public function setSubscriptionResponse(Response $subscriptionResponse): void
+    {
+        $this->subscriptionResponse = $subscriptionResponse;
     }
 }

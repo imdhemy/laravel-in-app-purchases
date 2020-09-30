@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Imdhemy\Purchases\Exceptions\CouldNotCreateGoogleClient;
 use Imdhemy\Purchases\Exceptions\CouldNotCreateSubscription;
 use Imdhemy\Purchases\GooglePlay\Products\Product;
+use Imdhemy\Purchases\GooglePlay\Subscriptions\Response;
 use Imdhemy\Purchases\GooglePlay\Subscriptions\Subscription;
 use Imdhemy\Purchases\Models\FailedRenewal;
 use Imdhemy\Purchases\Models\PurchaseLog;
@@ -60,5 +61,18 @@ class PurchaseLogTest extends TestCase
         $failedRenewal = $log->markAsFailedRenewal();
         $this->assertInstanceOf(FailedRenewal::class, $failedRenewal);
         $this->assertDatabaseHas('failed_renewals', ['purchase_log_id' => $log->getId()]);
+    }
+
+    /**
+     * @test
+     */
+    public function test_it_can_get_subscription_response()
+    {
+        $token = 'cjlbcolbafbjjfapmdkilblj.AO-J1Ox5_dfU1L8iREhniLolz8oNoz3SRgi0NMGgkkmbbqvvk9dy2-E_AI02y1PAnYWTelRKdXQzMclHtaouAHZjb9ISWUIAjlEboIiu4pd84sQXvfsKuTjbWuT5r_v_ZphxrJcPypJs';
+        $log = factory(PurchaseLog::class)->create([
+            'item_id' => 'week_premium',
+            'purchase_token' => $token,
+        ]);
+        $this->assertInstanceOf(Response::class, $log->getSubscriptionResponse());
     }
 }
