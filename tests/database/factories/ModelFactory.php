@@ -10,5 +10,6 @@ $factory->define(PurchaseLog::class, function (Generator $faker) {
         'purchase_token' => bcrypt($faker->unique()->password),
         'platform' => 'google_play',
         'kind' => 'google_play#' .Str::random(),
+        'item_id' => $faker->name,
     ];
 });

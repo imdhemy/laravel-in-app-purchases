@@ -1,0 +1,29 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint as Table;
+use Illuminate\Support\Facades\Schema;
+
+class CreateFailedRenewalsTable extends Migration
+{
+    /**
+     * Runs the migrations
+     */
+    public function up()
+    {
+        Schema::create('failed_renewals', function (Table $table) {
+            $table->uuid('id')->primary();
+            $table->unsignedBigInteger('purchase_log_id');
+            $table->unsignedInteger('trials')->default(1);
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations
+     */
+    public function down()
+    {
+        Schema::dropIfExists('failed_renewals');
+    }
+}

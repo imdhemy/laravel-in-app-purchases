@@ -7,6 +7,7 @@ use Imdhemy\Purchases\Exceptions\CouldNotCreateGoogleClient;
 use Imdhemy\Purchases\Exceptions\CouldNotCreateSubscription;
 use Imdhemy\Purchases\GooglePlay\Products\Product;
 use Imdhemy\Purchases\GooglePlay\Subscriptions\Subscription;
+use Imdhemy\Purchases\Models\FailedRenewal;
 use Imdhemy\Purchases\Models\PurchaseLog;
 use Imdhemy\Purchases\Tests\TestCase;
 
@@ -47,5 +48,17 @@ class PurchaseLogTest extends TestCase
             'purchase_token' => $token,
             'item_id' => $id,
         ]);
+    }
+
+    /**
+     * @test
+     */
+    public function test_it_can_be_marked_as_failed_renewal()
+    {
+        /** @var PurchaseLog $log */
+        $log = factory(PurchaseLog::class)->create();
+        $failedRenewal = $log->markAsFailedRenewal();
+        $this->assertInstanceOf(FailedRenewal::class, $failedRenewal);
+        $this->assertDatabaseHas('failed_renewals', ['purchase_log_id' => $log->getId()]);
     }
 }
