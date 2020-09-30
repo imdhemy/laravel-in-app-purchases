@@ -4,8 +4,14 @@
 namespace Imdhemy\Purchases\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Ramsey\Uuid\Uuid;
 
+/**
+ * @property string id
+ * @property int trials
+ * @property PurchaseLog purchase
+ */
 class FailedRenewal extends Model
 {
     /**
@@ -49,5 +55,47 @@ class FailedRenewal extends Model
         static::creating(function (Model $model) {
             $model->setAttribute($model->getKeyName(), Uuid::uuid4());
         });
+    }
+
+    /**
+     * @return $this
+     */
+    public function incrementTrials(): self
+    {
+        $this->increment('trials');
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTrials(): int
+    {
+        return $this->trials;
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function purchase()
+    {
+        return $this->belongsTo(PurchaseLog::class, 'purchase_log_id');
+    }
+
+    /**
+     * @return PurchaseLog
+     */
+    public function getPurchase(): PurchaseLog
+    {
+        return $this->purchase;
     }
 }
