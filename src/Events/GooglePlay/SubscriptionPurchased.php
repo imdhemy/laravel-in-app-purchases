@@ -3,7 +3,6 @@
 
 namespace Imdhemy\Purchases\Events\GooglePlay;
 
-
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Queue\SerializesModels;
