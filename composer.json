@@ -19,8 +19,8 @@
     ],
     "require": {
         "php": "^7.1",
-        "google/auth": "^1.9",
-        "ext-json": "*"
+        "ext-json": "*",
+        "imdhemy/google-play-billing": "^0.1.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.16",
@@ -54,7 +54,7 @@
                 "Imdhemy\\Purchases\\PurchaseServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "Imdhemy\\Purchases\\PurchaseFacade"
+                "Purchase": "Imdhemy\\Purchases\\PurchaseFacade"
             }
         }
     },

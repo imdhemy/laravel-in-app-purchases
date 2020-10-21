@@ -2,19 +2,15 @@
 
 namespace Imdhemy\Purchases;
 
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class PurchaseServiceProvider
+ * @package Imdhemy\Purchases
+ */
 class PurchaseServiceProvider extends ServiceProvider
 {
-    const GROUP_MIGRATIONS = 'migrations';
-    const CONFIG_PATH = '/../config/purchases.php';
-    const CONFIG_NAME = 'purchases.php';
-    const GROUP_CONFIG = 'config';
-    const MIGRATIONS = [
-        'create_purchase_logs_table',
-        'create_failed_renewals_table',
-    ];
-
     /**
      * Bootstrap any application services.
      *
@@ -24,9 +20,9 @@ class PurchaseServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishConfig();
-
-            $this->publishMigrations();
         }
+
+        $this->bootRoutes();
     }
 
     /**
@@ -36,31 +32,34 @@ class PurchaseServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . self::CONFIG_PATH, 'purchases');
+        $this->mergeConfigFrom(__DIR__ . '/../config/purchase.php', 'purchase');
+        $this->app->register(EventServiceProvider::class);
     }
 
     /**
-     * @return void
+     * boots routes
      */
-    private function publishMigrations(): void
+    public function bootRoutes(): void
     {
-        $paths = [];
-        foreach (self::MIGRATIONS as $migration) {
-            $path = sprintf("migrations/%s_%s.php", date('Y_m_d_His', time()), $migration);
-            $migrationPath = database_path($path);
-            $stubPath = __DIR__ . '/'. $migration . ".php.stub";
-            $paths[$stubPath] = $migrationPath;
-        }
-        $this->publishes($paths, self::GROUP_MIGRATIONS);
+        Route::group($this->routeConfig(), function () {
+            $this->loadRoutesFrom(__DIR__ . '/routes/routes.php');
+        });
     }
 
     /**
-     * @return void
+     * publish configurations
      */
-    private function publishConfig(): void
+    public function publishConfig(): void
     {
-        $packageConfig = __DIR__ . self::CONFIG_PATH;
-        $appConfig = config_path(self::CONFIG_NAME);
-        $this->publishes([$packageConfig => $appConfig,], self::GROUP_CONFIG);
+        $paths = [__DIR__ . '/../config/purchase.php' => config('purchase.php')];
+        $this->publishes($paths, 'config');
+    }
+
+    /**
+     * @return array
+     */
+    public function routeConfig(): array
+    {
+        return config('purchase.routing');
     }
 }

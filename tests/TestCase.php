@@ -7,11 +7,6 @@ use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
-    const GOOGLE_PLAY_PACKAGE = 'com.twigano.fashion';
-    const SUBSCRIPTION_ID = 'week_premium';
-    const SUBSCRIPTION_PURCHASE_TOKEN = 'ghpmfmednnbjkcheljjpdnbn.AO-J1OzOqWsD57dURPVrKYh2Qv-t5Lx9VJtCFLdxMovzAgfdF1CwX35AbH3RYRhAMqApdlgLvw7v1Eog43rWYGhGXODl9_Ir9O2YqcXqLSPM7ojuVr9mpcmUha2LZf3YaCbowk1UJfuc';
-    const GOOGLE_APP_CREDENTIALS_JSON = 'google-app-credentials.json';
-
     public function setUp(): void
     {
         parent::setUp();
@@ -34,14 +29,5 @@ class TestCase extends Orchestra
             'database' => ':memory:',
             'prefix' => '',
         ]);
-
-        $app['config']->set('purchases.google_play_package', self::GOOGLE_PLAY_PACKAGE);
-        $app['config']->set('purchases.google_app_credentials', self::GOOGLE_APP_CREDENTIALS_JSON);
-
-        include_once __DIR__ . '/../database/migrations/create_purchase_logs_table.php.stub';
-        (new \CreatePurchaseLogsTable())->up();
-
-        include_once __DIR__ . '/../database/migrations/create_failed_renewals_table.php.stub';
-        (new \CreateFailedRenewalsTable())->up();
     }
 }
