@@ -51,7 +51,7 @@ class PurchaseServiceProvider extends ServiceProvider
      */
     public function publishConfig(): void
     {
-        $paths = [__DIR__ . '/../config/purchase.php' => config('purchase.php')];
+        $paths = [__DIR__ . '/../config/purchase.php' => config_path('purchase.php')];
         $this->publishes($paths, 'config');
     }
 
