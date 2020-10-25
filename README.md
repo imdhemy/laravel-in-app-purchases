@@ -1,7 +1,15 @@
 # Laravel In-App purchase
-
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/imdhemy/laravel-purchases.svg?style=flat-square)](https://packagist.org/packages/imdhemy/laravel-purchases)
 [![Total Downloads](https://img.shields.io/packagist/dt/imdhemy/laravel-purchases.svg?style=flat-square)](https://packagist.org/packages/imdhemy/laravel-purchases)
+
+# Table of contents
+- [Installation](#installation)
+- [Configuration](#configuration)
+  * [Google Application Credentials](#google-application-credentials)
+  * [Routing](#routing)
+  * [Event Listeners](#event-listeners)
+- [Sell Products](#sell-products)
+- [Sell Subscriptions](#sell-subscriptions)
 
 Google Play and App Store provide the In-App Purchase (IAP) services. IAP can be used to sell a variety of content, including subscriptions, new features, and services. The purchase event and the payment process occurs on and handled by the mobile application (iOS and Android), then your backend needs to be informed about this purchase event to deliver the purchased product or update the user's subscription state.
 
@@ -99,3 +107,9 @@ Add the created listener to the associated event key.
         SubscriptionRenewed::class => [AutoRenewSubscription::class],
     // ..
 ```
+
+# Sell Products
+ TODO: add documentation
+# Sell Subscriptions
+ TODO: add documentation
+ 
