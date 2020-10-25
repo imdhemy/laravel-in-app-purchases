@@ -11,7 +11,7 @@ class TestCase extends Orchestra
     {
         parent::setUp();
 
-        $this->withFactories(__DIR__.'/database/factories');
+        $this->withFactories(__DIR__ . '/database/factories');
     }
 
     protected function getPackageProviders($app)
@@ -23,6 +23,9 @@ class TestCase extends Orchestra
 
     public function getEnvironmentSetUp($app)
     {
+        $path = __DIR__ . '/../google-app-credentials.json';
+        putenv(sprintf("GOOGLE_APPLICATION_CREDENTIALS=%s", $path));
+
         $app['config']->set('database.default', 'sqlite');
         $app['config']->set('database.connections.sqlite', [
             'driver' => 'sqlite',
