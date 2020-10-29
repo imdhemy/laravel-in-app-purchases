@@ -3,6 +3,7 @@
 
 namespace Imdhemy\Purchases\Http\Controllers;
 
+use Illuminate\Support\Facades\Log;
 use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
 use Imdhemy\Purchases\Events\GooglePlay\EventFactory;
 use Imdhemy\Purchases\Http\Requests\GoogleDeveloperNotificationRequest;
@@ -18,7 +19,15 @@ class DeveloperNotificationController extends Controller
     {
         $data = $request->getData();
         $developerNotification = DeveloperNotification::parse($data);
-        $event = EventFactory::create($developerNotification);
-        event($event);
+
+        if ($developerNotification->isTestNotification()) {
+            $version = $developerNotification->getTestNotification()->getVersion();
+            Log::info(sprintf("Google Play Test Notification, version: %s", $version));
+        }
+
+        if ($developerNotification->isSubscriptionNotification()) {
+            $event = EventFactory::create($developerNotification);
+            event($event);
+        }
     }
 }

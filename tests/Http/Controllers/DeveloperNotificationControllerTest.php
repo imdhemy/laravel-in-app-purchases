@@ -11,7 +11,7 @@ class DeveloperNotificationControllerTest extends TestCase
     /**
      * @test
      */
-    public function test_google()
+    public function test_google_subscription_notification()
     {
         Event::fake();
         $this->withoutExceptionHandling();
@@ -24,5 +24,25 @@ class DeveloperNotificationControllerTest extends TestCase
         $this->post($uri, $data)->assertStatus(200);
 
         Event::assertDispatched(SubscriptionPurchased::class);
+    }
+
+    /**
+     * @test
+     */
+    public function test_google_test_notification()
+    {
+        file_put_contents(storage_path('logs/laravel.log'), "");
+        $this->withoutExceptionHandling();
+        $data = [
+            'message' => [
+                'data' => 'eyJ2ZXJzaW9uIjoiMS4wIiwicGFja2FnZU5hbWUiOiJjb20udHdpZ2Fuby5mYXNoaW9uIiwiZXZlbnRUaW1lTWlsbGlzIjoiMTYwMzkxNjUzMzcyMiIsInRlc3ROb3RpZmljYXRpb24iOnsidmVyc2lvbiI6IjEuMCJ9fQ==',
+            ],
+        ];
+        $uri = route('purchase.developerNotifications.google');
+        $this->post($uri, $data)->assertStatus(200);
+
+        $this->assertTrue(
+            ! empty(file_get_contents(storage_path("/logs/laravel.log")))
+        );
     }
 }
