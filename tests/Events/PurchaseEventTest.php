@@ -44,7 +44,7 @@ class PurchaseEventTest extends TestCase
      */
     public function test_it_can_get_subscription_notification()
     {
-        $this->assertSame(
+        $this->assertEquals(
             $this->developerNotification->getSubscriptionNotification(),
             $this->event->getSubscriptionNotification()
         );
