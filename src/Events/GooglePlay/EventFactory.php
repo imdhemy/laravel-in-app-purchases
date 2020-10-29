@@ -22,8 +22,19 @@ class EventFactory
         $notificationType = $notification->getSubscriptionNotification()->getNotificationType();
         $types = (new ReflectionClass(SubscriptionNotification::class))->getConstants();
         $type = array_search($notificationType, $types);
-        $className = "\Imdhemy\Purchases\Events\GooglePlay\\" . Str::of($type)->lower()->camel()->ucfirst();
+        $className = self::getClassName($type);
 
         return new $className($notification);
+    }
+
+    /**
+     * @param $type
+     * @return string
+     */
+    public static function getClassName($type): string
+    {
+        $camelCaseName = ucfirst(Str::camel(strtolower($type)));
+
+        return "\Imdhemy\Purchases\Events\GooglePlay\\" . $camelCaseName;
     }
 }
