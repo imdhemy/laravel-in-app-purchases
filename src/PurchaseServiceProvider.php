@@ -2,8 +2,10 @@
 
 namespace Imdhemy\Purchases;
 
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Imdhemy\GooglePlay\ClientFactory;
 
 /**
  * Class PurchaseServiceProvider
@@ -34,6 +36,13 @@ class PurchaseServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/purchase.php', 'purchase');
         $this->app->register(EventServiceProvider::class);
+
+        $this->app->bind('product', function (Application $app) {
+            $client = ClientFactory::create([ClientFactory::SCOPE_ANDROID_PUBLISHER]);
+            $packageName = $app['config']->get('purchase.google_play_package_name');
+
+            return new Product($client, $packageName);
+        });
     }
 
     /**

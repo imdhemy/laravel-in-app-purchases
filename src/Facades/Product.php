@@ -1,19 +1,20 @@
 <?php
 
-namespace Imdhemy\Purchases;
+
+namespace Imdhemy\Purchases\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Imdhemy\Purchases\Purchase
+ * @method static \Imdhemy\Purchases\Product googlePlay()
  */
-class PurchaseFacade extends Facade
+class Product extends Facade
 {
     /**
      * @return string
      */
     protected static function getFacadeAccessor()
     {
-        return 'purchase';
+        return 'product';
     }
 }

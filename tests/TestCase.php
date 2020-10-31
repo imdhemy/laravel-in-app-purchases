@@ -32,5 +32,7 @@ class TestCase extends Orchestra
             'database' => ':memory:',
             'prefix' => '',
         ]);
+
+        $app['config']->set('purchase.google_play_package_name', 'com.twigano.v2');
     }
 }

@@ -22,6 +22,8 @@ return [
 
     'routing' => [],
 
+    'google_play_package_name' => 'com.example.name',
+
     'eventListeners' => [
         SubscriptionPurchased::class => [],
         SubscriptionRenewed::class => [],
