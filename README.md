@@ -29,27 +29,29 @@ The published config file `config/purchase.php` looks like:
 ```php
 return [
     'google_application_credentials' => env(
-        'GOOGLE_APPLICATION_CREDENTIALS',
-        storage_path('google-app-credentials.json')
-    ),
-
-    'routing' => [],
-
-    'eventListeners' => [
-        SubscriptionPurchased::class => [],
-        SubscriptionRenewed::class => [],
-        SubscriptionInGracePeriod::class => [],
-        SubscriptionExpired::class => [],
-        SubscriptionCanceled::class => [],
-        SubscriptionPaused::class => [],
-        SubscriptionRestarted::class => [],
-        SubscriptionDeferred::class => [],
-        SubscriptionRevoked::class => [],
-        SubscriptionOnHold::class => [],
-        SubscriptionRecovered::class => [],
-        SubscriptionPauseScheduleChanged::class => [],
-        SubscriptionPriceChangeConfirmed::class => [],
-    ],
+            'GOOGLE_APPLICATION_CREDENTIALS',
+            storage_path('google-app-credentials.json')
+        ),
+    
+        'routing' => [],
+    
+        'google_play_package_name' => 'com.example.name',
+    
+        'eventListeners' => [
+            SubscriptionPurchased::class => [],
+            SubscriptionRenewed::class => [],
+            SubscriptionInGracePeriod::class => [],
+            SubscriptionExpired::class => [],
+            SubscriptionCanceled::class => [],
+            SubscriptionPaused::class => [],
+            SubscriptionRestarted::class => [],
+            SubscriptionDeferred::class => [],
+            SubscriptionRevoked::class => [],
+            SubscriptionOnHold::class => [],
+            SubscriptionRecovered::class => [],
+            SubscriptionPauseScheduleChanged::class => [],
+            SubscriptionPriceChangeConfirmed::class => [],
+        ],
 ];
 ```
 
@@ -83,6 +85,9 @@ This endpoint route can be configured through the `routing` key in the config fi
 ];
 ```
 
+## Google Play Package Name
+The package name of the application for which this subscription was purchased (for example, 'com.some.thing').
+
 ## Event Listeners
 Your application should handle the different states of a subscription life. Each state update triggers a specified event. You can create an event listener to update your backend on each case.
 
@@ -109,7 +114,48 @@ Add the created listener to the associated event key.
 ```
 
 # Sell Products
- TODO: add documentation
+ You can use the `\Imdhemy\Purchases\Facades\Product` facade to acknowledge or to get the receipt data from Google Play as follows:
+ 
+```php
+<?php
+use \Imdhemy\Purchases\Facades\Product;
+use \Imdhemy\GooglePlay\Products\ProductPurchase;
+
+$itemId = 'product_id';
+$token = 'purchase_token';
+
+Product::googlePlay()->id($itemId)->token($token)->acknowledge();
+
+/** @var ProductPurchase $productReceipt */
+$productReceipt = Product::googlePlay()->id($itemId)->token($token)->get();
+```
+
+The `ProductPurchase` resource indicates the status of a user's inapp product purchase. This is its JSON Representation:
+
+```javascript
+{
+  "kind": string,
+  "purchaseTimeMillis": string,
+  "purchaseState": integer,
+  "consumptionState": integer,
+  "developerPayload": string,
+  "orderId": string,
+  "purchaseType": integer,
+  "acknowledgementState": integer,
+  "purchaseToken": string,
+  "productId": string,
+  "quantity": integer,
+  "obfuscatedExternalAccountId": string,
+  "obfuscatedExternalProfileId": string,
+  "regionCode": string
+}
+```
+
+Each key has a getter method prefixed with `get`, for example: `getKind()` to get the `kind` value.
+For more information check:
+1. [Google Developer documentation](https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.products/get).
+2. [PHP Google Play Billing Package](https://github.com/imdhemy/google-play-billing#get-the-consumption-state-of-a-product).
+ 
 # Sell Subscriptions
  TODO: add documentation
  
