@@ -15,10 +15,6 @@ use Imdhemy\Purchases\Events\GooglePlay\SubscriptionRestarted;
 use Imdhemy\Purchases\Events\GooglePlay\SubscriptionRevoked;
 
 return [
-    'google_application_credentials' => env(
-        'GOOGLE_APPLICATION_CREDENTIALS',
-        storage_path('google-app-credentials.json')
-    ),
 
     'routing' => [],
 
