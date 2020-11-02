@@ -28,30 +28,25 @@ The published config file `config/purchase.php` looks like:
 
 ```php
 return [
-    'google_application_credentials' => env(
-            'GOOGLE_APPLICATION_CREDENTIALS',
-            storage_path('google-app-credentials.json')
-        ),
-    
-        'routing' => [],
-    
-        'google_play_package_name' => 'com.example.name',
-    
-        'eventListeners' => [
-            SubscriptionPurchased::class => [],
-            SubscriptionRenewed::class => [],
-            SubscriptionInGracePeriod::class => [],
-            SubscriptionExpired::class => [],
-            SubscriptionCanceled::class => [],
-            SubscriptionPaused::class => [],
-            SubscriptionRestarted::class => [],
-            SubscriptionDeferred::class => [],
-            SubscriptionRevoked::class => [],
-            SubscriptionOnHold::class => [],
-            SubscriptionRecovered::class => [],
-            SubscriptionPauseScheduleChanged::class => [],
-            SubscriptionPriceChangeConfirmed::class => [],
-        ],
+    'routing' => [],
+
+    'google_play_package_name' => env('GOOGLE_PLAY_PACKAGE_NAME', 'com.example.name'),
+
+    'eventListeners' => [
+        SubscriptionPurchased::class => [],
+        SubscriptionRenewed::class => [],
+        SubscriptionInGracePeriod::class => [],
+        SubscriptionExpired::class => [],
+        SubscriptionCanceled::class => [],
+        SubscriptionPaused::class => [],
+        SubscriptionRestarted::class => [],
+        SubscriptionDeferred::class => [],
+        SubscriptionRevoked::class => [],
+        SubscriptionOnHold::class => [],
+        SubscriptionRecovered::class => [],
+        SubscriptionPauseScheduleChanged::class => [],
+        SubscriptionPriceChangeConfirmed::class => [],
+    ],
 ];
 ```
 
@@ -60,7 +55,7 @@ Each configuration option is illustrated in the [configuration section](#configu
 # Configuration
 
 ## Google Application Credentials
-Requests to the Google Play Developer API, requires authentication and scopes. To authenticate your machine create a service account, then upload the downloaded JSON file `google-app-credentials.json` to your server, and finally set the `google_application_credentials` to the path of that file.
+Requests to the Google Play Developer API, requires authentication and scopes. To authenticate your machine create a service account, then upload the downloaded JSON file `google-app-credentials.json` to your server, and finally add `GOOGLE_APPLICATION_CREDENTIALS` key to your `.env` file and set it to the path of JSON file.
 
 1. In the Cloud Console, go to the [Create service account](https://console.cloud.google.com/apis/credentials/serviceaccountkey?_ga=2.92610013.131807880.1603050486-1132570079.1602633482) key page.
 2. From the **Service account** list, select **New service account**.
@@ -68,7 +63,7 @@ Requests to the Google Play Developer API, requires authentication and scopes. T
 4. From the **Role** list, select **Project** > **Owner**.
 5. Click **Create**. A JSON file that contains your key downloads to your computer.
 6. Upload the JSON file to your storage directory, or any other protected directory.
-6. Set the config key `google_application_credentials` to the JSON file path.
+6. Set the `.env` key `GOOGLE_APPLICATION_CREDENTIALS` to the JSON file path.
 
 ## Routing
 This package adds a `POST` endpoint `/purchases/subscriptions/google` named `purchase.developerNotifications.google` to handle the **Real-Time Developer Notifications** pushed from Google which reflects any changes or updates of the subscription state. 
