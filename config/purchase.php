@@ -15,7 +15,6 @@ use Imdhemy\Purchases\Events\GooglePlay\SubscriptionRestarted;
 use Imdhemy\Purchases\Events\GooglePlay\SubscriptionRevoked;
 
 return [
-
     'routing' => [],
 
     'google_play_package_name' => env('GOOGLE_PLAY_PACKAGE_NAME', 'com.example.name'),
