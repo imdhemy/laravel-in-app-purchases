@@ -22,7 +22,7 @@ return [
 
     'routing' => [],
 
-    'google_play_package_name' => 'com.example.name',
+    'google_play_package_name' => env('GOOGLE_PLAY_PACKAGE_NAME', 'com.example.name'),
 
     'eventListeners' => [
         SubscriptionPurchased::class => [],
