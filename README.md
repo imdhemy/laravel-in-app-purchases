@@ -120,6 +120,8 @@ $itemId = 'product_id';
 $token = 'purchase_token';
 
 Product::googlePlay()->id($itemId)->token($token)->acknowledge();
+// You can optionally submit a developer payload
+Product::googlePlay()->id($itemId)->token($token)->acknowledge("your_developer_payload");
 
 /** @var ProductPurchase $productReceipt */
 $productReceipt = Product::googlePlay()->id($itemId)->token($token)->get();

@@ -39,9 +39,8 @@ class PurchaseServiceProvider extends ServiceProvider
 
         $this->app->bind('product', function (Application $app) {
             $client = ClientFactory::create([ClientFactory::SCOPE_ANDROID_PUBLISHER]);
-            $packageName = $app['config']->get('purchase.google_play_package_name');
 
-            return new Product($client, $packageName);
+            return new Product($client);
         });
 
         $this->app->bind('subscription', function (Application $app) {

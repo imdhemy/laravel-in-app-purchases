@@ -33,12 +33,10 @@ class Product
     /**
      * Product constructor.
      * @param Client $client
-     * @param string $packageName
      */
-    public function __construct(Client $client, string $packageName)
+    public function __construct(Client $client)
     {
         $this->client = $client;
-        $this->packageName = $packageName;
     }
 
     /**
@@ -46,6 +44,19 @@ class Product
      */
     public function googlePlay(): self
     {
+        $this->packageName = config('purchase.google_play_package_name');
+
+        return $this;
+    }
+
+    /**
+     * @param string $packageName
+     * @return self
+     */
+    public function packageName(string $packageName): self
+    {
+        $this->packageName = $packageName;
+
         return $this;
     }
 
@@ -81,12 +92,12 @@ class Product
     }
 
     /**
-     * Acknowledges the specified purchase
+     * @param string|null $developerPayload
      * @throws GuzzleException
      */
-    public function acknowledge(): void
+    public function acknowledge(?string $developerPayload = null): void
     {
-        $this->createProduct()->acknowledge();
+        $this->createProduct()->acknowledge($developerPayload);
     }
 
     /**
