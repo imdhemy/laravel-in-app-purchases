@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Facade;
 class Subscription extends Facade
 {
     /**
-     * @return string|void
+     * @return string
      */
     protected static function getFacadeAccessor()
     {
