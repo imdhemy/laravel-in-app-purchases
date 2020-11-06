@@ -20,7 +20,7 @@
     "require": {
         "php": "^7.1",
         "ext-json": "*",
-        "imdhemy/google-play-billing": "dev-master"
+        "imdhemy/google-play-billing": "0.2.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.16",
@@ -57,7 +57,5 @@
                 "Product": "\\Imdhemy\\Purchases\\Facades\\Product"
             }
         }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    }
 }
