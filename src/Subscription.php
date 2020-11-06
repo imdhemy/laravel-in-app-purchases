@@ -4,6 +4,7 @@
 namespace Imdhemy\Purchases;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use Imdhemy\GooglePlay\Subscriptions\Subscription as GooglePlaySubscription;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
 
@@ -83,6 +84,7 @@ class Subscription
 
     /**
      * @return SubscriptionPurchase
+     * @throws GuzzleException
      */
     public function get(): SubscriptionPurchase
     {
@@ -91,6 +93,7 @@ class Subscription
 
     /**
      * @param string|null $developerPayload
+     * @throws GuzzleException
      */
     public function acknowledge(?string $developerPayload = null): void
     {
