@@ -152,5 +152,70 @@ For more information check:
 2. [PHP Google Play Billing Package](https://github.com/imdhemy/google-play-billing#get-the-consumption-state-of-a-product).
  
 # Sell Subscriptions
- TODO: add documentation
- 
+You can use the `\Imdhemy\Purchases\Facades\Subscription` facade to acknowledge or to get the receipt data from Google Play as follows:
+
+```php
+<?php
+use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
+use Imdhemy\Purchases\Facades\Subscription;
+
+$itemId = 'product_id';
+$token = 'purchase_token';
+
+Subscription::googlePlay()->id($itemId)->token($token)->acknowledge();
+// You can optionally submit a developer payload
+Subscription::googlePlay()->id($itemId)->token($token)->acknowledge("your_developer_payload");
+
+/** @var SubscriptionPurchase $subscriptionReceipt */
+$subscriptionReceipt = Subscription::googlePlay()->id($itemId)->token($token)->get();
+// You can optionally override the package name
+Subscription::googlePlay()->packageName('com.example.name')->id($itemId)->token($token)->get();
+```
+
+The `SubscriptionPurchase` resource indicates the status of a user's inapp product purchase. This is its JSON Representation:
+
+```javascript
+{
+  "kind": string,
+  "startTimeMillis": string,
+  "expiryTimeMillis": string,
+  "autoResumeTimeMillis": string,
+  "autoRenewing": boolean,
+  "priceCurrencyCode": string,
+  "priceAmountMicros": string,
+  "introductoryPriceInfo": {
+    object (IntroductoryPriceInfo)
+  },
+  "countryCode": string,
+  "developerPayload": string,
+  "paymentState": integer,
+  "cancelReason": integer,
+  "userCancellationTimeMillis": string,
+  "cancelSurveyResult": {
+    object (SubscriptionCancelSurveyResult)
+  },
+  "orderId": string,
+  "linkedPurchaseToken": string,
+  "purchaseType": integer,
+  "priceChange": {
+    object (SubscriptionPriceChange)
+  },
+  "profileName": string,
+  "emailAddress": string,
+  "givenName": string,
+  "familyName": string,
+  "profileId": string,
+  "acknowledgementState": integer,
+  "externalAccountId": string,
+  "promotionType": integer,
+  "promotionCode": string,
+  "obfuscatedExternalAccountId": string,
+  "obfuscatedExternalProfileId": string
+}
+```
+
+Each key has a getter method prefixed with `get`, for example: `getKind()` to get the `kind` value.
+For more information check:
+1. [Google Developer documentation](https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.subscriptions/get).
+2. [PHP Google Play Billing Package](https://github.com/imdhemy/google-play-billing#handling-the-subscription-lifecycle).
+
