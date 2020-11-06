@@ -3,7 +3,6 @@
 
 namespace Imdhemy\Purchases\Facades;
 
-
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -19,4 +18,3 @@ class Subscription extends Facade
         return 'subscription';
     }
 }
-
