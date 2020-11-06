@@ -43,6 +43,11 @@ class PurchaseServiceProvider extends ServiceProvider
 
             return new Product($client, $packageName);
         });
+
+        $this->app->bind('subscription', function (Application $app) {
+            $client = ClientFactory::create([ClientFactory::SCOPE_ANDROID_PUBLISHER]);
+            return new Subscription($client);
+        });
     }
 
     /**

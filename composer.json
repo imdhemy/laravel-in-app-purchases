@@ -54,7 +54,8 @@
                 "Imdhemy\\Purchases\\PurchaseServiceProvider"
             ],
             "aliases": {
-                "Product": "\\Imdhemy\\Purchases\\Facades\\Product"
+                "Product": "\\Imdhemy\\Purchases\\Facades\\Product",
+                "Subscription": "\\Imdhemy\\Purchases\\Facades\\Subscription"
             }
         }
     }
