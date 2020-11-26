@@ -3,6 +3,7 @@
 
 namespace Imdhemy\Purchases\Events;
 
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Imdhemy\GooglePlay\ClientFactory;
@@ -47,6 +48,7 @@ abstract class PurchaseEvent
 
     /**
      * @return SubscriptionPurchase
+     * @throws GuzzleException
      */
     public function getSubscriptionPurchase(): SubscriptionPurchase
     {
