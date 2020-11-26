@@ -3,7 +3,6 @@
 
 namespace Imdhemy\Purchases\Contracts;
 
-
 use Carbon\Carbon;
 
 /**

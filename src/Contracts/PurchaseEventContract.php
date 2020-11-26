@@ -3,7 +3,6 @@
 
 namespace Imdhemy\Purchases\Contracts;
 
-
 /**
  * Interface PurchaseEventContract
  * @package Imdhemy\Purchases\Events\Contracts

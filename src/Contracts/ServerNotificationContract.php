@@ -3,7 +3,6 @@
 
 namespace Imdhemy\Purchases\Contracts;
 
-
 /**
  * Interface ServerNotificationContract
  * @package Imdhemy\Purchases\Events\Contracts
