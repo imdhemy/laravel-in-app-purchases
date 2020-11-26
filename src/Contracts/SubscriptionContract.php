@@ -3,7 +3,7 @@
 
 namespace Imdhemy\Purchases\Contracts;
 
-use Carbon\Carbon;
+use Imdhemy\Purchases\ValueObjects\Time;
 
 /**
  * Interface SubscriptionContract
@@ -12,9 +12,9 @@ use Carbon\Carbon;
 interface SubscriptionContract
 {
     /**
-     * @return Carbon
+     * @return Time
      */
-    public function getExpiryTime(): Carbon;
+    public function getExpiryTime(): Time;
 
     /**
      * @return string

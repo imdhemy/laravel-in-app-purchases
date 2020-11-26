@@ -3,12 +3,12 @@
 
 namespace Imdhemy\Purchases\Subscriptions;
 
-use Carbon\Carbon;
 use GuzzleHttp\Exception\GuzzleException;
 use Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\Facades\Subscription;
+use Imdhemy\Purchases\ValueObjects\Time;
 
 class GoogleSubscription implements SubscriptionContract
 {
@@ -18,12 +18,26 @@ class GoogleSubscription implements SubscriptionContract
     protected $subscription;
 
     /**
+     * @var string
+     */
+    protected $itemId;
+
+    /**
+     * @var string
+     */
+    protected $token;
+
+    /**
      * GoogleSubscription constructor.
      * @param SubscriptionPurchase $subscription
+     * @param string $itemId
+     * @param string $token
      */
-    public function __construct(SubscriptionPurchase $subscription)
+    public function __construct(SubscriptionPurchase $subscription, string $itemId, string $token)
     {
         $this->subscription = $subscription;
+        $this->itemId = $itemId;
+        $this->token = $token;
     }
 
     /**
@@ -34,21 +48,25 @@ class GoogleSubscription implements SubscriptionContract
      */
     public static function create(string $packageName, SubscriptionNotification $notification): self
     {
+        $subscriptionPurchase = Subscription::googlePlay()
+            ->packageName($packageName)
+            ->id($notification->getSubscriptionId())
+            ->token($notification->getPurchaseToken())
+            ->get();
+
         return new self(
-            Subscription::googlePlay()
-                ->packageName($packageName)
-                ->id($notification->getSubscriptionId())
-                ->token($notification->getPurchaseToken())
-                ->get()
+            $subscriptionPurchase,
+            $notification->getSubscriptionId(),
+            $notification->getPurchaseToken()
         );
     }
 
     /**
-     * @return Carbon
+     * @return Time
      */
-    public function getExpiryTime(): Carbon
+    public function getExpiryTime(): Time
     {
-        // TODO: Implement getExpiryTime() method.
+        return Time::fromGoogleTime($this->subscription->getExpiryTime());
     }
 
     /**
@@ -56,7 +74,7 @@ class GoogleSubscription implements SubscriptionContract
      */
     public function getItemId(): string
     {
-        // TODO: Implement getItemId() method.
+        return $this->itemId;
     }
 
     /**
@@ -64,7 +82,7 @@ class GoogleSubscription implements SubscriptionContract
      */
     public function getProvider(): string
     {
-        // TODO: Implement getProvider() method.
+        return 'google_play';
     }
 
     /**
@@ -72,7 +90,7 @@ class GoogleSubscription implements SubscriptionContract
      */
     public function getUniqueIdentifier(): string
     {
-        // TODO: Implement getUniqueIdentifier() method.
+        return $this->token;
     }
 
     /**
@@ -80,6 +98,6 @@ class GoogleSubscription implements SubscriptionContract
      */
     public function getProviderRepresentation()
     {
-        // TODO: Implement getProviderRepresentation() method.
+        return $this->subscription;
     }
 }

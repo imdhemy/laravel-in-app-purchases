@@ -56,7 +56,10 @@ class GoogleServerNotification implements ServerNotificationContract
     public function getSubscription(): SubscriptionContract
     {
         if (is_null($this->googleSubscription)) {
-            $this->googleSubscription = GoogleSubscription::create($this->packageName, $this->notification);
+            $this->googleSubscription = GoogleSubscription::create(
+                $this->packageName,
+                $this->notification
+            );
         }
 
         return $this->googleSubscription;
