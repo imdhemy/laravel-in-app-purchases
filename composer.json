@@ -21,7 +21,8 @@
         "php": "^7.1",
         "ext-json": "*",
         "imdhemy/appstore-iap": "^0.1.0",
-        "imdhemy/google-play-billing": "0.2.0"
+        "imdhemy/google-play-billing": "0.2.0",
+        "nesbot/carbon": "^2.41"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.16",
