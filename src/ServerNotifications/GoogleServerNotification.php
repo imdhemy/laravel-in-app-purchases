@@ -15,15 +15,12 @@ use Imdhemy\Purchases\Subscriptions\GoogleSubscription;
  */
 class GoogleServerNotification implements ServerNotificationContract
 {
-    /**
-     * @var GoogleSubscription
-     */
-    protected $googleSubscription;
+    const TESTING_NOTIFICATION = -1;
 
     /**
      * @var DeveloperNotification
      */
-    protected $notification;
+    private $notification;
 
     /**
      * GoogleServerNotification constructor.
@@ -39,6 +36,10 @@ class GoogleServerNotification implements ServerNotificationContract
      */
     public function getType(): string
     {
+        if ($this->isTest()) {
+            return self::TESTING_NOTIFICATION;
+        }
+
         return $this->notification->getSubscriptionNotification()->getNotificationType();
     }
 
@@ -48,12 +49,14 @@ class GoogleServerNotification implements ServerNotificationContract
      */
     public function getSubscription(): SubscriptionContract
     {
-        if (is_null($this->googleSubscription)) {
-            $this->googleSubscription = GoogleSubscription::createFromDeveloperNotification(
-                $this->notification
-            );
-        }
+        return GoogleSubscription::createFromDeveloperNotification($this->notification);
+    }
 
-        return $this->googleSubscription;
+    /**
+     * @return bool
+     */
+    public function isTest(): bool
+    {
+        return $this->notification->isTestNotification();
     }
 }

@@ -18,4 +18,9 @@ interface ServerNotificationContract
      * @return SubscriptionContract
      */
     public function getSubscription(): SubscriptionContract;
+
+    /**
+     * @return bool
+     */
+    public function isTest(): bool;
 }
