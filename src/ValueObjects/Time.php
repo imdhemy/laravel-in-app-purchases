@@ -3,7 +3,6 @@
 
 namespace Imdhemy\Purchases\ValueObjects;
 
-
 use Carbon\Carbon;
 use DateTime;
 use Imdhemy\GooglePlay\ValueObjects\Time as GoogleTime;
