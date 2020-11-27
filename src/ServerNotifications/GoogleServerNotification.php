@@ -18,7 +18,7 @@ class GoogleServerNotification implements ServerNotificationContract
     /**
      * @var GoogleSubscription
      */
-    private $googleSubscription;
+    protected $googleSubscription;
 
     /**
      * @var DeveloperNotification
