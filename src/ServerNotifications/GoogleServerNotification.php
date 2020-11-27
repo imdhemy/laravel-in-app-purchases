@@ -4,7 +4,7 @@
 namespace Imdhemy\Purchases\ServerNotifications;
 
 use GuzzleHttp\Exception\GuzzleException;
-use Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification;
+use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
 use Imdhemy\Purchases\Contracts\ServerNotificationContract;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\Subscriptions\GoogleSubscription;
@@ -16,29 +16,22 @@ use Imdhemy\Purchases\Subscriptions\GoogleSubscription;
 class GoogleServerNotification implements ServerNotificationContract
 {
     /**
-     * @var SubscriptionNotification
-     */
-    protected $notification;
-
-    /**
-     * @var string
-     */
-    protected $packageName;
-
-    /**
      * @var GoogleSubscription
      */
     private $googleSubscription;
 
     /**
-     * GoogleServerNotification constructor.
-     * @param SubscriptionNotification $notification
-     * @param string $packageName
+     * @var DeveloperNotification
      */
-    public function __construct(SubscriptionNotification $notification, string $packageName)
+    protected $notification;
+
+    /**
+     * GoogleServerNotification constructor.
+     * @param DeveloperNotification $notification
+     */
+    public function __construct(DeveloperNotification $notification)
     {
         $this->notification = $notification;
-        $this->packageName = $packageName;
     }
 
     /**
@@ -46,7 +39,7 @@ class GoogleServerNotification implements ServerNotificationContract
      */
     public function getType(): string
     {
-        return $this->notification->getNotificationType();
+        return $this->notification->getSubscriptionNotification()->getNotificationType();
     }
 
     /**
@@ -56,8 +49,7 @@ class GoogleServerNotification implements ServerNotificationContract
     public function getSubscription(): SubscriptionContract
     {
         if (is_null($this->googleSubscription)) {
-            $this->googleSubscription = GoogleSubscription::create(
-                $this->packageName,
+            $this->googleSubscription = GoogleSubscription::createFromDeveloperNotification(
                 $this->notification
             );
         }
