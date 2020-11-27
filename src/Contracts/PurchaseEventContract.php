@@ -13,9 +13,4 @@ interface PurchaseEventContract
      * @return ServerNotificationContract
      */
     public function getServerNotification(): ServerNotificationContract;
-
-    /**
-     * @return SubscriptionContract
-     */
-    public function getSubscription(): SubscriptionContract;
 }

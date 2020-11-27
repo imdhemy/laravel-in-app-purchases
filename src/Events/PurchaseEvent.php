@@ -3,72 +3,44 @@
 
 namespace Imdhemy\Purchases\Events;
 
-use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Imdhemy\GooglePlay\ClientFactory;
-use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
-use Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification;
-use Imdhemy\GooglePlay\Subscriptions\Subscription;
-use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
+use Imdhemy\Purchases\Contracts\PurchaseEventContract;
+use Imdhemy\Purchases\Contracts\ServerNotificationContract;
+use Imdhemy\Purchases\Contracts\SubscriptionContract;
 
-abstract class PurchaseEvent
+abstract class PurchaseEvent implements PurchaseEventContract
 {
     use Dispatchable, SerializesModels;
 
     /**
-     * @var DeveloperNotification
+     * @var ServerNotificationContract
      */
-    public $developerNotification;
+    private $serverNotification;
 
     /**
      * SubscriptionPurchased constructor.
-     * @param DeveloperNotification $developerNotification
+     * @param ServerNotificationContract $serverNotification
      */
-    public function __construct(DeveloperNotification $developerNotification)
+    public function __construct(ServerNotificationContract $serverNotification)
     {
-        $this->developerNotification = $developerNotification;
+        $this->serverNotification = $serverNotification;
     }
 
     /**
-     * @return DeveloperNotification
+     * @return ServerNotificationContract
      */
-    public function getDeveloperNotification(): DeveloperNotification
+    public function getServerNotification(): ServerNotificationContract
     {
-        return $this->developerNotification;
+        return $this->serverNotification;
     }
 
     /**
-     * @return SubscriptionNotification
+     * @return SubscriptionContract
      */
-    public function getSubscriptionNotification(): SubscriptionNotification
+    public function getSubscription(): SubscriptionContract
     {
-        return $this->developerNotification->getSubscriptionNotification();
-    }
-
-    /**
-     * @return SubscriptionPurchase
-     * @throws GuzzleException
-     */
-    public function getSubscriptionPurchase(): SubscriptionPurchase
-    {
-        $client = ClientFactory::create([ClientFactory::SCOPE_ANDROID_PUBLISHER]);
-        $subscription = new Subscription(
-            $client,
-            $this->getPackageName(),
-            $this->getSubscriptionId(),
-            $this->getPurchaseToken()
-        );
-
-        return $subscription->get();
-    }
-
-    /**
-     * @return string
-     */
-    public function getPackageName(): string
-    {
-        return $this->developerNotification->getPackageName();
+        return $this->serverNotification->getSubscription();
     }
 
     /**
@@ -76,14 +48,14 @@ abstract class PurchaseEvent
      */
     public function getSubscriptionId(): string
     {
-        return $this->getSubscriptionNotification()->getSubscriptionId();
+        return $this->getSubscription()->getItemId();
     }
 
     /**
      * @return string
      */
-    public function getPurchaseToken(): string
+    public function getSubscriptionIdentifier(): string
     {
-        return $this->getSubscriptionNotification()->getPurchaseToken();
+        return $this->getSubscription()->getUniqueIdentifier();
     }
 }

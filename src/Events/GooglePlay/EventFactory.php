@@ -4,22 +4,20 @@
 namespace Imdhemy\Purchases\Events\GooglePlay;
 
 use Illuminate\Support\Str;
-use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
 use Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification;
-use Imdhemy\Purchases\Events\PurchaseEvent;
+use Imdhemy\Purchases\Contracts\PurchaseEventContract;
+use Imdhemy\Purchases\ServerNotifications\GoogleServerNotification;
 use ReflectionClass;
-use ReflectionException;
 
 class EventFactory
 {
     /**
-     * @param DeveloperNotification $notification
-     * @return PurchaseEvent
-     * @throws ReflectionException
+     * @param GoogleServerNotification $notification
+     * @return PurchaseEventContract
      */
-    public static function create(DeveloperNotification $notification): PurchaseEvent
+    public static function create(GoogleServerNotification $notification): PurchaseEventContract
     {
-        $notificationType = $notification->getSubscriptionNotification()->getNotificationType();
+        $notificationType = $notification->getType();
         $types = (new ReflectionClass(SubscriptionNotification::class))->getConstants();
         $type = array_search($notificationType, $types);
         $className = self::getClassName($type);
