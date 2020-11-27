@@ -8,7 +8,6 @@ use Imdhemy\Purchases\Events\GooglePlay\SubscriptionPurchased;
 use Imdhemy\Purchases\ServerNotifications\GoogleServerNotification;
 use Imdhemy\Purchases\Tests\TestCase;
 
-
 class EventFactoryTest extends TestCase
 {
     /**
