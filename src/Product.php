@@ -5,6 +5,7 @@ namespace Imdhemy\Purchases;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use Imdhemy\GooglePlay\ClientFactory as GooglePlayClientFactory;
 use Imdhemy\GooglePlay\Products\Product as GooglePlayProduct;
 use Imdhemy\GooglePlay\Products\ProductPurchase;
 
@@ -30,20 +31,13 @@ class Product
      */
     protected $packageName;
 
-    /**
-     * Product constructor.
-     * @param Client $client
-     */
-    public function __construct(Client $client)
-    {
-        $this->client = $client;
-    }
 
     /**
      * @return self
      */
     public function googlePlay(): self
     {
+        $this->client = GooglePlayClientFactory::create([GooglePlayClientFactory::SCOPE_ANDROID_PUBLISHER]);
         $this->packageName = config('purchase.google_play_package_name');
 
         return $this;
