@@ -19,6 +19,10 @@ return [
 
     'google_play_package_name' => env('GOOGLE_PLAY_PACKAGE_NAME', 'com.example.name'),
 
+    'appstore_sandbox' => env('APPSTORE_SANDBOX', true),
+
+    'appstore_password' => env('APPSTORE_PASSWORD', ''),
+
     'eventListeners' => [
         SubscriptionPurchased::class => [],
         SubscriptionRenewed::class => [],

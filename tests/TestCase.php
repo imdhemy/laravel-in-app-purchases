@@ -7,6 +7,9 @@ use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
+    /**
+     * @inheritDoc
+     */
     public function setUp(): void
     {
         parent::setUp();
