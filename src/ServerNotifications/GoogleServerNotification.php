@@ -36,11 +36,11 @@ class GoogleServerNotification implements ServerNotificationContract
      */
     public function getType(): string
     {
-        if ($this->isTest()) {
-            return self::TESTING_NOTIFICATION;
-        }
+        $type = $this->isTest() ?
+            self::TESTING_NOTIFICATION :
+            $this->notification->getSubscriptionNotification()->getNotificationType();
 
-        return $this->notification->getSubscriptionNotification()->getNotificationType();
+        return (string)$type;
     }
 
     /**
