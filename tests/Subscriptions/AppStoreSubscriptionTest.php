@@ -21,7 +21,7 @@ class AppStoreSubscriptionTest extends TestCase
     {
         parent::setUp();
         $appStoreResponse = unserialize(file_get_contents(__DIR__ . '/../appstore-verifier-response.ser'));
-        $this->appStoreSubscription = new AppStoreSubscription($appStoreResponse->getLatestReceiptInfo());
+        $this->appStoreSubscription = new AppStoreSubscription($appStoreResponse->getLatestReceiptInfo()[0]);
     }
 
     /**

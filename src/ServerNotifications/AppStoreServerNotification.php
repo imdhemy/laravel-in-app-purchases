@@ -4,6 +4,7 @@
 namespace Imdhemy\Purchases\ServerNotifications;
 
 use Imdhemy\AppStore\ServerNotifications\ServerNotification;
+use Imdhemy\AppStore\ValueObjects\ReceiptInfo;
 use Imdhemy\Purchases\Contracts\ServerNotificationContract;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\Subscriptions\AppStoreSubscription;
@@ -37,7 +38,7 @@ class AppStoreServerNotification implements ServerNotificationContract
      */
     public function getSubscription(): SubscriptionContract
     {
-        return new AppStoreSubscription($this->notification->getUnifiedReceipt()->getLatestReceiptInfo());
+        return new AppStoreSubscription($this->getFirstReceipt());
     }
 
     /**
@@ -46,5 +47,13 @@ class AppStoreServerNotification implements ServerNotificationContract
     public function isTest(): bool
     {
         return false;
+    }
+
+    /**
+     * @return ReceiptInfo
+     */
+    private function getFirstReceipt(): ReceiptInfo
+    {
+        return $this->notification->getUnifiedReceipt()->getLatestReceiptInfo()[0];
     }
 }
