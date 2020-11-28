@@ -2,6 +2,8 @@
 
 namespace Imdhemy\Purchases\Tests\Facades;
 
+use GuzzleHttp\Exception\GuzzleException;
+use Imdhemy\AppStore\Receipts\ReceiptResponse;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
 use Imdhemy\Purchases\Facades\Subscription;
 use Imdhemy\Purchases\Tests\TestCase;
@@ -46,6 +48,22 @@ class SubscriptionTest extends TestCase
     {
         $this->assertNull(
             Subscription::googlePlay()->packageName('com.twigano.fashion')->id($this->itemId)->token($this->token)->acknowledge()
+        );
+    }
+
+    /**
+     * @test
+     * @throws GuzzleException
+     */
+    public function test_it_can_send_verify_receipt_request_to_app_store()
+    {
+        $receipt = json_decode(file_get_contents(__DIR__ . '/../iOS-receipt.json'), true);
+        $receiptData = $receipt['transactionReceipt'];
+        $password = env('APPSTORE_PASSWORD');
+
+        $this->assertInstanceOf(
+            ReceiptResponse::class,
+            Subscription::appStore()->receiptData($receiptData)->password($password)->verifyReceipt()
         );
     }
 }

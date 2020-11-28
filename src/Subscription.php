@@ -5,6 +5,10 @@ namespace Imdhemy\Purchases;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use Imdhemy\AppStore\ClientFactory as AppStoreClientFactory;
+use Imdhemy\AppStore\Receipts\ReceiptResponse;
+use Imdhemy\AppStore\Receipts\Verifier;
+use Imdhemy\GooglePlay\ClientFactory as GooglePlayClientFactory;
 use Imdhemy\GooglePlay\Subscriptions\Subscription as GooglePlaySubscription;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
 
@@ -31,20 +35,41 @@ class Subscription
     protected $packageName;
 
     /**
-     * Subscription constructor.
-     * @param Client $client
+     * @var string
      */
-    public function __construct(Client $client)
-    {
-        $this->client = $client;
-    }
+    protected $receiptData;
+
+    /**
+     * @var string
+     */
+    protected $password;
+
+    /**
+     * @var bool
+     */
+    protected $renewalAble;
 
     /**
      * @return self
      */
     public function googlePlay(): self
     {
+        $this->client = GooglePlayClientFactory::create([GooglePlayClientFactory::SCOPE_ANDROID_PUBLISHER]);
         $this->packageName = config('purchase.google_play_package_name');
+
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    public function appStore(): self
+    {
+        $sandbox = (bool)config('purchase.appstore_sandbox');
+
+        $this->client = AppStoreClientFactory::create($sandbox);
+        $this->password = config('purchase.appstore_password');
+        $this->renewalAble = false;
 
         return $this;
     }
@@ -83,6 +108,48 @@ class Subscription
     }
 
     /**
+     * @return ReceiptResponse
+     * @throws GuzzleException
+     */
+    public function verifyReceipt(): ReceiptResponse
+    {
+        $verifier = new Verifier($this->client, $this->receiptData, $this->password);
+
+        return $verifier->verify($this->renewalAble);
+    }
+
+    /**
+     * @return ReceiptResponse
+     * @throws GuzzleException
+     */
+    public function verifyRenewable(): ReceiptResponse
+    {
+        $verifier = new Verifier($this->client, $this->receiptData, $this->password);
+
+        return $verifier->verifyRenewable();
+    }
+
+    /**
+     * @return self
+     */
+    public function renewable(): self
+    {
+        $this->renewalAble = true;
+
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    public function nonRenewable(): self
+    {
+        $this->renewalAble = false;
+
+        return $this;
+    }
+
+    /**
      * @return SubscriptionPurchase
      * @throws GuzzleException
      */
@@ -111,5 +178,27 @@ class Subscription
             $this->itemId,
             $this->token
         );
+    }
+
+    /**
+     * @param string $receiptData
+     * @return $this
+     */
+    public function receiptData(string $receiptData): self
+    {
+        $this->receiptData = $receiptData;
+
+        return $this;
+    }
+
+    /**
+     * @param string $password
+     * @return $this
+     */
+    public function password(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
     }
 }
