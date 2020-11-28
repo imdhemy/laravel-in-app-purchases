@@ -1,5 +1,15 @@
 <?php
 
+use Imdhemy\Purchases\Events\AppStore\Cancel;
+use Imdhemy\Purchases\Events\AppStore\DidChangeRenewalPref;
+use Imdhemy\Purchases\Events\AppStore\DidChangeRenewalStatus;
+use Imdhemy\Purchases\Events\AppStore\DidFailToRenew;
+use Imdhemy\Purchases\Events\AppStore\DidRecover;
+use Imdhemy\Purchases\Events\AppStore\DidRenew;
+use Imdhemy\Purchases\Events\AppStore\InitialBuy;
+use Imdhemy\Purchases\Events\AppStore\InteractionRenewal;
+use Imdhemy\Purchases\Events\AppStore\PriceIncreaseConsent;
+use Imdhemy\Purchases\Events\AppStore\Refund;
 use Imdhemy\Purchases\Events\GooglePlay\SubscriptionCanceled;
 use Imdhemy\Purchases\Events\GooglePlay\SubscriptionDeferred;
 use Imdhemy\Purchases\Events\GooglePlay\SubscriptionExpired;
@@ -24,6 +34,11 @@ return [
     'appstore_password' => env('APPSTORE_PASSWORD', ''),
 
     'eventListeners' => [
+        /**
+         * --------------------------------------------------------
+         * Google Play Events
+         * --------------------------------------------------------
+         */
         SubscriptionPurchased::class => [],
         SubscriptionRenewed::class => [],
         SubscriptionInGracePeriod::class => [],
@@ -37,5 +52,21 @@ return [
         SubscriptionRecovered::class => [],
         SubscriptionPauseScheduleChanged::class => [],
         SubscriptionPriceChangeConfirmed::class => [],
+
+        /**
+         * --------------------------------------------------------
+         * Appstore Events
+         * --------------------------------------------------------
+         */
+        Cancel::class,
+        DidChangeRenewalPref::class,
+        DidChangeRenewalStatus::class,
+        DidFailToRenew::class,
+        DidRecover::class,
+        DidRenew::class,
+        InitialBuy::class,
+        InteractionRenewal::class,
+        PriceIncreaseConsent::class,
+        Refund::class,
     ],
 ];
