@@ -58,15 +58,15 @@ return [
          * Appstore Events
          * --------------------------------------------------------
          */
-        Cancel::class,
-        DidChangeRenewalPref::class,
-        DidChangeRenewalStatus::class,
-        DidFailToRenew::class,
-        DidRecover::class,
-        DidRenew::class,
-        InitialBuy::class,
-        InteractionRenewal::class,
-        PriceIncreaseConsent::class,
-        Refund::class,
+        Cancel::class => [],
+        DidChangeRenewalPref::class => [],
+        DidChangeRenewalStatus::class => [],
+        DidFailToRenew::class => [],
+        DidRecover::class => [],
+        DidRenew::class => [],
+        InitialBuy::class => [],
+        InteractionRenewal::class => [],
+        PriceIncreaseConsent::class => [],
+        Refund::class => [],
     ],
 ];
