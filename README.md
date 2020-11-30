@@ -97,7 +97,7 @@ The generic configurations are not specific to a particular provider of the two 
 ### i.1 Routing
 This package adds a `POST` endpoint `/purchases/subscriptions/google` named `purchase.serverNotifications.google` to handle the [Real-Time Developer Notifications](https://developer.android.com/google/play/billing/rtdn-reference) pushed from Google which reflects any changes or updates of the subscription state, and another `POST` endpoint `/purchases/subscriptions/apple` named `purchase.serverNotifications.apple` to handle [The App Store Server Notifications](https://developer.apple.com/documentation/appstoreservernotifications).
 
-Those routes can be configured through the `routing` key in the config file. For example:
+These routes can be configured through the `routing` key in the config file. For example:
 ```php
 [
     // ..
