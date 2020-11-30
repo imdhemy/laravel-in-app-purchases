@@ -3,6 +3,7 @@
 namespace Imdhemy\Purchases\Tests\Facades;
 
 use GuzzleHttp\Exception\GuzzleException;
+use Imdhemy\AppStore\Receipts\ReceiptResponse;
 use Imdhemy\GooglePlay\Products\ProductPurchase;
 use Imdhemy\Purchases\Facades\Product;
 use Imdhemy\Purchases\Tests\TestCase;
@@ -46,6 +47,22 @@ class ProductTest extends TestCase
     {
         $this->assertNull(
             Product::googlePlay()->id($this->itemId)->token($this->token)->acknowledge()
+        );
+    }
+
+    /**
+     * @test
+     * @throws GuzzleException
+     */
+    public function test_facade_can_verify_product_receipt()
+    {
+        $productReceipt = json_decode(file_get_contents(__DIR__ . '/../product-receipt.json'), true);
+        $receiptData = $productReceipt['transactionReceipt'];
+        $password = env('APPSTORE_PASSWORD');
+
+        $this->assertInstanceOf(
+            ReceiptResponse::class,
+            Product::appStore()->receiptData($receiptData)->password($password)->verifyReceipt()
         );
     }
 }
