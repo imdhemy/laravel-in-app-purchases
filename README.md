@@ -5,11 +5,23 @@
 # Table of contents
 - [Installation](#installation)
 - [Configuration](#configuration)
-  * [Google Application Credentials](#google-application-credentials)
-  * [Routing](#routing)
-  * [Event Listeners](#event-listeners)
+  * [i. Generic Configurations:](#i-generic-configurations)
+    + [i.1 Routing](#i1-routing)
+    + [i.2 Event Listeners](#i2-event-listeners)
+  * [ii. Google Play Configurations:](#ii-google-play-configurations)
+    + [ii.1 Google Application Credentials](#ii1-google-application-credentials)
+    + [ii.2 Google Play Package Name](#ii2-google-play-package-name)
+  * [iii. App Store Configurations](#iii-app-store-configurations)
+    + [iii.1 App Store Sandbox](#iii1-app-store-sandbox)
+    + [iii.2 App Store Password](#iii2-app-store-password)
 - [Sell Products](#sell-products)
+  * [Google Products](#google-products)
+  * [App Store Products](#app-store-products)
 - [Sell Subscriptions](#sell-subscriptions)
+  * [Google Play Subscriptions](#google-play-subscriptions)
+  * [App Store Subscriptions](#app-store-subscriptions)
+- [Purchase Events](#purchase-events)
+- [Testing](#testing)
 
 Google Play and App Store provide the In-App Purchase (IAP) services. IAP can be used to sell a variety of content, including subscriptions, new features, and services. The purchase event and the payment process occurs on and handled by the mobile application (iOS and Android), then your backend needs to be informed about this purchase event to deliver the purchased product or update the user's subscription state.
 
@@ -24,6 +36,8 @@ Publish the config file:
 
 `php artisan vendor:publish --provider="Imdhemy\Purchases\PurchaseServiceProvider" --tag="config"`
 
+# Configuration
+
 The published config file `config/purchase.php` looks like:
 
 ```php
@@ -32,7 +46,16 @@ return [
 
     'google_play_package_name' => env('GOOGLE_PLAY_PACKAGE_NAME', 'com.example.name'),
 
+    'appstore_sandbox' => env('APPSTORE_SANDBOX', true),
+
+    'appstore_password' => env('APPSTORE_PASSWORD', ''),
+
     'eventListeners' => [
+        /**
+         * --------------------------------------------------------
+         * Google Play Events
+         * --------------------------------------------------------
+         */
         SubscriptionPurchased::class => [],
         SubscriptionRenewed::class => [],
         SubscriptionInGracePeriod::class => [],
@@ -46,29 +69,35 @@ return [
         SubscriptionRecovered::class => [],
         SubscriptionPauseScheduleChanged::class => [],
         SubscriptionPriceChangeConfirmed::class => [],
+
+        /**
+         * --------------------------------------------------------
+         * Appstore Events
+         * --------------------------------------------------------
+         */
+        Cancel::class => [],
+        DidChangeRenewalPref::class => [],
+        DidChangeRenewalStatus::class => [],
+        DidFailToRenew::class => [],
+        DidRecover::class => [],
+        DidRenew::class => [],
+        InitialBuy::class => [],
+        InteractionRenewal::class => [],
+        PriceIncreaseConsent::class => [],
+        Refund::class => [],
     ],
 ];
 ```
 
 Each configuration option is illustrated in the [configuration section](#configuration).
 
-# Configuration
+## i. Generic Configurations:
+The generic configurations are not specific to a particular provider of the two supported providers (Google and Apple).
 
-## Google Application Credentials
-Requests to the Google Play Developer API, requires authentication and scopes. To authenticate your machine create a service account, then upload the downloaded JSON file `google-app-credentials.json` to your server, and finally add `GOOGLE_APPLICATION_CREDENTIALS` key to your `.env` file and set it to the path of JSON file.
+### i.1 Routing
+This package adds a `POST` endpoint `/purchases/subscriptions/google` named `purchase.serverNotifications.google` to handle the [Real-Time Developer Notifications](https://developer.android.com/google/play/billing/rtdn-reference) pushed from Google which reflects any changes or updates of the subscription state, and another `POST` endpoint `/purchases/subscriptions/apple` named `purchase.serverNotifications.apple` to handle [The App Store Server Notifications](https://developer.apple.com/documentation/appstoreservernotifications).
 
-1. In the Cloud Console, go to the [Create service account](https://console.cloud.google.com/apis/credentials/serviceaccountkey?_ga=2.92610013.131807880.1603050486-1132570079.1602633482) key page.
-2. From the **Service account** list, select **New service account**.
-3. In the **Service account name** field, enter a name.
-4. From the **Role** list, select **Project** > **Owner**.
-5. Click **Create**. A JSON file that contains your key downloads to your computer.
-6. Upload the JSON file to your storage directory, or any other protected directory.
-6. Set the `.env` key `GOOGLE_APPLICATION_CREDENTIALS` to the JSON file path.
-
-## Routing
-This package adds a `POST` endpoint `/purchases/subscriptions/google` named `purchase.developerNotifications.google` to handle the **Real-Time Developer Notifications** pushed from Google which reflects any changes or updates of the subscription state. 
-
-This endpoint route can be configured through the `routing` key in the config file. For example
+Those routes can be configured through the `routing` key in the config file. For example:
 ```php
 [
     // ..
@@ -80,10 +109,7 @@ This endpoint route can be configured through the `routing` key in the config fi
 ];
 ```
 
-## Google Play Package Name
-The package name of the application for which this subscription was purchased (for example, 'com.some.thing').
-
-## Event Listeners
+### i.2 Event Listeners
 Your application should handle the different states of a subscription life. Each state update triggers a specified event. You can create an event listener to update your backend on each case.
 
 ```php
@@ -108,11 +134,39 @@ Add the created listener to the associated event key.
     // ..
 ```
 
+All events extend the `\Imdhemy\Purchases\Events\PurchaseEvent` abstract class, which implements the `\Imdhemy\Purchases\Contracts\PurchaseEventContract` interface. Check the [Purchase Events section](#purchase-events) for more information.
+
+## ii. Google Play Configurations:
+The following set of configurations are specific to google play:
+
+### ii.1 Google Application Credentials
+Requests to the Google Play Developer API, requires authentication and scopes. To authenticate your machine create a service account, then upload the downloaded JSON file `google-app-credentials.json` to your server, and finally add `GOOGLE_APPLICATION_CREDENTIALS` key to your `.env` file and set it to the path of JSON file.
+
+1. In the Cloud Console, go to the [Create service account](https://console.cloud.google.com/apis/credentials/serviceaccountkey?_ga=2.92610013.131807880.1603050486-1132570079.1602633482) key page.
+2. From the **Service account** list, select **New service account**.
+3. In the **Service account name** field, enter a name.
+4. From the **Role** list, select **Project** > **Owner**.
+5. Click **Create**. A JSON file that contains your key downloads to your computer.
+6. Upload the JSON file to your storage directory, or any other protected directory.
+6. Set the `.env` key `GOOGLE_APPLICATION_CREDENTIALS` to the JSON file path.
+
+### ii.2 Google Play Package Name
+The package name of the application for which this subscription was purchased (for example, 'com.some.thing').
+
+## iii. App Store Configurations
+The following set of configurations are specific to the App Store.
+
+### iii.1 App Store Sandbox
+The configuration key `appstore_sandbox` is a boolean value that determines whether the requests sent to the App Store are in the sandbox or not.
+
+### iii.2 App Store Password
+Request to the App Store requires the key `appstore_password` to be set. Your app’s shared secret, which is a hexadecimal string.
+
 # Sell Products
+## Google Products
  You can use the `\Imdhemy\Purchases\Facades\Product` facade to acknowledge or to get the receipt data from Google Play as follows:
  
 ```php
-<?php
 use \Imdhemy\Purchases\Facades\Product;
 use \Imdhemy\GooglePlay\Products\ProductPurchase;
 
@@ -126,38 +180,33 @@ Product::googlePlay()->id($itemId)->token($token)->acknowledge("your_developer_p
 /** @var ProductPurchase $productReceipt */
 $productReceipt = Product::googlePlay()->id($itemId)->token($token)->get();
 ```
-
-The `ProductPurchase` resource indicates the status of a user's inapp product purchase. This is its JSON Representation:
-
-```javascript
-{
-  "kind": string,
-  "purchaseTimeMillis": string,
-  "purchaseState": integer,
-  "consumptionState": integer,
-  "developerPayload": string,
-  "orderId": string,
-  "purchaseType": integer,
-  "acknowledgementState": integer,
-  "purchaseToken": string,
-  "productId": string,
-  "quantity": integer,
-  "obfuscatedExternalAccountId": string,
-  "obfuscatedExternalProfileId": string,
-  "regionCode": string
-}
-```
-
 Each key has a getter method prefixed with `get`, for example: `getKind()` to get the `kind` value.
 For more information check:
 1. [Google Developer documentation](https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.products/get).
 2. [PHP Google Play Billing Package](https://github.com/imdhemy/google-play-billing#get-the-consumption-state-of-a-product).
  
+## App Store Products
+You can use the `\Imdhemy\Purchases\Facades\Product` to send a [verifyReceipt](https://developer.apple.com/documentation/appstorereceipts/verifyreceipt) request to the App Store. as follows:
+
+```php
+use Imdhemy\AppStore\Receipts\ReceiptResponse;
+use \Imdhemy\Purchases\Facades\Product;
+
+$receiptData = 'the_base64_encoded_receipt_data';
+/** @var ReceiptResponse $receiptResponse */
+$receiptResponse = Product::appStore()->receiptData($receiptData)->verifyReceipt();
+```
+As usual each key has a getter method.
+
+For more information check:
+1. [App Store Documentation](https://developer.apple.com/documentation/appstorereceipts/responsebody)
+2. [PHP App Store IAP package](https://github.com/imdhemy/appstore-iap)
+ 
 # Sell Subscriptions
+## Google Play Subscriptions
 You can use the `\Imdhemy\Purchases\Facades\Subscription` facade to acknowledge or to get the receipt data from Google Play as follows:
 
 ```php
-<?php
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
 use Imdhemy\Purchases\Facades\Subscription;
 
@@ -176,48 +225,72 @@ Subscription::googlePlay()->packageName('com.example.name')->id($itemId)->token(
 
 The `SubscriptionPurchase` resource indicates the status of a user's inapp product purchase. This is its JSON Representation:
 
-```javascript
-{
-  "kind": string,
-  "startTimeMillis": string,
-  "expiryTimeMillis": string,
-  "autoResumeTimeMillis": string,
-  "autoRenewing": boolean,
-  "priceCurrencyCode": string,
-  "priceAmountMicros": string,
-  "introductoryPriceInfo": {
-    object (IntroductoryPriceInfo)
-  },
-  "countryCode": string,
-  "developerPayload": string,
-  "paymentState": integer,
-  "cancelReason": integer,
-  "userCancellationTimeMillis": string,
-  "cancelSurveyResult": {
-    object (SubscriptionCancelSurveyResult)
-  },
-  "orderId": string,
-  "linkedPurchaseToken": string,
-  "purchaseType": integer,
-  "priceChange": {
-    object (SubscriptionPriceChange)
-  },
-  "profileName": string,
-  "emailAddress": string,
-  "givenName": string,
-  "familyName": string,
-  "profileId": string,
-  "acknowledgementState": integer,
-  "externalAccountId": string,
-  "promotionType": integer,
-  "promotionCode": string,
-  "obfuscatedExternalAccountId": string,
-  "obfuscatedExternalProfileId": string
-}
-```
-
-Each key has a getter method prefixed with `get`, for example: `getKind()` to get the `kind` value.
 For more information check:
 1. [Google Developer documentation](https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.subscriptions/get).
 2. [PHP Google Play Billing Package](https://github.com/imdhemy/google-play-billing#handling-the-subscription-lifecycle).
 
+## App Store Subscriptions
+You can use the `\Imdhemy\Purchases\Facades\Subscription` to send a [verifyReceipt](https://developer.apple.com/documentation/appstorereceipts/verifyreceipt) request to the App Store. as follows:
+
+```php
+use Imdhemy\Purchases\Facades\Subscription;
+// To verify a subscription receipt
+$receiptData = 'the_base64_encoded_receipt_data';
+$receiptResponse = Subscription::appStore()->receiptData($receiptData)->verifyReceipt();
+
+// If the subscription is an auto-renewable one, 
+//call the renewable() method before the trigger method verifyReceipt()
+$receiptResponse = Subscription::appStore()->receiptData($receiptData)->renewable()->verifyReceipt();
+
+// or you can omit the renewable() method and use the verifyRenewable() method instead
+$receiptResponse = Subscription::appStore()->receiptData($receiptData)->verifyRenewable();
+```
+
+For more information check:
+1. [Validating Receipts with the App Store](https://developer.apple.com/documentation/storekit/in-app_purchase/validating_receipts_with_the_app_store)
+2. 2. [PHP App Store IAP package](https://github.com/imdhemy/appstore-iap)
+
+# Purchase Events
+As mentioned the [configuration section](#foo_bar), Your application should handle the different states of a subscription life. Each state update triggers a specified event. You can create an event listener to update your backend on each case.
+
+All triggered events implement `Imdhemy\Purchases\Contracts\PurchaseEventContract` interface, which allows you to get a standard representation of the received notification through the `getServerNotification()` method.
+
+The retrieved notification is of type `\Imdhemy\Purchases\Contracts\ServerNotificationContract` which allows you to get a standard representation of the subscription using the `getSubscription()` method.
+
+The subscription object provides the following methods:
+1. `getExpiryTime()` returns a `Time` object that tells the expiration time of the subscription.
+2. `getItemId()` returns the purchased subscription id.
+3. `getProvider()` returns the provider of this subscription, either `google_play` or `app_store`.
+4. `getUniqueIdentifier()` returns a unique identifier for this subscription.
+5. `getProviderRepresentation()` returns either `SubscriptionPurchase` or `ReceiptResponse` based on the provider.
+
+Here is an example of an auto-renewed subscription:
+
+```php
+use Imdhemy\Purchases\Events\GooglePlay\SubscriptionRenewed;
+
+class AutoRenewSubscription 
+{   
+    /**
+    * @param SubscriptionRenewed $event
+    */
+    public function handle(SubscriptionRenewed $event)
+    {   
+       // The following data can be retrieved from the event
+       $notification = $event->getServerNotification();
+       $subscription = $notification->getSubscription();
+       $uniqueIdentifier = $subscription->getUniqueIdentifier();
+       $expirationTime = $subscription->getExpiryTime();
+        
+       // The following steps are up to you, this is only an imagined scenario.
+       $user = $this->findUserBySubscriptionId($uniqueIdentifier);
+       $user->getSubscription()->setExpirationTime($expirationTime);
+       $user->save();        
+        
+       $this->notifyUserAboutUpdate($user);
+    }   
+}
+```
+
+# Testing
+TODO: add testing examples.
