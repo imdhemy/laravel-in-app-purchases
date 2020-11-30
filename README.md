@@ -256,7 +256,7 @@ For more information check:
 2. [PHP App Store IAP package](https://github.com/imdhemy/appstore-iap)
 
 # Purchase Events
-As mentioned the [configuration section](#foo_bar), Your application should handle the different states of a subscription life. Each state update triggers a specified event. You can create an event listener to update your backend on each case.
+As mentioned the [configuration section](#i2-event-listeners), Your application should handle the different states of a subscription life. Each state update triggers a specified event. You can create an event listener to update your backend on each case.
 
 All triggered events implement `Imdhemy\Purchases\Contracts\PurchaseEventContract` interface, which allows you to get a standard representation of the received notification through the `getServerNotification()` method.
 
