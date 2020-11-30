@@ -253,7 +253,7 @@ $receiptResponse = Subscription::appStore()->receiptData($receiptData)->verifyRe
 
 For more information check:
 1. [Validating Receipts with the App Store](https://developer.apple.com/documentation/storekit/in-app_purchase/validating_receipts_with_the_app_store)
-2. 2. [PHP App Store IAP package](https://github.com/imdhemy/appstore-iap)
+2. [PHP App Store IAP package](https://github.com/imdhemy/appstore-iap)
 
 # Purchase Events
 As mentioned the [configuration section](#foo_bar), Your application should handle the different states of a subscription life. Each state update triggers a specified event. You can create an event listener to update your backend on each case.
