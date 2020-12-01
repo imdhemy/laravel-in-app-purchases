@@ -20,8 +20,8 @@
     "require": {
         "php": "^7.1",
         "ext-json": "*",
-        "imdhemy/appstore-iap": "^0.3.0",
-        "imdhemy/google-play-billing": "0.3.0",
+        "imdhemy/appstore-iap": "^0.3",
+        "imdhemy/google-play-billing": "^0.3",
         "nesbot/carbon": "^2.41"
     },
     "require-dev": {
