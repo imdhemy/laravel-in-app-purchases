@@ -5,6 +5,6 @@ namespace Imdhemy\Purchases\Events\AppStore;
 
 use Imdhemy\Purchases\Events\PurchaseEvent;
 
-class InteractionRenewal extends PurchaseEvent
+class InteractiveRenewal extends PurchaseEvent
 {
 }

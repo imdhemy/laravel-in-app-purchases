@@ -7,7 +7,7 @@ use Imdhemy\Purchases\Events\AppStore\DidFailToRenew;
 use Imdhemy\Purchases\Events\AppStore\DidRecover;
 use Imdhemy\Purchases\Events\AppStore\DidRenew;
 use Imdhemy\Purchases\Events\AppStore\InitialBuy;
-use Imdhemy\Purchases\Events\AppStore\InteractionRenewal;
+use Imdhemy\Purchases\Events\AppStore\InteractiveRenewal;
 use Imdhemy\Purchases\Events\AppStore\PriceIncreaseConsent;
 use Imdhemy\Purchases\Events\AppStore\Refund;
 use Imdhemy\Purchases\Events\GooglePlay\SubscriptionCanceled;
@@ -65,7 +65,7 @@ return [
         DidRecover::class => [],
         DidRenew::class => [],
         InitialBuy::class => [],
-        InteractionRenewal::class => [],
+        InteractiveRenewal::class => [],
         PriceIncreaseConsent::class => [],
         Refund::class => [],
     ],
