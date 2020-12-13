@@ -18,7 +18,7 @@
         }
     ],
     "require": {
-        "php": "^7.1",
+        "php": "^7.1|^8.0",
         "ext-json": "*",
         "imdhemy/appstore-iap": "^0.3",
         "imdhemy/google-play-billing": "^0.3",
