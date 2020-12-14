@@ -21,6 +21,12 @@ class ServerNotificationController extends Controller
     public function google(GoogleDeveloperNotificationRequest $request)
     {
         $data = $request->getData();
+
+        if (!$this->isParsable($data)) {
+            Log::info(sprintf("Google Play malformed RTDN: %s", json_encode($request->all())));
+            return;
+        }
+
         $developerNotification = DeveloperNotification::parse($data);
         $googleNotification = new GoogleServerNotification($developerNotification);
 
@@ -50,5 +56,15 @@ class ServerNotificationController extends Controller
 
         $event = AppStoreEventFactory::create($appStoreNotification);
         event($event);
+    }
+
+    /**
+     * @param string $data
+     * @return bool
+     */
+    protected function isParsable(string $data): bool
+    {
+        $decodedData = json_decode(base64_decode($data), true);
+        return !is_null($decodedData);
     }
 }

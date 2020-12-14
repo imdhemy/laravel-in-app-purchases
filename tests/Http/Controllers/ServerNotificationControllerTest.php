@@ -45,7 +45,7 @@ class ServerNotificationControllerTest extends TestCase
         $this->post($uri, $data)->assertStatus(200);
 
         $this->assertTrue(
-            ! empty(file_get_contents(storage_path("/logs/laravel.log")))
+            !empty(file_get_contents(storage_path("/logs/laravel.log")))
         );
     }
 
@@ -62,5 +62,21 @@ class ServerNotificationControllerTest extends TestCase
         $this->post($uri, $data)->assertStatus(200);
 
         Event::assertDispatched(DidChangeRenewalStatus::class);
+    }
+
+    /**
+     * @test
+     */
+    public function test_it_logs_the_weird_ZnNk_weird_token()
+    {
+        file_put_contents(storage_path('logs/laravel.log'), "");
+
+        $data = json_decode(file_get_contents(__DIR__ . '/../../weird-token-from-google.json'), true);
+        $uri = route('purchase.serverNotifications.google');
+        $this->post($uri, $data)->assertStatus(200);
+
+        $this->assertTrue(
+            !empty(file_get_contents(storage_path("/logs/laravel.log")))
+        );
     }
 }
