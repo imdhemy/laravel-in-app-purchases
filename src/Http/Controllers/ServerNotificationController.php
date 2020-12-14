@@ -22,8 +22,9 @@ class ServerNotificationController extends Controller
     {
         $data = $request->getData();
 
-        if (!$this->isParsable($data)) {
+        if (! $this->isParsable($data)) {
             Log::info(sprintf("Google Play malformed RTDN: %s", json_encode($request->all())));
+
             return;
         }
 
@@ -65,6 +66,7 @@ class ServerNotificationController extends Controller
     protected function isParsable(string $data): bool
     {
         $decodedData = json_decode(base64_decode($data), true);
-        return !is_null($decodedData);
+
+        return ! is_null($decodedData);
     }
 }

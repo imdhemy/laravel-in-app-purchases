@@ -45,7 +45,7 @@ class ServerNotificationControllerTest extends TestCase
         $this->post($uri, $data)->assertStatus(200);
 
         $this->assertTrue(
-            !empty(file_get_contents(storage_path("/logs/laravel.log")))
+            ! empty(file_get_contents(storage_path("/logs/laravel.log")))
         );
     }
 
@@ -76,7 +76,7 @@ class ServerNotificationControllerTest extends TestCase
         $this->post($uri, $data)->assertStatus(200);
 
         $this->assertTrue(
-            !empty(file_get_contents(storage_path("/logs/laravel.log")))
+            ! empty(file_get_contents(storage_path("/logs/laravel.log")))
         );
     }
 }
