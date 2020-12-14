@@ -24,14 +24,20 @@ whether or not your feature is likely to be used by other users of the project.
 
 ## Procedure
 
-Before filing an issue:
+### Before filing an issue:
 
 - Attempt to replicate the problem, to ensure that it wasn't a coincidental incident.
 - Check to make sure your feature suggestion isn't already present within the project.
 - Check the pull requests tab to ensure that the bug doesn't have a fix in progress.
 - Check the pull requests tab to ensure that the feature isn't already in progress.
 
-Before submitting a pull request:
+### Before starting code contribution:
+- Check the open issues for issues related to your enhancement.
+- If there is no feature or bug issue related to your new idea, start one describing it.
+- Wait until you issue is added to the [To-Do list](https://github.com/imdhemy/laravel-in-app-purchases/projects/1#column-11508335).
+- If you want to contribute, but don't know where to start? check the [project board](https://github.com/imdhemy/laravel-in-app-purchases/projects/1) and grab your next task.
+
+### Before submitting a pull request:
 
 - Check the codebase to ensure that your feature doesn't already exist.
 - Check the pull requests to ensure that another person hasn't already submitted the feature or fix.
