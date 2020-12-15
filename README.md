@@ -1,7 +1,17 @@
-# Laravel In-App purchase
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/imdhemy/laravel-purchases.svg?style=flat-square)](https://packagist.org/packages/imdhemy/laravel-purchases)
-[![Total Downloads](https://img.shields.io/packagist/dt/imdhemy/laravel-purchases.svg?style=flat-square)](https://packagist.org/packages/imdhemy/laravel-purchases)
+<div align="center">
+    <p><img src="cover.png" alt="Laravel In-app Purchase cover"></p>
+    <p>
+        <a href="https://packagist.org/packages/imdhemy/laravel-purchases">
+            <img src="https://img.shields.io/packagist/v/imdhemy/laravel-purchases.svg?style=flat-square" alt="Latest Version on Packagist">
+        </a>
+        <a href="https://packagist.org/packages/imdhemy/laravel-purchases">
+            <img src="https://img.shields.io/packagist/dt/imdhemy/laravel-purchases.svg?style=flat-square" alt="Total Downloads">
+        </a> 
+    </p>
+    <p> ✅ App Store ✅ Google Play </p>
+</div>
 
+# Laravel In-App purchase
 Google Play and App Store provide the In-App Purchase (IAP) services. IAP can be used to sell a variety of content, including subscriptions, new features, and services. The purchase event and the payment process occurs on and handled by the mobile application (iOS and Android), then your backend needs to be informed about this purchase event to deliver the purchased product or update the user's subscription state.
 
 **Laravel In-App purchase** comes to help you to parse and validate the purchased products and handle the different states of a subscription, like New subscription , auto-renew, cancellation, expiration and etc.
