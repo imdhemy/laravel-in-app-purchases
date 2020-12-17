@@ -4,7 +4,6 @@
         <img alt="Packagist PHP Version Support" src="https://img.shields.io/packagist/php-v/imdhemy/laravel-purchases">
         <img src="https://img.shields.io/packagist/v/imdhemy/laravel-purchases.svg?style=flat-square" alt="Latest Version on Packagist">
         <img src="https://img.shields.io/packagist/dt/imdhemy/laravel-purchases.svg?style=flat-square" alt="Total Downloads">
-        <img alt="Packagist Stars" src="https://img.shields.io/packagist/stars/imdhemy/laravel-purchases">
         <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/imdhemy/laravel-in-app-purchases">
     </p>
     <p> ✅ App Store ✅ Google Play </p>
