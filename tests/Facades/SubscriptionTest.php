@@ -46,6 +46,8 @@ class SubscriptionTest extends TestCase
      */
     public function test_facade_can_acknowledge_a_google_play_subscription()
     {
+        // TODO: update testing and implementation due the recent update in Google Play Billing Package
+        // It's not void anymore
         $this->assertNull(
             Subscription::googlePlay()->packageName('com.twigano.fashion')->id($this->itemId)->token($this->token)->acknowledge()
         );
@@ -65,5 +67,19 @@ class SubscriptionTest extends TestCase
             ReceiptResponse::class,
             Subscription::appStore()->receiptData($receiptData)->password($password)->verifyReceipt()
         );
+    }
+
+    /**
+     * @test
+     * @throws GuzzleException
+     */
+    public function test_it_handles_the_21007_error_from_the_app_store()
+    {
+        $receipt = json_decode(file_get_contents(__DIR__ . '/../iOS-receipt.json'), true);
+        $receiptData = $receipt['transactionReceipt'];
+        $password = env('APPSTORE_PASSWORD');
+
+        $response = Subscription::appStore()->receiptData($receiptData)->password($password)->verifyRenewable();
+        $this->assertTrue($response->getStatus()->isValid());
     }
 }

@@ -65,9 +65,7 @@ class Subscription
      */
     public function appStore(): self
     {
-        $sandbox = (bool)config('purchase.appstore_sandbox');
-
-        $this->client = AppStoreClientFactory::create($sandbox);
+        $this->client = AppStoreClientFactory::create();
         $this->password = config('purchase.appstore_password');
         $this->renewalAble = false;
 
