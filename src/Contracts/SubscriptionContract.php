@@ -3,6 +3,8 @@
 
 namespace Imdhemy\Purchases\Contracts;
 
+use Imdhemy\AppStore\Receipts\ReceiptResponse;
+use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
 use Imdhemy\Purchases\ValueObjects\Time;
 
 /**
@@ -32,7 +34,7 @@ interface SubscriptionContract
     public function getUniqueIdentifier(): string;
 
     /**
-     * @return mixed
+     * @return mixed|SubscriptionPurchase|ReceiptResponse
      */
     public function getProviderRepresentation();
 }
