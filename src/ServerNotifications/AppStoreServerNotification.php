@@ -8,6 +8,7 @@ use Imdhemy\AppStore\ValueObjects\ReceiptInfo;
 use Imdhemy\Purchases\Contracts\ServerNotificationContract;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\Subscriptions\AppStoreSubscription;
+use Imdhemy\Purchases\ValueObjects\Time;
 
 class AppStoreServerNotification implements ServerNotificationContract
 {
@@ -55,5 +56,26 @@ class AppStoreServerNotification implements ServerNotificationContract
     private function getFirstReceipt(): ReceiptInfo
     {
         return $this->notification->getUnifiedReceipt()->getLatestReceiptInfo()[0];
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAutoRenewal(): bool
+    {
+        return $this->notification->isAutoRenewStatus();
+    }
+
+    /**
+     * @return Time|null
+     */
+    public function getAutoRenewStatusChangeDate(): ?Time
+    {
+        $time = $this->notification->getAutoRenewStatusChangeDate();
+        if (! is_null($time)) {
+            return Time::fromAppStoreTime($time);
+        }
+
+        return null;
     }
 }

@@ -7,6 +7,7 @@ use Imdhemy\Purchases\Contracts\ServerNotificationContract;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\ServerNotifications\AppStoreServerNotification;
 use Imdhemy\Purchases\Tests\TestCase;
+use Imdhemy\Purchases\ValueObjects\Time;
 
 class AppStoreServerNotificationTest extends TestCase
 {
@@ -53,5 +54,17 @@ class AppStoreServerNotificationTest extends TestCase
     public function test_get_subscription()
     {
         $this->assertInstanceOf(SubscriptionContract::class, $this->appStoreServerNotification->getSubscription());
+    }
+
+    /**
+     * @test
+     */
+    public function test_get_change_renewal_status_data()
+    {
+        $isAutoRenewal = $this->appStoreServerNotification->isAutoRenewal();
+        $changeDate = $this->appStoreServerNotification->getAutoRenewStatusChangeDate();
+
+        $this->assertFalse($isAutoRenewal);
+        $this->assertInstanceOf(Time::class, $changeDate);
     }
 }
