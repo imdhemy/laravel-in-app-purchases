@@ -5,6 +5,7 @@ namespace Imdhemy\Purchases\Tests\Facades;
 use GuzzleHttp\Exception\GuzzleException;
 use Imdhemy\AppStore\Receipts\ReceiptResponse;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
+use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\Facades\Subscription;
 use Imdhemy\Purchases\Tests\TestCase;
 
@@ -26,19 +27,26 @@ class SubscriptionTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->token = 'hhblgkiaeomlogloocbpnkce.AO-J1OzV6UAh0NbPTYq92zJ-P3zhsgc1whL3RiEM1WOlWEUjuypjlIHDRsL8lzAXW7DcSuD2Zr-lDLar9S8Clbsq25bqhf7MHQ';
-        $this->itemId = 'month_premium';
+        $this->token = 'hfjblmhmkloppbpihhhifndn.AO-J1OxOKM878RHwS0Hl2Ti3WCvySGw9QTi5WtEUJHO4ppW7ai62vXtruAfOGFWFVdG8Spb3aJRnooesbP_Yfyo0_PXn6LCQ5g';
+        $this->itemId = 'week_premium';
     }
 
     /**
      * @test
+     * @throws GuzzleException
      */
     public function test_facade_can_get_a_google_play_subscription()
     {
-        $this->assertInstanceOf(
-            SubscriptionPurchase::class,
-            Subscription::googlePlay()->packageName('com.twigano.fashion')->id($this->itemId)->token($this->token)->get()
-        );
+        $subscription = Subscription::googlePlay()
+            ->packageName('com.twigano.fashion')
+            ->id($this->itemId)
+            ->token($this->token);
+
+        $getResponse = $subscription->get();
+        $stdSubscription = $subscription->toStd();
+
+        $this->assertInstanceOf(SubscriptionPurchase::class, $getResponse);
+        $this->assertInstanceOf(SubscriptionContract::class, $stdSubscription);
     }
 
     /**

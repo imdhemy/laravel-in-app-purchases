@@ -11,6 +11,8 @@ use Imdhemy\AppStore\Receipts\Verifier;
 use Imdhemy\GooglePlay\ClientFactory as GooglePlayClientFactory;
 use Imdhemy\GooglePlay\Subscriptions\Subscription as GooglePlaySubscription;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
+use Imdhemy\Purchases\Contracts\SubscriptionContract;
+use Imdhemy\Purchases\Subscriptions\GoogleSubscription;
 
 class Subscription
 {
@@ -48,6 +50,11 @@ class Subscription
      * @var bool
      */
     protected $renewalAble;
+
+    /**
+     * @var SubscriptionPurchase
+     */
+    protected $googleGetResponse;
 
     /**
      * @return self
@@ -153,7 +160,11 @@ class Subscription
      */
     public function get(): SubscriptionPurchase
     {
-        return $this->createSubscription()->get();
+        if (is_null($this->googleGetResponse)) {
+            $this->googleGetResponse = $this->createSubscription()->get();
+        }
+
+        return $this->googleGetResponse;
     }
 
     /**
@@ -198,5 +209,16 @@ class Subscription
         $this->password = $password;
 
         return $this;
+    }
+
+    /**
+     * @return SubscriptionContract
+     * @throws GuzzleException
+     */
+    public function toStd(): SubscriptionContract
+    {
+        $response = $this->get();
+
+        return new GoogleSubscription($response, $this->itemId, $this->token);
     }
 }
