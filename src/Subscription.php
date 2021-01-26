@@ -6,6 +6,7 @@ namespace Imdhemy\Purchases;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Imdhemy\AppStore\ClientFactory as AppStoreClientFactory;
+use Imdhemy\AppStore\Exceptions\InvalidReceiptException;
 use Imdhemy\AppStore\Receipts\ReceiptResponse;
 use Imdhemy\AppStore\Receipts\Verifier;
 use Imdhemy\GooglePlay\ClientFactory as GooglePlayClientFactory;
@@ -114,7 +115,7 @@ class Subscription
 
     /**
      * @return ReceiptResponse
-     * @throws GuzzleException
+     * @throws GuzzleException|InvalidReceiptException
      */
     public function verifyReceipt(): ReceiptResponse
     {
@@ -125,7 +126,7 @@ class Subscription
 
     /**
      * @return ReceiptResponse
-     * @throws GuzzleException
+     * @throws GuzzleException|InvalidReceiptException
      */
     public function verifyRenewable(): ReceiptResponse
     {
