@@ -13,6 +13,7 @@ use Imdhemy\GooglePlay\ClientFactory as GooglePlayClientFactory;
 use Imdhemy\GooglePlay\Subscriptions\Subscription as GooglePlaySubscription;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
+use Imdhemy\Purchases\Subscriptions\AppStoreSubscription;
 use Imdhemy\Purchases\Subscriptions\GoogleSubscription;
 
 class Subscription
@@ -58,10 +59,21 @@ class Subscription
     protected $googleGetResponse;
 
     /**
+     * @var ReceiptResponse
+     */
+    private $appStoreResponse;
+
+    /**
+     * @var bool
+     */
+    protected $isGoogle = false;
+
+    /**
      * @return self
      */
     public function googlePlay(): self
     {
+        $this->isGoogle = true;
         $this->client = GooglePlayClientFactory::create([GooglePlayClientFactory::SCOPE_ANDROID_PUBLISHER]);
         $this->packageName = config('purchase.google_play_package_name');
 
@@ -73,6 +85,7 @@ class Subscription
      */
     public function appStore(): self
     {
+        $this->isGoogle = false;
         $this->client = AppStoreClientFactory::create();
         $this->password = config('purchase.appstore_password');
         $this->renewalAble = false;
@@ -119,9 +132,12 @@ class Subscription
      */
     public function verifyReceipt(): ReceiptResponse
     {
-        $verifier = new Verifier($this->client, $this->receiptData, $this->password);
+        if (is_null($this->appStoreResponse)) {
+            $verifier = new Verifier($this->client, $this->receiptData, $this->password);
+            $this->appStoreResponse = $verifier->verify($this->renewalAble);
+        }
 
-        return $verifier->verify($this->renewalAble);
+        return $this->appStoreResponse;
     }
 
     /**
@@ -130,9 +146,9 @@ class Subscription
      */
     public function verifyRenewable(): ReceiptResponse
     {
-        $verifier = new Verifier($this->client, $this->receiptData, $this->password);
+        $this->renewalAble = true;
 
-        return $verifier->verifyRenewable();
+        return $this->verifyReceipt();
     }
 
     /**
@@ -215,11 +231,18 @@ class Subscription
     /**
      * @return SubscriptionContract
      * @throws GuzzleException
+     * @throws InvalidReceiptException
      */
     public function toStd(): SubscriptionContract
     {
-        $response = $this->get();
+        if ($this->isGoogle) {
+            $response = $this->get();
 
-        return new GoogleSubscription($response, $this->itemId, $this->token);
+            return new GoogleSubscription($response, $this->itemId, $this->token);
+        }
+
+        $response = $this->verifyReceipt();
+
+        return new AppStoreSubscription($response->getLatestReceiptInfo()[0]);
     }
 }

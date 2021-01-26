@@ -3,6 +3,7 @@
 namespace Imdhemy\Purchases\Tests\Facades;
 
 use GuzzleHttp\Exception\GuzzleException;
+use Imdhemy\AppStore\Exceptions\InvalidReceiptException;
 use Imdhemy\AppStore\Receipts\ReceiptResponse;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
@@ -33,7 +34,7 @@ class SubscriptionTest extends TestCase
 
     /**
      * @test
-     * @throws GuzzleException
+     * @throws GuzzleException|InvalidReceiptException
      */
     public function test_facade_can_get_a_google_play_subscription()
     {
@@ -63,7 +64,7 @@ class SubscriptionTest extends TestCase
 
     /**
      * @test
-     * @throws GuzzleException
+     * @throws GuzzleException|InvalidReceiptException
      */
     public function test_it_can_send_verify_receipt_request_to_app_store()
     {
@@ -71,15 +72,17 @@ class SubscriptionTest extends TestCase
         $receiptData = $receipt['transactionReceipt'];
         $password = env('APPSTORE_PASSWORD');
 
-        $this->assertInstanceOf(
-            ReceiptResponse::class,
-            Subscription::appStore()->receiptData($receiptData)->password($password)->verifyReceipt()
-        );
+        $subscription = Subscription::appStore()->receiptData($receiptData)->password($password);
+        $receiptResponse = $subscription->verifyReceipt();
+        $stdSubscription = $subscription->toStd();
+
+        $this->assertInstanceOf(ReceiptResponse::class, $receiptResponse);
+        $this->assertInstanceOf(SubscriptionContract::class, $stdSubscription);
     }
 
     /**
      * @test
-     * @throws GuzzleException
+     * @throws GuzzleException|InvalidReceiptException
      */
     public function test_it_handles_the_21007_error_from_the_app_store()
     {
