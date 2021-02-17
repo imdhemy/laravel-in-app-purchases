@@ -2,9 +2,11 @@
 
 namespace Imdhemy\Purchases\Tests\Facades;
 
+use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 use Imdhemy\AppStore\Exceptions\InvalidReceiptException;
 use Imdhemy\AppStore\Receipts\ReceiptResponse;
+use Imdhemy\GooglePlay\ClientFactory;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\Facades\Subscription;
@@ -92,5 +94,27 @@ class SubscriptionTest extends TestCase
 
         $response = Subscription::appStore()->receiptData($receiptData)->password($password)->verifyRenewable();
         $this->assertTrue($response->getStatus()->isValid());
+    }
+
+    /**
+     * @test
+     * @throws Exception
+     * @throws GuzzleException
+     */
+    public function test_custom_client_can_be_set_on_google_play()
+    {
+        $jsonStream = file_get_contents(__DIR__ . '/../../google-app-credentials.json');
+        $jsonKey = json_decode($jsonStream, true);
+        $client = ClientFactory::createWithJsonKey($jsonKey, [ClientFactory::SCOPE_ANDROID_PUBLISHER]);
+        $subscription = Subscription::googlePlay($client)
+            ->packageName('com.twigano.fashion')
+            ->id($this->itemId)
+            ->token($this->token);
+
+        $getResponse = $subscription->get();
+        $stdSubscription = $subscription->toStd();
+
+        $this->assertInstanceOf(SubscriptionPurchase::class, $getResponse);
+        $this->assertInstanceOf(SubscriptionContract::class, $stdSubscription);
     }
 }

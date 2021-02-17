@@ -4,8 +4,10 @@
 namespace Imdhemy\Purchases;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use Imdhemy\AppStore\ClientFactory as AppStoreClientFactory;
+use Imdhemy\AppStore\Exceptions\InvalidReceiptException;
 use Imdhemy\AppStore\Receipts\ReceiptResponse;
 use Imdhemy\AppStore\Receipts\Verifier;
 use Imdhemy\GooglePlay\ClientFactory as GooglePlayClientFactory;
@@ -45,11 +47,12 @@ class Product
     protected $password;
 
     /**
+     * @param ClientInterface|null $client
      * @return self
      */
-    public function googlePlay(): self
+    public function googlePlay(?ClientInterface $client = null): self
     {
-        $this->client = GooglePlayClientFactory::create([GooglePlayClientFactory::SCOPE_ANDROID_PUBLISHER]);
+        $this->client = $client ?? GooglePlayClientFactory::create([GooglePlayClientFactory::SCOPE_ANDROID_PUBLISHER]);
         $this->packageName = config('purchase.google_play_package_name');
 
         return $this;
@@ -121,7 +124,7 @@ class Product
 
     /**
      * @return ReceiptResponse
-     * @throws GuzzleException
+     * @throws GuzzleException|InvalidReceiptException
      */
     public function verifyReceipt(): ReceiptResponse
     {
