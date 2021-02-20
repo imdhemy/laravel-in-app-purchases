@@ -73,4 +73,12 @@ class GoogleServerNotificationTest extends TestCase
             $this->googleServerNotification->getSubscription($jsonKey)
         );
     }
+
+    /**
+     * @test
+     */
+    public function test_get_bundle()
+    {
+        $this->assertNotNull($this->googleServerNotification->getBundle());
+    }
 }

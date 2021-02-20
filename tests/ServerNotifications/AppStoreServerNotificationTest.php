@@ -79,4 +79,12 @@ class AppStoreServerNotificationTest extends TestCase
         $this->assertFalse($isAutoRenewal);
         $this->assertInstanceOf(Time::class, $changeDate);
     }
+
+    /**
+     * @test
+     */
+    public function test_get_bundle()
+    {
+        $this->assertNotNull($this->appStoreServerNotification->getBundle());
+    }
 }

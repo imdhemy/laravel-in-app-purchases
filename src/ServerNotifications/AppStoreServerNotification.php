@@ -79,4 +79,12 @@ class AppStoreServerNotification implements ServerNotificationContract
 
         return null;
     }
+
+    /**
+     * @return string
+     */
+    public function getBundle(): string
+    {
+        return $this->notification->getBid();
+    }
 }

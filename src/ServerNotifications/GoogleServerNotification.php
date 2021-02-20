@@ -70,4 +70,12 @@ class GoogleServerNotification implements ServerNotificationContract
     {
         return $this->notification->isTestNotification();
     }
+
+    /**
+     * @return string
+     */
+    public function getBundle(): string
+    {
+        return $this->notification->getPackageName();
+    }
 }

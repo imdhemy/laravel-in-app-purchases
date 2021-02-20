@@ -24,4 +24,9 @@ interface ServerNotificationContract
      * @return bool
      */
     public function isTest(): bool;
+
+    /**
+     * @return string
+     */
+    public function getBundle(): string;
 }
