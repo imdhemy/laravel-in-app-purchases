@@ -59,6 +59,18 @@ class AppStoreServerNotificationTest extends TestCase
     /**
      * @test
      */
+    public function test_get_subscription_with_custom_password()
+    {
+        $jsonKey = ['password' => env('APPSTORE_PASSWORD')];
+        $this->assertInstanceOf(
+            SubscriptionContract::class,
+            $this->appStoreServerNotification->getSubscription($jsonKey)
+        );
+    }
+
+    /**
+     * @test
+     */
     public function test_get_change_renewal_status_data()
     {
         $isAutoRenewal = $this->appStoreServerNotification->isAutoRenewal();
