@@ -15,9 +15,10 @@ interface ServerNotificationContract
     public function getType(): string;
 
     /**
+     * @param array $jsonKey
      * @return SubscriptionContract
      */
-    public function getSubscription(): SubscriptionContract;
+    public function getSubscription(array $jsonKey = []): SubscriptionContract;
 
     /**
      * @return bool

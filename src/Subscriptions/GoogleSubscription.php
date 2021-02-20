@@ -3,6 +3,7 @@
 
 namespace Imdhemy\Purchases\Subscriptions;
 
+use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
@@ -42,15 +43,18 @@ class GoogleSubscription implements SubscriptionContract
 
     /**
      * @param DeveloperNotification $developerNotification
+     * @param ClientInterface|null $client
      * @return static
      * @throws GuzzleException
      */
-    public static function createFromDeveloperNotification(DeveloperNotification $developerNotification): self
-    {
+    public static function createFromDeveloperNotification(
+        DeveloperNotification $developerNotification,
+        ?ClientInterface $client = null
+    ): self {
         $notification = $developerNotification->getSubscriptionNotification();
         $packageName = $developerNotification->getPackageName();
 
-        $subscriptionPurchase = Subscription::googlePlay()
+        $subscriptionPurchase = Subscription::googlePlay($client)
             ->packageName($packageName)
             ->id($notification->getSubscriptionId())
             ->token($notification->getPurchaseToken())

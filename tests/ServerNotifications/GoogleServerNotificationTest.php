@@ -58,4 +58,19 @@ class GoogleServerNotificationTest extends TestCase
             $this->googleServerNotification->getSubscription()
         );
     }
+
+    /**
+     * @test
+     * @throws GuzzleException
+     */
+    public function test_get_subscription_with_custom_credentials()
+    {
+        $keyStream = file_get_contents(__DIR__ . '/../../google-app-credentials.json');
+        $jsonKey = json_decode($keyStream, true);
+
+        $this->assertInstanceOf(
+            SubscriptionContract::class,
+            $this->googleServerNotification->getSubscription($jsonKey)
+        );
+    }
 }

@@ -3,7 +3,9 @@
 
 namespace Imdhemy\Purchases\ServerNotifications;
 
+use Exception;
 use GuzzleHttp\Exception\GuzzleException;
+use Imdhemy\GooglePlay\ClientFactory;
 use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
 use Imdhemy\Purchases\Contracts\ServerNotificationContract;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
@@ -44,12 +46,21 @@ class GoogleServerNotification implements ServerNotificationContract
     }
 
     /**
+     * @param array $jsonKey
      * @return SubscriptionContract
      * @throws GuzzleException
+     * @throws Exception
      */
-    public function getSubscription(): SubscriptionContract
+    public function getSubscription(array $jsonKey = []): SubscriptionContract
     {
-        return GoogleSubscription::createFromDeveloperNotification($this->notification);
+        $client = empty($jsonKey) ?
+            null :
+            ClientFactory::createWithJsonKey(
+                $jsonKey,
+                [ClientFactory::SCOPE_ANDROID_PUBLISHER]
+            );
+
+        return GoogleSubscription::createFromDeveloperNotification($this->notification, $client);
     }
 
     /**
