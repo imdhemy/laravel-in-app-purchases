@@ -10,6 +10,7 @@ use Imdhemy\Purchases\Events\AppStore\InitialBuy;
 use Imdhemy\Purchases\Events\AppStore\InteractiveRenewal;
 use Imdhemy\Purchases\Events\AppStore\PriceIncreaseConsent;
 use Imdhemy\Purchases\Events\AppStore\Refund;
+use Imdhemy\Purchases\Events\AppStore\Revoke;
 use Imdhemy\Purchases\Events\GooglePlay\SubscriptionCanceled;
 use Imdhemy\Purchases\Events\GooglePlay\SubscriptionDeferred;
 use Imdhemy\Purchases\Events\GooglePlay\SubscriptionExpired;
@@ -66,5 +67,6 @@ return [
         InteractiveRenewal::class => [],
         PriceIncreaseConsent::class => [],
         Refund::class => [],
+        Revoke::class => [],
     ],
 ];
