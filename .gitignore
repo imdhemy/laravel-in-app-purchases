@@ -8,3 +8,4 @@ coverage
 .php_cs.cache
 google-app-credentials.json
 phpunit.xml
+phpunit.xml
