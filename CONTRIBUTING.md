@@ -49,6 +49,7 @@ Requirements related to code the code contribution listed below:
 
 Once you start yo write code and created a feature branch submit a pull request with the following guidelines:
 
+- Base your branch and the PR from the `develop` branch.
 - Add `[WIP]` tag to the pull request title. Example: `[WIP] Feature: Allow the dolphin to dance in the sky.`
 - Use the pull request template and fill the **What** section for now.
 
@@ -57,6 +58,7 @@ Once you start yo write code and created a feature branch submit a pull request 
 - Ensure your code is fulfilling the [requirements](#requirements).
 - Ensure your code has no errors using the static analysis tool. `composer psalm`.
 - Update the created pull request to remove the [WIP] tag and fill all the pull request fields.
+- Base your branch and the PR from the `develop` branch.
 
 ## Better world!
 
