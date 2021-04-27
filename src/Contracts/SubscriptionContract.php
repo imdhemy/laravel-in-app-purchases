@@ -37,4 +37,9 @@ interface SubscriptionContract
      * @return mixed|SubscriptionPurchase|ReceiptResponse
      */
     public function getProviderRepresentation();
+
+    /**
+     * @return string
+     */
+    public function getTransactionId(): string;
 }

@@ -62,4 +62,12 @@ class AppStoreSubscription implements SubscriptionContract
     {
         return $this->receipt;
     }
+
+    /**
+     * @return string
+     */
+    public function getTransactionId(): string
+    {
+        return $this->receipt->getTransactionId();
+    }
 }

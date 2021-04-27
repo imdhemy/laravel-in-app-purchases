@@ -106,4 +106,12 @@ class GoogleSubscription implements SubscriptionContract
     {
         return $this->subscription;
     }
+
+    /**
+     * @return string
+     */
+    public function getTransactionId(): string
+    {
+        return $this->subscription->getOrderId();
+    }
 }
