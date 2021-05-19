@@ -46,7 +46,7 @@ class AppStoreServerNotification implements ServerNotificationContract
      */
     public function isTest(): bool
     {
-        return false;
+        return ServerNotification::ENV_SANDBOX === $this->notification->environment;
     }
 
     /**
