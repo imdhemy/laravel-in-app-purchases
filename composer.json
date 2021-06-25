@@ -22,7 +22,7 @@
         "ext-json": "*",
         "imdhemy/appstore-iap": "^0.3",
         "nesbot/carbon": "^2.41",
-        "simpleclick/google-play-billing": "^0.6.4"
+        "simpleclick/google-play-billing": "^0.6.5"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.17",
