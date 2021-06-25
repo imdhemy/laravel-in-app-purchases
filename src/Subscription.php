@@ -247,4 +247,31 @@ class Subscription
 
         return new AppStoreSubscription($response->getLatestReceiptInfo()[0]);
     }
+
+    /**
+     * @param string|null
+     * @throws GuzzleException
+     */
+    public function cancel(): void
+    {
+        $this->createSubscription()->cancel();
+    }
+
+    /**
+     * @param string|null
+     * @throws GuzzleException
+     */
+    public function refund(): void
+    {
+        $this->createSubscription()->refund();
+    }
+
+    /**
+     * @param string|null
+     * @throws GuzzleException
+     */
+    public function revoke(): void
+    {
+        $this->createSubscription()->revoke();
+    }
 }
