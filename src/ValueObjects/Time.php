@@ -6,7 +6,7 @@ namespace Imdhemy\Purchases\ValueObjects;
 use Carbon\Carbon;
 use DateTime;
 use Imdhemy\AppStore\ValueObjects\Time as AppStoreTime;
-use Imdhemy\GooglePlay\ValueObjects\Time as GoogleTime;
+use Simpleclick\GooglePlay\ValueObjects\Time as GoogleTime;
 
 final class Time
 {

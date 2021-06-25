@@ -4,7 +4,7 @@
 namespace Imdhemy\Purchases\Contracts;
 
 use Imdhemy\AppStore\Receipts\ReceiptResponse;
-use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
+use Simpleclick\GooglePlay\Subscriptions\SubscriptionPurchase;
 use Imdhemy\Purchases\ValueObjects\Time;
 
 /**

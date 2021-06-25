@@ -5,8 +5,8 @@ namespace Imdhemy\Purchases\Subscriptions;
 
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
-use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
-use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
+use Simpleclick\GooglePlay\DeveloperNotifications\DeveloperNotification;
+use Simpleclick\GooglePlay\Subscriptions\SubscriptionPurchase;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\Facades\Subscription;
 use Imdhemy\Purchases\ValueObjects\Time;

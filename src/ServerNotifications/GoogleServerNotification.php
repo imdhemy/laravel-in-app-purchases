@@ -5,8 +5,8 @@ namespace Imdhemy\Purchases\ServerNotifications;
 
 use Exception;
 use GuzzleHttp\Exception\GuzzleException;
-use Imdhemy\GooglePlay\ClientFactory;
-use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
+use Simpleclick\GooglePlay\ClientFactory;
+use Simpleclick\GooglePlay\DeveloperNotifications\DeveloperNotification;
 use Imdhemy\Purchases\Contracts\ServerNotificationContract;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\Subscriptions\GoogleSubscription;

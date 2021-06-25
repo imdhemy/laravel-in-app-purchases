@@ -4,7 +4,7 @@
 namespace Imdhemy\Purchases\Events\GooglePlay;
 
 use Illuminate\Support\Str;
-use Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification;
+use Simpleclick\GooglePlay\DeveloperNotifications\SubscriptionNotification;
 use Imdhemy\Purchases\Contracts\PurchaseEventContract;
 use Imdhemy\Purchases\ServerNotifications\GoogleServerNotification;
 use ReflectionClass;

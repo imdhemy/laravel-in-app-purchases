@@ -10,12 +10,12 @@ use Imdhemy\AppStore\ClientFactory as AppStoreClientFactory;
 use Imdhemy\AppStore\Exceptions\InvalidReceiptException;
 use Imdhemy\AppStore\Receipts\ReceiptResponse;
 use Imdhemy\AppStore\Receipts\Verifier;
-use Imdhemy\GooglePlay\ClientFactory as GooglePlayClientFactory;
-use Imdhemy\GooglePlay\Subscriptions\Subscription as GooglePlaySubscription;
-use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
-use Imdhemy\Purchases\Contracts\SubscriptionContract;
-use Imdhemy\Purchases\Subscriptions\AppStoreSubscription;
-use Imdhemy\Purchases\Subscriptions\GoogleSubscription;
+use Simpleclick\GooglePlay\ClientFactory as GooglePlayClientFactory;
+use Simpleclick\GooglePlay\Subscriptions\Subscription as GooglePlaySubscription;
+use Simpleclick\GooglePlay\Subscriptions\SubscriptionPurchase;
+use Simpleclick\Purchases\Contracts\SubscriptionContract;
+use Simpleclick\Purchases\Subscriptions\AppStoreSubscription;
+use Simpleclick\Purchases\Subscriptions\GoogleSubscription;
 
 class Subscription
 {

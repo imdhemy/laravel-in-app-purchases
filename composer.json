@@ -1,5 +1,5 @@
 {
-    "name": "imdhemy/laravel-purchases",
+    "name": "simpleclick/laravel-purchases",
     "description": "Laravel receipt validator for Google Play",
     "keywords": [
         "laravel-in-app-purchases",
@@ -7,13 +7,13 @@
         "in_app_purchases",
         "laravel"
     ],
-    "homepage": "https://github.com/imdhemy/laravel-in-app-purchases",
+    "homepage": "https://github.com/simpleclickau/laravel-in-app-purchases",
     "license": "MIT",
     "authors": [
         {
-            "name": "imdhemy",
-            "email": "imdhemy@gmail.com",
-            "homepage": "http://dhemy.studio",
+            "name": "simpleclickau",
+            "email": "webmaster@simpleclick.com.au",
+            "homepage": "https://www.simpleclick.com.au/",
             "role": "Developer"
         }
     ],
@@ -21,8 +21,8 @@
         "php": ">=7.1",
         "ext-json": "*",
         "imdhemy/appstore-iap": "^0.3",
-        "imdhemy/google-play-billing": "^0.6",
-        "nesbot/carbon": "^2.41"
+        "nesbot/carbon": "^2.41",
+        "simpleclick/google-play-billing": "^0.6.4"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.17",

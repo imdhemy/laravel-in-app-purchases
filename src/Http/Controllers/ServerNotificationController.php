@@ -5,7 +5,7 @@ namespace Imdhemy\Purchases\Http\Controllers;
 
 use Illuminate\Support\Facades\Log;
 use Imdhemy\AppStore\ServerNotifications\ServerNotification;
-use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
+use Simpleclick\GooglePlay\DeveloperNotifications\DeveloperNotification;
 use Imdhemy\Purchases\Events\AppStore\EventFactory as AppStoreEventFactory;
 use Imdhemy\Purchases\Events\GooglePlay\EventFactory as GooglePlayEventFactory;
 use Imdhemy\Purchases\Http\Requests\AppStoreServerNotificationRequest;

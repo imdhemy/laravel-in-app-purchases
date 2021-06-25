@@ -10,9 +10,9 @@ use Imdhemy\AppStore\ClientFactory as AppStoreClientFactory;
 use Imdhemy\AppStore\Exceptions\InvalidReceiptException;
 use Imdhemy\AppStore\Receipts\ReceiptResponse;
 use Imdhemy\AppStore\Receipts\Verifier;
-use Imdhemy\GooglePlay\ClientFactory as GooglePlayClientFactory;
-use Imdhemy\GooglePlay\Products\Product as GooglePlayProduct;
-use Imdhemy\GooglePlay\Products\ProductPurchase;
+use Simpleclick\GooglePlay\ClientFactory as GooglePlayClientFactory;
+use Simpleclick\GooglePlay\Products\Product as GooglePlayProduct;
+use Simpleclick\GooglePlay\Products\ProductPurchase;
 
 class Product
 {
