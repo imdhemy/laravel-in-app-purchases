@@ -44,8 +44,9 @@ class ServerNotificationController extends Controller
 
     /**
      * @param AppStoreServerNotificationRequest $request
+     * public function apple(AppStoreServerNotificationRequest $request)
      */
-    public function apple(AppStoreServerNotificationRequest $request)
+    public function apple(Request $request) // bypass parameter rules
     {
         $attributes = $request->all();
         $serverNotification = ServerNotification::fromArray($attributes);
