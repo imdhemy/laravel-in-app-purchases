@@ -1,5 +1,5 @@
 {
-    "name": "imdhemy/laravel-purchases",
+    "name": "imdhemy-simpleclick-dustin/laravel-purchases",
     "description": "Laravel receipt validator for Google Play",
     "keywords": [
         "laravel-in-app-purchases",
@@ -7,7 +7,7 @@
         "in_app_purchases",
         "laravel"
     ],
-    "homepage": "https://github.com/imdhemy/laravel-in-app-purchases",
+    "homepage": "https://github.com/DustinSRamirez/laravel-in-app-purchases",
     "license": "MIT",
     "authors": [
         {
