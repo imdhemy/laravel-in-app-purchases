@@ -10,11 +10,17 @@ use Imdhemy\Purchases\Events\AppStore\EventFactory as AppStoreEventFactory;
 use Imdhemy\Purchases\Events\GooglePlay\EventFactory as GooglePlayEventFactory;
 use Imdhemy\Purchases\Http\Requests\AppStoreServerNotificationRequest;
 use Imdhemy\Purchases\Http\Requests\GoogleDeveloperNotificationRequest;
+use Imdhemy\Purchases\Http\Requests\HuaweiStoreNotificationRequest;
 use Imdhemy\Purchases\ServerNotifications\AppStoreServerNotification;
 use Imdhemy\Purchases\ServerNotifications\GoogleServerNotification;
 
 class ServerNotificationController extends Controller
 {
+    public function huawei(HuaweiStoreNotificationRequest $request)
+    {
+
+    }
+
     /**
      * @param GoogleDeveloperNotificationRequest $request
      */
