@@ -140,20 +140,6 @@ class Subscription
     }
 
     /**
-     * @param  string  $productId
-     * @param  string  $purchaseToken
-     * @return OrderResponse|SubscriptionResponse
-     */
-    public function appGalleryValidatePurchase(string $productId, string $purchaseToken)
-    {
-        $type = Validator::TYPE_ORDER;
-
-        $purchaseData = new PurchaseData($type, null, $purchaseToken, $productId);
-
-        return $this->appGalleryValidator->validate($this->appGalleryCredentials, $purchaseData);
-    }
-
-    /**
      * @param  string  $itemId
      * @return self
      */

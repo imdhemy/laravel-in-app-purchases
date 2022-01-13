@@ -6,6 +6,11 @@ namespace Imdhemy\Purchases;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
+use Huawei\IAP\AuthorizationCredentials;
+use Huawei\IAP\PurchaseData;
+use Huawei\IAP\Response\OrderResponse;
+use Huawei\IAP\Response\SubscriptionResponse;
+use Huawei\IAP\Validator;
 use Imdhemy\AppStore\ClientFactory as AppStoreClientFactory;
 use Imdhemy\AppStore\Exceptions\InvalidReceiptException;
 use Imdhemy\AppStore\Receipts\ReceiptResponse;
@@ -47,6 +52,16 @@ class Product
     protected $password;
 
     /**
+     * @var AuthorizationCredentials
+     */
+    protected $appGalleryCredentials;
+
+    /**
+     * @var Validator
+     */
+    protected $appGalleryValidator;
+
+    /**
      * @param ClientInterface|null $client
      * @return self
      */
@@ -67,6 +82,20 @@ class Product
 
         $this->client = AppStoreClientFactory::create($sandbox);
         $this->password = config('purchase.appstore_password');
+
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    public function appGallery(): self
+    {
+        $appGalleryAppId = config('purchase.app_gallery_app_id');
+        $appGalleryAppKey = config('purchase.app_gallery_app_key');
+
+        $this->appGalleryCredentials = new AuthorizationCredentials($appGalleryAppId, $appGalleryAppKey);
+        $this->appGalleryValidator = new Validator();
 
         return $this;
     }
@@ -142,6 +171,20 @@ class Product
         $this->receiptData = $receiptData;
 
         return $this;
+    }
+
+    /**
+     * @param  string  $productId
+     * @param  string  $purchaseToken
+     * @return OrderResponse|SubscriptionResponse
+     */
+    public function appGalleryValidatePurchase(string $productId, string $purchaseToken)
+    {
+        $type = Validator::TYPE_ORDER;
+
+        $purchaseData = new PurchaseData($type, null, $purchaseToken, $productId);
+
+        return $this->appGalleryValidator->validate($this->appGalleryCredentials, $purchaseData);
     }
 
     /**
