@@ -9,12 +9,19 @@ use Imdhemy\Purchases\ValueObjects\Time;
 class AppGallerySubscription implements \Imdhemy\Purchases\Contracts\SubscriptionContract
 {
 
+    private $statusUpdateNotification;
+
+    public function __construct($statusUpdateNotification)
+    {
+        $this->statusUpdateNotification = $statusUpdateNotification;
+    }
+
     /**
      * @inheritDoc
      */
     public function getExpiryTime(): Time
     {
-        // TODO: Implement getExpiryTime() method.
+        return new Time($this->statusUpdateNotification->latestReceiptInfo->expirationDate);
     }
 
     /**
@@ -22,7 +29,7 @@ class AppGallerySubscription implements \Imdhemy\Purchases\Contracts\Subscriptio
      */
     public function getItemId(): string
     {
-        // TODO: Implement getItemId() method.
+        return $this->statusUpdateNotification->productId;
     }
 
     /**
@@ -30,7 +37,7 @@ class AppGallerySubscription implements \Imdhemy\Purchases\Contracts\Subscriptio
      */
     public function getProvider(): string
     {
-        // TODO: Implement getProvider() method.
+        return 'app_gallery';
     }
 
     /**
@@ -38,7 +45,7 @@ class AppGallerySubscription implements \Imdhemy\Purchases\Contracts\Subscriptio
      */
     public function getUniqueIdentifier(): string
     {
-        // TODO: Implement getUniqueIdentifier() method.
+        return $this->statusUpdateNotification->latestReceiptInfo->purchaseToken;
     }
 
     /**
@@ -46,6 +53,6 @@ class AppGallerySubscription implements \Imdhemy\Purchases\Contracts\Subscriptio
      */
     public function getProviderRepresentation()
     {
-        // TODO: Implement getProviderRepresentation() method.
+        return $this->statusUpdateNotification;
     }
 }

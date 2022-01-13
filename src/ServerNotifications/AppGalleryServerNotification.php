@@ -4,6 +4,7 @@ namespace Imdhemy\Purchases\ServerNotifications;
 
 use Imdhemy\Purchases\Contracts\ServerNotificationContract;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
+use Imdhemy\Purchases\Subscriptions\AppGallerySubscription;
 
 class AppGalleryServerNotification implements ServerNotificationContract
 {
@@ -13,6 +14,7 @@ class AppGalleryServerNotification implements ServerNotificationContract
     public function __construct($statusUpdateNotification)
     {
         $this->statusUpdateNotification = $statusUpdateNotification;
+        $this->statusUpdateNotification->latestReceiptInfo = json_decode($this->statusUpdateNotification->latestReceiptInfo);
     }
 
     public function getType(): string
@@ -22,16 +24,20 @@ class AppGalleryServerNotification implements ServerNotificationContract
 
     public function getSubscription(array $jsonKey = []): SubscriptionContract
     {
-        // TODO: Implement getSubscription() method.
+        return new AppGallerySubscription($this->statusUpdateNotification);
     }
 
     public function isTest(): bool
     {
-        // TODO: Implement isTest() method.
+        if ($this->statusUpdateNotification->environment == 'PROD') {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public function getBundle(): string
     {
-        // TODO: Implement getBundle() method.
+        return $this->statusUpdateNotification->latestReceiptInfo->packageName;
     }
 }
