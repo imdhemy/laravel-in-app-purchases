@@ -32,6 +32,10 @@ return [
 
     'appstore_password' => env('APPSTORE_PASSWORD', ''),
 
+    'app_gallery_app_id' => env('APP_GALLERY_APP_ID', '123456789'),
+
+    'app_gallery_app_key' => env('APP_GALLERY_APP_KEY', 'XXXYYYZZZ'),
+
     'eventListeners' => [
         /**
          * --------------------------------------------------------

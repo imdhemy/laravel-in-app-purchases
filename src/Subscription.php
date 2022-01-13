@@ -6,6 +6,11 @@ namespace Imdhemy\Purchases;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
+use Huawei\IAP\AuthorizationCredentials;
+use Huawei\IAP\PurchaseData;
+use Huawei\IAP\Response\OrderResponse;
+use Huawei\IAP\Response\SubscriptionResponse;
+use Huawei\IAP\Validator;
 use Imdhemy\AppStore\ClientFactory as AppStoreClientFactory;
 use Imdhemy\AppStore\Exceptions\InvalidReceiptException;
 use Imdhemy\AppStore\Receipts\ReceiptResponse;
@@ -70,7 +75,17 @@ class Subscription
     protected $isGoogle = false;
 
     /**
-     * @param ClientInterface|null $client
+     * @var AuthorizationCredentials
+     */
+    protected $appGalleryCredentials;
+
+    /**
+     * @var Validator
+     */
+    protected $appGalleryValidator;
+
+    /**
+     * @param  ClientInterface|null  $client
      * @return self
      */
     public function googlePlay(?ClientInterface $client = null): self
@@ -96,7 +111,50 @@ class Subscription
     }
 
     /**
-     * @param string $itemId
+     * @return self
+     */
+    public function appGallery(): self
+    {
+        $appGalleryAppId = config('purchase.app_gallery_app_id');
+        $appGalleryAppKey = config('purchase.app_gallery_app_key');
+
+        $this->appGalleryCredentials = new AuthorizationCredentials($appGalleryAppId, $appGalleryAppKey);
+        $this->appGalleryValidator = new Validator();
+
+        return $this;
+    }
+
+    /**
+     * @param  string  $subscriptionId
+     * @param  string  $productId
+     * @param  string  $purchaseToken
+     * @return OrderResponse|SubscriptionResponse
+     */
+    public function appGalleryValidateSubscription(string $subscriptionId, string $productId, string $purchaseToken)
+    {
+        $type = Validator::TYPE_SUBSCRIPTION;
+
+        $purchaseData = new PurchaseData($type, $subscriptionId, $purchaseToken, $productId);
+
+        return $this->appGalleryValidator->validate($this->appGalleryCredentials, $purchaseData);
+    }
+
+    /**
+     * @param  string  $productId
+     * @param  string  $purchaseToken
+     * @return OrderResponse|SubscriptionResponse
+     */
+    public function appGalleryValidatePurchase(string $productId, string $purchaseToken)
+    {
+        $type = Validator::TYPE_ORDER;
+
+        $purchaseData = new PurchaseData($type, null, $purchaseToken, $productId);
+
+        return $this->appGalleryValidator->validate($this->appGalleryCredentials, $purchaseData);
+    }
+
+    /**
+     * @param  string  $itemId
      * @return self
      */
     public function id(string $itemId): self
@@ -107,7 +165,7 @@ class Subscription
     }
 
     /**
-     * @param string $token
+     * @param  string  $token
      * @return self
      */
     public function token(string $token): self
@@ -118,7 +176,7 @@ class Subscription
     }
 
     /**
-     * @param string $packageName
+     * @param  string  $packageName
      * @return self
      */
     public function packageName(string $packageName): self
@@ -187,7 +245,7 @@ class Subscription
     }
 
     /**
-     * @param string|null $developerPayload
+     * @param  string|null  $developerPayload
      * @throws GuzzleException
      */
     public function acknowledge(?string $developerPayload = null): void
@@ -209,7 +267,7 @@ class Subscription
     }
 
     /**
-     * @param string $receiptData
+     * @param  string  $receiptData
      * @return $this
      */
     public function receiptData(string $receiptData): self
@@ -220,7 +278,7 @@ class Subscription
     }
 
     /**
-     * @param string $password
+     * @param  string  $password
      * @return $this
      */
     public function password(string $password): self

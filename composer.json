@@ -22,7 +22,8 @@
         "ext-json": "*",
         "imdhemy/appstore-iap": "^0.3",
         "imdhemy/google-play-billing": "^0.6",
-        "nesbot/carbon": "^2.41"
+        "nesbot/carbon": "^2.41",
+        "stafox/huawei-iap": "1.0.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.17",
@@ -48,7 +49,10 @@
         "format": "vendor/bin/php-cs-fixer fix --allow-risky=yes"
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/package-versions-deprecated": false
+        }
     },
     "extra": {
         "laravel": {
