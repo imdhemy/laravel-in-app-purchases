@@ -6,19 +6,25 @@ namespace Imdhemy\Purchases\Http\Controllers;
 use Illuminate\Support\Facades\Log;
 use Imdhemy\AppStore\ServerNotifications\ServerNotification;
 use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
+use Imdhemy\Purchases\Events\AppGallery\EventFactory as AppGalleryEventFactory;
 use Imdhemy\Purchases\Events\AppStore\EventFactory as AppStoreEventFactory;
 use Imdhemy\Purchases\Events\GooglePlay\EventFactory as GooglePlayEventFactory;
 use Imdhemy\Purchases\Http\Requests\AppStoreServerNotificationRequest;
 use Imdhemy\Purchases\Http\Requests\GoogleDeveloperNotificationRequest;
 use Imdhemy\Purchases\Http\Requests\HuaweiStoreNotificationRequest;
+use Imdhemy\Purchases\ServerNotifications\AppGalleryServerNotification;
 use Imdhemy\Purchases\ServerNotifications\AppStoreServerNotification;
 use Imdhemy\Purchases\ServerNotifications\GoogleServerNotification;
 
 class ServerNotificationController extends Controller
 {
+    /**
+     * @param HuaweiStoreNotificationRequest $request
+     */
     public function huawei(HuaweiStoreNotificationRequest $request)
     {
-
+        $notification = new AppGalleryServerNotification($request->statusUpdateNotification);
+        event(AppGalleryEventFactory::create($notification));
     }
 
     /**

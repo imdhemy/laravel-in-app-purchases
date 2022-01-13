@@ -24,6 +24,19 @@ use Imdhemy\Purchases\Events\GooglePlay\SubscriptionRecovered;
 use Imdhemy\Purchases\Events\GooglePlay\SubscriptionRenewed;
 use Imdhemy\Purchases\Events\GooglePlay\SubscriptionRestarted;
 use Imdhemy\Purchases\Events\GooglePlay\SubscriptionRevoked;
+use Imdhemy\Purchases\Events\AppGallery\Cancel as AppGalleryCancel;
+use Imdhemy\Purchases\Events\AppGallery\Deferred as AppGalleryDeferred;
+use Imdhemy\Purchases\Events\AppGallery\InitialBuy as AppGalleryInitialBuy;
+use Imdhemy\Purchases\Events\AppGallery\InteractiveRenewal as AppGalleryInteractiveRenewal;
+use Imdhemy\Purchases\Events\AppGallery\NewRenewalPref as AppGalleryNewRenewalPref;
+use Imdhemy\Purchases\Events\AppGallery\OnHold as AppGalleryOnHold;
+use Imdhemy\Purchases\Events\AppGallery\Paused as AppGalleryPaused;
+use Imdhemy\Purchases\Events\AppGallery\PausePlanChanged as AppGalleryPausePlanChanged;
+use Imdhemy\Purchases\Events\AppGallery\PriceChangeConfirmed as AppGalleryPriceChangeConfirmed;
+use Imdhemy\Purchases\Events\AppGallery\Renewal as AppGalleryRenewal;
+use Imdhemy\Purchases\Events\AppGallery\RenewalRecurring as AppGalleryRenewalRecurring;
+use Imdhemy\Purchases\Events\AppGallery\RenewalRestored as AppGalleryRenewalRestored;
+use Imdhemy\Purchases\Events\AppGallery\RenewalStopped as AppGalleryRenewalStopped;
 
 return [
     'routing' => [],
@@ -72,5 +85,24 @@ return [
         PriceIncreaseConsent::class => [],
         Refund::class => [],
         Revoke::class => [],
+
+        /**
+         * --------------------------------------------------------
+         * Appstore Events
+         * --------------------------------------------------------
+         */
+        AppGalleryCancel::class => [],
+        AppGalleryDeferred::class => [],
+        AppGalleryInitialBuy::class => [],
+        AppGalleryInteractiveRenewal::class => [],
+        AppGalleryNewRenewalPref::class => [],
+        AppGalleryOnHold::class => [],
+        AppGalleryPaused::class => [],
+        AppGalleryPausePlanChanged::class => [],
+        AppGalleryPriceChangeConfirmed::class => [],
+        AppGalleryRenewal::class => [],
+        AppGalleryRenewalRecurring::class => [],
+        AppGalleryRenewalRestored::class => [],
+        AppGalleryRenewalStopped::class => []
     ],
 ];
