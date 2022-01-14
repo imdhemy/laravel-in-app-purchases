@@ -21,6 +21,11 @@
             "name": "skelag",
             "email": "cugfug576@gmail.com",
             "role": "Developer"
+        },
+        {
+            "name": "chfur",
+            "homepage": "https://github.com/CHfur",
+            "role": "Developer"
         }
     ],
     "require": {

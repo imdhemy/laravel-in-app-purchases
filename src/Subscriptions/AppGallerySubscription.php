@@ -2,18 +2,21 @@
 
 namespace Imdhemy\Purchases\Subscriptions;
 
-use Imdhemy\AppStore\Receipts\ReceiptResponse;
-use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
+use Huawei\IAP\Response\SubscriptionResponse;
+use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\ValueObjects\Time;
 
-class AppGallerySubscription implements \Imdhemy\Purchases\Contracts\SubscriptionContract
+class AppGallerySubscription implements SubscriptionContract
 {
 
-    private $statusUpdateNotification;
+    /**
+     * @var SubscriptionResponse
+     */
+    private $subscriptionResponse;
 
-    public function __construct($statusUpdateNotification)
+    public function __construct(SubscriptionResponse $subscriptionResponse)
     {
-        $this->statusUpdateNotification = $statusUpdateNotification;
+        $this->subscriptionResponse = $subscriptionResponse;
     }
 
     /**
@@ -21,7 +24,7 @@ class AppGallerySubscription implements \Imdhemy\Purchases\Contracts\Subscriptio
      */
     public function getExpiryTime(): Time
     {
-        return new Time($this->statusUpdateNotification->latestReceiptInfo->expirationDate);
+        return new Time($this->subscriptionResponse->getExpirationDate());
     }
 
     /**
@@ -29,7 +32,7 @@ class AppGallerySubscription implements \Imdhemy\Purchases\Contracts\Subscriptio
      */
     public function getItemId(): string
     {
-        return $this->statusUpdateNotification->productId;
+        return $this->subscriptionResponse->getProductId();
     }
 
     /**
@@ -45,7 +48,7 @@ class AppGallerySubscription implements \Imdhemy\Purchases\Contracts\Subscriptio
      */
     public function getUniqueIdentifier(): string
     {
-        return $this->statusUpdateNotification->latestReceiptInfo->purchaseToken;
+        return $this->subscriptionResponse->getPurchaseToken();
     }
 
     /**
@@ -53,6 +56,6 @@ class AppGallerySubscription implements \Imdhemy\Purchases\Contracts\Subscriptio
      */
     public function getProviderRepresentation()
     {
-        return $this->statusUpdateNotification;
+        return $this->subscriptionResponse;
     }
 }

@@ -23,7 +23,7 @@ class ServerNotificationController extends Controller
      */
     public function huawei(HuaweiStoreNotificationRequest $request)
     {
-        $notification = new AppGalleryServerNotification($request->statusUpdateNotification);
+        $notification = new AppGalleryServerNotification(json_decode($request->statusUpdateNotification));
         event(AppGalleryEventFactory::create($notification));
     }
 
