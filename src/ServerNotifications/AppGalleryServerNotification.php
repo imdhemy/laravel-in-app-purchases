@@ -38,8 +38,10 @@ class AppGalleryServerNotification implements ServerNotificationContract
     public function __construct(\stdClass $statusUpdateNotification)
     {
         $this->statusUpdateNotification = $statusUpdateNotification;
+
+        $this->subscriptionResponse = new SubscriptionResponse(['inappPurchaseData' => $this->statusUpdateNotification->latestReceiptInfo]);
+
         $this->statusUpdateNotification->latestReceiptInfo = json_decode($this->statusUpdateNotification->latestReceiptInfo);
-        $this->subscriptionResponse = new SubscriptionResponse((array)$statusUpdateNotification);
     }
 
     public function getType(): string
