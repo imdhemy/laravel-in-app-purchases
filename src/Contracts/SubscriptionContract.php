@@ -3,6 +3,7 @@
 
 namespace Imdhemy\Purchases\Contracts;
 
+use Huawei\IAP\Response\SubscriptionResponse;
 use Imdhemy\AppStore\Receipts\ReceiptResponse;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
 use Imdhemy\Purchases\ValueObjects\Time;
@@ -34,7 +35,7 @@ interface SubscriptionContract
     public function getUniqueIdentifier(): string;
 
     /**
-     * @return mixed|SubscriptionPurchase|ReceiptResponse
+     * @return mixed|SubscriptionPurchase|ReceiptResponse|SubscriptionResponse
      */
     public function getProviderRepresentation();
 }
