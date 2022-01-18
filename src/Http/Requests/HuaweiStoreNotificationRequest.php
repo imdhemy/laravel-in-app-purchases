@@ -14,9 +14,9 @@ class HuaweiStoreNotificationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'statusUpdateNotification' => ['required', 'text'],
-            'notifycationSignature' => ['required', 'text'],
-            'signatureAlgorithm' => ['required', 'text']
+            'statusUpdateNotification' => ['required', 'string'],
+            'notifycationSignature' => ['required', 'string'],
+            'signatureAlgorithm' => ['required', 'string']
         ];
     }
 
