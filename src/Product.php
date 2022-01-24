@@ -9,7 +9,6 @@ use GuzzleHttp\Exception\GuzzleException;
 use Huawei\IAP\AuthorizationCredentials;
 use Huawei\IAP\PurchaseData;
 use Huawei\IAP\Response\OrderResponse;
-use Huawei\IAP\Response\SubscriptionResponse;
 use Huawei\IAP\Validator;
 use Imdhemy\AppStore\ClientFactory as AppStoreClientFactory;
 use Imdhemy\AppStore\Exceptions\InvalidReceiptException;
@@ -176,9 +175,9 @@ class Product
     /**
      * @param  string  $productId
      * @param  string  $purchaseToken
-     * @return OrderResponse|SubscriptionResponse
+     * @return OrderResponse
      */
-    public function appGalleryValidatePurchase(string $productId, string $purchaseToken)
+    public function appGalleryValidatePurchase(string $productId, string $purchaseToken): OrderResponse
     {
         $type = Validator::TYPE_ORDER;
 

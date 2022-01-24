@@ -6,11 +6,11 @@
         <img src="https://img.shields.io/packagist/dt/imdhemy/laravel-purchases.svg?style=flat-square" alt="Total Downloads">
         <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/imdhemy/laravel-in-app-purchases">
     </p>
-    <p> ✅ App Store ✅ Google Play </p>
+    <p> ✅ App Store ✅ Google Play ✅ App Gallery </p>
 </div>
 
 # Laravel In-App purchase
-Google Play and App Store provide the In-App Purchase (IAP) services. IAP can be used to sell a variety of content, including subscriptions, new features, and services. The purchase event and the payment process occurs on and handled by the mobile application (iOS and Android), then your backend needs to be informed about this purchase event to deliver the purchased product or update the user's subscription state.
+Google Play, App Store and App Gallery provide the In-App Purchase (IAP) services. IAP can be used to sell a variety of content, including subscriptions, new features, and services. The purchase event and the payment process occurs on and handled by the mobile application (iOS and Android), then your backend needs to be informed about this purchase event to deliver the purchased product or update the user's subscription state.
 
 **Laravel In-App purchase** comes to help you to parse and validate the purchased products and handle the different states of a subscription, like New subscription , auto-renew, cancellation, expiration and etc.
 
@@ -26,12 +26,18 @@ Google Play and App Store provide the In-App Purchase (IAP) services. IAP can be
   * [iii. App Store Configurations](#iii-app-store-configurations)
     + [iii.1 App Store Sandbox](#iii1-app-store-sandbox)
     + [iii.2 App Store Password](#iii2-app-store-password)
+  * [iiii. App Gallery Configurations](#iiii-app-gallery-configurations)
+    + [iiii.1 App Gallery App ID](#iiii1-app-gallery-app-id)
+    + [iiii.2 App Gallery App Key](#iiii2-app-gallery-app-key)
+    + [iiii.3 App Gallery Public Key](#iiii3-app-gallery-public-key)
 - [Sell Products](#sell-products)
   * [Google Products](#google-products)
   * [App Store Products](#app-store-products)
+  * [App Gallery Products](#app-gallery-products)
 - [Sell Subscriptions](#sell-subscriptions)
   * [Google Play Subscriptions](#google-play-subscriptions)
   * [App Store Subscriptions](#app-store-subscriptions)
+  * [App Gallery Subscriptions](#app-gallery-subscriptions)
 - [Purchase Events](#purchase-events)
 - [Testing](#testing)
 
@@ -91,6 +97,25 @@ return [
         InteractiveRenewal::class => [],
         PriceIncreaseConsent::class => [],
         Refund::class => [],
+        
+        /**
+         * --------------------------------------------------------
+         * AppGallery Events
+         * --------------------------------------------------------
+         */
+        AppGalleryCancel::class => [],
+        AppGalleryDeferred::class => [],
+        AppGalleryInitialBuy::class => [],
+        AppGalleryInteractiveRenewal::class => [],
+        AppGalleryNewRenewalPref::class => [],
+        AppGalleryOnHold::class => [],
+        AppGalleryPaused::class => [],
+        AppGalleryPausePlanChanged::class => [],
+        AppGalleryPriceChangeConfirmed::class => [],
+        AppGalleryRenewal::class => [],
+        AppGalleryRenewalRecurring::class => [],
+        AppGalleryRenewalRestored::class => [],
+        AppGalleryRenewalStopped::class => [],
     ],
 ];
 ```
@@ -98,15 +123,16 @@ return [
 Each configuration option is illustrated in the [configuration section](#configuration).
 
 ## i. Generic Configurations:
-The generic configurations are not specific to a particular provider of the two supported providers (Google and Apple).
+The generic configurations are not specific to a particular provider of the three supported providers (Google, Apple and Huawei).
 
 ### i.1 Routing
 This package adds two `POST` endpoints to receive the [Real-Time Developer Notifications](https://developer.android.com/google/play/billing/rtdn-reference), and the [The App Store Server Notifications](https://developer.apple.com/documentation/appstoreservernotifications).
 
-| Provider | URI | Name 
-| --- | --- | --- |
-| Google Play | `/purchases/subscriptions/google` |  `purchase.serverNotifications.google` |
-| App Store | `/purchases/subscriptions/apple` | `purchase.serverNotifications.apple` |
+| Provider    | URI                               | Name                                  |
+|-------------|-----------------------------------|---------------------------------------|
+| Google Play | `/purchases/subscriptions/google` | `purchase.serverNotifications.google` |
+| App Store   | `/purchases/subscriptions/apple`  | `purchase.serverNotifications.apple`  |
+| App Gallery | `/purchases/subscriptions/huawei` | `purchase.serverNotifications.huawei` |
 
 These routes can be configured through the `routing` key in the config file. For example:
 ```php
@@ -173,6 +199,19 @@ The configuration key `appstore_sandbox` is a boolean value that determines whet
 ### iii.2 App Store Password
 Request to the App Store requires the key `appstore_password` to be set. Your app’s shared secret, which is a hexadecimal string.
 
+## iiii. App Gallery Configurations
+The following set of configurations are specific to the App Gallery.
+
+### iiii.1 App Gallery App ID
+The `app_gallery_app_id` config key is your app ID, which you can get in AppGallery Connect -> Project Settings -> General information in section App information field App ID.
+
+### iiii.2 App Gallery App Key
+Request to the App Gallery requires OAuth 2.0 credentials, including the key `app_gallery_app_key`. Your app’s client secret, which is needed to get jwt.
+
+### iiii.3 App Gallery Public Key
+
+To verify the signature of server notifications, you need key `app_gallery_public_key`. The IAP request result will be signed by the private key of your app. This public key used to verify the signature with SHA256WithRSA.
+
 # Sell Products
 ## Google Products
  You can use the `\Imdhemy\Purchases\Facades\Product` facade to acknowledge or to get the receipt data from Google Play as follows:
@@ -200,7 +239,7 @@ For more information check:
 You can use the `\Imdhemy\Purchases\Facades\Product` to send a [verifyReceipt](https://developer.apple.com/documentation/appstorereceipts/verifyreceipt) request to the App Store. as follows:
 
 ```php
-use Imdhemy\AppStore\Receipts\ReceiptResponse;
+use \Imdhemy\AppStore\Receipts\ReceiptResponse;
 use \Imdhemy\Purchases\Facades\Product;
 
 $receiptData = 'the_base64_encoded_receipt_data';
@@ -212,6 +251,24 @@ As usual each key has a getter method.
 For more information check:
 1. [App Store Documentation](https://developer.apple.com/documentation/appstorereceipts/responsebody)
 2. [PHP App Store IAP package](https://github.com/imdhemy/appstore-iap)
+
+## App Gallery Products
+You can use the `\Imdhemy\Purchases\Facades\Product` to validate purchase and get receipt data as follows:
+
+```php
+use \Huawei\IAP\Response\OrderResponse;
+use \Imdhemy\Purchases\Facades\Product;
+
+$token = 'purchase_token';
+$productId = 'product_id';
+/** @var OrderResponse $orderResponse */
+$orderResponse = Product::appGallery()->appGalleryValidatePurchase($product_id, $token);
+```
+As usual each key has a getter method.
+
+For more information check:
+1. [App Gallery Documentation](https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/api-order-verify-purchase-token-0000001050746113)
+2. [PHP App Gallery IAP package](https://github.com/Stafox/huawei-iap)
  
 # Sell Subscriptions
 ## Google Play Subscriptions
@@ -260,6 +317,26 @@ $receiptResponse = Subscription::appStore()->receiptData($receiptData)->verifyRe
 For more information check:
 1. [Validating Receipts with the App Store](https://developer.apple.com/documentation/storekit/in-app_purchase/validating_receipts_with_the_app_store)
 2. [PHP App Store IAP package](https://github.com/imdhemy/appstore-iap)
+
+## App Gallery Subscriptions
+You can use the `\Imdhemy\Purchases\Facades\Subscription` to validate subscription purchase token and get receipt data. as follows:
+
+```php
+use Imdhemy\Purchases\Facades\Subscription;
+use \Huawei\IAP\Response\SubscriptionResponse;
+
+$token = 'purchase_token';
+$productId = 'product_id';
+$subscriptionId = 'subscription_id';
+
+/** @var SubscriptionResponse $subscriptionResponse */
+$subscriptionResponse = Subscription::appGallery()
+                              ->appGalleryValidateSubscription($subscriptionId, $productId, $token);
+```
+
+For more information check:
+1. [API for Verifying the Purchase Token for the Subscription Service](https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/api-subscription-verify-purchase-token-0000001050706080)
+2. [PHP App Gallery IAP package](https://github.com/Stafox/huawei-iap)
 
 # Purchase Events
 As mentioned the [configuration section](#i2-event-listeners), Your application should handle the different states of a subscription life. Each state update triggers a specified event. You can create an event listener to update your backend on each case.

@@ -8,7 +8,6 @@ use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use Huawei\IAP\AuthorizationCredentials;
 use Huawei\IAP\PurchaseData;
-use Huawei\IAP\Response\OrderResponse;
 use Huawei\IAP\Response\SubscriptionResponse;
 use Huawei\IAP\Validator;
 use Imdhemy\AppStore\ClientFactory as AppStoreClientFactory;
@@ -128,10 +127,13 @@ class Subscription
      * @param  string  $subscriptionId
      * @param  string  $productId
      * @param  string  $purchaseToken
-     * @return OrderResponse|SubscriptionResponse
+     * @return SubscriptionResponse
      */
-    public function appGalleryValidateSubscription(string $subscriptionId, string $productId, string $purchaseToken)
-    {
+    public function appGalleryValidateSubscription(
+        string $subscriptionId,
+        string $productId,
+        string $purchaseToken
+    ): SubscriptionResponse {
         $type = Validator::TYPE_SUBSCRIPTION;
 
         $purchaseData = new PurchaseData($type, $subscriptionId, $purchaseToken, $productId);

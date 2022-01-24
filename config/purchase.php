@@ -105,6 +105,6 @@ return [
         AppGalleryRenewal::class => [],
         AppGalleryRenewalRecurring::class => [],
         AppGalleryRenewalRestored::class => [],
-        AppGalleryRenewalStopped::class => []
+        AppGalleryRenewalStopped::class => [],
     ],
 ];
