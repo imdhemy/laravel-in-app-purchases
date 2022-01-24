@@ -49,6 +49,8 @@ return [
 
     'app_gallery_app_key' => env('APP_GALLERY_APP_KEY', 'XXXYYYZZZ'),
 
+    'app_gallery_public_key' => env('APP_GALLERY_PUBLIC_KEY', ''),
+
     'eventListeners' => [
         /**
          * --------------------------------------------------------

@@ -34,7 +34,8 @@
         "imdhemy/appstore-iap": "^0.3",
         "imdhemy/google-play-billing": "^0.6",
         "nesbot/carbon": "^2.41",
-        "stafox/huawei-iap": "1.0.0"
+        "stafox/huawei-iap": "1.0.0",
+        "ext-openssl": "*"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.17",

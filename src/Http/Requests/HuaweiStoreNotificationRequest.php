@@ -3,6 +3,8 @@
 namespace Imdhemy\Purchases\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use Imdhemy\Purchases\SignatureVerifier;
 
 class HuaweiStoreNotificationRequest extends FormRequest
 {
@@ -16,11 +18,10 @@ class HuaweiStoreNotificationRequest extends FormRequest
         return [
             'statusUpdateNotification' => ['required', 'string'],
             'notifycationSignature' => ['required', 'string'],
-            'signatureAlgorithm' => ['required', 'string']
+            'signatureAlgorithm' => ['required', 'string', Rule::in(['SHA256WithRSA/PSS'])]
         ];
     }
 
-    //TODO: check notifycationSignature valid
     /**
      * Authorizes the request
      *
@@ -28,6 +29,6 @@ class HuaweiStoreNotificationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return SignatureVerifier::verify($this->statusUpdateNotification, $this->notifycationSignature);
     }
 }
