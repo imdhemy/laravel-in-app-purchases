@@ -210,7 +210,7 @@ Request to the App Gallery requires OAuth 2.0 credentials, including the key `ap
 
 ### iiii.3 App Gallery Public Key
 
-To verify the signature of server notifications, you need key `app_gallery_public_key`. The IAP request result will be signed by the private key of your app. This public key used to verify the signature with SHA256WithRSA.
+To verify the signature of server notifications, you need key `app_gallery_public_key`. The IAP request result will be signed by the private key of your app. This public key used to verify the signature with SHA256WithRSA or SHA256WithRSA/PSS.
 
 # Sell Products
 ## Google Products

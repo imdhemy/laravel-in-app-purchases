@@ -35,6 +35,7 @@
         "imdhemy/google-play-billing": "^0.6",
         "nesbot/carbon": "^2.41",
         "stafox/huawei-iap": "1.0.0",
+        "phpseclib/phpseclib": "^3.0",
         "ext-openssl": "*"
     },
     "require-dev": {

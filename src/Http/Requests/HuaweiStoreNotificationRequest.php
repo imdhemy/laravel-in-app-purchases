@@ -18,7 +18,7 @@ class HuaweiStoreNotificationRequest extends FormRequest
         return [
             'statusUpdateNotification' => ['required', 'string'],
             'notifycationSignature' => ['required', 'string'],
-            'signatureAlgorithm' => ['required', 'string', Rule::in(['SHA256WithRSA/PSS'])]
+            'signatureAlgorithm' => ['required', 'string', Rule::in(['SHA256WithRSA/PSS', 'SHA256WithRSA'])]
         ];
     }
 
@@ -29,6 +29,10 @@ class HuaweiStoreNotificationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return SignatureVerifier::verify($this->statusUpdateNotification, $this->notifycationSignature);
+        return SignatureVerifier::verify(
+            $this->statusUpdateNotification,
+            $this->notifycationSignature,
+            $this->signatureAlgorithm
+        );
     }
 }
