@@ -3,6 +3,7 @@
 namespace Imdhemy\Purchases\Tests\Http\Controllers;
 
 use Illuminate\Support\Facades\Event;
+use Imdhemy\Purchases\Events\AppGallery\NewRenewalPref;
 use Imdhemy\Purchases\Events\AppStore\DidChangeRenewalStatus;
 use Imdhemy\Purchases\Events\GooglePlay\SubscriptionPurchased;
 use Imdhemy\Purchases\Tests\TestCase;
@@ -45,7 +46,7 @@ class ServerNotificationControllerTest extends TestCase
         $this->post($uri, $data)->assertStatus(200);
 
         $this->assertTrue(
-            ! empty(file_get_contents(storage_path("/logs/laravel.log")))
+            !empty(file_get_contents(storage_path("/logs/laravel.log")))
         );
     }
 
@@ -57,7 +58,7 @@ class ServerNotificationControllerTest extends TestCase
         Event::fake();
         $this->withoutExceptionHandling();
 
-        $data = json_decode(file_get_contents(__DIR__ . '/../../appstore-server-notification.json'), true);
+        $data = json_decode(file_get_contents(__DIR__.'/../../appstore-server-notification.json'), true);
         $uri = route('purchase.serverNotifications.apple');
         $this->post($uri, $data)->assertStatus(200);
 
@@ -67,16 +68,32 @@ class ServerNotificationControllerTest extends TestCase
     /**
      * @test
      */
+    public function test_app_gallery_server_notifications()
+    {
+        Event::fake();
+        $this->withoutExceptionHandling();
+        config(['purchase.app_gallery_public_key' => file_get_contents(__DIR__.'/../../appgallery_public_key')]);
+
+        $data = json_decode(file_get_contents(__DIR__.'/../../appgallery-server-notification.json'), true);
+        $uri = route('purchase.serverNotifications.huawei');
+        $this->post($uri, $data)->assertStatus(200);
+
+        Event::assertDispatched(NewRenewalPref::class);
+    }
+
+    /**
+     * @test
+     */
     public function test_it_logs_the_weird_ZnNk_weird_token()
     {
         file_put_contents(storage_path('logs/laravel.log'), "");
 
-        $data = json_decode(file_get_contents(__DIR__ . '/../../weird-token-from-google.json'), true);
+        $data = json_decode(file_get_contents(__DIR__.'/../../weird-token-from-google.json'), true);
         $uri = route('purchase.serverNotifications.google');
         $this->post($uri, $data)->assertStatus(200);
 
         $this->assertTrue(
-            ! empty(file_get_contents(storage_path("/logs/laravel.log")))
+            !empty(file_get_contents(storage_path("/logs/laravel.log")))
         );
     }
 }

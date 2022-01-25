@@ -1,5 +1,5 @@
 {
-    "name": "skelag/laravel-purchases",
+    "name": "imdhemy/laravel-purchases",
     "description": "Laravel receipt validator for Google Play, App Gallery and App Store",
     "keywords": [
         "laravel-in-app-purchases",

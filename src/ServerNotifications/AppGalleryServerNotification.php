@@ -9,7 +9,7 @@ use Imdhemy\Purchases\Subscriptions\AppGallerySubscription;
 
 class AppGalleryServerNotification implements ServerNotificationContract
 {
-    private const NOTIFICATION_TYPES = [
+    const NOTIFICATION_TYPES = [
         0 => 'INITIAL_BUY',
         1 => 'CANCEL',
         2 => 'RENEWAL',
