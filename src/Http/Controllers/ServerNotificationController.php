@@ -3,6 +3,9 @@
 
 namespace Imdhemy\Purchases\Http\Controllers;
 
+use CHfur\AppGallery\Exceptions\InvalidPublicKeyException;
+use CHfur\AppGallery\Exceptions\InvalidSignatureException;
+use CHfur\AppGallery\ServerNotifications\ServerNotification as HuaweiServerNotification;
 use Illuminate\Support\Facades\Log;
 use Imdhemy\AppStore\ServerNotifications\ServerNotification;
 use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
@@ -19,22 +22,33 @@ use Imdhemy\Purchases\ServerNotifications\GoogleServerNotification;
 class ServerNotificationController extends Controller
 {
     /**
-     * @param HuaweiStoreNotificationRequest $request
+     * @param  HuaweiStoreNotificationRequest  $request
+     * @throws InvalidPublicKeyException
+     * @throws InvalidSignatureException
      */
     public function huawei(HuaweiStoreNotificationRequest $request)
     {
-        $notification = new AppGalleryServerNotification(json_decode($request->statusUpdateNotification));
-        event(AppGalleryEventFactory::create($notification));
+        $attributes = $request->all();
+        $publicKey = config('purchase.app_gallery_public_key');
+        $serverNotification = HuaweiServerNotification::parse($attributes, $publicKey);
+        $appGalleryNotification = new AppGalleryServerNotification($serverNotification);
+
+        if ($appGalleryNotification->isTest()) {
+            Log::info("AppGallery Test Notification");
+        }
+
+        $event = AppGalleryEventFactory::create($appGalleryNotification);
+        event($event);
     }
 
     /**
-     * @param GoogleDeveloperNotificationRequest $request
+     * @param  GoogleDeveloperNotificationRequest  $request
      */
     public function google(GoogleDeveloperNotificationRequest $request)
     {
         $data = $request->getData();
 
-        if (! $this->isParsable($data)) {
+        if (!$this->isParsable($data)) {
             Log::info(sprintf("Google Play malformed RTDN: %s", json_encode($request->all())));
 
             return;
@@ -55,7 +69,7 @@ class ServerNotificationController extends Controller
     }
 
     /**
-     * @param AppStoreServerNotificationRequest $request
+     * @param  AppStoreServerNotificationRequest  $request
      */
     public function apple(AppStoreServerNotificationRequest $request)
     {
@@ -72,13 +86,13 @@ class ServerNotificationController extends Controller
     }
 
     /**
-     * @param string $data
+     * @param  string  $data
      * @return bool
      */
     protected function isParsable(string $data): bool
     {
         $decodedData = json_decode(base64_decode($data), true);
 
-        return ! is_null($decodedData);
+        return !is_null($decodedData);
     }
 }

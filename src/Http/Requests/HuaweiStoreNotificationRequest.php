@@ -2,9 +2,10 @@
 
 namespace Imdhemy\Purchases\Http\Requests;
 
+use CHfur\AppGallery\Exceptions\InvalidPublicKeyException;
+use CHfur\AppGallery\Validation\SignatureVerifier;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Imdhemy\Purchases\SignatureVerifier;
 
 class HuaweiStoreNotificationRequest extends FormRequest
 {
@@ -26,10 +27,12 @@ class HuaweiStoreNotificationRequest extends FormRequest
      * Authorizes the request
      *
      * @return bool
+     * @throws InvalidPublicKeyException
      */
     public function authorize(): bool
     {
-        return SignatureVerifier::verify(
+        $signatureVerifier = new SignatureVerifier(config('purchase.app_gallery_public_key'));
+        return $signatureVerifier->verify(
             $this->statusUpdateNotification,
             $this->notifycationSignature,
             $this->signatureAlgorithm

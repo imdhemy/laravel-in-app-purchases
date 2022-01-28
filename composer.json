@@ -33,10 +33,8 @@
         "ext-json": "*",
         "imdhemy/appstore-iap": "^0.3",
         "imdhemy/google-play-billing": "^0.6",
-        "nesbot/carbon": "^2.41",
-        "stafox/huawei-iap": "1.0.0",
-        "phpseclib/phpseclib": "^3.0",
-        "ext-openssl": "*"
+        "chfur/appgallery-iap": "^1.0",
+        "nesbot/carbon": "^2.41"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.17",
