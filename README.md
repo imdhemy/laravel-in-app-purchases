@@ -268,7 +268,7 @@ As usual each key has a getter method.
 
 For more information check:
 1. [App Gallery Documentation](https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/api-order-verify-purchase-token-0000001050746113)
-2. [PHP App Gallery IAP package](https://github.com/Stafox/huawei-iap)
+2. [PHP AppGallery IAP package](https://github.com/CHfur/appgallery-iap)
  
 # Sell Subscriptions
 ## Google Play Subscriptions
@@ -336,7 +336,7 @@ $subscriptionResponse = Subscription::appGallery()
 
 For more information check:
 1. [API for Verifying the Purchase Token for the Subscription Service](https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/api-subscription-verify-purchase-token-0000001050706080)
-2. [PHP App Gallery IAP package](https://github.com/Stafox/huawei-iap)
+2. [PHP AppGallery IAP package](https://github.com/CHfur/appgallery-iap)
 
 # Purchase Events
 As mentioned the [configuration section](#i2-event-listeners), Your application should handle the different states of a subscription life. Each state update triggers a specified event. You can create an event listener to update your backend on each case.

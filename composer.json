@@ -1,5 +1,5 @@
 {
-    "name": "skelag/laravel-purchases",
+    "name": "imdhemy/laravel-purchases",
     "description": "Laravel receipt validator for Google Play, App Gallery and App Store",
     "keywords": [
         "laravel-in-app-purchases",
@@ -15,16 +15,6 @@
             "name": "imdhemy",
             "email": "imdhemy@gmail.com",
             "homepage": "http://dhemy.studio",
-            "role": "Developer"
-        },
-        {
-            "name": "skelag",
-            "email": "cugfug576@gmail.com",
-            "role": "Developer"
-        },
-        {
-            "name": "chfur",
-            "homepage": "https://github.com/CHfur",
             "role": "Developer"
         }
     ],
