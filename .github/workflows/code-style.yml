@@ -1,0 +1,16 @@
+name: 'Code Style:PSR12'
+
+on: [push]
+
+jobs:
+  check_code_style:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+
+      - name: Check style
+        uses: docker://oskarstark/php-cs-fixer-ga
+        with:
+          args: --config=.php-cs-fixer.dist.php --dry-run

@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Q&A and Disscustions
+    url: https://github.com/imdhemy/laravel-in-app-purchases/discussions
+    about: Please ask and answer questions here.

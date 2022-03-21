@@ -1,0 +1,41 @@
+name: Tests
+on:
+  push:
+    branches:
+      - '*'
+      - '*/*'
+      - '**'
+  pull_request:
+    branches:
+      - '*'
+      - '*/*'
+      - '**'
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ ubuntu-20.04, windows-latest ]
+        php: [ 7.3, 7.4, 8.0 ]
+
+    name: PHP${{ matrix.php }} - ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring, bcmath
+          coverage: none
+
+      - name: Install requirements
+        run: composer install
+
+      - name: Execute PHPUnit tests
+        run: composer test
