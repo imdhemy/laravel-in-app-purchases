@@ -7,4 +7,3 @@ coverage
 .idea
 .php_cs.cache
 google-app-credentials.json
-phpunit.xml
