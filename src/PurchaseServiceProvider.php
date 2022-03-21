@@ -32,7 +32,7 @@ class PurchaseServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/purchase.php', 'purchase');
+        $this->mergeConfigFrom(__DIR__ . '/config/purchase.php', 'purchase');
         $this->app->register(EventServiceProvider::class);
 
         $this->app->bind('product', function () {
@@ -59,7 +59,7 @@ class PurchaseServiceProvider extends ServiceProvider
      */
     public function publishConfig(): void
     {
-        $paths = [__DIR__ . '/../config/purchase.php' => config_path('purchase.php')];
+        $paths = [__DIR__ . '/config/purchase.php' => config_path('purchase.php')];
         $this->publishes($paths, 'config');
     }
 
