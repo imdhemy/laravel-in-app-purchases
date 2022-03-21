@@ -1,6 +1,6 @@
 <?php
 
-namespace Imdhemy\Purchases\Tests\Facades;
+namespace Tests\Facades;
 
 use Exception;
 use GuzzleHttp\Exception\GuzzleException;
@@ -10,7 +10,7 @@ use Imdhemy\GooglePlay\ClientFactory;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\Facades\Subscription;
-use Imdhemy\Purchases\Tests\TestCase;
+use Tests\TestCase;
 
 class SubscriptionTest extends TestCase
 {
@@ -60,7 +60,9 @@ class SubscriptionTest extends TestCase
         // TODO: update testing and implementation due the recent update in Google Play Billing Package
         // It's not void anymore
         $this->assertNull(
-            Subscription::googlePlay()->packageName('com.twigano.fashion')->id($this->itemId)->token($this->token)->acknowledge()
+            Subscription::googlePlay()->packageName('com.twigano.fashion')->id($this->itemId)->token(
+                $this->token
+            )->acknowledge()
         );
     }
 

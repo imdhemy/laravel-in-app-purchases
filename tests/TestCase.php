@@ -1,10 +1,15 @@
 <?php
 
-namespace Imdhemy\Purchases\Tests;
+namespace Tests;
 
 use Imdhemy\Purchases\PurchaseServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
+/**
+ * Test Case
+ * All test cases that requires a laravel app instance
+ * should extend this class
+ */
 class TestCase extends Orchestra
 {
     /**
@@ -15,25 +20,26 @@ class TestCase extends Orchestra
         parent::setUp();
     }
 
-    protected function getPackageProviders($app)
+    /**
+     * @inheritdoc
+     */
+    protected function getPackageProviders($app): array
     {
         return [
             PurchaseServiceProvider::class,
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getEnvironmentSetUp($app)
     {
-        $path = __DIR__ . '/../google-app-credentials.json';
-        putenv(sprintf("GOOGLE_APPLICATION_CREDENTIALS=%s", $path));
-
         $app['config']->set('database.default', 'sqlite');
         $app['config']->set('database.connections.sqlite', [
             'driver' => 'sqlite',
             'database' => ':memory:',
             'prefix' => '',
         ]);
-
-        $app['config']->set('purchase.google_play_package_name', 'com.twigano.v2');
     }
 }

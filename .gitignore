@@ -1,10 +1,8 @@
 build
 composer.lock
-docs
 vendor
 coverage
 .phpunit.result.cache
 .idea
 .php_cs.cache
-google-app-credentials.json
 .php-cs-fixer.cache

@@ -1,6 +1,6 @@
 <?php
 
-namespace Imdhemy\Purchases\Tests\Events\AppStore;
+namespace Tests\Events\AppStore;
 
 use Imdhemy\AppStore\ServerNotifications\ServerNotification;
 use Imdhemy\Purchases\Contracts\PurchaseEventContract;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Imdhemy\Purchases\Tests\ServerNotifications;
+namespace Tests\ServerNotifications;
 
 use GuzzleHttp\Exception\GuzzleException;
 use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
@@ -8,7 +8,7 @@ use Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification;
 use Imdhemy\Purchases\Contracts\ServerNotificationContract;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\ServerNotifications\GoogleServerNotification;
-use Imdhemy\Purchases\Tests\TestCase;
+use Tests\TestCase;
 
 class GoogleServerNotificationTest extends TestCase
 {

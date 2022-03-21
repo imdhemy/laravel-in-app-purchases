@@ -1,11 +1,11 @@
 <?php
 
-namespace Imdhemy\Purchases\Tests\Http\Controllers;
+namespace Tests\Http\Controllers;
 
 use Illuminate\Support\Facades\Event;
 use Imdhemy\Purchases\Events\AppStore\DidChangeRenewalStatus;
 use Imdhemy\Purchases\Events\GooglePlay\SubscriptionPurchased;
-use Imdhemy\Purchases\Tests\TestCase;
+use Tests\TestCase;
 
 class ServerNotificationControllerTest extends TestCase
 {

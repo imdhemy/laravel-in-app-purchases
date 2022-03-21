@@ -1,11 +1,11 @@
 <?php
 
-namespace Imdhemy\Purchases\Tests\Subscriptions;
+namespace Tests\Subscriptions;
 
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\Subscriptions\AppStoreSubscription;
-use Imdhemy\Purchases\Tests\TestCase;
 use Imdhemy\Purchases\ValueObjects\Time;
+use Tests\TestCase;
 
 class AppStoreSubscriptionTest extends TestCase
 {

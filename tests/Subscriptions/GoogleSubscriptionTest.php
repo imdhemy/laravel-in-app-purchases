@@ -1,14 +1,14 @@
 <?php
 
-namespace Imdhemy\Purchases\Tests\Subscriptions;
+namespace Tests\Subscriptions;
 
 use GuzzleHttp\Exception\GuzzleException;
 use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\Facades\Subscription;
 use Imdhemy\Purchases\Subscriptions\GoogleSubscription;
-use Imdhemy\Purchases\Tests\TestCase;
 use Imdhemy\Purchases\ValueObjects\Time;
+use Tests\TestCase;
 
 class GoogleSubscriptionTest extends TestCase
 {
