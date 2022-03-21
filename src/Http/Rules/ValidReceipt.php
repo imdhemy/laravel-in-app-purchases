@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Imdhemy\Purchases\Http\Rules;
 
 use GuzzleHttp\Exception\GuzzleException;

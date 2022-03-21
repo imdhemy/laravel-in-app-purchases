@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Imdhemy\Purchases\Subscriptions;
 
 use Imdhemy\AppStore\ValueObjects\ReceiptInfo;

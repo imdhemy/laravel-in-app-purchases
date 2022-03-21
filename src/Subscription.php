@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Imdhemy\Purchases;
 
 use GuzzleHttp\Client;

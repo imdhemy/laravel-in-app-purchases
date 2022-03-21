@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Imdhemy\Purchases\Contracts;
 
 use Imdhemy\AppStore\Receipts\ReceiptResponse;

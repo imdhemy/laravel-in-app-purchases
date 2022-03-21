@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Imdhemy\Purchases\ServerNotifications;
 
 use Exception;
@@ -17,7 +16,7 @@ use Imdhemy\Purchases\Subscriptions\GoogleSubscription;
  */
 class GoogleServerNotification implements ServerNotificationContract
 {
-    const TESTING_NOTIFICATION = -1;
+    public const TESTING_NOTIFICATION = -1;
 
     /**
      * @var DeveloperNotification

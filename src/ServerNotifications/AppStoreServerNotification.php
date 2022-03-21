@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Imdhemy\Purchases\ServerNotifications;
 
 use Imdhemy\AppStore\ServerNotifications\ServerNotification;

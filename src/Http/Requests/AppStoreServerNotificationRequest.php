@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Imdhemy\Purchases\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;

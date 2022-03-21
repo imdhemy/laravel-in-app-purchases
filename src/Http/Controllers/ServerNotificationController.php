@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Imdhemy\Purchases\Http\Controllers;
 
 use Illuminate\Support\Facades\Log;
