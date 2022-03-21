@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Imdhemy\Purchases\Events;
 
 use Illuminate\Foundation\Events\Dispatchable;
@@ -13,7 +12,8 @@ use Imdhemy\Purchases\ServerNotifications\GoogleServerNotification;
 
 abstract class PurchaseEvent implements PurchaseEventContract
 {
-    use Dispatchable, SerializesModels;
+    use Dispatchable;
+    use SerializesModels;
 
     /**
      * @var ServerNotificationContract|AppStoreServerNotification|GoogleServerNotification

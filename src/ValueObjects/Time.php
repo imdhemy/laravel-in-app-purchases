@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Imdhemy\Purchases\ValueObjects;
 
 use Carbon\Carbon;

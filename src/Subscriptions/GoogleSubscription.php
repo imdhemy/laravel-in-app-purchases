@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Imdhemy\Purchases\Subscriptions;
 
 use GuzzleHttp\ClientInterface;

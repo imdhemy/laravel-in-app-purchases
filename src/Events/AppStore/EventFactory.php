@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Imdhemy\Purchases\Events\AppStore;
 
 use Illuminate\Support\Str;

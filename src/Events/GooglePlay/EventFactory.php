@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Imdhemy\Purchases\Events\GooglePlay;
 
 use Illuminate\Support\Str;
