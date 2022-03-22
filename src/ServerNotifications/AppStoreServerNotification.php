@@ -2,6 +2,7 @@
 
 namespace Imdhemy\Purchases\ServerNotifications;
 
+use GuzzleHttp\Client;
 use Imdhemy\AppStore\ServerNotifications\ServerNotification;
 use Imdhemy\AppStore\ValueObjects\ReceiptInfo;
 use Imdhemy\Purchases\Contracts\ServerNotificationContract;
@@ -34,10 +35,10 @@ class AppStoreServerNotification implements ServerNotificationContract
     }
 
     /**
-     * @param array $jsonKey
+     * @param Client|null $client
      * @return SubscriptionContract
      */
-    public function getSubscription(array $jsonKey = []): SubscriptionContract
+    public function getSubscription(?Client $client = null): SubscriptionContract
     {
         return new AppStoreSubscription($this->getFirstReceipt());
     }
