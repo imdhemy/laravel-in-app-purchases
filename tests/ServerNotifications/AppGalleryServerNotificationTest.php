@@ -2,6 +2,8 @@
 
 namespace Imdhemy\Purchases\Tests\ServerNotifications;
 
+use CHfur\AppGallery\ServerNotifications\ServerNotification;
+use CHfur\AppGallery\ServerNotifications\SubscriptionNotification;
 use Imdhemy\Purchases\Contracts\ServerNotificationContract;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\ServerNotifications\AppGalleryServerNotification;
@@ -20,8 +22,10 @@ class AppGalleryServerNotificationTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $serverNotificationBody = json_decode(file_get_contents(__DIR__.'/../appgallery-server-notification.json'));
-        $this->appGalleryServerNotification = new AppGalleryServerNotification(json_decode($serverNotificationBody->statusUpdateNotification));
+        $serverNotificationBody = json_decode(file_get_contents(__DIR__.'/../appgallery-server-notification.json'), true);
+        $publicKey = file_get_contents(__DIR__.'/../appgallery_public_key');
+        $serverNotification = ServerNotification::parse($serverNotificationBody, $publicKey);
+        $this->appGalleryServerNotification = new AppGalleryServerNotification($serverNotification);
     }
 
     /**
@@ -38,7 +42,7 @@ class AppGalleryServerNotificationTest extends TestCase
     public function test_get_notification_type()
     {
         $this->assertEquals(
-            AppGalleryServerNotification::NOTIFICATION_TYPES[4],
+            SubscriptionNotification::NOTIFICATION_TYPES[4],
             $this->appGalleryServerNotification->getType()
         );
     }
