@@ -3,6 +3,8 @@
 namespace Tests\Events;
 
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Psr7\Response;
+use Imdhemy\GooglePlay\ClientFactory;
 use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
 use Imdhemy\Purchases\Events\GooglePlay\SubscriptionRenewed;
 use Imdhemy\Purchases\Events\PurchaseEvent;
@@ -50,8 +52,10 @@ class PurchaseEventTest extends TestCase
      */
     public function test_it_can_get_subscription()
     {
+        $client = ClientFactory::mock(new Response(200, [], '[]'));
+
         $this->assertEquals(
-            $this->googleServerNotification->getSubscription(),
+            $this->googleServerNotification->getSubscription($client),
             $this->event->getSubscription()
         );
     }

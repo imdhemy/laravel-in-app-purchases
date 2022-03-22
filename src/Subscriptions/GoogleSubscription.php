@@ -50,7 +50,7 @@ class GoogleSubscription implements SubscriptionContract
         DeveloperNotification $developerNotification,
         ?ClientInterface $client = null
     ): self {
-        $notification = $developerNotification->getSubscriptionNotification();
+        $notification = $developerNotification->getPayload();
         $packageName = $developerNotification->getPackageName();
 
         $subscriptionPurchase = Subscription::googlePlay($client)

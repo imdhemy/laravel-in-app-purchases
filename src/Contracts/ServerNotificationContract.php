@@ -2,6 +2,8 @@
 
 namespace Imdhemy\Purchases\Contracts;
 
+use GuzzleHttp\Client;
+
 /**
  * Interface ServerNotificationContract
  * @package Imdhemy\Purchases\Events\Contracts
@@ -14,10 +16,10 @@ interface ServerNotificationContract
     public function getType(): string;
 
     /**
-     * @param array $jsonKey
+     * @param Client|null $client
      * @return SubscriptionContract
      */
-    public function getSubscription(array $jsonKey = []): SubscriptionContract;
+    public function getSubscription(?Client $client = null): SubscriptionContract;
 
     /**
      * @return bool
