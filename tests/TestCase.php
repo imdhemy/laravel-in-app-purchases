@@ -42,4 +42,20 @@ class TestCase extends Orchestra
             'prefix' => '',
         ]);
     }
+
+    /**
+     * Get the path to assets dir.
+     * @param string|null $path
+     * @return string
+     */
+    protected function testAssetPath(?string $path = null): string
+    {
+        $assetsPath = __DIR__ . '/assets';
+
+        if ($path) {
+            return $assetsPath . '/' . $path;
+        }
+
+        return $assetsPath;
+    }
 }
