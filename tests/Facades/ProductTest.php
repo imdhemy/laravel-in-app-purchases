@@ -3,7 +3,9 @@
 namespace Tests\Facades;
 
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Psr7\Response;
 use Imdhemy\AppStore\Receipts\ReceiptResponse;
+use Imdhemy\GooglePlay\ClientFactory;
 use Imdhemy\GooglePlay\Products\ProductPurchase;
 use Imdhemy\Purchases\Facades\Product;
 use Tests\TestCase;
@@ -36,7 +38,8 @@ class ProductTest extends TestCase
      */
     public function test_facade_can_get_google_play_product()
     {
-        $productPurchase = Product::googlePlay()->id($this->itemId)->token($this->token)->get();
+        $client = ClientFactory::mock(new Response(200, [], '[]'));
+        $productPurchase = Product::googlePlay($client)->id($this->itemId)->token($this->token)->get();
         $this->assertInstanceOf(ProductPurchase::class, $productPurchase);
     }
 
