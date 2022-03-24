@@ -4,9 +4,11 @@ namespace Tests\Facades;
 
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Response;
+use Imdhemy\AppStore\Exceptions\InvalidReceiptException;
 use Imdhemy\AppStore\Receipts\ReceiptResponse;
 use Imdhemy\GooglePlay\ClientFactory;
 use Imdhemy\GooglePlay\Products\ProductPurchase;
+use Imdhemy\GooglePlay\ValueObjects\EmptyResponse;
 use Imdhemy\Purchases\Facades\Product;
 use Tests\TestCase;
 
@@ -45,17 +47,19 @@ class ProductTest extends TestCase
 
     /**
      * @test
+     * @throws GuzzleException
      */
     public function test_facade_can_acknowledge_google_play_product()
     {
-        $this->assertNull(
-            Product::googlePlay()->id($this->itemId)->token($this->token)->acknowledge()
-        );
+        $client = ClientFactory::mock(new Response(200, [], '[]'));
+        $response = Product::googlePlay($client)->id($this->itemId)->token($this->token)->acknowledge();
+
+        $this->assertInstanceOf(EmptyResponse::class, $response);
     }
 
     /**
      * @test
-     * @throws GuzzleException
+     * @throws GuzzleException|InvalidReceiptException
      */
     public function test_facade_can_verify_product_receipt()
     {

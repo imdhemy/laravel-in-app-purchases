@@ -12,6 +12,7 @@ use Imdhemy\AppStore\Receipts\Verifier;
 use Imdhemy\GooglePlay\ClientFactory as GooglePlayClientFactory;
 use Imdhemy\GooglePlay\Products\ProductClient as GooglePlayProduct;
 use Imdhemy\GooglePlay\Products\ProductPurchase;
+use Imdhemy\GooglePlay\ValueObjects\EmptyResponse;
 
 class Product
 {
@@ -114,11 +115,12 @@ class Product
 
     /**
      * @param string|null $developerPayload
+     * @return EmptyResponse
      * @throws GuzzleException
      */
-    public function acknowledge(?string $developerPayload = null): void
+    public function acknowledge(?string $developerPayload = null): EmptyResponse
     {
-        $this->createProduct()->acknowledge($developerPayload);
+        return $this->createProduct()->acknowledge($developerPayload);
     }
 
     /**
