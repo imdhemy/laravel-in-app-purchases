@@ -59,13 +59,14 @@ class Product
     }
 
     /**
+     * @param ClientInterface|null $client
      * @return self
      */
-    public function appStore(): self
+    public function appStore(?ClientInterface $client = null): self
     {
         $sandbox = (bool)config('purchase.appstore_sandbox');
 
-        $this->client = AppStoreClientFactory::create($sandbox);
+        $this->client = $client ?? AppStoreClientFactory::create($sandbox);
         $this->password = config('purchase.appstore_password');
 
         return $this;

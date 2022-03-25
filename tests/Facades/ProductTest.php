@@ -63,13 +63,15 @@ class ProductTest extends TestCase
      */
     public function test_facade_can_verify_product_receipt()
     {
-        $productReceipt = json_decode(file_get_contents(__DIR__ . '/../product-receipt.json'), true);
+        $productReceipt = json_decode(file_get_contents($this->testAssetPath('product-receipt.json')), true);
         $receiptData = $productReceipt['transactionReceipt'];
-        $password = env('APPSTORE_PASSWORD');
+        $password = 'fake_password';
 
-        $this->assertInstanceOf(
-            ReceiptResponse::class,
-            Product::appStore()->receiptData($receiptData)->password($password)->verifyReceipt()
-        );
+        $status = 0;
+        $client = \Imdhemy\AppStore\ClientFactory::mock(new Response(200, [], json_encode(['status' => $status])));
+
+        $receiptResponse = Product::appStore($client)->receiptData($receiptData)->password($password)->verifyReceipt();
+        $this->assertInstanceOf(ReceiptResponse::class, $receiptResponse);
+        $this->assertEquals($status, $receiptResponse->getStatus()->getValue());
     }
 }
