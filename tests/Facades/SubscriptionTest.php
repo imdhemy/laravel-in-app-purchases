@@ -4,6 +4,7 @@ namespace Tests\Facades;
 
 use Exception;
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Psr7\Response;
 use Imdhemy\AppStore\Exceptions\InvalidReceiptException;
 use Imdhemy\AppStore\Receipts\ReceiptResponse;
 use Imdhemy\GooglePlay\ClientFactory;
@@ -40,7 +41,8 @@ class SubscriptionTest extends TestCase
      */
     public function test_facade_can_get_a_google_play_subscription()
     {
-        $subscription = Subscription::googlePlay()
+        $client = ClientFactory::mock(new Response(200, [], '[]'));
+        $subscription = Subscription::googlePlay($client)
             ->packageName('com.twigano.fashion')
             ->id($this->itemId)
             ->token($this->token);
