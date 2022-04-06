@@ -2,7 +2,6 @@
 
 namespace Tests\Facades;
 
-use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Response;
 use Imdhemy\AppStore\ClientFactory;
@@ -110,27 +109,5 @@ class SubscriptionTest extends TestCase
             ->verifyRenewable($client);
 
         $this->assertTrue($response->getStatus()->isValid());
-    }
-
-    /**
-     * @test
-     * @throws Exception
-     * @throws GuzzleException
-     */
-    public function test_custom_client_can_be_set_on_google_play()
-    {
-        $jsonStream = file_get_contents(__DIR__ . '/../../google-app-credentials.json');
-        $jsonKey = json_decode($jsonStream, true);
-        $client = GoogleClientFactory::createWithJsonKey($jsonKey, [GoogleClientFactory::SCOPE_ANDROID_PUBLISHER]);
-        $subscription = Subscription::googlePlay($client)
-            ->packageName('com.twigano.fashion')
-            ->id($this->itemId)
-            ->token($this->token);
-
-        $getResponse = $subscription->get();
-        $stdSubscription = $subscription->toStd();
-
-        $this->assertInstanceOf(SubscriptionPurchase::class, $getResponse);
-        $this->assertInstanceOf(SubscriptionContract::class, $stdSubscription);
     }
 }
