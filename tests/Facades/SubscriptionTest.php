@@ -9,6 +9,7 @@ use Imdhemy\AppStore\Exceptions\InvalidReceiptException;
 use Imdhemy\AppStore\Receipts\ReceiptResponse;
 use Imdhemy\GooglePlay\ClientFactory;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
+use Imdhemy\GooglePlay\ValueObjects\EmptyResponse;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\Facades\Subscription;
 use Tests\TestCase;
@@ -56,13 +57,15 @@ class SubscriptionTest extends TestCase
 
     /**
      * @test
+     * @throws GuzzleException
      */
     public function test_facade_can_acknowledge_a_google_play_subscription()
     {
-        // TODO: update testing and implementation due the recent update in Google Play Billing Package
-        // It's not void anymore
-        $this->assertNull(
-            Subscription::googlePlay()->packageName('com.twigano.fashion')->id($this->itemId)->token(
+        $client = ClientFactory::mock(new Response());
+
+        $this->assertInstanceOf(
+            EmptyResponse::class,
+            Subscription::googlePlay($client)->packageName('com.twigano.fashion')->id($this->itemId)->token(
                 $this->token
             )->acknowledge()
         );

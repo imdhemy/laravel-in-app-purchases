@@ -12,6 +12,7 @@ use Imdhemy\AppStore\Receipts\Verifier;
 use Imdhemy\GooglePlay\ClientFactory as GooglePlayClientFactory;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionClient as GooglePlaySubscription;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
+use Imdhemy\GooglePlay\ValueObjects\EmptyResponse;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\Subscriptions\AppStoreSubscription;
 use Imdhemy\Purchases\Subscriptions\GoogleSubscription;
@@ -187,11 +188,12 @@ class Subscription
 
     /**
      * @param string|null $developerPayload
+     * @return EmptyResponse
      * @throws GuzzleException
      */
-    public function acknowledge(?string $developerPayload = null): void
+    public function acknowledge(?string $developerPayload = null): EmptyResponse
     {
-        $this->createSubscription()->acknowledge($developerPayload);
+        return $this->createSubscription()->acknowledge($developerPayload);
     }
 
     /**
