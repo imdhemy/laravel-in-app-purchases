@@ -95,11 +95,20 @@ class SubscriptionTest extends TestCase
      */
     public function test_it_handles_the_21007_error_from_the_app_store()
     {
-        $receipt = json_decode(file_get_contents(__DIR__ . '/../iOS-receipt.json'), true);
+        $receipt = json_decode(file_get_contents($this->testAssetPath('iOS-receipt.json')), true);
         $receiptData = $receipt['transactionReceipt'];
-        $password = env('APPSTORE_PASSWORD');
+        $password = 'app_store_fake_password';
 
-        $response = Subscription::appStore()->receiptData($receiptData)->password($password)->verifyRenewable();
+        $client = ClientFactory::mockQueue([
+            new Response(200, [], json_encode(['status' => 21007])),
+            new Response(200, [], json_encode(['status' => 0])),
+        ]);
+
+        $response = Subscription::appStore($client)
+            ->receiptData($receiptData)
+            ->password($password)
+            ->verifyRenewable($client);
+
         $this->assertTrue($response->getStatus()->isValid());
     }
 

@@ -130,28 +130,32 @@ class Subscription
     }
 
     /**
+     * @param ClientInterface|null $sandboxClient
      * @return ReceiptResponse
-     * @throws GuzzleException|InvalidReceiptException
+     * @throws GuzzleException
+     * @throws InvalidReceiptException
      */
-    public function verifyReceipt(): ReceiptResponse
+    public function verifyReceipt(?ClientInterface $sandboxClient = null): ReceiptResponse
     {
         if (is_null($this->appStoreResponse)) {
             $verifier = new Verifier($this->client, $this->receiptData, $this->password);
-            $this->appStoreResponse = $verifier->verify($this->renewalAble);
+            $this->appStoreResponse = $verifier->verify($this->renewalAble, $sandboxClient);
         }
 
         return $this->appStoreResponse;
     }
 
     /**
+     * @param ClientInterface|null $sandboxClient
      * @return ReceiptResponse
-     * @throws GuzzleException|InvalidReceiptException
+     * @throws GuzzleException
+     * @throws InvalidReceiptException
      */
-    public function verifyRenewable(): ReceiptResponse
+    public function verifyRenewable(?ClientInterface $sandboxClient = null): ReceiptResponse
     {
         $this->renewalAble = true;
 
-        return $this->verifyReceipt();
+        return $this->verifyReceipt($sandboxClient);
     }
 
     /**
