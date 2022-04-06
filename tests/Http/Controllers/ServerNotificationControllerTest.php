@@ -54,10 +54,12 @@ class ServerNotificationControllerTest extends TestCase
      */
     public function test_app_store_server_notifications()
     {
+        $this->withoutExceptionHandling();
+
         Event::fake();
         $this->withoutExceptionHandling();
 
-        $data = json_decode(file_get_contents(__DIR__ . '/../../appstore-server-notification.json'), true);
+        $data = json_decode(file_get_contents($this->testAssetPath('appstore-server-notification.json')), true);
         $uri = route('purchase.serverNotifications.apple');
         $this->post($uri, $data)->assertStatus(200);
 
@@ -71,12 +73,12 @@ class ServerNotificationControllerTest extends TestCase
     {
         file_put_contents(storage_path('logs/laravel.log'), "");
 
-        $data = json_decode(file_get_contents(__DIR__ . '/../../weird-token-from-google.json'), true);
+        $data = json_decode(file_get_contents($this->testAssetPath('weird-token-from-google.json')), true);
         $uri = route('purchase.serverNotifications.google');
         $this->post($uri, $data)->assertStatus(200);
 
-        $this->assertTrue(
-            ! empty(file_get_contents(storage_path("/logs/laravel.log")))
+        $this->assertNotEmpty(
+            file_get_contents(storage_path("/logs/laravel.log"))
         );
     }
 }

@@ -5,6 +5,7 @@ namespace Imdhemy\Purchases\Http\Rules;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Contracts\Validation\Rule;
 use Imdhemy\AppStore\ClientFactory;
+use Imdhemy\AppStore\Exceptions\InvalidReceiptException;
 use Imdhemy\AppStore\Receipts\Verifier;
 
 class ValidReceipt implements Rule
@@ -15,8 +16,9 @@ class ValidReceipt implements Rule
      * @param string $attribute
      * @param mixed $value
      * @return bool
+     * @throws InvalidReceiptException
      */
-    public function passes($attribute, $value)
+    public function passes($attribute, $value): bool
     {
         $receiptData = $value['latest_receipt'];
         $password = config('purchase.appstore_password');
@@ -36,9 +38,9 @@ class ValidReceipt implements Rule
     /**
      * Get the validation error message.
      *
-     * @return string|array
+     * @return string
      */
-    public function message()
+    public function message(): string
     {
         return "The :attribute is invalid.";
     }

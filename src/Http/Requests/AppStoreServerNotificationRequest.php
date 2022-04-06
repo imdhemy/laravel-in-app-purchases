@@ -3,7 +3,6 @@
 namespace Imdhemy\Purchases\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Imdhemy\Purchases\Http\Rules\ValidReceipt;
 
 /**
  * Class AppStoreServerNotificationRequest
@@ -19,7 +18,7 @@ class AppStoreServerNotificationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'unified_receipt' => ['array', 'required', new ValidReceipt()],
+            'unified_receipt' => ['array', 'required'],
             'unified_receipt.latest_receipt' => ['required'],
             'unified_receipt.latest_receipt_info' => ['required', 'array'],
             'notification_type' => ['required'],
