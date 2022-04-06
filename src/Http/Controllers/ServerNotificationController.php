@@ -5,6 +5,7 @@ namespace Imdhemy\Purchases\Http\Controllers;
 use Illuminate\Support\Facades\Log;
 use Imdhemy\AppStore\ServerNotifications\ServerNotification;
 use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
+use Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification;
 use Imdhemy\Purchases\Events\AppStore\EventFactory as AppStoreEventFactory;
 use Imdhemy\Purchases\Events\GooglePlay\EventFactory as GooglePlayEventFactory;
 use Imdhemy\Purchases\Http\Requests\AppStoreServerNotificationRequest;
@@ -30,12 +31,12 @@ class ServerNotificationController extends Controller
         $developerNotification = DeveloperNotification::parse($data);
         $googleNotification = new GoogleServerNotification($developerNotification);
 
-        if ($googleNotification->isTest()) {
+        if ($developerNotification->isTestNotification()) {
             $version = $developerNotification->getPayload()->getVersion();
             Log::info(sprintf("Google Play Test Notification, version: %s", $version));
         }
 
-        if ($developerNotification->getPayload()->getNotificationType()) {
+        if ($developerNotification->getPayload() instanceof SubscriptionNotification) {
             $event = GooglePlayEventFactory::create($googleNotification);
             event($event);
         }

@@ -44,8 +44,8 @@ class ServerNotificationControllerTest extends TestCase
         $uri = route('purchase.serverNotifications.google');
         $this->post($uri, $data)->assertStatus(200);
 
-        $this->assertTrue(
-            ! empty(file_get_contents(storage_path("/logs/laravel.log")))
+        $this->assertNotEmpty(
+            file_get_contents(storage_path("/logs/laravel.log"))
         );
     }
 
