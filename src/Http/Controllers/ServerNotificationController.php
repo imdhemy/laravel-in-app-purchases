@@ -31,11 +31,11 @@ class ServerNotificationController extends Controller
         $googleNotification = new GoogleServerNotification($developerNotification);
 
         if ($googleNotification->isTest()) {
-            $version = $developerNotification->getTestNotification()->getVersion();
+            $version = $developerNotification->getPayload()->getVersion();
             Log::info(sprintf("Google Play Test Notification, version: %s", $version));
         }
 
-        if ($developerNotification->isSubscriptionNotification()) {
+        if ($developerNotification->getPayload()->getNotificationType()) {
             $event = GooglePlayEventFactory::create($googleNotification);
             event($event);
         }
