@@ -7,7 +7,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Response;
 use Imdhemy\AppStore\Exceptions\InvalidReceiptException;
 use Imdhemy\AppStore\Receipts\ReceiptResponse;
-use Imdhemy\GooglePlay\ClientFactory;
+use Imdhemy\GooglePlay\ClientFactory as GoogleClientFactory;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
 use Imdhemy\GooglePlay\ValueObjects\EmptyResponse;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
@@ -42,7 +42,7 @@ class SubscriptionTest extends TestCase
      */
     public function test_facade_can_get_a_google_play_subscription()
     {
-        $client = ClientFactory::mock(new Response(200, [], '[]'));
+        $client = GoogleClientFactory::mock(new Response(200, [], '[]'));
         $subscription = Subscription::googlePlay($client)
             ->packageName('com.twigano.fashion')
             ->id($this->itemId)
@@ -61,7 +61,7 @@ class SubscriptionTest extends TestCase
      */
     public function test_facade_can_acknowledge_a_google_play_subscription()
     {
-        $client = ClientFactory::mock(new Response());
+        $client = GoogleClientFactory::mock(new Response());
 
         $this->assertInstanceOf(
             EmptyResponse::class,
@@ -112,7 +112,7 @@ class SubscriptionTest extends TestCase
     {
         $jsonStream = file_get_contents(__DIR__ . '/../../google-app-credentials.json');
         $jsonKey = json_decode($jsonStream, true);
-        $client = ClientFactory::createWithJsonKey($jsonKey, [ClientFactory::SCOPE_ANDROID_PUBLISHER]);
+        $client = GoogleClientFactory::createWithJsonKey($jsonKey, [GoogleClientFactory::SCOPE_ANDROID_PUBLISHER]);
         $subscription = Subscription::googlePlay($client)
             ->packageName('com.twigano.fashion')
             ->id($this->itemId)
