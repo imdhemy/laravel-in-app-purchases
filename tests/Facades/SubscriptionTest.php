@@ -5,6 +5,7 @@ namespace Tests\Facades;
 use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Response;
+use Imdhemy\AppStore\ClientFactory;
 use Imdhemy\AppStore\Exceptions\InvalidReceiptException;
 use Imdhemy\AppStore\Receipts\ReceiptResponse;
 use Imdhemy\GooglePlay\ClientFactory as GoogleClientFactory;
@@ -77,16 +78,15 @@ class SubscriptionTest extends TestCase
      */
     public function test_it_can_send_verify_receipt_request_to_app_store()
     {
-        $receipt = json_decode(file_get_contents(__DIR__ . '/../iOS-receipt.json'), true);
+        $receipt = json_decode(file_get_contents($this->testAssetPath('iOS-receipt.json')), true);
         $receiptData = $receipt['transactionReceipt'];
-        $password = env('APPSTORE_PASSWORD');
+        $password = 'app_store_fake_password';
+        $client = ClientFactory::mock(new Response(200, [], json_encode(['status' => 0])));
 
-        $subscription = Subscription::appStore()->receiptData($receiptData)->password($password);
+        $subscription = Subscription::appStore($client)->receiptData($receiptData)->password($password);
         $receiptResponse = $subscription->verifyReceipt();
-        $stdSubscription = $subscription->toStd();
 
         $this->assertInstanceOf(ReceiptResponse::class, $receiptResponse);
-        $this->assertInstanceOf(SubscriptionContract::class, $stdSubscription);
     }
 
     /**

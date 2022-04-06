@@ -83,12 +83,13 @@ class Subscription
     }
 
     /**
+     * @param ClientInterface|null $client
      * @return self
      */
-    public function appStore(): self
+    public function appStore(?ClientInterface $client = null): self
     {
         $this->isGoogle = false;
-        $this->client = AppStoreClientFactory::create();
+        $this->client = $client ?? AppStoreClientFactory::create();
         $this->password = config('purchase.appstore_password');
         $this->renewalAble = false;
 
