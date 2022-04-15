@@ -22,7 +22,7 @@
         "php": ">=7.1",
         "ext-json": "*",
         "imdhemy/appstore-iap": "^0.3",
-        "imdhemy/google-play-billing": "^0.6",
+        "imdhemy/google-play-billing": "^1.0",
         "chfur/appgallery-iap": "^1.1",
         "nesbot/carbon": "^2.41"
     },
