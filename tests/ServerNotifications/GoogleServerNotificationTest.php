@@ -3,6 +3,8 @@
 namespace Tests\ServerNotifications;
 
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Psr7\Response;
+use Imdhemy\GooglePlay\ClientFactory;
 use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
 use Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification;
 use Imdhemy\Purchases\Contracts\ServerNotificationContract;
@@ -12,6 +14,7 @@ use Tests\TestCase;
 
 class GoogleServerNotificationTest extends TestCase
 {
+
     /**
      * @var GoogleServerNotification
      */
@@ -53,9 +56,11 @@ class GoogleServerNotificationTest extends TestCase
      */
     public function test_get_subscription()
     {
+        $googleClient = ClientFactory::mock(new Response(200, [], '[]'));
+
         $this->assertInstanceOf(
             SubscriptionContract::class,
-            $this->googleServerNotification->getSubscription()
+            $this->googleServerNotification->getSubscription($googleClient)
         );
     }
 
@@ -65,7 +70,7 @@ class GoogleServerNotificationTest extends TestCase
      */
     public function test_get_subscription_with_custom_credentials()
     {
-        $keyStream = file_get_contents(__DIR__ . '/../../google-app-credentials.json');
+        $keyStream = file_get_contents(__DIR__.'/../../google-app-credentials.json');
         $jsonKey = json_decode($keyStream, true);
 
         $this->assertInstanceOf(
@@ -81,4 +86,5 @@ class GoogleServerNotificationTest extends TestCase
     {
         $this->assertNotNull($this->googleServerNotification->getBundle());
     }
+
 }
