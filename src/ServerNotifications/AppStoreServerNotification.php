@@ -54,9 +54,9 @@ class AppStoreServerNotification implements ServerNotificationContract
     }
 
     /**
-     * @return LatestReceiptInfo
+     * @return LatestReceiptInfo|null
      */
-    private function getFirstReceipt(): LatestReceiptInfo
+    private function getFirstReceipt(): ?LatestReceiptInfo
     {
         return $this->notification->getUnifiedReceipt()->getLatestReceiptInfo()[0];
     }
@@ -87,6 +87,6 @@ class AppStoreServerNotification implements ServerNotificationContract
      */
     public function getBundle(): string
     {
-        return $this->notification->getBid();
+        return (string)$this->notification->getBid();
     }
 }
