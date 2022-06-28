@@ -4,7 +4,7 @@ namespace Imdhemy\Purchases\ServerNotifications;
 
 use GuzzleHttp\Client;
 use Imdhemy\AppStore\ServerNotifications\ServerNotification;
-use Imdhemy\AppStore\ValueObjects\ReceiptInfo;
+use Imdhemy\AppStore\ValueObjects\LatestReceiptInfo;
 use Imdhemy\Purchases\Contracts\ServerNotificationContract;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\Subscriptions\AppStoreSubscription;
@@ -12,6 +12,7 @@ use Imdhemy\Purchases\ValueObjects\Time;
 
 class AppStoreServerNotification implements ServerNotificationContract
 {
+
     /**
      * @var ServerNotification
      */
@@ -19,6 +20,7 @@ class AppStoreServerNotification implements ServerNotificationContract
 
     /**
      * AppStoreServerNotification constructor.
+     *
      * @param ServerNotification $notification
      */
     public function __construct(ServerNotification $notification)
@@ -36,6 +38,7 @@ class AppStoreServerNotification implements ServerNotificationContract
 
     /**
      * @param Client|null $client
+     *
      * @return SubscriptionContract
      */
     public function getSubscription(?Client $client = null): SubscriptionContract
@@ -52,9 +55,9 @@ class AppStoreServerNotification implements ServerNotificationContract
     }
 
     /**
-     * @return ReceiptInfo
+     * @return LatestReceiptInfo
      */
-    private function getFirstReceipt(): ReceiptInfo
+    private function getFirstReceipt(): LatestReceiptInfo
     {
         return $this->notification->getUnifiedReceipt()->getLatestReceiptInfo()[0];
     }
@@ -64,7 +67,7 @@ class AppStoreServerNotification implements ServerNotificationContract
      */
     public function isAutoRenewal(): bool
     {
-        return $this->notification->isAutoRenewStatus();
+        return $this->notification->getAutoRenewStatus() === true;
     }
 
     /**
@@ -73,7 +76,7 @@ class AppStoreServerNotification implements ServerNotificationContract
     public function getAutoRenewStatusChangeDate(): ?Time
     {
         $time = $this->notification->getAutoRenewStatusChangeDate();
-        if (! is_null($time)) {
+        if (!is_null($time)) {
             return Time::fromAppStoreTime($time);
         }
 
@@ -87,4 +90,5 @@ class AppStoreServerNotification implements ServerNotificationContract
     {
         return $this->notification->getBid();
     }
+
 }
