@@ -2,6 +2,8 @@
 
 namespace Tests\Subscriptions;
 
+use Faker\Factory;
+use Imdhemy\AppStore\ValueObjects\LatestReceiptInfo;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\Subscriptions\AppStoreSubscription;
 use Imdhemy\Purchases\ValueObjects\Time;
@@ -9,6 +11,7 @@ use Tests\TestCase;
 
 class AppStoreSubscriptionTest extends TestCase
 {
+
     /**
      * @var AppStoreSubscription
      */
@@ -20,8 +23,18 @@ class AppStoreSubscriptionTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $appStoreResponse = unserialize(file_get_contents(__DIR__ . '/../appstore-verifier-response.ser'));
-        $this->appStoreSubscription = new AppStoreSubscription($appStoreResponse->getLatestReceiptInfo()[0]);
+
+        $faker = Factory::create();
+
+        $receipt = LatestReceiptInfo::fromArray([
+            'original_transaction_id' => $faker->uuid(),
+            'product_id' => 'month_premium',
+            'quantity' => 1,
+            'transaction_id' => $faker->uuid(),
+            'expires_date_ms' => time() * 1000,
+        ]);
+
+        $this->appStoreSubscription = new AppStoreSubscription($receipt);
     }
 
     /**
@@ -47,4 +60,5 @@ class AppStoreSubscriptionTest extends TestCase
     {
         $this->assertEquals('month_premium', $this->appStoreSubscription->getItemId());
     }
+
 }
