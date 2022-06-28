@@ -13,7 +13,6 @@ use Tests\TestCase;
 
 class GoogleSubscriptionTest extends TestCase
 {
-
     /**
      * @var GoogleSubscription
      */
@@ -51,7 +50,7 @@ class GoogleSubscriptionTest extends TestCase
             $this->googleSubscription
         );
     }
-    
+
     /**
      * @test
      */
@@ -59,5 +58,4 @@ class GoogleSubscriptionTest extends TestCase
     {
         $this->assertEquals("month_premium", $this->googleSubscription->getItemId());
     }
-
 }

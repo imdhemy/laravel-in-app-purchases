@@ -8,7 +8,6 @@ use Imdhemy\Purchases\ValueObjects\Time;
 
 class AppStoreSubscription implements SubscriptionContract
 {
-
     /**
      * @var LatestReceiptInfo
      */
@@ -63,5 +62,4 @@ class AppStoreSubscription implements SubscriptionContract
     {
         return $this->receipt;
     }
-
 }

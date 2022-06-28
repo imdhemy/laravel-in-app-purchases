@@ -11,7 +11,6 @@ use Tests\TestCase;
 
 class AppStoreSubscriptionTest extends TestCase
 {
-
     /**
      * @var AppStoreSubscription
      */
@@ -60,5 +59,4 @@ class AppStoreSubscriptionTest extends TestCase
     {
         $this->assertEquals('month_premium', $this->appStoreSubscription->getItemId());
     }
-
 }

@@ -12,7 +12,6 @@ use Imdhemy\Purchases\ValueObjects\Time;
 
 class AppStoreServerNotification implements ServerNotificationContract
 {
-
     /**
      * @var ServerNotification
      */
@@ -76,7 +75,7 @@ class AppStoreServerNotification implements ServerNotificationContract
     public function getAutoRenewStatusChangeDate(): ?Time
     {
         $time = $this->notification->getAutoRenewStatusChangeDate();
-        if (!is_null($time)) {
+        if (! is_null($time)) {
             return Time::fromAppStoreTime($time);
         }
 
@@ -90,5 +89,4 @@ class AppStoreServerNotification implements ServerNotificationContract
     {
         return $this->notification->getBid();
     }
-
 }
