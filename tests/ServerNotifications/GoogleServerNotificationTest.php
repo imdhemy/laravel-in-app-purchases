@@ -14,7 +14,6 @@ use Tests\TestCase;
 
 class GoogleServerNotificationTest extends TestCase
 {
-
     /**
      * @var GoogleServerNotification
      */
@@ -66,25 +65,9 @@ class GoogleServerNotificationTest extends TestCase
 
     /**
      * @test
-     * @throws GuzzleException
-     */
-    public function test_get_subscription_with_custom_credentials()
-    {
-        $keyStream = file_get_contents(__DIR__.'/../../google-app-credentials.json');
-        $jsonKey = json_decode($keyStream, true);
-
-        $this->assertInstanceOf(
-            SubscriptionContract::class,
-            $this->googleServerNotification->getSubscription($jsonKey)
-        );
-    }
-
-    /**
-     * @test
      */
     public function test_get_bundle()
     {
         $this->assertNotNull($this->googleServerNotification->getBundle());
     }
-
 }
