@@ -56,7 +56,7 @@ class PurchaseEventTest extends TestCase
 
         $this->assertEquals(
             $this->googleServerNotification->getSubscription($client),
-            $this->event->getSubscription()
+            $this->event->getSubscription($client)
         );
     }
 }
