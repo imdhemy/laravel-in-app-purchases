@@ -11,7 +11,6 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as BaseEventSer
  */
 class EventServiceProvider extends BaseEventServiceProvider
 {
-
     /**
      * @var array
      */
@@ -36,5 +35,4 @@ class EventServiceProvider extends BaseEventServiceProvider
     {
         parent::boot();
     }
-
 }
