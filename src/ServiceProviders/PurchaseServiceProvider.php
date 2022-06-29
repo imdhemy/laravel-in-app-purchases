@@ -1,16 +1,21 @@
 <?php
 
-namespace Imdhemy\Purchases;
+namespace Imdhemy\Purchases\ServiceProviders;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Imdhemy\Purchases\Console\LiapConfigPublishCommand;
+use Imdhemy\Purchases\Product;
+use Imdhemy\Purchases\Subscription;
 
 /**
  * Class PurchaseServiceProvider
+ *
  * @package Imdhemy\Purchases
  */
 class PurchaseServiceProvider extends ServiceProvider
 {
+
     /**
      * Bootstrap any application services.
      *
@@ -23,6 +28,8 @@ class PurchaseServiceProvider extends ServiceProvider
         }
 
         $this->bootRoutes();
+
+        $this->bootCommands();
     }
 
     /**
@@ -32,7 +39,7 @@ class PurchaseServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/config/purchase.php', 'purchase');
+        $this->mergeConfigFrom(__DIR__.'/../config/purchase.php', 'purchase');
         $this->app->register(EventServiceProvider::class);
 
         $this->app->bind('product', function () {
@@ -50,7 +57,7 @@ class PurchaseServiceProvider extends ServiceProvider
     public function bootRoutes(): void
     {
         Route::group($this->routeConfig(), function () {
-            $this->loadRoutesFrom(__DIR__ . '/routes/routes.php');
+            $this->loadRoutesFrom(__DIR__.'/../routes/routes.php');
         });
     }
 
@@ -59,7 +66,7 @@ class PurchaseServiceProvider extends ServiceProvider
      */
     public function publishConfig(): void
     {
-        $paths = [__DIR__ . '/config/purchase.php' => config_path('purchase.php')];
+        $paths = [__DIR__.'/../config/purchase.php' => config_path('purchase.php')];
         $this->publishes($paths, 'config');
     }
 
@@ -70,4 +77,14 @@ class PurchaseServiceProvider extends ServiceProvider
     {
         return config('purchase.routing');
     }
+
+    private function bootCommands(): void
+    {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                LiapConfigPublishCommand::class,
+            ]);
+        }
+    }
+
 }

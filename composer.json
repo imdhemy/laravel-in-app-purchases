@@ -48,7 +48,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Imdhemy\\Purchases\\PurchaseServiceProvider"
+                "Imdhemy\\Purchases\\ServiceProviders\\PurchaseServiceProvider"
             ],
             "aliases": {
                 "Product": "\\Imdhemy\\Purchases\\Facades\\Product",

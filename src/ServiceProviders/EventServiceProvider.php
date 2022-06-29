@@ -1,15 +1,17 @@
 <?php
 
-namespace Imdhemy\Purchases;
+namespace Imdhemy\Purchases\ServiceProviders;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as BaseEventServiceProvider;
 
 /**
  * Class EventServiceProvider
+ *
  * @package Imdhemy\Purchases
  */
 class EventServiceProvider extends BaseEventServiceProvider
 {
+
     /**
      * @var array
      */
@@ -17,6 +19,7 @@ class EventServiceProvider extends BaseEventServiceProvider
 
     /**
      * EventServiceProvider constructor.
+     *
      * @param $app
      */
     public function __construct($app)
@@ -33,4 +36,5 @@ class EventServiceProvider extends BaseEventServiceProvider
     {
         parent::boot();
     }
+
 }
