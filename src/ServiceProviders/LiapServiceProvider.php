@@ -32,36 +32,7 @@ class LiapServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        $this->mergeConfigFrom(self::CONFIG_PATH, 'purchase');
-        $this->app->register(EventServiceProvider::class);
-
-        $this->app->bind('product', function () {
-            return new Product();
-        });
-
-        $this->app->bind('subscription', function () {
-            return new Subscription();
-        });
-    }
-
-    /**
-     * boots routes
-     */
-    public function bootRoutes(): void
-    {
-        Route::group($this->routeConfig(), function () {
-            $this->loadRoutesFrom(self::ROUTES_PATH);
-        });
-    }
-
-    /**
-     * publish configurations
+     * publishes configurations
      */
     public function publishConfig(): void
     {
@@ -72,13 +43,28 @@ class LiapServiceProvider extends ServiceProvider
     }
 
     /**
+     * Boots routes
+     */
+    public function bootRoutes(): void
+    {
+        Route::group($this->routeConfig(), function () {
+            $this->loadRoutesFrom(self::ROUTES_PATH);
+        });
+    }
+
+    /**
+     * Gets routes configuration
+     *
      * @return array
      */
-    public function routeConfig(): array
+    private function routeConfig(): array
     {
         return config('purchase.routing');
     }
 
+    /**
+     * Boots console commands
+     */
     private function bootCommands(): void
     {
         if ($this->app->runningInConsole()) {
@@ -86,5 +72,49 @@ class LiapServiceProvider extends ServiceProvider
                 LiapConfigPublishCommand::class,
             ]);
         }
+    }
+
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->registerConfig();
+
+        $this->registerEvents();
+
+        $this->bindFacades();
+    }
+
+    /**
+     * Merges published configurations with default config
+     */
+    private function registerConfig(): void
+    {
+        $this->mergeConfigFrom(self::CONFIG_PATH, 'purchase');
+    }
+
+    /**
+     * Registers LIAP event service provider
+     */
+    private function registerEvents(): void
+    {
+        $this->app->register(EventServiceProvider::class);
+    }
+
+    /**
+     * Binds facades
+     */
+    private function bindFacades(): void
+    {
+        $this->app->bind('product', function () {
+            return new Product();
+        });
+
+        $this->app->bind('subscription', function () {
+            return new Subscription();
+        });
     }
 }

@@ -5,9 +5,8 @@ namespace Imdhemy\Purchases\ServiceProviders;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as BaseEventServiceProvider;
 
 /**
- * Class EventServiceProvider
- *
- * @package Imdhemy\Purchases
+ * Event Service Provider
+ * Binds the events of the subscription life-cycle to the configured event handlers.
  */
 class EventServiceProvider extends BaseEventServiceProvider
 {
@@ -25,7 +24,7 @@ class EventServiceProvider extends BaseEventServiceProvider
     {
         parent::__construct($app);
 
-        $this->listen = config('purchase.eventListeners');
+        $this->listen = (array)config('purchase.eventListeners');
     }
 
     /**
