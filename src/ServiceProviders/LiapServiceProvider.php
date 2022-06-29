@@ -9,12 +9,13 @@ use Imdhemy\Purchases\Product;
 use Imdhemy\Purchases\Subscription;
 
 /**
- * Class PurchaseServiceProvider
- *
- * @package Imdhemy\Purchases
+ * Laravel Iap service provider
  */
-class PurchaseServiceProvider extends ServiceProvider
+class LiapServiceProvider extends ServiceProvider
 {
+    public const CONFIG_PATH = __DIR__.'/../config/purchase.php';
+
+    public const ROUTES_PATH = __DIR__.'/../routes/routes.php';
 
     /**
      * Bootstrap any application services.
@@ -23,9 +24,7 @@ class PurchaseServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if ($this->app->runningInConsole()) {
-            $this->publishConfig();
-        }
+        $this->publishConfig();
 
         $this->bootRoutes();
 
@@ -39,7 +38,7 @@ class PurchaseServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/purchase.php', 'purchase');
+        $this->mergeConfigFrom(self::CONFIG_PATH, 'purchase');
         $this->app->register(EventServiceProvider::class);
 
         $this->app->bind('product', function () {
@@ -57,7 +56,7 @@ class PurchaseServiceProvider extends ServiceProvider
     public function bootRoutes(): void
     {
         Route::group($this->routeConfig(), function () {
-            $this->loadRoutesFrom(__DIR__.'/../routes/routes.php');
+            $this->loadRoutesFrom(self::ROUTES_PATH);
         });
     }
 
@@ -66,8 +65,10 @@ class PurchaseServiceProvider extends ServiceProvider
      */
     public function publishConfig(): void
     {
-        $paths = [__DIR__.'/../config/purchase.php' => config_path('purchase.php')];
-        $this->publishes($paths, 'config');
+        if ($this->app->runningInConsole()) {
+            $paths = [self::CONFIG_PATH => config_path('purchase.php')];
+            $this->publishes($paths, 'config');
+        }
     }
 
     /**
@@ -86,5 +87,4 @@ class PurchaseServiceProvider extends ServiceProvider
             ]);
         }
     }
-
 }

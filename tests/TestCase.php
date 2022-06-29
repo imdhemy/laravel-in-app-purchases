@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use Imdhemy\Purchases\ServiceProviders\PurchaseServiceProvider;
+use Imdhemy\Purchases\ServiceProviders\LiapServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 /**
@@ -12,7 +12,6 @@ use Orchestra\Testbench\TestCase as Orchestra;
  */
 class TestCase extends Orchestra
 {
-
     /**
      * @inheritDoc
      */
@@ -27,7 +26,7 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app): array
     {
         return [
-            PurchaseServiceProvider::class,
+            LiapServiceProvider::class,
         ];
     }
 
@@ -61,5 +60,4 @@ class TestCase extends Orchestra
 
         return $assetsPath;
     }
-
 }
