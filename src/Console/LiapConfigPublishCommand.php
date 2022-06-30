@@ -13,9 +13,9 @@ use Imdhemy\Purchases\ServiceProviders\LiapServiceProvider;
  */
 class LiapConfigPublishCommand extends Command
 {
-    public const MESSAGE_ALREADY_INSTALLED = "purchase.php is already published.";
+    public const MESSAGE_ALREADY_INSTALLED = "liap.php is already published.";
 
-    public const MESSAGE_SUCCESS = "purchase.php published successfully";
+    public const MESSAGE_SUCCESS = "liap.php published successfully";
 
     /**
      * @inheritdoc
@@ -65,8 +65,8 @@ class LiapConfigPublishCommand extends Command
     private function publishConfig(bool $force = false): int
     {
         $params = [
-            '--provider' => LiapServiceProvider::class,
-            '--tag' => 'config',
+          '--provider' => LiapServiceProvider::class,
+          '--tag' => 'config',
         ];
 
         if ($force) {
@@ -86,7 +86,7 @@ class LiapConfigPublishCommand extends Command
      */
     private function isInstalled(): bool
     {
-        return File::exists(config_path('purchase.php'));
+        return File::exists(config_path(LiapServiceProvider::CONFIG_KEY . '.php'));
     }
 
     /**

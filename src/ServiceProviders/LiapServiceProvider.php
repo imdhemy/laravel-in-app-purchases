@@ -13,9 +13,11 @@ use Imdhemy\Purchases\Subscription;
  */
 class LiapServiceProvider extends ServiceProvider
 {
-    public const CONFIG_PATH = __DIR__.'/../config/purchase.php';
+    public const CONFIG_KEY = 'liap';
 
-    public const ROUTES_PATH = __DIR__.'/../routes/routes.php';
+    public const CONFIG_PATH = __DIR__ . '/../../config/' . self::CONFIG_KEY . '.php';
+
+    public const ROUTES_PATH = __DIR__ . '/../routes/routes.php';
 
     /**
      * Bootstrap any application services.
@@ -37,7 +39,7 @@ class LiapServiceProvider extends ServiceProvider
     public function publishConfig(): void
     {
         if ($this->app->runningInConsole()) {
-            $paths = [self::CONFIG_PATH => config_path('purchase.php')];
+            $paths = [self::CONFIG_PATH => config_path(self::CONFIG_KEY . '.php')];
             $this->publishes($paths, 'config');
         }
     }
@@ -59,7 +61,7 @@ class LiapServiceProvider extends ServiceProvider
      */
     private function routeConfig(): array
     {
-        return config('purchase.routing');
+        return config(self::CONFIG_KEY . '.routing');
     }
 
     /**
@@ -69,7 +71,7 @@ class LiapServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
-                LiapConfigPublishCommand::class,
+              LiapConfigPublishCommand::class,
             ]);
         }
     }
@@ -93,7 +95,7 @@ class LiapServiceProvider extends ServiceProvider
      */
     private function registerConfig(): void
     {
-        $this->mergeConfigFrom(self::CONFIG_PATH, 'purchase');
+        $this->mergeConfigFrom(self::CONFIG_PATH, self::CONFIG_KEY);
     }
 
     /**

@@ -20,7 +20,7 @@ class LiapConfigPublishCommandTest extends TestCase
     {
         parent::setUp();
 
-        $this->configFilePath = config_path('purchase.php');
+        $this->configFilePath = config_path('liap.php');
     }
 
     /**
@@ -33,8 +33,8 @@ class LiapConfigPublishCommandTest extends TestCase
         }
 
         $this->artisan('liap:config:publish')
-            ->expectsOutput(LiapConfigPublishCommand::MESSAGE_SUCCESS)
-            ->assertExitCode(0);
+          ->expectsOutput(LiapConfigPublishCommand::MESSAGE_SUCCESS)
+          ->assertExitCode(0);
 
         $this->assertFileExists($this->configFilePath);
     }
@@ -53,8 +53,8 @@ class LiapConfigPublishCommandTest extends TestCase
         $this->artisan($command);
 
         $this->artisan($command)
-            ->expectsOutput(LiapConfigPublishCommand::MESSAGE_ALREADY_INSTALLED)
-            ->assertExitCode(1);
+          ->expectsOutput(LiapConfigPublishCommand::MESSAGE_ALREADY_INSTALLED)
+          ->assertExitCode(1);
     }
 
     /**
@@ -71,7 +71,7 @@ class LiapConfigPublishCommandTest extends TestCase
         $this->artisan($command);
 
         $this->artisan($command)
-            ->expectsOutput(LiapConfigPublishCommand::MESSAGE_SUCCESS)
-            ->assertExitCode(0);
+          ->expectsOutput(LiapConfigPublishCommand::MESSAGE_SUCCESS)
+          ->assertExitCode(0);
     }
 }
