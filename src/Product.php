@@ -48,32 +48,35 @@ class Product
 
     /**
      * @param ClientInterface|null $client
+     *
      * @return self
      */
     public function googlePlay(?ClientInterface $client = null): self
     {
         $this->client = $client ?? GooglePlayClientFactory::create([GooglePlayClientFactory::SCOPE_ANDROID_PUBLISHER]);
-        $this->packageName = config('purchase.google_play_package_name');
+        $this->packageName = config('liap.google_play_package_name');
 
         return $this;
     }
 
     /**
      * @param ClientInterface|null $client
+     *
      * @return self
      */
     public function appStore(?ClientInterface $client = null): self
     {
-        $sandbox = (bool)config('purchase.appstore_sandbox');
+        $sandbox = (bool)config('liap.appstore_sandbox');
 
         $this->client = $client ?? AppStoreClientFactory::create($sandbox);
-        $this->password = config('purchase.appstore_password');
+        $this->password = config('liap.appstore_password');
 
         return $this;
     }
 
     /**
      * @param string $packageName
+     *
      * @return self
      */
     public function packageName(string $packageName): self
@@ -85,6 +88,7 @@ class Product
 
     /**
      * @param string $itemId
+     *
      * @return self
      */
     public function id(string $itemId): self
@@ -96,6 +100,7 @@ class Product
 
     /**
      * @param string $token
+     *
      * @return self
      */
     public function token(string $token): self
@@ -115,7 +120,21 @@ class Product
     }
 
     /**
+     * @return GooglePlayProduct
+     */
+    public function createProduct(): GooglePlayProduct
+    {
+        return new GooglePlayProduct(
+            $this->client,
+            $this->packageName,
+            $this->itemId,
+            $this->token
+        );
+    }
+
+    /**
      * @param string|null $developerPayload
+     *
      * @return EmptyResponse
      * @throws GuzzleException
      */
@@ -137,6 +156,7 @@ class Product
 
     /**
      * @param string $receiptData
+     *
      * @return $this
      */
     public function receiptData(string $receiptData): self
@@ -148,6 +168,7 @@ class Product
 
     /**
      * @param string $password
+     *
      * @return $this
      */
     public function password(string $password): self
@@ -155,18 +176,5 @@ class Product
         $this->password = $password;
 
         return $this;
-    }
-
-    /**
-     * @return GooglePlayProduct
-     */
-    public function createProduct(): GooglePlayProduct
-    {
-        return new GooglePlayProduct(
-            $this->client,
-            $this->packageName,
-            $this->itemId,
-            $this->token
-        );
     }
 }

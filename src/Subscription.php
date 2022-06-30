@@ -60,37 +60,39 @@ class Subscription
     protected $googleGetResponse;
 
     /**
-     * @var ReceiptResponse
-     */
-    private $appStoreResponse;
-
-    /**
      * @var bool
      */
     protected $isGoogle = false;
 
     /**
+     * @var ReceiptResponse
+     */
+    private $appStoreResponse;
+
+    /**
      * @param ClientInterface|null $client
+     *
      * @return self
      */
     public function googlePlay(?ClientInterface $client = null): self
     {
         $this->isGoogle = true;
         $this->client = $client ?? GooglePlayClientFactory::create([GooglePlayClientFactory::SCOPE_ANDROID_PUBLISHER]);
-        $this->packageName = config('purchase.google_play_package_name');
+        $this->packageName = config('liap.google_play_package_name');
 
         return $this;
     }
 
     /**
      * @param ClientInterface|null $client
+     *
      * @return self
      */
     public function appStore(?ClientInterface $client = null): self
     {
         $this->isGoogle = false;
         $this->client = $client ?? AppStoreClientFactory::create();
-        $this->password = config('purchase.appstore_password');
+        $this->password = config('liap.appstore_password');
         $this->renewalAble = false;
 
         return $this;
@@ -98,6 +100,7 @@ class Subscription
 
     /**
      * @param string $itemId
+     *
      * @return self
      */
     public function id(string $itemId): self
@@ -109,6 +112,7 @@ class Subscription
 
     /**
      * @param string $token
+     *
      * @return self
      */
     public function token(string $token): self
@@ -120,6 +124,7 @@ class Subscription
 
     /**
      * @param string $packageName
+     *
      * @return self
      */
     public function packageName(string $packageName): self
@@ -131,6 +136,21 @@ class Subscription
 
     /**
      * @param ClientInterface|null $sandboxClient
+     *
+     * @return ReceiptResponse
+     * @throws GuzzleException
+     * @throws InvalidReceiptException
+     */
+    public function verifyRenewable(?ClientInterface $sandboxClient = null): ReceiptResponse
+    {
+        $this->renewalAble = true;
+
+        return $this->verifyReceipt($sandboxClient);
+    }
+
+    /**
+     * @param ClientInterface|null $sandboxClient
+     *
      * @return ReceiptResponse
      * @throws GuzzleException
      * @throws InvalidReceiptException
@@ -143,19 +163,6 @@ class Subscription
         }
 
         return $this->appStoreResponse;
-    }
-
-    /**
-     * @param ClientInterface|null $sandboxClient
-     * @return ReceiptResponse
-     * @throws GuzzleException
-     * @throws InvalidReceiptException
-     */
-    public function verifyRenewable(?ClientInterface $sandboxClient = null): ReceiptResponse
-    {
-        $this->renewalAble = true;
-
-        return $this->verifyReceipt($sandboxClient);
     }
 
     /**
@@ -179,20 +186,8 @@ class Subscription
     }
 
     /**
-     * @return SubscriptionPurchase
-     * @throws GuzzleException
-     */
-    public function get(): SubscriptionPurchase
-    {
-        if (is_null($this->googleGetResponse)) {
-            $this->googleGetResponse = $this->createSubscription()->get();
-        }
-
-        return $this->googleGetResponse;
-    }
-
-    /**
      * @param string|null $developerPayload
+     *
      * @return EmptyResponse
      * @throws GuzzleException
      */
@@ -216,6 +211,7 @@ class Subscription
 
     /**
      * @param string $receiptData
+     *
      * @return $this
      */
     public function receiptData(string $receiptData): self
@@ -227,6 +223,7 @@ class Subscription
 
     /**
      * @param string $password
+     *
      * @return $this
      */
     public function password(string $password): self
@@ -252,5 +249,18 @@ class Subscription
         $response = $this->verifyReceipt();
 
         return new AppStoreSubscription($response->getLatestReceiptInfo()[0]);
+    }
+
+    /**
+     * @return SubscriptionPurchase
+     * @throws GuzzleException
+     */
+    public function get(): SubscriptionPurchase
+    {
+        if (is_null($this->googleGetResponse)) {
+            $this->googleGetResponse = $this->createSubscription()->get();
+        }
+
+        return $this->googleGetResponse;
     }
 }
