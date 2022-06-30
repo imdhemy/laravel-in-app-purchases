@@ -1,65 +1,66 @@
 {
-    "name": "imdhemy/laravel-purchases",
-    "description": "Laravel receipt validator for Google Play",
-    "keywords": [
-        "laravel-in-app-purchases",
-        "google_play",
-        "in_app_purchases",
-        "laravel"
-    ],
-    "homepage": "https://imdhemy.com/laravel-iap-docs",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "imdhemy",
-            "email": "imdhemy@gmail.com"
-        }
-    ],
-    "require": {
-        "php": ">=7.3",
-        "ext-json": "*",
-        "imdhemy/appstore-iap": "^1.0",
-        "imdhemy/google-play-billing": "^1.0",
-        "laravel/framework": ">=6.20"
-    },
-    "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.4",
-        "orchestra/testbench": "^6.24",
-        "psalm/plugin-laravel": "^1.5",
-        "vimeo/psalm": "^4.22"
-    },
-    "autoload": {
-        "psr-4": {
-            "Imdhemy\\Purchases\\": "src"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests"
-        }
-    },
-    "scripts": {
-        "psalm": "vendor/bin/psalm",
-        "psalm-info": "vendor/bin/psalm --show-info=true --no-cache",
-        "format": "vendor/bin/php-cs-fixer fix --allow-risky=yes",
-        "check-style": "vendor/bin/php-cs-fixer fix --dry-run",
-        "test": "vendor/bin/phpunit --testdox"
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "\\Imdhemy\\Purchases\\ServiceProviders\\LiapServiceProvider"
-            ],
-            "aliases": {
-                "Product": "\\Imdhemy\\Purchases\\Facades\\Product",
-                "Subscription": "\\Imdhemy\\Purchases\\Facades\\Subscription"
-            }
-        }
-    },
-    "config": {
-        "sort-packages": true,
-        "platform": {
-            "php": "7.3"
-        }
+  "name": "imdhemy/laravel-purchases",
+  "description": "Laravel receipt validator for Google Play",
+  "keywords": [
+    "laravel-in-app-purchases",
+    "google_play",
+    "in_app_purchases",
+    "laravel"
+  ],
+  "homepage": "https://imdhemy.com/laravel-iap-docs",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "imdhemy",
+      "email": "imdhemy@gmail.com"
     }
+  ],
+  "require": {
+    "php": ">=7.3",
+    "ext-json": "*",
+    "imdhemy/appstore-iap": "^1.0",
+    "imdhemy/google-play-billing": "^1.0",
+    "laravel/framework": ">=6.20"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^3.4",
+    "orchestra/testbench": "^6.24",
+    "psalm/plugin-laravel": "^1.5",
+    "vimeo/psalm": "^4.22"
+  },
+  "autoload": {
+    "psr-4": {
+      "Imdhemy\\Purchases\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests"
+    }
+  },
+  "scripts": {
+    "psalm": "vendor/bin/psalm",
+    "psalm-info": "vendor/bin/psalm --show-info=true --no-cache",
+    "format": "vendor/bin/php-cs-fixer fix --allow-risky=yes",
+    "check-style": "vendor/bin/php-cs-fixer fix --dry-run",
+    "test": "vendor/bin/phpunit --testdox"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "\\Imdhemy\\Purchases\\ServiceProviders\\LiapServiceProvider"
+      ],
+      "aliases": {
+        "Product": "\\Imdhemy\\Purchases\\Facades\\Product",
+        "Subscription": "\\Imdhemy\\Purchases\\Facades\\Subscription"
+      }
+    }
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {},
+    "platform": {
+      "php": "7.3"
+    }
+  }
 }
