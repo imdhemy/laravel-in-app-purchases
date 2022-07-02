@@ -37,7 +37,6 @@ class AppStoreNotificationHandler extends AbstractNotificationHandler
      */
     protected function rules(): array
     {
-        // V.1 notifications
         return [
           'unified_receipt' => ['array', 'required'],
           'unified_receipt.latest_receipt' => ['required'],
