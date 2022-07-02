@@ -7,11 +7,18 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Log;
 use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
 use Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification;
+use Imdhemy\Purchases\Contracts\NotificationHandlerContract;
 use Imdhemy\Purchases\Events\GooglePlay\EventFactory as GooglePlayEventFactory;
 use Imdhemy\Purchases\Http\Requests\GoogleDeveloperNotificationRequest;
 use Imdhemy\Purchases\ServerNotifications\GoogleServerNotification;
 
-class GooglePlayNotificationHandler
+/**
+ * Google Play notification handler
+ *
+ * Handles Real time developer notifications sent by google play.
+ * Dispatches the Google Play event related to the notification type.
+ */
+class GooglePlayNotificationHandler implements NotificationHandlerContract
 {
     /**
      * @var GoogleDeveloperNotificationRequest
