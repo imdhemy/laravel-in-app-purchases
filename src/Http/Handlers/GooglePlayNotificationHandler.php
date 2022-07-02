@@ -3,7 +3,6 @@
 namespace Imdhemy\Purchases\Http\Handlers;
 
 
-use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Log;
 use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
 use Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification;
@@ -34,22 +33,14 @@ class GooglePlayNotificationHandler implements NotificationHandlerContract
     }
 
     /**
-     *
-     * @throws AuthorizationException
+     * Executes the handler
      */
     public function execute()
     {
-        if (!$this->request->authorize()) {
-            throw new AuthorizationException();
-        }
-
-        $this->request->validate($this->request->rules());
-
-        $request = $this->request;
-        $data = $request->getData();
+        $data = $this->request->getData();
 
         if (!$this->isParsable($data)) {
-            Log::info(sprintf('Google Play malformed RTDN: %s', json_encode($request->all())));
+            Log::info(sprintf('Google Play malformed RTDN: %s', json_encode($this->request->all())));
 
             return;
         }

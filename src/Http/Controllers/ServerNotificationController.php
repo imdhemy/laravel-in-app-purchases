@@ -2,8 +2,8 @@
 
 namespace Imdhemy\Purchases\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Imdhemy\Purchases\Http\Handlers\HandlerFactory;
-use Imdhemy\Purchases\Http\Requests\ServerNotificationRequest;
 
 /**
  * Server notification controller
@@ -17,11 +17,11 @@ class ServerNotificationController extends Controller
      * Handles the server notification request
      *
      * @param HandlerFactory $handlerFactory
-     * @param ServerNotificationRequest $request
+     * @param Request $request
      */
-    public function __invoke(HandlerFactory $handlerFactory, ServerNotificationRequest $request)
+    public function __invoke(HandlerFactory $handlerFactory, Request $request)
     {
-        $handler = $handlerFactory->create($request->getProvider());
+        $handler = $handlerFactory->create($request->get('provider'));
 
         $handler->execute();
     }

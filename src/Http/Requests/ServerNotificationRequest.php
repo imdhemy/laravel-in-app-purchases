@@ -4,15 +4,18 @@ namespace Imdhemy\Purchases\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ServerNotificationRequest extends FormRequest
+/**
+ * Base server notification request
+ */
+abstract class ServerNotificationRequest extends FormRequest
 {
-    public function rules(): array
-    {
-        return [];
-    }
+    /**
+     * @return array
+     */
+    abstract public function rules(): array;
 
-    public function getProvider(): string
-    {
-        return (string)$this->get('provider');
-    }
+    /**
+     * @return bool
+     */
+    abstract public function authorize(): bool;
 }

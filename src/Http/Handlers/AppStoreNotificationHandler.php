@@ -2,7 +2,6 @@
 
 namespace Imdhemy\Purchases\Http\Handlers;
 
-use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Log;
 use Imdhemy\AppStore\ServerNotifications\ServerNotification;
 use Imdhemy\Purchases\Contracts\NotificationHandlerContract;
@@ -32,16 +31,10 @@ class AppStoreNotificationHandler implements NotificationHandlerContract
     }
 
     /**
-     * @throws AuthorizationException
+     * Executes the handler
      */
     public function execute()
     {
-        if (!$this->request->authorize()) {
-            throw new AuthorizationException();
-        }
-
-        $this->request->validate($this->request->rules());
-
         $attributes = $this->request->all();
         $serverNotification = ServerNotification::fromArray($attributes);
         $appStoreNotification = new AppStoreServerNotification($serverNotification);
