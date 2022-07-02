@@ -2,7 +2,6 @@
 
 namespace Imdhemy\Purchases\Http\Handlers;
 
-
 use Illuminate\Support\Facades\Log;
 use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
 use Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification;
@@ -35,7 +34,7 @@ class GooglePlayNotificationHandler extends AbstractNotificationHandler
     {
         $data = $this->request->get('message')['data'];
 
-        if (!$this->isParsable($data)) {
+        if (! $this->isParsable($data)) {
             Log::info(sprintf('Google Play malformed RTDN: %s', json_encode($this->request->all())));
 
             return;
@@ -64,6 +63,6 @@ class GooglePlayNotificationHandler extends AbstractNotificationHandler
     {
         $decodedData = json_decode(base64_decode($data), true);
 
-        return !is_null($decodedData);
+        return ! is_null($decodedData);
     }
 }

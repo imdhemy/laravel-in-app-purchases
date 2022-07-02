@@ -50,15 +50,18 @@ abstract class AbstractNotificationHandler implements NotificationHandlerContrac
      */
     protected function authorize()
     {
-        if (!$this->isAuthorized()) {
-            throw new  AuthorizationException();
+        if (! $this->isAuthorized()) {
+            throw new AuthorizationException();
         }
     }
 
     /**
      * @return bool
      */
-    protected function isAuthorized(): bool { return true; }
+    protected function isAuthorized(): bool
+    {
+        return true;
+    }
 
     /**
      * @throws ValidationException
@@ -71,7 +74,10 @@ abstract class AbstractNotificationHandler implements NotificationHandlerContrac
     /**
      * @return string[][]
      */
-    protected function rules(): array { return []; }
+    protected function rules(): array
+    {
+        return [];
+    }
 
     /**
      * @return mixed
