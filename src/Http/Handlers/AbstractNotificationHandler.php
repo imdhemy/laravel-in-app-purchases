@@ -58,7 +58,7 @@ abstract class AbstractNotificationHandler implements NotificationHandlerContrac
     /**
      * @return bool
      */
-    abstract protected function isAuthorized(): bool;
+    protected function isAuthorized(): bool { return true; }
 
     /**
      * @throws ValidationException
@@ -71,7 +71,7 @@ abstract class AbstractNotificationHandler implements NotificationHandlerContrac
     /**
      * @return string[][]
      */
-    abstract protected function rules(): array;
+    protected function rules(): array { return []; }
 
     /**
      * @return mixed

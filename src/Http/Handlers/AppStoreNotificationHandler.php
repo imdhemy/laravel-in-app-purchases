@@ -2,10 +2,8 @@
 
 namespace Imdhemy\Purchases\Http\Handlers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Imdhemy\AppStore\ServerNotifications\ServerNotification;
-use Imdhemy\Purchases\Contracts\NotificationHandlerContract;
 use Imdhemy\Purchases\Events\AppStore\EventFactory as AppStoreEventFactory;
 use Imdhemy\Purchases\ServerNotifications\AppStoreServerNotification;
 
@@ -15,25 +13,12 @@ use Imdhemy\Purchases\ServerNotifications\AppStoreServerNotification;
  * Handles notifications sent by App store.
  * Dispatches the App store subscription event related to the notification type.
  */
-class AppStoreNotificationHandler implements NotificationHandlerContract
+class AppStoreNotificationHandler extends AbstractNotificationHandler
 {
     /**
-     * @var Request
+     * @inheritDoc
      */
-    private $request;
-
-    /**
-     * @param Request $request
-     */
-    public function __construct(Request $request)
-    {
-        $this->request = $request;
-    }
-
-    /**
-     * Executes the handler
-     */
-    public function execute()
+    protected function handle()
     {
         $attributes = $this->request->all();
         $serverNotification = ServerNotification::fromArray($attributes);
@@ -45,5 +30,19 @@ class AppStoreNotificationHandler implements NotificationHandlerContract
 
         $event = AppStoreEventFactory::create($appStoreNotification);
         event($event);
+    }
+
+    /**
+     * @return string[][]
+     */
+    protected function rules(): array
+    {
+        // V.1 notifications
+        return [
+          'unified_receipt' => ['array', 'required'],
+          'unified_receipt.latest_receipt' => ['required'],
+          'unified_receipt.latest_receipt_info' => ['required', 'array'],
+          'notification_type' => ['required'],
+        ];
     }
 }

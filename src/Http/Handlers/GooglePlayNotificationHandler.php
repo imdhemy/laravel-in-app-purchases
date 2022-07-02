@@ -18,14 +18,6 @@ use Imdhemy\Purchases\ServerNotifications\GoogleServerNotification;
 class GooglePlayNotificationHandler extends AbstractNotificationHandler
 {
     /**
-     * @return bool
-     */
-    protected function isAuthorized(): bool
-    {
-        return true;
-    }
-
-    /**
      * @return string[][]
      */
     protected function rules(): array
