@@ -2,6 +2,7 @@
 
 namespace Imdhemy\Purchases\Http\Handlers;
 
+use Exception;
 use Illuminate\Foundation\Application;
 use Imdhemy\Purchases\Contracts\NotificationHandlerContract;
 
@@ -29,15 +30,17 @@ class HandlerFactory
      * @param string $provider
      *
      * @return NotificationHandlerContract
+     * @throws Exception
      */
     public function create(string $provider): NotificationHandlerContract
     {
-        $abstract = AppStoreNotificationHandler::class;
-
-        if ($provider === 'google-play') {
-            $abstract = GooglePlayNotificationHandler::class;
+        switch ($provider) {
+            case 'google-play':
+                return $this->application->make(GooglePlayNotificationHandler::class);
+            case 'app-store':
+                return $this->application->make(AppStoreNotificationHandler::class);
+            default:
+                throw new Exception(sprintf('Invalid provider: {%s}', $provider));
         }
-
-        return $this->application->make($abstract);
     }
 }

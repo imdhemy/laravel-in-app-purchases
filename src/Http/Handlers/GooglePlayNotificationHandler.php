@@ -3,12 +3,12 @@
 namespace Imdhemy\Purchases\Http\Handlers;
 
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
 use Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification;
 use Imdhemy\Purchases\Contracts\NotificationHandlerContract;
 use Imdhemy\Purchases\Events\GooglePlay\EventFactory as GooglePlayEventFactory;
-use Imdhemy\Purchases\Http\Requests\GoogleDeveloperNotificationRequest;
 use Imdhemy\Purchases\ServerNotifications\GoogleServerNotification;
 
 /**
@@ -20,14 +20,14 @@ use Imdhemy\Purchases\ServerNotifications\GoogleServerNotification;
 class GooglePlayNotificationHandler implements NotificationHandlerContract
 {
     /**
-     * @var GoogleDeveloperNotificationRequest
+     * @var Request
      */
     private $request;
 
     /**
-     * @param GoogleDeveloperNotificationRequest $request
+     * @param Request $request
      */
-    public function __construct(GoogleDeveloperNotificationRequest $request)
+    public function __construct(Request $request)
     {
         $this->request = $request;
     }
@@ -37,7 +37,7 @@ class GooglePlayNotificationHandler implements NotificationHandlerContract
      */
     public function execute()
     {
-        $data = $this->request->getData();
+        $data = $this->request->get('message')['data'];
 
         if (!$this->isParsable($data)) {
             Log::info(sprintf('Google Play malformed RTDN: %s', json_encode($this->request->all())));

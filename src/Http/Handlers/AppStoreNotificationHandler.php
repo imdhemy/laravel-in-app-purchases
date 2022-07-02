@@ -2,11 +2,11 @@
 
 namespace Imdhemy\Purchases\Http\Handlers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Imdhemy\AppStore\ServerNotifications\ServerNotification;
 use Imdhemy\Purchases\Contracts\NotificationHandlerContract;
 use Imdhemy\Purchases\Events\AppStore\EventFactory as AppStoreEventFactory;
-use Imdhemy\Purchases\Http\Requests\AppStoreServerNotificationRequest;
 use Imdhemy\Purchases\ServerNotifications\AppStoreServerNotification;
 
 /**
@@ -18,14 +18,14 @@ use Imdhemy\Purchases\ServerNotifications\AppStoreServerNotification;
 class AppStoreNotificationHandler implements NotificationHandlerContract
 {
     /**
-     * @var AppStoreServerNotificationRequest
+     * @var Request
      */
     private $request;
 
     /**
-     * @param AppStoreServerNotificationRequest $request
+     * @param Request $request
      */
-    public function __construct(AppStoreServerNotificationRequest $request)
+    public function __construct(Request $request)
     {
         $this->request = $request;
     }
