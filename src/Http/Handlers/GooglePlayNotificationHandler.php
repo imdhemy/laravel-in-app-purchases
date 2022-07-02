@@ -3,8 +3,11 @@
 namespace Imdhemy\Purchases\Http\Handlers;
 
 
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
 use Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification;
 use Imdhemy\Purchases\Contracts\NotificationHandlerContract;
@@ -25,18 +28,31 @@ class GooglePlayNotificationHandler implements NotificationHandlerContract
     private $request;
 
     /**
-     * @param Request $request
+     * @var Factory
      */
-    public function __construct(Request $request)
+    private $validator;
+
+    /**
+     * @param Request $request
+     * @param Factory $validator
+     */
+    public function __construct(Request $request, Factory $validator)
     {
         $this->request = $request;
+        $this->validator = $validator;
     }
 
     /**
      * Executes the handler
+     *
+     * @throws ValidationException
+     * @throws AuthorizationException
      */
     public function execute()
     {
+        $this->authorize();
+        $this->validate();
+
         $data = $this->request->get('message')['data'];
 
         if (!$this->isParsable($data)) {
@@ -57,6 +73,43 @@ class GooglePlayNotificationHandler implements NotificationHandlerContract
             $event = GooglePlayEventFactory::create($googleNotification);
             event($event);
         }
+    }
+
+    /**
+     * @throws AuthorizationException
+     */
+    protected function authorize()
+    {
+        if (!$this->isAuthorized()) {
+            throw new  AuthorizationException();
+        }
+    }
+
+    /**
+     * @return bool
+     */
+    protected function isAuthorized(): bool
+    {
+        return true;
+    }
+
+    /**
+     * @throws ValidationException
+     */
+    protected function validate(): void
+    {
+        $this->validator->make($this->request->all(), $this->rules())->validate();
+    }
+
+    /**
+     * @return string[][]
+     */
+    protected function rules(): array
+    {
+        return [
+          'message' => ['required', 'array'],
+          'message.data' => ['required'],
+        ];
     }
 
     /**
