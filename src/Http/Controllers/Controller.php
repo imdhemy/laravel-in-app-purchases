@@ -7,8 +7,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 /**
- * Class Controller
- * @package Imdhemy\Purchases\Http\Controllers
+ * Base Controller class
  */
 class Controller extends \Illuminate\Routing\Controller
 {
