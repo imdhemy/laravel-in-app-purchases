@@ -1,6 +1,6 @@
 <?php
 
-namespace Imdhemy\Purchases\Http\Handlers;
+namespace Imdhemy\Purchases\Handlers;
 
 use Exception;
 use Illuminate\Foundation\Application;

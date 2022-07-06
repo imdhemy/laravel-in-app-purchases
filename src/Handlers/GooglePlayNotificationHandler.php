@@ -1,6 +1,6 @@
 <?php
 
-namespace Imdhemy\Purchases\Http\Handlers;
+namespace Imdhemy\Purchases\Handlers;
 
 use Illuminate\Support\Facades\Log;
 use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;

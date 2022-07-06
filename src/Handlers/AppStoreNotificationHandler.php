@@ -1,6 +1,6 @@
 <?php
 
-namespace Imdhemy\Purchases\Http\Handlers;
+namespace Imdhemy\Purchases\Handlers;
 
 use Illuminate\Support\Facades\Log;
 use Imdhemy\AppStore\ServerNotifications\ServerNotification;
@@ -17,6 +17,7 @@ class AppStoreNotificationHandler extends AbstractNotificationHandler
 {
     /**
      * @inheritDoc
+     * @return void
      */
     protected function handle()
     {
