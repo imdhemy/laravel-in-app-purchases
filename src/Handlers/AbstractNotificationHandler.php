@@ -7,6 +7,7 @@ use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Imdhemy\Purchases\Contracts\NotificationHandlerContract;
+use Imdhemy\Purchases\Contracts\UrlGenerator;
 
 abstract class AbstractNotificationHandler implements NotificationHandlerContract
 {
@@ -21,13 +22,20 @@ abstract class AbstractNotificationHandler implements NotificationHandlerContrac
     protected $validator;
 
     /**
+     * @var UrlGenerator
+     */
+    private $urlGenerator;
+
+    /**
      * @param Request $request
      * @param Factory $validator
+     * @param UrlGenerator $urlGenerator
      */
-    public function __construct(Request $request, Factory $validator)
+    public function __construct(Request $request, Factory $validator, UrlGenerator $urlGenerator)
     {
         $this->request = $request;
         $this->validator = $validator;
+        $this->urlGenerator = $urlGenerator;
     }
 
     /**
@@ -60,7 +68,13 @@ abstract class AbstractNotificationHandler implements NotificationHandlerContrac
      */
     protected function isAuthorized(): bool
     {
-        return true;
+        $shouldAuthorize = (bool)config('liap.routing.signed', false);
+
+        if (! $shouldAuthorize) {
+            return true;
+        }
+
+        return $this->urlGenerator->hasValidSignature($this->request);
     }
 
     /**

@@ -2,7 +2,9 @@
 
 namespace Imdhemy\Purchases\Console;
 
+use Illuminate\Http\Request;
 use Illuminate\Routing\UrlGenerator as LaravelUrlGenerator;
+use Illuminate\Support\Str;
 use Imdhemy\Purchases\Contracts\UrlGenerator as UrlGeneratorContract;
 
 /**
@@ -33,5 +35,30 @@ class UrlGenerator implements UrlGeneratorContract
         $singedUrl = $this->urlGenerator->signedRoute('liap.serverNotifications');
 
         return sprintf("%s&provider=%s", $singedUrl, $provider);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function hasValidSignature(Request $request): bool
+    {
+        if (version_compare(app()->version(), '9', '>=')) {
+            /** @psalm-suppress TooManyArguments */
+            return $this->urlGenerator->hasValidSignature($request, true, ['provider']);
+        }
+
+        $ignoreQuery = ['signature', 'provider'];
+        $url = $request->url();
+
+        $queryString = collect(explode('&', (string)$request->server->get('QUERY_STRING')))
+          ->reject(function ($parameter) use ($ignoreQuery) {
+              return in_array(Str::before($parameter, '='), $ignoreQuery);
+          })
+          ->join('&');
+
+        $original = rtrim($url . '?' . $queryString, '?');
+        $signature = hash_hmac('sha256', $original, config('app.key'));
+
+        return hash_equals($signature, (string)$request->query('signature', ''));
     }
 }

@@ -135,6 +135,8 @@ class LiapServiceProvider extends ServiceProvider
      */
     private function bindConcretes(): void
     {
+        $this->app->bind(UrlGeneratorContract::class, UrlGenerator::class);
+
         $this->app->when(LiapUrlCommand::class)
           ->needs(UrlGeneratorContract::class)
           ->give(function (Application $app) {
