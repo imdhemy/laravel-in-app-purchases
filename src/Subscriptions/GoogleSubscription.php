@@ -54,7 +54,7 @@ class GoogleSubscription implements SubscriptionContract
         $notification = $developerNotification->getSubscriptionNotification();
         $packageName = $developerNotification->getPackageName();
 
-        $subscriptionPurchase = Subscription::googlePlay($client)
+        $subscriptionPurchase = (new \Imdhemy\Purchases\Subscription())->googlePlay($client)
             ->packageName($packageName)
             ->id($notification->getSubscriptionId())
             ->token($notification->getPurchaseToken())
