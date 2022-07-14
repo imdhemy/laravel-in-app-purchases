@@ -66,19 +66,44 @@ class LiapUrlCommand extends Command
      */
     public function handle(): int
     {
+        $providers = $this->getProviders();
+
+        foreach ($providers as $provider) {
+            $this->appendUrl($provider);
+        }
+
+        $this->table(self::TABLE_HEADERS, $this->urlCollection->toArray());
+
+        return self::SUCCESS;
+    }
+
+    /**
+     * Get selected providers
+     *
+     * @return array
+     */
+    protected function getProviders(): array
+    {
         $provider = $this->choice(self::CHOICE_PROVIDER, [
           self::PROVIDER_ALL,
           self::PROVIDER_APP_STORE,
           self::PROVIDER_GOOGLE_PLAY,
         ]);
 
+        return [$provider];
+    }
+
+    /**
+     * Appends a signed URL for the submitted provider
+     *
+     * @param string $provider
+     *
+     * @return void
+     */
+    private function appendUrl(string $provider): void
+    {
         $providerSlug = (string)Str::of($provider)->slug();
         $signedRoute = $this->urlGenerator->generate($providerSlug);
-
         $this->urlCollection->add([$provider, $signedRoute]);
-
-        $this->table(self::TABLE_HEADERS, $this->urlCollection->toArray());
-
-        return self::SUCCESS;
     }
 }

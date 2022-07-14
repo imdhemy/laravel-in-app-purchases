@@ -50,7 +50,7 @@ class LiapUrlCommandTest extends TestCase
     /**
      * @test
      */
-    public function it_should_generate_a_signed_url_for_a_single_provider()
+    public function it_can_generate_a_signed_url_for_a_single_provider()
     {
         $urlGenerator = $this->app->make(UrlGeneratorDouble::class);
         $provider = $this->faker->randomElement([
