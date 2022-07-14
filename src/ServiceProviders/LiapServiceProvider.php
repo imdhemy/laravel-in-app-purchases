@@ -5,6 +5,7 @@ namespace Imdhemy\Purchases\ServiceProviders;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Imdhemy\Purchases\Console\LiapConfigPublishCommand;
+use Imdhemy\Purchases\Console\LiapUrlCommand;
 use Imdhemy\Purchases\Product;
 use Imdhemy\Purchases\Subscription;
 
@@ -72,6 +73,7 @@ class LiapServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
               LiapConfigPublishCommand::class,
+              LiapUrlCommand::class,
             ]);
         }
     }
