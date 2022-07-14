@@ -9,6 +9,14 @@ use Illuminate\Console\Command;
  */
 class LiapUrlCommand extends Command
 {
+    public const CHOICE_PROVIDER = 'Select provider';
+
+    public const PROVIDER_ALL = 'All Providers';
+
+    public const PROVIDER_APP_STORE = 'App Store';
+
+    public const PROVIDER_GOOGLE_PLAY = 'Google Play';
+
     /**
      * The name and signature of the console command.
      *
@@ -30,6 +38,12 @@ class LiapUrlCommand extends Command
      */
     public function handle(): int
     {
+        $provider = $this->choice(self::CHOICE_PROVIDER, [
+          self::PROVIDER_ALL,
+          self::PROVIDER_APP_STORE,
+          self::PROVIDER_GOOGLE_PLAY,
+        ]);
+
         return 0;
     }
 }
