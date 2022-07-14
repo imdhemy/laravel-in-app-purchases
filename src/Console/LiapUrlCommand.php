@@ -90,6 +90,10 @@ class LiapUrlCommand extends Command
           self::PROVIDER_GOOGLE_PLAY,
         ]);
 
+        if ($provider === self::PROVIDER_ALL) {
+            return [self::PROVIDER_APP_STORE, self::PROVIDER_GOOGLE_PLAY];
+        }
+
         return [$provider];
     }
 
