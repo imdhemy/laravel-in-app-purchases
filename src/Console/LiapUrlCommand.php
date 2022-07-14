@@ -3,6 +3,9 @@
 namespace Imdhemy\Purchases\Console;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
+use Imdhemy\Purchases\Contracts\UrlGenerator;
 
 /**
  * A command to generate signed url to the server notification handler endpoint
@@ -16,6 +19,8 @@ class LiapUrlCommand extends Command
     public const PROVIDER_APP_STORE = 'App Store';
 
     public const PROVIDER_GOOGLE_PLAY = 'Google Play';
+
+    public const TABLE_HEADERS = ['Provider', 'URL'];
 
     /**
      * The name and signature of the console command.
@@ -32,6 +37,29 @@ class LiapUrlCommand extends Command
     protected $description = "Generates a signed URL to the server notifications handler endpoint";
 
     /**
+     * @var UrlGenerator
+     */
+    private $urlGenerator;
+
+    /**
+     * @var Collection
+     */
+    private $urlCollection;
+
+    /**
+     * @inheritDoc
+     */
+    public function __construct(UrlGenerator $urlGenerator, Collection $urlCollection)
+    {
+        parent::__construct();
+
+        $this->urlGenerator = $urlGenerator;
+
+        $this->urlCollection = $urlCollection;
+    }
+
+
+    /**
      * Execute the console command.
      *
      * @return int
@@ -44,6 +72,13 @@ class LiapUrlCommand extends Command
           self::PROVIDER_GOOGLE_PLAY,
         ]);
 
-        return 0;
+        $providerSlug = (string)Str::of($provider)->slug();
+        $signedRoute = $this->urlGenerator->generate($providerSlug);
+
+        $this->urlCollection->add([$provider, $signedRoute]);
+
+        $this->table(self::TABLE_HEADERS, $this->urlCollection->toArray());
+
+        return self::SUCCESS;
     }
 }
