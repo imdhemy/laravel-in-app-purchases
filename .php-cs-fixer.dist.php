@@ -4,8 +4,8 @@ use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
 
 $includedPatterns = [
-  __DIR__.'/src',
-  __DIR__.'/tests',
+  __DIR__ . '/src',
+  __DIR__ . '/tests',
 ];
 
 $rules = [
@@ -24,8 +24,8 @@ $rules = [
   'phpdoc_single_line_var_spacing' => true,
   'phpdoc_var_without_name' => true,
   'method_argument_space' => [
+    'keep_multiple_spaces_after_comma' => false,
     'on_multiline' => 'ensure_fully_multiline',
-    'keep_multiple_spaces_after_comma' => true,
   ],
 ];
 
