@@ -2,6 +2,8 @@
 
 namespace Tests\Console;
 
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Str;
 use Illuminate\Testing\PendingCommand;
 use Imdhemy\Purchases\Console\LiapUrlCommand;
 use Tests\Doubles\UrlGeneratorDouble;
@@ -9,6 +11,8 @@ use Tests\TestCase;
 
 class LiapUrlCommandTest extends TestCase
 {
+    use WithFaker;
+
     public const CHOICES = [
       LiapUrlCommand::PROVIDER_ALL,
       LiapUrlCommand::PROVIDER_APP_STORE,
@@ -46,18 +50,23 @@ class LiapUrlCommandTest extends TestCase
     /**
      * @test
      */
-    public function it_should_generate_a_signed_url_for_app_store()
+    public function it_should_generate_a_signed_url_for_a_single_provider()
     {
         $urlGenerator = $this->app->make(UrlGeneratorDouble::class);
+        $provider = $this->faker->randomElement([
+          LiapUrlCommand::PROVIDER_APP_STORE,
+          LiapUrlCommand::PROVIDER_GOOGLE_PLAY,
+        ]);
+        $providerSlug = (string)Str::of($provider)->slug();
 
         $expected = [
           [
-            LiapUrlCommand::PROVIDER_APP_STORE,
-            $urlGenerator->generate('app-store'),
+            $provider,
+            $urlGenerator->generate($providerSlug),
           ],
         ];
 
-        $this->runWithChoice(LiapUrlCommand::PROVIDER_APP_STORE)
+        $this->runWithChoice($provider)
           ->expectsTable(LiapUrlCommand::TABLE_HEADERS, $expected)
           ->assertSuccessful();
     }
