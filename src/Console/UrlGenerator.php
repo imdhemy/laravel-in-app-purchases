@@ -39,12 +39,13 @@ class UrlGenerator implements UrlGeneratorContract
 
     /**
      * @inheritDoc
+     * @psalm-suppress RedundantCastGivenDocblockType
+     * @psalm-suppress TooManyArguments
      */
     public function hasValidSignature(Request $request): bool
     {
         if (version_compare(app()->version(), '9', '>=')) {
-            /** @psalm-suppress TooManyArguments */
-            return $this->urlGenerator->hasValidSignature($request, true, ['provider']);
+            return (bool)$this->urlGenerator->hasValidSignature($request, true, ['provider']);
         }
 
         $ignoreQuery = ['signature', 'provider'];
