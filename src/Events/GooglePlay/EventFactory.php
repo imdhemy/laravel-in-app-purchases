@@ -15,14 +15,14 @@ class EventFactory
      * @param GoogleServerNotification $notification
      * @return PurchaseEventContract
      */
-    public static function create(GoogleServerNotification $notification): PurchaseEventContract
+    public static function create(GoogleServerNotification $notification, string $data): PurchaseEventContract
     {
         $notificationType = $notification->getType();
         $types = (new ReflectionClass(SubscriptionNotification::class))->getConstants();
         $type = array_search($notificationType, $types);
         $className = self::getClassName($type);
 
-        return new $className($notification);
+        return new $className($notification, $data);
     }
 
     /**

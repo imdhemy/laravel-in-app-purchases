@@ -63,7 +63,7 @@ class ServerNotificationController extends Controller
         }
 
         if ($developerNotification->isSubscriptionNotification()) {
-            $event = GooglePlayEventFactory::create($googleNotification);
+            $event = GooglePlayEventFactory::create($googleNotification, $data);
             event($event);
         }
     }
