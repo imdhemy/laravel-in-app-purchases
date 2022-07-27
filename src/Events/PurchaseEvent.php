@@ -26,8 +26,9 @@ abstract class PurchaseEvent implements PurchaseEventContract
     /**
      * SubscriptionPurchased constructor.
      * @param  ServerNotificationContract  $serverNotification
+     * @param  string  $rawData
      */
-    public function __construct(ServerNotificationContract $serverNotification, string $rawData)
+    public function __construct(ServerNotificationContract $serverNotification, string $rawData = '')
     {
         $this->serverNotification = $serverNotification;
         $this->rawData = $rawData;
