@@ -49,8 +49,8 @@ class GoogleSubscription implements SubscriptionContract
      * @throws GuzzleException
      */
     public static function createFromDeveloperNotification(
-      DeveloperNotification $developerNotification,
-      ?ClientInterface $client = null
+        DeveloperNotification $developerNotification,
+        ?ClientInterface $client = null
     ): self {
         $notification = $developerNotification->getPayload();
         $packageName = $developerNotification->getPackageName();
@@ -62,9 +62,9 @@ class GoogleSubscription implements SubscriptionContract
           ->get();
 
         return new self(
-          $subscriptionPurchase,
-          $notification->getSubscriptionId(),
-          $notification->getPurchaseToken()
+            $subscriptionPurchase,
+            $notification->getSubscriptionId(),
+            $notification->getPurchaseToken()
         );
     }
 
