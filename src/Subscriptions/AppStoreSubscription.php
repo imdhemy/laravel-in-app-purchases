@@ -56,9 +56,9 @@ class AppStoreSubscription implements SubscriptionContract
     }
 
     /**
-     * @return mixed
+     * @return LatestReceiptInfo
      */
-    public function getProviderRepresentation()
+    public function getProviderRepresentation(): LatestReceiptInfo
     {
         return $this->receipt;
     }

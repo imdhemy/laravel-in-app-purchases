@@ -29,6 +29,7 @@ class GoogleSubscription implements SubscriptionContract
 
     /**
      * GoogleSubscription constructor.
+     *
      * @param SubscriptionPurchase $subscription
      * @param string $itemId
      * @param string $token
@@ -43,26 +44,27 @@ class GoogleSubscription implements SubscriptionContract
     /**
      * @param DeveloperNotification $developerNotification
      * @param ClientInterface|null $client
+     *
      * @return static
      * @throws GuzzleException
      */
     public static function createFromDeveloperNotification(
-        DeveloperNotification $developerNotification,
-        ?ClientInterface $client = null
+      DeveloperNotification $developerNotification,
+      ?ClientInterface $client = null
     ): self {
         $notification = $developerNotification->getPayload();
         $packageName = $developerNotification->getPackageName();
 
         $subscriptionPurchase = Subscription::googlePlay($client)
-            ->packageName($packageName)
-            ->id($notification->getSubscriptionId())
-            ->token($notification->getPurchaseToken())
-            ->get();
+          ->packageName($packageName)
+          ->id($notification->getSubscriptionId())
+          ->token($notification->getPurchaseToken())
+          ->get();
 
         return new self(
-            $subscriptionPurchase,
-            $notification->getSubscriptionId(),
-            $notification->getPurchaseToken()
+          $subscriptionPurchase,
+          $notification->getSubscriptionId(),
+          $notification->getPurchaseToken()
         );
     }
 
@@ -99,9 +101,9 @@ class GoogleSubscription implements SubscriptionContract
     }
 
     /**
-     * @return mixed
+     * @return SubscriptionPurchase
      */
-    public function getProviderRepresentation()
+    public function getProviderRepresentation(): SubscriptionPurchase
     {
         return $this->subscription;
     }
