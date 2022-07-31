@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+# Installs latest laravel version
+# and installs liap from current directory
+laravel() {
+  # Install laravel
+  if [ ! -d "laravel" ]; then
+    composer create-project laravel/laravel laravel --prefer-dist
+  fi
+
+  # Replace composer file
+  if [ -f "laravel/composer.json" ]; then
+    rm laravel/composer.json
+  fi
+
+  if [ -f "laravel/composer.lock" ]; then
+      rm laravel/composer.lock
+  fi
+
+  cp bin/composer.stub.json laravel/composer.json
+  cd laravel && composer update && cd ..
+
+  echo "Laravel installed"
+  echo "It would be a good idea to mark the laravel directory as excluded from you IDE."
+}
+
+if [ "$1" == "laravel" ]; then
+  laravel
+  exit 0
+fi
+
+# Send all commands to artisan
+php laravel/artisan "$@"
