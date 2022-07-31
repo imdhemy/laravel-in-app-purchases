@@ -14,6 +14,8 @@ class LiapUrlCommand extends Command
 {
     public const CHOICE_PROVIDER = 'Select provider';
 
+    public const CONFIRM_GENERATE_SIGNED_ROUTES = 'Signed routes are disabled. Do you want to generate signed routes?';
+
     public const PROVIDER_ALL = 'All Providers';
 
     public const PROVIDER_APP_STORE = 'App Store';
@@ -68,7 +70,7 @@ class LiapUrlCommand extends Command
     {
         $providers = $this->getProviders();
 
-        if (config('liap.routing.signed')) {
+        if ($this->shouldGenerateSignedUrls()) {
             $this->generateSignedUrls($providers);
         } else {
             $this->generateUnsignedUrls($providers);
@@ -153,5 +155,15 @@ class LiapUrlCommand extends Command
         foreach ($providers as $provider) {
             $this->appendUnsignedUrl($provider);
         }
+    }
+
+    /**
+     * Checks if the user wants to generate signed URLs
+     *
+     * @return bool
+     */
+    protected function shouldGenerateSignedUrls(): bool
+    {
+        return config('liap.routing.signed') || $this->confirm(self::CONFIRM_GENERATE_SIGNED_ROUTES);
     }
 }

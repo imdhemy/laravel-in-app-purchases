@@ -120,7 +120,33 @@ class LiapUrlCommandTest extends TestCase
         }
 
         $this->runWithChoice()
+          ->expectsConfirmation(LiapUrlCommand::CONFIRM_GENERATE_SIGNED_ROUTES)
           ->assertSuccessful()
           ->expectsTable(LiapUrlCommand::TABLE_HEADERS, $expected->toArray());
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_force_signed_routes()
+    {
+        config()->set('liap.routing.signed', false);
+
+        /** @var UrlGeneratorDouble $urlGenerator */
+        $urlGenerator = $this->app->make(UrlGeneratorDouble::class);
+        $providers = [LiapUrlCommand::PROVIDER_APP_STORE, LiapUrlCommand::PROVIDER_GOOGLE_PLAY];
+        $expected = new Collection();
+
+        foreach ($providers as $provider) {
+            $expected->add([
+              $provider,
+              $urlGenerator->generate((string)Str::of($provider)->slug()),
+            ]);
+        }
+
+        $this->runWithChoice()
+          ->expectsConfirmation(LiapUrlCommand::CONFIRM_GENERATE_SIGNED_ROUTES, 'yes')
+          ->expectsTable(LiapUrlCommand::TABLE_HEADERS, $expected->toArray())
+          ->assertSuccessful();
     }
 }
