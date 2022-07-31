@@ -68,8 +68,10 @@ class LiapUrlCommand extends Command
     {
         $providers = $this->getProviders();
 
-        foreach ($providers as $provider) {
-            $this->appendUrl($provider);
+        if (config('liap.routing.signed')) {
+            $this->generateSignedUrls($providers);
+        } else {
+            $this->generateUnsignedUrls($providers);
         }
 
         $this->table(self::TABLE_HEADERS, $this->urlCollection->toArray());
@@ -104,10 +106,52 @@ class LiapUrlCommand extends Command
      *
      * @return void
      */
-    private function appendUrl(string $provider): void
+    private function appendSignedUrl(string $provider): void
     {
         $providerSlug = (string)Str::of($provider)->slug();
-        $signedRoute = $this->urlGenerator->generate($providerSlug);
-        $this->urlCollection->add([$provider, $signedRoute]);
+        $url = $this->urlGenerator->generate($providerSlug);
+        $this->urlCollection->add([$provider, $url]);
+    }
+
+    /**
+     * Appends unsigned URLs for the submitted provider
+     *
+     * @param string $provider
+     *
+     * @return void
+     */
+    private function appendUnsignedUrl(string $provider): void
+    {
+        $providerSlug = (string)Str::of($provider)->slug();
+        $url = route('liap.serverNotifications') . '?provider=' . $providerSlug;
+        $this->urlCollection->add([$provider, $url]);
+    }
+
+    /**
+     * Generates signed URLs for the submitted providers
+     *
+     * @param array $providers
+     *
+     * @return void
+     */
+    private function generateSignedUrls(array $providers): void
+    {
+        foreach ($providers as $provider) {
+            $this->appendSignedUrl($provider);
+        }
+    }
+
+    /**
+     * Generates unsigned URLs for the submitted providers
+     *
+     * @param array $providers
+     *
+     * @return void
+     */
+    private function generateUnsignedUrls(array $providers): void
+    {
+        foreach ($providers as $provider) {
+            $this->appendUnsignedUrl($provider);
+        }
     }
 }

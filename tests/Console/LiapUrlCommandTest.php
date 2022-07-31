@@ -20,6 +20,13 @@ class LiapUrlCommandTest extends TestCase
       LiapUrlCommand::PROVIDER_GOOGLE_PLAY,
     ];
 
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        config()->set('liap.routing.signed', true);
+    }
+
     /**
      * @test
      */
@@ -93,5 +100,27 @@ class LiapUrlCommandTest extends TestCase
         $this->runWithChoice()
           ->expectsTable(LiapUrlCommand::TABLE_HEADERS, $expected->toArray())
           ->assertSuccessful();
+    }
+
+    /**
+     * @test
+     */
+    public function it_does_not_sign_the_url_if_the_signing_routes_is_disabled()
+    {
+        config()->set('liap.routing.signed', false);
+
+        $providers = [LiapUrlCommand::PROVIDER_APP_STORE, LiapUrlCommand::PROVIDER_GOOGLE_PLAY];
+        $expected = new Collection();
+
+        foreach ($providers as $provider) {
+            $expected->add([
+              $provider,
+              route('liap.serverNotifications') . '?provider=' . Str::of($provider)->slug(),
+            ]);
+        }
+
+        $this->runWithChoice()
+          ->assertSuccessful()
+          ->expectsTable(LiapUrlCommand::TABLE_HEADERS, $expected->toArray());
     }
 }
