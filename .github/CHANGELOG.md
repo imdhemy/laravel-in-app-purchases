@@ -34,7 +34,8 @@ It's a pre-release. We are creating new bugs to fix.
 
 This version is a long-term support release and a complete rewrite of the package. There are many breaking
 changes that are not backward compatible. You can still use the pre-release version `0.x` for a while until an
-upgrade to `1.x` is available. It will be available on the [documentation site](https://imdhemy.com/laravel-iap-docs/).
+upgrade guide to `1.x` is available. It will be available on the [documentation site](https://imdhemy.
+com/laravel-iap-docs/).
 
 This version supports receipt validation, server notifications, and mocking receipts 🎉. The next versions will
 support App Store notifications v.2.
