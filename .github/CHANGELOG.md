@@ -21,10 +21,10 @@ For LTS releases, starting from `Laravel IAP 1`, bug fixes provided for 2 years 
 years. These releases provide the longest window of support and maintenance. For general releases, bug fixes are
 provided for 18 months and security fixes are provided for 2 years.
 
-| Version | Release | Bug fixes until | Security fixes until |
-| --- | --- | --- | --- |
-| 0 (Pre) | 2020-11-26 | 2022-05-26 | 2022-11-26 |
-| 1 (LTS) | 2022-01-01 | 2024-01-01 | 2025-01-01 |
+| Version | Release    | Bug fixes until | Security fixes until |
+|---------|------------|-----------------|----------------------|
+| 0 (Pre) | 2020-11-26 | 2022-05-26      | 2022-11-26           |
+| 1 (LTS) | 2022-08-15 | 2024-08-15      | 2025-08-15           |
 
 ## Version 0.x
 
@@ -32,4 +32,9 @@ It's a pre-release. We are creating new bugs to fix.
 
 ## Version 1.x
 
-First LTS release. 
+This version is a long-term support release, and it's a complete rewrite of the package. There are many breaking
+changes which are not backwards compatible. You can still using the pre-release version `0.x` for a while until an
+upgrade to `1.x` is available. It will be available on the [documentation site](https://imdhemy.com/laravel-iap-docs/).
+
+This version supports receipt validation, server notifications and mocking receipts 🎉. The next versions will
+support App Store notifications v.2.
