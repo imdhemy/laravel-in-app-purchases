@@ -1,5 +1,5 @@
 <div align="center">
-    <p><img src="cover.png" alt="Laravel In-app Purchase cover"></p>
+    <p><img width="450" src="cover.png" alt="Laravel In-app Purchase cover"></p>
     <p>
         <img alt="Packagist PHP Version Support" src="https://img.shields.io/packagist/php-v/imdhemy/laravel-purchases">
         <img src="https://img.shields.io/packagist/v/imdhemy/laravel-purchases.svg?style=flat-square" alt="Latest Version on Packagist">
