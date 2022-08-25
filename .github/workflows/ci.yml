@@ -25,7 +25,7 @@ jobs:
 
   # Static code analysis
   static_code_analysis:
-    name: [ Psalm ] Static code analysis
+    name: \[ Psalm \] Static code analysis
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
