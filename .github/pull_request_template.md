@@ -10,7 +10,7 @@ Mention the related issue, either a feature request or a bug report.
 
 Describe your solution to the problem.
 
-**Does your code follow the PSR-2 standard?** _(Yes|No)_.
+**Does your code follow the PSR-12 standard?** _(Yes|No)_.
 
 Answer: ...
 
