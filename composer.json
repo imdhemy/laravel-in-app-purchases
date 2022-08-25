@@ -40,8 +40,7 @@
     }
   },
   "scripts": {
-    "psalm": "vendor/bin/psalm",
-    "psalm-info": "vendor/bin/psalm --show-info=true --no-cache",
+    "psalm": "vendor/bin/psalm --show-info=true --no-cache",
     "format": "vendor/bin/php-cs-fixer fix --allow-risky=yes",
     "check-style": "vendor/bin/php-cs-fixer fix --dry-run",
     "test": "vendor/bin/phpunit --testdox",
