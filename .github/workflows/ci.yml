@@ -69,7 +69,7 @@ jobs:
       - name: PHP setup
         uses: shivammathur/setup-php@v2
         with:
-          php_version: '7.4'
+          php-version: '7.4'
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif,
             iconv, imagick,fileinfo
           coverage: none
