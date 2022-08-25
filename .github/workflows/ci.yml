@@ -13,6 +13,7 @@ on:
 jobs:
   # PSR-12 Coding standards
   psr-12:
+    name: PSR-12
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
