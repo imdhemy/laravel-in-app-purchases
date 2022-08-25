@@ -1,0 +1,84 @@
+name: CI
+on:
+  push:
+    branches:
+      - '*'
+      - '*/*'
+      - '**'
+  pull_request:
+    branches:
+      - '*'
+      - '*/*'
+      - '**'
+jobs:
+  # PSR-12 Coding standards
+  psr-12:
+    name: PSR-12
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Check PSR-12
+        uses: docker://oskarstark/php-cs-fixer-ga
+        with:
+          args: --config=.php-cs-fixer.dist.php --dry-run
+
+  # Static code analysis
+  static_code_analysis:
+    name: Psalm - Static code analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: PHP setup
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
+          coverage: none
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v1
+        with:
+          path: vendor
+          key: composer-${{ hashFiles('composer.lock') }}
+
+      - name: Install dependencies
+        run: composer install -n --prefer-dist
+
+      - name: Psalm
+        run: composer psalm
+
+  # Tests
+  tests:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ ubuntu-latest, windows-latest, macos-latest ]
+        php: [ 7.4, 8.0, 8.1 ]
+    name: Tests - ${{ matrix.os }} - ${{ matrix.php }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: PHP setup
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif,
+            iconv, imagick,fileinfo
+          coverage: none
+
+      - name: Install dependencies
+        run: composer install
+
+      - name: Security advice
+        run: composer security-advice
+
+      - name: Execute PHPUnit tests
+        run: composer test
