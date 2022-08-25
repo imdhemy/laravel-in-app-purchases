@@ -25,7 +25,7 @@ jobs:
 
   # Static code analysis
   static_code_analysis:
-    name: \[ Psalm \] Static code analysis
+    name: Psalm - Static code analysis
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -50,4 +50,31 @@ jobs:
       - name: Psalm
         run: composer psalm
 
+  # Tests
+  tests:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ ubuntu-latest, windows-latest, macos-latest ]
+        php: [ 7.4, 8.0, 8.1 ]
+    name: Tests - ${{ matrix.os }} - ${{ matrix.php }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: PHP setup
+        uses: shivammathur/setup-php@v2
+        with:
+          php_version: '7.4'
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
+          coverage: none
+
+      - name: Install dependencies
+        run: composer install
+
+      - name: Execute PHPUnit tests
+        run: composer test
 
