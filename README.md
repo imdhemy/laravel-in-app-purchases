@@ -6,8 +6,7 @@
 alt="Latest Version on Packagist"></a>
        <a href="https://packagist.org/packages/imdhemy/laravel-purchases/stats"><img src="https://img.shields.io/packagist/dt/imdhemy/laravel-purchases.svg?style=flat-square" 
 alt="Total Downloads"></a>
-        <a href="https://github.com/imdhemy/laravel-in-app-purchases/commits/"><img alt="GitHub last commit" src="https://img.shields.
-io/github/last-commit/imdhemy/laravel-in-app-purchases"></a>
+        <a href="https://github.com/imdhemy/laravel-in-app-purchases/commits/"><img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/imdhemy/laravel-in-app-purchases"></a>
         <a href="https://github.com/imdhemy/laravel-in-app-purchases/actions/workflows/ci.yml"><img src="https://github.com/imdhemy/laravel-in-app-purchases/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
     </p>
     <p> ✅ App Store ✅ Google Play </p>
