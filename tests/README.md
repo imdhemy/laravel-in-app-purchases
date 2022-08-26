@@ -1,6 +1,6 @@
 # Tests
 
-When we started writing this test suite, me (the maintainer) was
+When we started writing this test suite, me (the maintainer) was NOT
 knowledgeable about testing a remote API. I used real APIs to test where I
 should mock responses instead.
 
