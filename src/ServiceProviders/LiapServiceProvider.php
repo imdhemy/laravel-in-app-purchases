@@ -2,7 +2,6 @@
 
 namespace Imdhemy\Purchases\ServiceProviders;
 
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Imdhemy\Purchases\Console\LiapConfigPublishCommand;
@@ -11,7 +10,6 @@ use Imdhemy\Purchases\Console\UrlGenerator;
 use Imdhemy\Purchases\Contracts\UrlGenerator as UrlGeneratorContract;
 use Imdhemy\Purchases\Product;
 use Imdhemy\Purchases\Subscription;
-use Tests\Doubles\UrlGeneratorDouble;
 
 /**
  * Laravel Iap service provider
@@ -29,7 +27,7 @@ class LiapServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->publishConfig();
 
@@ -76,8 +74,8 @@ class LiapServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
-              LiapConfigPublishCommand::class,
-              LiapUrlCommand::class,
+                LiapConfigPublishCommand::class,
+                LiapUrlCommand::class,
             ]);
         }
     }
@@ -87,7 +85,7 @@ class LiapServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->registerConfig();
 
@@ -136,13 +134,5 @@ class LiapServiceProvider extends ServiceProvider
     private function bindConcretes(): void
     {
         $this->app->bind(UrlGeneratorContract::class, UrlGenerator::class);
-
-        $this->app->when(LiapUrlCommand::class)
-          ->needs(UrlGeneratorContract::class)
-          ->give(function (Application $app) {
-              $concrete = $app->runningUnitTests() ? UrlGeneratorDouble::class : UrlGenerator::class;
-
-              return $app->make($concrete);
-          });
     }
 }
