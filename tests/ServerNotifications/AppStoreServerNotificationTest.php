@@ -19,7 +19,7 @@ class AppStoreServerNotificationTest extends TestCase
     /**
      * @inheritDoc
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $path = $this->testAssetPath('appstore-server-notification.json');

@@ -24,7 +24,7 @@ class UrlGeneratorTest extends TestCase
     /**
      * @inheritDoc
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -61,9 +61,9 @@ class UrlGeneratorTest extends TestCase
         parse_str($urlParts['query'], $query);
 
         $request = new Request($query, [], [], [], [], [
-          'QUERY_STRING' => $urlParts['query'],
-          'HTTP_HOST' => $urlParts['host'],
-          'REQUEST_URI' => $urlParts['path'],
+            'QUERY_STRING' => $urlParts['query'],
+            'HTTP_HOST' => $urlParts['host'],
+            'REQUEST_URI' => $urlParts['path'],
         ]);
 
         $this->assertTrue($this->urlGenerator->hasValidSignature($request));
@@ -79,9 +79,9 @@ class UrlGeneratorTest extends TestCase
         parse_str($urlParts['query'], $query);
 
         $request = new Request($query, [], [], [], [], [
-          'QUERY_STRING' => $urlParts['query'],
-          'HTTP_HOST' => $urlParts['host'],
-          'REQUEST_URI' => $urlParts['path'],
+            'QUERY_STRING' => $urlParts['query'],
+            'HTTP_HOST' => $urlParts['host'],
+            'REQUEST_URI' => $urlParts['path'],
         ]);
 
         $this->assertFalse($this->urlGenerator->hasValidSignature($request));
@@ -102,8 +102,8 @@ class UrlGeneratorTest extends TestCase
         $request = new Request();
 
         $mock->shouldReceive('hasValidSignature')
-          ->once()
-          ->with($request, true, ['provider']);
+            ->once()
+            ->with($request, true, ['provider']);
 
         $urlGenerator->hasValidSignature($request);
 

@@ -29,7 +29,7 @@ class SubscriptionTest extends TestCase
     /**
      * @inheritDoc
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->token = 'hfjblmhmkloppbpihhhifndn.AO-J1OxOKM878RHwS0Hl2Ti3WCvySGw9QTi5WtEUJHO4ppW7ai62vXtruAfOGFWFVdG8Spb3aJRnooesbP_Yfyo0_PXn6LCQ5g';
