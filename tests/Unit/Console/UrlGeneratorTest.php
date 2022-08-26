@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Console;
+namespace Tests\Unit\Console;
 
 use Illuminate\Http\Request;
 use Imdhemy\Purchases\Console\UrlGenerator;
@@ -74,7 +74,7 @@ class UrlGeneratorTest extends TestCase
      */
     public function has_valid_signature_returns_false_with_modified_url()
     {
-        $url = $this->urlGenerator->generate('my-provider') . "&attack=true";
+        $url = $this->urlGenerator->generate('my-provider') . '&attack=true';
         $urlParts = parse_url($url);
         parse_str($urlParts['query'], $query);
 
