@@ -104,6 +104,6 @@ class LiapConfigPublishCommand extends Command
     {
         $this->error(self::MESSAGE_ALREADY_INSTALLED);
 
-        return 1;
+        return self::FAILURE;
     }
 }
