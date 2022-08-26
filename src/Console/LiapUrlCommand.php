@@ -41,12 +41,12 @@ class LiapUrlCommand extends Command
     /**
      * @var UrlGenerator
      */
-    private $urlGenerator;
+    private UrlGenerator $urlGenerator;
 
     /**
      * @var Collection
      */
-    private $urlCollection;
+    private Collection $urlCollection;
 
     /**
      * @inheritDoc
@@ -68,13 +68,7 @@ class LiapUrlCommand extends Command
      */
     public function handle(): int
     {
-        $providers = $this->getProviders();
-
-        if ($this->shouldGenerateSignedUrls()) {
-            $this->generateSignedUrls($providers);
-        } else {
-            $this->generateUnsignedUrls($providers);
-        }
+        $this->generateUrls();
 
         $this->table(self::TABLE_HEADERS, $this->urlCollection->toArray());
 
@@ -89,9 +83,9 @@ class LiapUrlCommand extends Command
     protected function getProviders(): array
     {
         $provider = $this->choice(self::CHOICE_PROVIDER, [
-          self::PROVIDER_ALL,
-          self::PROVIDER_APP_STORE,
-          self::PROVIDER_GOOGLE_PLAY,
+            self::PROVIDER_ALL,
+            self::PROVIDER_APP_STORE,
+            self::PROVIDER_GOOGLE_PLAY,
         ]);
 
         if ($provider === self::PROVIDER_ALL) {
@@ -99,34 +93,6 @@ class LiapUrlCommand extends Command
         }
 
         return [$provider];
-    }
-
-    /**
-     * Appends a signed URL for the submitted provider
-     *
-     * @param string $provider
-     *
-     * @return void
-     */
-    private function appendSignedUrl(string $provider): void
-    {
-        $providerSlug = (string)Str::of($provider)->slug();
-        $url = $this->urlGenerator->generate($providerSlug);
-        $this->urlCollection->add([$provider, $url]);
-    }
-
-    /**
-     * Appends unsigned URLs for the submitted provider
-     *
-     * @param string $provider
-     *
-     * @return void
-     */
-    private function appendUnsignedUrl(string $provider): void
-    {
-        $providerSlug = (string)Str::of($provider)->slug();
-        $url = route('liap.serverNotifications') . '?provider=' . $providerSlug;
-        $this->urlCollection->add([$provider, $url]);
     }
 
     /**
@@ -139,7 +105,9 @@ class LiapUrlCommand extends Command
     private function generateSignedUrls(array $providers): void
     {
         foreach ($providers as $provider) {
-            $this->appendSignedUrl($provider);
+            $providerSlug = (string)Str::of($provider)->slug();
+            $url = $this->urlGenerator->generate($providerSlug);
+            $this->urlCollection->add([$provider, $url]);
         }
     }
 
@@ -153,7 +121,9 @@ class LiapUrlCommand extends Command
     private function generateUnsignedUrls(array $providers): void
     {
         foreach ($providers as $provider) {
-            $this->appendUnsignedUrl($provider);
+            $providerSlug = (string)Str::of($provider)->slug();
+            $url = route('liap.serverNotifications') . '?provider=' . $providerSlug;
+            $this->urlCollection->add([$provider, $url]);
         }
     }
 
@@ -164,6 +134,24 @@ class LiapUrlCommand extends Command
      */
     protected function shouldGenerateSignedUrls(): bool
     {
-        return config('liap.routing.signed') || $this->confirm(self::CONFIRM_GENERATE_SIGNED_ROUTES);
+        return
+            config('liap.routing.signed') ||
+            $this->confirm(self::CONFIRM_GENERATE_SIGNED_ROUTES);
+    }
+
+    /**
+     * @return void
+     */
+    protected function generateUrls(): void
+    {
+        $providers = $this->getProviders();
+
+        if ($this->shouldGenerateSignedUrls()) {
+            $this->generateSignedUrls($providers);
+
+            return;
+        }
+
+        $this->generateUnsignedUrls($providers);
     }
 }
