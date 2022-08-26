@@ -15,7 +15,7 @@ class UrlGenerator implements UrlGeneratorContract
     /**
      * @var LaravelUrlGenerator
      */
-    private $urlGenerator;
+    private LaravelUrlGenerator $urlGenerator;
 
     /**
      * Creates an Url generator instance
@@ -52,10 +52,10 @@ class UrlGenerator implements UrlGeneratorContract
         $url = $request->url();
 
         $queryString = collect(explode('&', (string)$request->server->get('QUERY_STRING')))
-          ->reject(function ($parameter) use ($ignoreQuery) {
-              return in_array(Str::before($parameter, '='), $ignoreQuery);
-          })
-          ->join('&');
+            ->reject(function ($parameter) use ($ignoreQuery) {
+                return in_array(Str::before($parameter, '='), $ignoreQuery);
+            })
+            ->join('&');
 
         $original = rtrim($url . '?' . $queryString, '?');
         $signature = hash_hmac('sha256', $original, config('app.key'));
