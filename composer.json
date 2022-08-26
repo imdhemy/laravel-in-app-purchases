@@ -1,6 +1,6 @@
 {
   "name": "imdhemy/laravel-purchases",
-  "description": "Laravel receipt validator for Google Play",
+  "description": "The top-notch Laravel receipt validator.",
   "keywords": [
     "laravel-in-app-purchases",
     "google_play",
