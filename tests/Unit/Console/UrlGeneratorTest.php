@@ -2,9 +2,12 @@
 
 namespace Tests\Unit\Console;
 
+use Illuminate\Foundation\Bootstrap\LoadConfiguration as IlluminateLoadConfiguration;
 use Illuminate\Http\Request;
+use Illuminate\Routing\UrlGenerator as IlluminateUrlGenerator;
 use Imdhemy\Purchases\Console\UrlGenerator;
 use Mockery;
+use Orchestra\Testbench\Bootstrap\LoadConfiguration as OrchestraLoadConfiguration;
 use Orchestra\Testbench\Foundation\PackageManifest;
 use Tests\Doubles\Laravel9\Application;
 use Tests\TestCase;
@@ -14,7 +17,7 @@ class UrlGeneratorTest extends TestCase
     /**
      * @var UrlGenerator
      */
-    private $urlGenerator;
+    private UrlGenerator $sut;
 
     /**
      * @var Application
@@ -28,35 +31,41 @@ class UrlGeneratorTest extends TestCase
     {
         parent::setUp();
 
-        $this->urlGenerator = $this->app->make(UrlGenerator::class);
+        $this->sut = $this->app->make(UrlGenerator::class);
     }
 
     /**
      * @test
      */
-    public function generate_should_generate_a_signed_url()
+    public function generate_should_create_a_url_with_signature_query(): string
     {
-        $url = $this->urlGenerator->generate('my-provider');
+        $url = $this->sut->generate('my-provider');
 
+        $this->assertNotFalse(filter_var($url, FILTER_VALIDATE_URL));
         $this->assertStringContainsString('signature=', $url);
+
+        return $url;
     }
 
     /**
      * @test
+     * @depends generate_should_create_a_url_with_signature_query
+     *
+     * @param string $url The generated url
      */
-    public function generate_should_add_the_provider_to_the_query()
+    public function generate_should_add_the_provider_to_the_query(string $url): void
     {
-        $url = $this->urlGenerator->generate('my-provider');
-
         $this->assertStringContainsString('provider=my-provider', $url);
     }
 
     /**
      * @test
+     * @depends generate_should_create_a_url_with_signature_query
+     *
+     * @param string $url The generated url
      */
-    public function has_valid_signature_returns_true_with_valid_requests()
+    public function has_valid_signature_returns_true_with_valid_requests(string $url): void
     {
-        $url = $this->urlGenerator->generate('my-provider');
         $urlParts = parse_url($url);
         parse_str($urlParts['query'], $query);
 
@@ -66,16 +75,19 @@ class UrlGeneratorTest extends TestCase
             'REQUEST_URI' => $urlParts['path'],
         ]);
 
-        $this->assertTrue($this->urlGenerator->hasValidSignature($request));
+        $this->assertTrue($this->sut->hasValidSignature($request));
     }
 
     /**
      * @test
+     * @depends generate_should_create_a_url_with_signature_query
+     *
+     * @param string $url The generated url
      */
-    public function has_valid_signature_returns_false_with_modified_url()
+    public function has_valid_signature_returns_false_with_modified_url(string $url): void
     {
-        $url = $this->urlGenerator->generate('my-provider') . '&attack=true';
-        $urlParts = parse_url($url);
+        $modifiedUrl = $url . '&attack=true';
+        $urlParts = parse_url($modifiedUrl);
         parse_str($urlParts['query'], $query);
 
         $request = new Request($query, [], [], [], [], [
@@ -84,28 +96,29 @@ class UrlGeneratorTest extends TestCase
             'REQUEST_URI' => $urlParts['path'],
         ]);
 
-        $this->assertFalse($this->urlGenerator->hasValidSignature($request));
+        $this->assertFalse($this->sut->hasValidSignature($request));
     }
 
     /**
      * @test
      * @psalm-suppress UndefinedMagicMethod
      */
-    public function has_valid_signature_delegates_call_laravel_9_implementation()
+    public function has_valid_signature_delegates_call_to_laravel_9_implementation(): void
     {
-        $this->expectNotToPerformAssertions();
         $this->app->setCustomVersion('9.0.0');
 
-        /** @var \Illuminate\Routing\UrlGenerator|Mockery\MockInterface $mock */
-        $mock = Mockery::mock(\Illuminate\Routing\UrlGenerator::class);
-        $urlGenerator = new UrlGenerator($mock);
+        /** @var IlluminateUrlGenerator|Mockery\MockInterface $mock */
+        $mock = Mockery::mock(IlluminateUrlGenerator::class);
+
+        $sut = new UrlGenerator($mock);
         $request = new Request();
 
         $mock->shouldReceive('hasValidSignature')
             ->once()
-            ->with($request, true, ['provider']);
+            ->with($request, true, ['provider'])
+            ->andReturn(true);
 
-        $urlGenerator->hasValidSignature($request);
+        $this->assertTrue($sut->hasValidSignature($request));
 
         Mockery::close();
     }
@@ -116,10 +129,7 @@ class UrlGeneratorTest extends TestCase
     protected function resolveApplication()
     {
         return tap(new Application($this->getBasePath()), function ($app) {
-            $app->bind(
-                'Illuminate\Foundation\Bootstrap\LoadConfiguration',
-                'Orchestra\Testbench\Bootstrap\LoadConfiguration'
-            );
+            $app->bind(IlluminateLoadConfiguration::class, OrchestraLoadConfiguration::class);
 
             PackageManifest::swap($app, $this);
         });
@@ -130,7 +140,7 @@ class UrlGeneratorTest extends TestCase
      */
     protected function tearDown(): void
     {
-        $this->app->setCustomVersion(\Illuminate\Foundation\Application::VERSION);
+        $this->app->setCustomVersion(Application::ORIGINAL_VERSION);
 
         parent::tearDown();
     }
