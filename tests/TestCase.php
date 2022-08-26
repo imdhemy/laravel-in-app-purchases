@@ -7,8 +7,7 @@ use Orchestra\Testbench\TestCase as Orchestra;
 
 /**
  * Test Case
- * All test cases that requires a laravel app instance
- * should extend this class
+ * All test cases that requires a laravel app instance should extend this class
  */
 class TestCase extends Orchestra
 {
@@ -33,9 +32,10 @@ class TestCase extends Orchestra
     /**
      * @inheritdoc
      */
-    public function getEnvironmentSetUp($app)
+    public function getEnvironmentSetUp($app): void
     {
         $app['config']->set('database.default', 'sqlite');
+
         $app['config']->set('database.connections.sqlite', [
             'driver' => 'sqlite',
             'database' => ':memory:',
@@ -52,10 +52,10 @@ class TestCase extends Orchestra
      */
     protected function testAssetPath(?string $path = null): string
     {
-        $assetsPath = __DIR__.'/assets';
+        $assetsPath = __DIR__ . '/assets';
 
         if ($path) {
-            return $assetsPath.'/'.$path;
+            return $assetsPath . '/' . $path;
         }
 
         return $assetsPath;
