@@ -5,7 +5,7 @@
 laravel() {
   # Install laravel
   if [ ! -d "laravel" ]; then
-    composer create-project laravel/laravel laravel --prefer-dist
+    composer create-project laravel/laravel laravel --prefer-dist "^8"
   fi
 
   # Replace composer file

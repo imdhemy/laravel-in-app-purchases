@@ -4,6 +4,7 @@ namespace Tests;
 
 use Imdhemy\Purchases\ServiceProviders\LiapServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Tests\Doubles\LiapTestProvider;
 
 /**
  * Test Case
@@ -18,6 +19,7 @@ class TestCase extends Orchestra
     {
         return [
             LiapServiceProvider::class,
+            LiapTestProvider::class,
         ];
     }
 
