@@ -17,7 +17,7 @@
     }
   ],
   "require": {
-    "php": ">=7.4",
+    "php": ">=8.0",
     "ext-json": "*",
     "imdhemy/appstore-iap": "^1.0",
     "imdhemy/google-play-billing": "^1.0",
@@ -62,7 +62,7 @@
     "sort-packages": true,
     "allow-plugins": {},
     "platform": {
-      "php": "7.4"
+      "php": "8.0"
     }
   }
 }
