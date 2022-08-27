@@ -7,15 +7,23 @@ assignees: ''
 
 ---
 
+---
+Laravel version: `y.x`
+PHP version: `y.x`
+Package version: `y.x`
+---
+
 **Describe the bug**
 A clear and concise description of what the bug is.
 
 **To Reproduce**
 Steps to reproduce the behavior:
+
 1. ...
 2. ...
 3. ...
 4. See the error.
+
 ```
 Error Message...
 ```
@@ -24,6 +32,7 @@ Error Message...
 A clear and concise description of what you expected to happen.
 
 **Full trace**
+
 ```
 If applicable, add full error trace to the bug.
 ```
