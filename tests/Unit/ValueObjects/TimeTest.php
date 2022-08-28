@@ -81,19 +81,6 @@ class TimeTest extends TestCase
      * @test
      * @return Time
      */
-    public function is_future_should_return_false_give_value_is_now(): Time
-    {
-        $sut = Time::fromCarbon(Carbon::now());
-
-        $this->assertFalse($sut->isFuture());
-
-        return $sut;
-    }
-
-    /**
-     * @test
-     * @return Time
-     */
     public function is_future_should_return_false_give_value_is_passed(): Time
     {
         $sut = new Time(time() * 1000 - 5000);
@@ -106,14 +93,11 @@ class TimeTest extends TestCase
     /**
      * @test
      * @depends is_future_should_return_true_given_value_is_in_the_future
-     * @depends is_future_should_return_false_give_value_is_now
      * @depends is_future_should_return_false_give_value_is_passed
      */
-    public function is_past_should_work_properly_with_is_future(Time $future, Time $now, Time $past): void
+    public function is_past_should_work_properly_with_is_future(Time $future, Time $past): void
     {
         $this->assertFalse($future->isPast());
-
-        $this->assertTrue($now->isPast()); // Time passes...
 
         $this->assertTrue($past->isPast());
     }
