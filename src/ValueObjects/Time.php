@@ -6,13 +6,18 @@ use Carbon\Carbon;
 use DateTime;
 use Imdhemy\AppStore\ValueObjects\Time as AppStoreTime;
 use Imdhemy\GooglePlay\ValueObjects\Time as GoogleTime;
+use Stringable;
 
-final class Time
+/**
+ * Class Time
+ * A smart value object for time.
+ */
+final class Time implements Stringable
 {
     /**
      * @var Carbon
      */
-    private $carbon;
+    private Carbon $carbon;
 
     /**
      * Time constructor
@@ -26,6 +31,7 @@ final class Time
 
     /**
      * @param GoogleTime $time
+     *
      * @return static
      */
     public static function fromGoogleTime(GoogleTime $time): self
@@ -35,6 +41,7 @@ final class Time
 
     /**
      * @param AppStoreTime $time
+     *
      * @return static
      */
     public static function fromAppStoreTime(AppStoreTime $time): self
@@ -44,6 +51,7 @@ final class Time
 
     /**
      * @param Carbon $carbon
+     *
      * @return static
      */
     public static function fromCarbon(Carbon $carbon): self
@@ -84,5 +92,13 @@ final class Time
     public function toDateTime(): DateTime
     {
         return $this->carbon->toDateTime();
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->carbon->toDateTimeString();
     }
 }
