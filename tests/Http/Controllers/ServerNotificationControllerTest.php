@@ -39,7 +39,7 @@ class ServerNotificationControllerTest extends TestCase
         $this->withoutExceptionHandling();
         $data = [
             'message' => [
-                'data' => 'eyJ2ZXJzaW9uIjoiMS4wIiwicGFja2FnZU5hbWUiOiJjb20udHdpZ2Fuby5mYXNoaW9uIiwiZXZlbnRUaW1lTWlsbGlzIjoiMTYwMzkxNjUzMzcyMiIsInRlc3ROb3RpZmljYXRpb24iOnsidmVyc2lvbiI6IjEuMCJ9fQ==',
+                'data' => $this->faker->googleTestNotification(),
             ],
         ];
 

@@ -62,4 +62,31 @@ class Faker
             throw new RuntimeException($e->getMessage());
         }
     }
+
+    /**
+     * Generates a Google test notification with the given data
+     *
+     * @param array $data
+     *
+     * @return string
+     */
+    public function googleTestNotification(array $data = []): string
+    {
+        $testNotification = array_merge([
+            'version' => '1.0',
+        ], $data);
+
+        $data = [
+            'version' => '1.0',
+            'packageName' => 'com.some.thing',
+            'eventTimeMillis' => (string)time(),
+            'testNotification' => $testNotification,
+        ];
+
+        try {
+            return base64_encode(json_encode($data, JSON_THROW_ON_ERROR));
+        } catch (JsonException $e) {
+            throw new RuntimeException($e->getMessage());
+        }
+    }
 }
