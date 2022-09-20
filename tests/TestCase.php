@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use Faker\Factory;
 use Imdhemy\Purchases\ServiceProviders\LiapServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Tests\Doubles\LiapTestProvider;
@@ -12,6 +13,18 @@ use Tests\Doubles\LiapTestProvider;
  */
 class TestCase extends Orchestra
 {
+    protected Faker $faker;
+
+    /**
+     * @inheritDoc
+     */
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->faker = new Faker(Factory::create());
+    }
+
     /**
      * @inheritdoc
      */

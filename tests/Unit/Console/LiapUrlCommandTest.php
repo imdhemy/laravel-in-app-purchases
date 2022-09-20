@@ -2,7 +2,6 @@
 
 namespace Tests\Unit\Console;
 
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Illuminate\Testing\PendingCommand;
@@ -13,8 +12,6 @@ use Tests\TestCase;
 
 class LiapUrlCommandTest extends TestCase
 {
-    use WithFaker;
-
     public const CHOICES = [
         LiapUrlCommand::PROVIDER_ALL,
         LiapUrlCommand::PROVIDER_APP_STORE,
