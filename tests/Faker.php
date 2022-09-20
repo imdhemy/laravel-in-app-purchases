@@ -3,6 +3,8 @@
 namespace Tests;
 
 use Faker\Generator;
+use JsonException;
+use RuntimeException;
 
 /**
  * Class Faker
@@ -29,5 +31,35 @@ class Faker
     public function __call($name, $arguments)
     {
         return $this->faker->$name(...$arguments);
+    }
+
+    /**
+     * Generates a Google subscription notification with the given data
+     *
+     * @param array $data
+     *
+     * @return string
+     */
+    public function googleSubscriptionNotification(array $data = []): string
+    {
+        $subscriptionNotification = array_merge([
+            'version' => '1.0',
+            'notificationType' => 1,
+            'purchaseToken' => 'some-purchase-token',
+            'subscriptionId' => 'some-subscription-id',
+        ], $data);
+
+        $data = [
+            'version' => '1.0',
+            'packageName' => 'com.some.thing',
+            'eventTimeMillis' => (string)time(),
+            'subscriptionNotification' => $subscriptionNotification,
+        ];
+
+        try {
+            return base64_encode(json_encode($data, JSON_THROW_ON_ERROR));
+        } catch (JsonException $e) {
+            throw new RuntimeException($e->getMessage());
+        }
     }
 }
