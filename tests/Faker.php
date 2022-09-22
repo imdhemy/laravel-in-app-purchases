@@ -4,6 +4,11 @@ namespace Tests;
 
 use Faker\Generator;
 use JsonException;
+use Lcobucci\JWT\Builder;
+use Lcobucci\JWT\JwtFacade;
+use Lcobucci\JWT\Signer\Ecdsa\Sha256;
+use Lcobucci\JWT\Signer\Key\InMemory;
+use Lcobucci\JWT\Token;
 use RuntimeException;
 
 /**
@@ -83,6 +88,43 @@ class Faker
     }
 
     /**
+     * Generates an App Store subscription notification with the given data
+     *
+     * @param array $data
+     *
+     * @return Token
+     */
+    public function appStoreTestNotification(array $data = []): Token
+    {
+        $alg = Sha256::create();
+        $x5cJson = file_get_contents(__DIR__ . '/assets/x5c-chain.json');
+        $x5c = $this->jsonDecode($x5cJson);
+
+        $data = [
+            'notificationType' => 'TEST',
+            'notificationUUID' => $this->faker->uuid(),
+            'data' => array_merge([
+                'bundleId' => 'com.some.thing',
+                'environment' => 'Sandbox',
+            ], $data),
+            'version' => '2.0',
+            'signedDate' => time() * 1000,
+        ];
+
+        $fakeSignKey = InMemory::plainText($this->generateECPrivateKey());
+
+        return (new JwtFacade())->issue($alg, $fakeSignKey, static function (Builder $builder) use ($data, $x5c) {
+            $builder->withHeader('x5c', $x5c);
+
+            foreach ($data as $key => $value) {
+                $builder->withClaim($key, $value);
+            }
+
+            return $builder;
+        });
+    }
+
+    /**
      * Safe bas64 encoding
      *
      * @param $data
@@ -96,5 +138,41 @@ class Faker
         } catch (JsonException $e) {
             throw new RuntimeException($e->getMessage());
         }
+    }
+
+    /**
+     * Safe JSON decoding
+     *
+     * @param string $json
+     *
+     * @return array
+     */
+    public function jsonDecode(string $json): array
+    {
+        try {
+            return json_decode($json, true, 512, JSON_THROW_ON_ERROR);
+        } catch (JsonException $e) {
+            throw new RuntimeException($e->getMessage());
+        }
+    }
+
+    /**
+     * Generates an EC private key
+     *
+     * @return string
+     */
+    public function generateECPrivateKey(): string
+    {
+        $config = [
+            'digest_alg' => 'sha256',
+            'private_key_bits' => 2048,
+            'private_key_type' => OPENSSL_KEYTYPE_EC,
+            'curve_name' => 'prime256v1',
+        ];
+
+        $res = openssl_pkey_new($config);
+        openssl_pkey_export($res, $privateKey);
+
+        return $privateKey;
     }
 }
