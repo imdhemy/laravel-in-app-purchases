@@ -56,11 +56,7 @@ class Faker
             'subscriptionNotification' => $subscriptionNotification,
         ];
 
-        try {
-            return base64_encode(json_encode($data, JSON_THROW_ON_ERROR));
-        } catch (JsonException $e) {
-            throw new RuntimeException($e->getMessage());
-        }
+        return $this->base64Encode($data);
     }
 
     /**
@@ -83,6 +79,18 @@ class Faker
             'testNotification' => $testNotification,
         ];
 
+        return $this->base64Encode($data);
+    }
+
+    /**
+     * Safe bas64 encoding
+     *
+     * @param $data
+     *
+     * @return string
+     */
+    public function base64Encode($data): string
+    {
         try {
             return base64_encode(json_encode($data, JSON_THROW_ON_ERROR));
         } catch (JsonException $e) {
