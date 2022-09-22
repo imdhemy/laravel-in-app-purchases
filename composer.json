@@ -24,6 +24,7 @@
     "laravel/framework": ">=6.20"
   },
   "require-dev": {
+    "ext-openssl": "*",
     "roave/security-advisories": "dev-latest",
     "friendsofphp/php-cs-fixer": "^3.4",
     "orchestra/testbench": "^6.24",

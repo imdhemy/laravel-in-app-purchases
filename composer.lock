@@ -952,16 +952,16 @@
         },
         {
             "name": "imdhemy/appstore-iap",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/imdhemy/appstore-iap.git",
-                "reference": "9cbab461564da1f6f604b199a7ea0ecc7c8559a5"
+                "reference": "bebdd373717395cbd44408130c000cfa81ed8465"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/imdhemy/appstore-iap/zipball/9cbab461564da1f6f604b199a7ea0ecc7c8559a5",
-                "reference": "9cbab461564da1f6f604b199a7ea0ecc7c8559a5",
+                "url": "https://api.github.com/repos/imdhemy/appstore-iap/zipball/bebdd373717395cbd44408130c000cfa81ed8465",
+                "reference": "bebdd373717395cbd44408130c000cfa81ed8465",
                 "shasum": ""
             },
             "require": {
@@ -1000,9 +1000,9 @@
             "description": "PHP Appstore In-App Purchase implementation",
             "support": {
                 "issues": "https://github.com/imdhemy/appstore-iap/issues",
-                "source": "https://github.com/imdhemy/appstore-iap/tree/1.2.0"
+                "source": "https://github.com/imdhemy/appstore-iap/tree/1.2.1"
             },
-            "time": "2022-09-19T13:37:38+00:00"
+            "time": "2022-09-21T10:42:30+00:00"
         },
         {
             "name": "imdhemy/google-play-billing",
@@ -8116,12 +8116,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "264a5085afd6e127daba3f47751fa971d3c29c3d"
+                "reference": "7756fea7a811a23d92009e03fdad3b91352f9b4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/264a5085afd6e127daba3f47751fa971d3c29c3d",
-                "reference": "264a5085afd6e127daba3f47751fa971d3c29c3d",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/7756fea7a811a23d92009e03fdad3b91352f9b4f",
+                "reference": "7756fea7a811a23d92009e03fdad3b91352f9b4f",
                 "shasum": ""
             },
             "conflict": {
@@ -8183,7 +8183,7 @@
                 "contao/core-bundle": "<4.9.18|>=4.10,<4.11.7|>=4.13,<4.13.3|= 4.10.0",
                 "contao/listing-bundle": ">=4,<4.4.8",
                 "contao/managed-edition": "<=1.5",
-                "craftcms/cms": "<3.7.36",
+                "craftcms/cms": ">= 4.0.0-RC1, < 4.2.1|<4.2.1",
                 "croogo/croogo": "<3.0.7",
                 "cuyz/valinor": "<0.12",
                 "czproject/git-php": "<4.0.3",
@@ -8319,7 +8319,7 @@
                 "league/commonmark": "<0.18.3",
                 "league/flysystem": "<1.1.4|>=2,<2.1.1",
                 "lexik/jwt-authentication-bundle": "<2.10.7|>=2.11,<2.11.3",
-                "librenms/librenms": "<22.4",
+                "librenms/librenms": "<=22.8",
                 "limesurvey/limesurvey": "<3.27.19",
                 "livehelperchat/livehelperchat": "<=3.91",
                 "livewire/livewire": ">2.2.4,<2.2.6",
@@ -8335,7 +8335,7 @@
                 "mautic/core": "<4.3|= 2.13.1",
                 "mediawiki/core": ">=1.27,<1.27.6|>=1.29,<1.29.3|>=1.30,<1.30.2|>=1.31,<1.31.9|>=1.32,<1.32.6|>=1.32.99,<1.33.3|>=1.33.99,<1.34.3|>=1.34.99,<1.35",
                 "mezzio/mezzio-swoole": "<3.7|>=4,<4.3",
-                "microweber/microweber": "<1.3.1",
+                "microweber/microweber": "<=1.3.1",
                 "miniorange/miniorange-saml": "<1.4.3",
                 "mittwald/typo3_forum": "<1.2.1",
                 "modx/revolution": "<= 2.8.3-pl|<2.8",
@@ -8558,7 +8558,7 @@
                 "wpanel/wpanel4-cms": "<=4.3.1",
                 "wwbn/avideo": "<=11.6",
                 "yeswiki/yeswiki": "<4.1",
-                "yetiforce/yetiforce-crm": "<6.4",
+                "yetiforce/yetiforce-crm": "<=6.4",
                 "yidashi/yii2cmf": "<=2",
                 "yii2mod/yii2-cms": "<1.9.2",
                 "yiisoft/yii": ">=1.1.14,<1.1.15",
@@ -8632,7 +8632,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-09-16T22:04:31+00:00"
+            "time": "2022-09-21T22:04:29+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -9662,16 +9662,16 @@
         },
         {
             "name": "spatie/laravel-ray",
-            "version": "1.30.0",
+            "version": "1.31.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-ray.git",
-                "reference": "1afe8d38cf13e9f7d0f6438e67bca71c3ed8d1f6"
+                "reference": "7394694afd89d05879e7a69c54abab73c1199acd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-ray/zipball/1afe8d38cf13e9f7d0f6438e67bca71c3ed8d1f6",
-                "reference": "1afe8d38cf13e9f7d0f6438e67bca71c3ed8d1f6",
+                "url": "https://api.github.com/repos/spatie/laravel-ray/zipball/7394694afd89d05879e7a69c54abab73c1199acd",
+                "reference": "7394694afd89d05879e7a69c54abab73c1199acd",
                 "shasum": ""
             },
             "require": {
@@ -9730,7 +9730,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-ray/issues",
-                "source": "https://github.com/spatie/laravel-ray/tree/1.30.0"
+                "source": "https://github.com/spatie/laravel-ray/tree/1.31.0"
             },
             "funding": [
                 {
@@ -9742,7 +9742,7 @@
                     "type": "other"
                 }
             ],
-            "time": "2022-07-29T10:02:43+00:00"
+            "time": "2022-09-20T13:13:22+00:00"
         },
         {
             "name": "spatie/macroable",
