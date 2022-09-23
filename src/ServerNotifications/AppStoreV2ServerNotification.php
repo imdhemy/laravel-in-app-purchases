@@ -6,9 +6,13 @@ use GuzzleHttp\Client;
 use Imdhemy\AppStore\ServerNotifications\V2DecodedPayload;
 use Imdhemy\Purchases\Contracts\ServerNotificationContract;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
+use Imdhemy\Purchases\Subscriptions\AppleSubscription;
 
 class AppStoreV2ServerNotification implements ServerNotificationContract
 {
+    /**
+     * @var V2DecodedPayload
+     */
     private V2DecodedPayload $payload;
 
     /**
@@ -41,7 +45,7 @@ class AppStoreV2ServerNotification implements ServerNotificationContract
      */
     public function getSubscription(?Client $client = null): SubscriptionContract
     {
-        // TODO: Implement getSubscription() method.
+        return AppleSubscription::fromV2DecodedPayload($this->payload);
     }
 
     /**
