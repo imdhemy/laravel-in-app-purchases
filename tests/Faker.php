@@ -3,6 +3,7 @@
 namespace Tests;
 
 use Faker\Generator;
+use Imdhemy\AppStore\ServerNotifications\V2DecodedPayload;
 use JsonException;
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\JwtFacade;
@@ -125,14 +126,53 @@ class Faker
     }
 
     /**
+     * Generates an App Store server notification v2 with the given data
+     *
+     * @param array $data
+     * @param string|null $notificationType
+     *
+     * @return Token
+     */
+    public function appStoreNotification(array $data = [], ?string $notificationType = null): Token
+    {
+        $alg = Sha256::create();
+        $x5cJson = file_get_contents(__DIR__ . '/assets/x5c-chain.json');
+        $x5c = $this->jsonDecode($x5cJson);
+
+        $data = [
+            'notificationType' => $notificationType ?? V2DecodedPayload::TYPE_SUBSCRIBED,
+            'notificationUUID' => $this->faker->uuid(),
+            'data' => array_merge([
+                'bundleId' => 'com.some.thing',
+                'environment' => 'Sandbox',
+            ], $data),
+            'version' => '2.0',
+            'signedDate' => time() * 1000,
+        ];
+
+        $fakeSignKey = InMemory::plainText($this->generateECPrivateKey());
+
+        return (new JwtFacade())->issue($alg, $fakeSignKey, static function (Builder $builder) use ($data, $x5c) {
+            $builder->withHeader('x5c', $x5c);
+
+            foreach ($data as $key => $value) {
+                $builder->withClaim($key, $value);
+            }
+
+            return $builder;
+        });
+    }
+
+    /**
      * Safe bas64 encoding
      *
      * @param $data
      *
      * @return string
      */
-    public function base64Encode($data): string
-    {
+    public function base64Encode(
+        $data
+    ): string {
         try {
             return base64_encode(json_encode($data, JSON_THROW_ON_ERROR));
         } catch (JsonException $e) {
@@ -147,8 +187,9 @@ class Faker
      *
      * @return array
      */
-    public function jsonDecode(string $json): array
-    {
+    public function jsonDecode(
+        string $json
+    ): array {
         try {
             return json_decode($json, true, 512, JSON_THROW_ON_ERROR);
         } catch (JsonException $e) {
