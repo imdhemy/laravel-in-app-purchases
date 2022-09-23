@@ -5,6 +5,7 @@ namespace Tests\Http\Controllers;
 use Illuminate\Support\Facades\Event;
 use Imdhemy\AppStore\Jws\JwsVerifier;
 use Imdhemy\Purchases\Events\AppStore\DidChangeRenewalStatus;
+use Imdhemy\Purchases\Events\AppStore\Subscribed;
 use Imdhemy\Purchases\Events\GooglePlay\SubscriptionRecovered;
 use JsonException;
 use Tests\TestCase;
@@ -122,5 +123,20 @@ class ServerNotificationControllerTest extends TestCase
 
         $logs = file_get_contents(storage_path("/logs/laravel.log"));
         $this->assertStringContainsString('AppStoreV2NotificationHandler: Test notification received', $logs);
+    }
+
+    /**
+     * @test
+     */
+    public function app_store_server_notification_v2(): void
+    {
+        Event::fake();
+
+        $signedPayload = $this->faker->appStoreNotification();
+        $uri = url('/liap/notifications?provider=app-store');
+
+        $this->post($uri, ['signedPayload' => $signedPayload->toString()])->assertStatus(200);
+
+        Event::assertDispatched(Subscribed::class);
     }
 }
