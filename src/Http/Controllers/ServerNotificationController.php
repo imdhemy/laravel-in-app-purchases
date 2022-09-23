@@ -24,7 +24,7 @@ class ServerNotificationController extends Controller
      */
     public function __invoke(HandlerFactory $handlerFactory, Request $request)
     {
-        $handler = $handlerFactory->create((string)$request->get('provider'));
+        $handler = $handlerFactory->create();
 
         $handler->execute();
     }

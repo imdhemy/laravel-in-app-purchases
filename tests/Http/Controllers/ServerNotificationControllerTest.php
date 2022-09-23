@@ -3,43 +3,56 @@
 namespace Tests\Http\Controllers;
 
 use Illuminate\Support\Facades\Event;
+use Imdhemy\AppStore\Jws\JwsVerifier;
 use Imdhemy\Purchases\Events\AppStore\DidChangeRenewalStatus;
-use Imdhemy\Purchases\Events\GooglePlay\SubscriptionPurchased;
+use Imdhemy\Purchases\Events\AppStore\Subscribed;
+use Imdhemy\Purchases\Events\GooglePlay\SubscriptionRecovered;
+use JsonException;
 use Tests\TestCase;
 
 class ServerNotificationControllerTest extends TestCase
 {
     /**
+     * @inheritDoc
+     */
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->app->bind(JwsVerifier::class, \Tests\Doubles\JwsVerifier::class);
+    }
+
+    /**
      * @test
      */
-    public function test_google_subscription_notification()
+    public function google_subscription_notification(): void
     {
         Event::fake();
         $this->withoutExceptionHandling();
         $data = [
-          'message' => [
-            'data' => 'eyJ2ZXJzaW9uIjoiMS4wIiwicGFja2FnZU5hbWUiOiJjb20udHdpZ2Fuby5mYXNoaW9uIiwiZXZlbnRUaW1lTWlsbGlzIjoiMTYwMzMwMDgwNzM2MSIsInN1YnNjcmlwdGlvbk5vdGlmaWNhdGlvbiI6eyJ2ZXJzaW9uIjoiMS4wIiwibm90aWZpY2F0aW9uVHlwZSI6NCwicHVyY2hhc2VUb2tlbiI6ImFuZWZjcG1jamZib2RqbGNqZWVhY2piaC5BTy1KMU95NkxWQ2lJSkJBWUY4WVJCZklsaGZiSjlWTUJUamUybHo1bk1vSUV1SEdpMmdLVHczQXlZWEN4enhueGxKbWNOb0NEZlo2VnhFR05EQ0lLS1ZuVXZqUFZRODBPZyIsInN1YnNjcmlwdGlvbklkIjoid2Vla19wcmVtaXVtIn19',
-          ],
+            'message' => [
+                'data' => $this->faker->googleSubscriptionNotification(),
+            ],
         ];
 
         $uri = url('/liap/notifications?provider=google-play');
 
         $this->post($uri, $data)->assertStatus(200);
 
-        Event::assertDispatched(SubscriptionPurchased::class);
+        Event::assertDispatched(SubscriptionRecovered::class);
     }
 
     /**
      * @test
      */
-    public function test_google_test_notification()
+    public function google_test_notification(): void
     {
         file_put_contents(storage_path('logs/laravel.log'), "");
         $this->withoutExceptionHandling();
         $data = [
-          'message' => [
-            'data' => 'eyJ2ZXJzaW9uIjoiMS4wIiwicGFja2FnZU5hbWUiOiJjb20udHdpZ2Fuby5mYXNoaW9uIiwiZXZlbnRUaW1lTWlsbGlzIjoiMTYwMzkxNjUzMzcyMiIsInRlc3ROb3RpZmljYXRpb24iOnsidmVyc2lvbiI6IjEuMCJ9fQ==',
-          ],
+            'message' => [
+                'data' => $this->faker->googleTestNotification(),
+            ],
         ];
 
         $uri = url('/liap/notifications?provider=google-play');
@@ -52,15 +65,21 @@ class ServerNotificationControllerTest extends TestCase
 
     /**
      * @test
+     * @throws JsonException
      */
-    public function test_app_store_server_notifications()
+    public function app_store_server_notifications(): void
     {
         $this->withoutExceptionHandling();
 
         Event::fake();
         $this->withoutExceptionHandling();
 
-        $data = json_decode(file_get_contents($this->testAssetPath('appstore-server-notification.json')), true);
+        $data = json_decode(
+            file_get_contents($this->testAssetPath('appstore-server-notification.json')),
+            true,
+            512,
+            JSON_THROW_ON_ERROR
+        );
         $uri = url('/liap/notifications?provider=app-store');
         $this->post($uri, $data)->assertStatus(200);
 
@@ -69,17 +88,55 @@ class ServerNotificationControllerTest extends TestCase
 
     /**
      * @test
+     * @throws JsonException
      */
-    public function test_it_logs_the_weird_ZnNk_weird_token()
+    public function it_logs_the_weird_ZnNk_weird_token(): void
     {
         file_put_contents(storage_path('logs/laravel.log'), "");
 
-        $data = json_decode(file_get_contents($this->testAssetPath('weird-token-from-google.json')), true);
+        $data = json_decode(
+            file_get_contents($this->testAssetPath('weird-token-from-google.json')),
+            true,
+            512,
+            JSON_THROW_ON_ERROR
+        );
         $uri = url('/liap/notifications?provider=google-play');
         $this->post($uri, $data)->assertStatus(200);
 
         $this->assertNotEmpty(
             file_get_contents(storage_path("/logs/laravel.log"))
         );
+    }
+
+    /**
+     * @test
+     */
+    public function app_store_test_notification(): void
+    {
+        file_put_contents(storage_path('logs/laravel.log'), "");
+        $this->withoutExceptionHandling();
+
+        $signedPayload = $this->faker->appStoreTestNotification();
+        $uri = url('/liap/notifications?provider=app-store');
+
+        $this->post($uri, ['signedPayload' => $signedPayload->toString()])->assertStatus(200);
+
+        $logs = file_get_contents(storage_path("/logs/laravel.log"));
+        $this->assertStringContainsString('AppStoreV2NotificationHandler: Test notification received', $logs);
+    }
+
+    /**
+     * @test
+     */
+    public function app_store_server_notification_v2(): void
+    {
+        Event::fake();
+
+        $signedPayload = $this->faker->appStoreNotification();
+        $uri = url('/liap/notifications?provider=app-store');
+
+        $this->post($uri, ['signedPayload' => $signedPayload->toString()])->assertStatus(200);
+
+        Event::assertDispatched(Subscribed::class);
     }
 }

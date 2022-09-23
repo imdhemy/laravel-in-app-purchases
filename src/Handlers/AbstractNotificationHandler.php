@@ -14,28 +14,26 @@ abstract class AbstractNotificationHandler implements NotificationHandlerContrac
     /**
      * @var Request
      */
-    protected $request;
+    protected Request $request;
 
     /**
      * @var Factory
      */
-    protected $validator;
+    protected Factory $validator;
 
     /**
      * @var UrlGenerator
      */
-    private $urlGenerator;
+    private UrlGenerator $urlGenerator;
 
     /**
-     * @param Request $request
-     * @param Factory $validator
-     * @param UrlGenerator $urlGenerator
+     * @param HandlerHelpersInterface $helpers
      */
-    public function __construct(Request $request, Factory $validator, UrlGenerator $urlGenerator)
+    public function __construct(HandlerHelpersInterface $helpers)
     {
-        $this->request = $request;
-        $this->validator = $validator;
-        $this->urlGenerator = $urlGenerator;
+        $this->request = $helpers->getRequest();
+        $this->validator = $helpers->getValidator();
+        $this->urlGenerator = $helpers->getUrlGenerator();
     }
 
     /**
@@ -56,7 +54,7 @@ abstract class AbstractNotificationHandler implements NotificationHandlerContrac
     /**
      * @throws AuthorizationException
      */
-    protected function authorize()
+    protected function authorize(): void
     {
         if (! $this->isAuthorized()) {
             throw new AuthorizationException();
