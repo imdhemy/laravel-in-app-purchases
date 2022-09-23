@@ -4,12 +4,22 @@ namespace Imdhemy\Purchases\ServiceProviders;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Imdhemy\AppStore\Jws\AppStoreJwsVerifier;
+use Imdhemy\AppStore\Jws\JwsParser;
+use Imdhemy\AppStore\Jws\JwsVerifier;
+use Imdhemy\AppStore\Jws\Parser;
 use Imdhemy\Purchases\Console\LiapConfigPublishCommand;
 use Imdhemy\Purchases\Console\LiapUrlCommand;
 use Imdhemy\Purchases\Console\UrlGenerator;
 use Imdhemy\Purchases\Contracts\UrlGenerator as UrlGeneratorContract;
+use Imdhemy\Purchases\Handlers\HandlerHelpers;
+use Imdhemy\Purchases\Handlers\HandlerHelpersInterface;
+use Imdhemy\Purchases\Handlers\JwsService;
+use Imdhemy\Purchases\Handlers\JwsServiceInterface;
 use Imdhemy\Purchases\Product;
 use Imdhemy\Purchases\Subscription;
+use Lcobucci\JWT\Decoder;
+use Lcobucci\JWT\Encoding\JoseEncoder;
 
 /**
  * Laravel Iap service provider
@@ -133,6 +143,16 @@ class LiapServiceProvider extends ServiceProvider
      */
     private function bindConcretes(): void
     {
+        // Bind UrlGenerator
         $this->app->bind(UrlGeneratorContract::class, UrlGenerator::class);
+
+        // Bind JWS
+        $this->app->bind(JwsParser::class, Parser::class);
+        $this->app->bind(JwsVerifier::class, AppStoreJwsVerifier::class);
+        $this->app->bind(Decoder::class, JoseEncoder::class);
+
+        // Bind Handlers
+        $this->app->bind(HandlerHelpersInterface::class, HandlerHelpers::class);
+        $this->app->bind(JwsServiceInterface::class, JwsService::class);
     }
 }
