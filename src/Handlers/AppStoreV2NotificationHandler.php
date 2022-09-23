@@ -4,6 +4,7 @@ namespace Imdhemy\Purchases\Handlers;
 
 use Illuminate\Support\Facades\Log;
 use Imdhemy\AppStore\ServerNotifications\V2DecodedPayload;
+use Imdhemy\Purchases\ServerNotifications\AppStoreV2ServerNotification;
 
 /**
  * Class AppStoreV2NotificationHandler
@@ -33,8 +34,9 @@ class AppStoreV2NotificationHandler extends AbstractNotificationHandler
     protected function handle(): void
     {
         $decodedPayload = V2DecodedPayload::fromJws($this->jwsService->parse());
+        $serverNotification = AppStoreV2ServerNotification::fromDecodedPayload($decodedPayload);
 
-        if ($decodedPayload->getType() === V2DecodedPayload::TYPE_TEST) {
+        if ($serverNotification->isTest()) {
             Log::info(
                 'AppStoreV2NotificationHandler: Test notification received ' .
                 $this->request->get('signedPayload')
