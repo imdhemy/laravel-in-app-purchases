@@ -24,7 +24,7 @@ class EventServiceProvider extends BaseEventServiceProvider
     {
         parent::__construct($app);
 
-        $this->listen = (array)config('purchase.eventListeners');
+        $this->listen = (array)config(LiapServiceProvider::CONFIG_KEY . '.eventListeners');
     }
 
     /**
