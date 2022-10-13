@@ -75,7 +75,7 @@ class AppStoreServerNotification implements ServerNotificationContract
     public function getAutoRenewStatusChangeDate(): ?Time
     {
         $time = $this->notification->getAutoRenewStatusChangeDate();
-        if (! is_null($time)) {
+        if (!is_null($time)) {
             return Time::fromAppStoreTime($time);
         }
 
@@ -88,5 +88,13 @@ class AppStoreServerNotification implements ServerNotificationContract
     public function getBundle(): string
     {
         return (string)$this->notification->getBid();
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAutoRenewProductId(): ?string
+    {
+        return $this->notification->getAutoRenewProductId();
     }
 }
