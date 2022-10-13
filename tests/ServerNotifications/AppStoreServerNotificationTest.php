@@ -75,4 +75,12 @@ class AppStoreServerNotificationTest extends TestCase
     {
         $this->assertNotNull($this->appStoreServerNotification->getBundle());
     }
+
+    /**
+     * @test
+     */
+    public function test_get_auto_renew_product_id()
+    {
+        $this->assertNotNull($this->appStoreServerNotification->getAutoRenewProductId());
+    }
 }
