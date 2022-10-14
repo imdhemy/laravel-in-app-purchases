@@ -4,11 +4,12 @@ namespace Imdhemy\Purchases\ServerNotifications;
 
 use GuzzleHttp\Client;
 use Imdhemy\AppStore\ServerNotifications\V2DecodedPayload;
+use Imdhemy\Purchases\Contracts\HasSubtype;
 use Imdhemy\Purchases\Contracts\ServerNotificationContract;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\Subscriptions\AppleSubscription;
 
-class AppStoreV2ServerNotification implements ServerNotificationContract
+class AppStoreV2ServerNotification implements ServerNotificationContract, HasSubtype
 {
     /**
      * @var V2DecodedPayload
@@ -79,5 +80,15 @@ class AppStoreV2ServerNotification implements ServerNotificationContract
     public function getPayload(): array
     {
         return $this->payload->toArray();
+    }
+
+    /**
+     * Gets subscription subtype
+     *
+     * @return string
+     */
+    public function getSubtype(): string
+    {
+        return (string)$this->payload->getSubType();
     }
 }
