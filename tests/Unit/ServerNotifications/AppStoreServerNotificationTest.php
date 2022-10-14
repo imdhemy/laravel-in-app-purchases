@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\ServerNotifications;
+namespace Tests\Unit\ServerNotifications;
 
 use Imdhemy\AppStore\ServerNotifications\ServerNotification;
-use Imdhemy\Purchases\Contracts\ServerNotificationContract;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\ServerNotifications\AppStoreServerNotification;
 use Imdhemy\Purchases\ValueObjects\Time;
+use JsonException;
 use Tests\TestCase;
 
 class AppStoreServerNotificationTest extends TestCase
@@ -14,16 +14,17 @@ class AppStoreServerNotificationTest extends TestCase
     /**
      * @var AppStoreServerNotification
      */
-    private $appStoreServerNotification;
+    private AppStoreServerNotification $appStoreServerNotification;
 
     /**
      * @inheritDoc
+     * @throws JsonException
      */
     protected function setUp(): void
     {
         parent::setUp();
         $path = $this->testAssetPath('appstore-server-notification.json');
-        $serverNotificationBody = json_decode(file_get_contents($path), true);
+        $serverNotificationBody = json_decode(file_get_contents($path), true, 512, JSON_THROW_ON_ERROR);
 
         $serverNotification = ServerNotification::fromArray($serverNotificationBody);
         $this->appStoreServerNotification = new AppStoreServerNotification($serverNotification);
@@ -32,15 +33,7 @@ class AppStoreServerNotificationTest extends TestCase
     /**
      * @test
      */
-    public function test_constructor()
-    {
-        $this->assertInstanceOf(ServerNotificationContract::class, $this->appStoreServerNotification);
-    }
-
-    /**
-     * @test
-     */
-    public function test_get_notification_type()
+    public function get_notification_type(): void
     {
         $this->assertEquals(
             ServerNotification::DID_CHANGE_RENEWAL_STATUS,
@@ -51,15 +44,17 @@ class AppStoreServerNotificationTest extends TestCase
     /**
      * @test
      */
-    public function test_get_subscription()
+    public function get_subscription(): void
     {
-        $this->assertInstanceOf(SubscriptionContract::class, $this->appStoreServerNotification->getSubscription());
+        $subscription = $this->appStoreServerNotification->getSubscription();
+
+        $this->assertEquals(SubscriptionContract::PROVIDER_APP_STORE, $subscription->getProvider());
     }
 
     /**
      * @test
      */
-    public function test_get_change_renewal_status_data()
+    public function get_change_renewal_status_data(): void
     {
         $isAutoRenewal = $this->appStoreServerNotification->isAutoRenewal();
         $changeDate = $this->appStoreServerNotification->getAutoRenewStatusChangeDate();
@@ -71,8 +66,11 @@ class AppStoreServerNotificationTest extends TestCase
     /**
      * @test
      */
-    public function test_get_bundle()
+    public function get_bundle(): void
     {
-        $this->assertNotNull($this->appStoreServerNotification->getBundle());
+        $this->assertEquals(
+            'com.twigano.fashion',
+            $this->appStoreServerNotification->getBundle()
+        );
     }
 }
