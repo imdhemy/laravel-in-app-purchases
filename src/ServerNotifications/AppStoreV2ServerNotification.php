@@ -61,6 +61,6 @@ class AppStoreV2ServerNotification implements ServerNotificationContract
      */
     public function getBundle(): string
     {
-        return $this->payload->getAppMetadata()->appAppleId();
+        return $this->payload->getAppMetadata()->bundleId();
     }
 }
