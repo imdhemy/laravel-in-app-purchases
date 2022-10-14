@@ -58,7 +58,7 @@ class AppleSubscription implements SubscriptionContract
      */
     public function getProvider(): string
     {
-        return 'app_store';
+        return SubscriptionContract::PROVIDER_APP_STORE;
     }
 
     /**

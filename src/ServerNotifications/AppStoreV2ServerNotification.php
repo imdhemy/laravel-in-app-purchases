@@ -25,6 +25,13 @@ class AppStoreV2ServerNotification implements ServerNotificationContract
         $this->payload = $payload;
     }
 
+    /**
+     * Static constructor
+     *
+     * @param V2DecodedPayload $decodedPayload
+     *
+     * @return static
+     */
     public static function fromDecodedPayload(V2DecodedPayload $decodedPayload): self
     {
         return new self($decodedPayload);
@@ -62,5 +69,15 @@ class AppStoreV2ServerNotification implements ServerNotificationContract
     public function getBundle(): string
     {
         return $this->payload->getAppMetadata()->bundleId();
+    }
+
+    /**
+     * Gets the notification payload
+     *
+     * @return array
+     */
+    public function getPayload(): array
+    {
+        return $this->payload->toArray();
     }
 }

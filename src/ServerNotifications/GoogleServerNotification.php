@@ -11,6 +11,7 @@ use Imdhemy\Purchases\Subscriptions\GoogleSubscription;
 
 /**
  * Class GoogleServerNotification
+ *
  * @package Imdhemy\Purchases\ServerNotifications
  */
 class GoogleServerNotification implements ServerNotificationContract
@@ -20,10 +21,11 @@ class GoogleServerNotification implements ServerNotificationContract
     /**
      * @var DeveloperNotification
      */
-    private $notification;
+    private DeveloperNotification $notification;
 
     /**
      * GoogleServerNotification constructor.
+     *
      * @param DeveloperNotification $notification
      */
     public function __construct(DeveloperNotification $notification)
@@ -45,6 +47,7 @@ class GoogleServerNotification implements ServerNotificationContract
 
     /**
      * @param Client|null $client
+     *
      * @return SubscriptionContract
      * @throws GuzzleException
      */
@@ -67,5 +70,15 @@ class GoogleServerNotification implements ServerNotificationContract
     public function getBundle(): string
     {
         return $this->notification->getPackageName();
+    }
+
+    /**
+     * Gets the notification payload
+     *
+     * @return array
+     */
+    public function getPayload(): array
+    {
+        return $this->notification->toArray();
     }
 }

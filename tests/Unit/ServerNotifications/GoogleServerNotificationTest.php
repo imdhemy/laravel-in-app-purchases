@@ -1,13 +1,12 @@
 <?php
 
-namespace Tests\ServerNotifications;
+namespace Tests\Unit\ServerNotifications;
 
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Response;
 use Imdhemy\GooglePlay\ClientFactory;
 use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
 use Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification;
-use Imdhemy\Purchases\Contracts\ServerNotificationContract;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\ServerNotifications\GoogleServerNotification;
 use Tests\TestCase;
@@ -17,7 +16,9 @@ class GoogleServerNotificationTest extends TestCase
     /**
      * @var GoogleServerNotification
      */
-    private $googleServerNotification;
+    private GoogleServerNotification $googleServerNotification;
+
+    private DeveloperNotification $developerNotification;
 
     /**
      * @inheritDoc
@@ -26,22 +27,14 @@ class GoogleServerNotificationTest extends TestCase
     {
         parent::setUp();
         $data = 'eyJ2ZXJzaW9uIjoiMS4wIiwicGFja2FnZU5hbWUiOiJjb20udHdpZ2Fuby5mYXNoaW9uIiwiZXZlbnRUaW1lTWlsbGlzIjoiMTYwNDAwMjg0MjMzMiIsInN1YnNjcmlwdGlvbk5vdGlmaWNhdGlvbiI6eyJ2ZXJzaW9uIjoiMS4wIiwibm90aWZpY2F0aW9uVHlwZSI6MTMsInB1cmNoYXNlVG9rZW4iOiJuYWRpZmJwZWtmZmRjYmNvZGdwa2NrYWMuQU8tSjFPekxnU0ZQSWFESmVKTVF4dnZIYnBMeTlLZ3dYbHVyQjk1UlBINHFZdGYxSmdzV1B3NHV4bmlkYUlmeGJreXVpTDVOZ3ZudVU3TEpvNzIzeHpfVVRhUEZXc0YyZEEiLCJzdWJzY3JpcHRpb25JZCI6Im1vbnRoX3ByZW1pdW0ifX0=';
-        $developerNotification = DeveloperNotification::parse($data);
-        $this->googleServerNotification = new GoogleServerNotification($developerNotification);
+        $this->developerNotification = DeveloperNotification::parse($data);
+        $this->googleServerNotification = new GoogleServerNotification($this->developerNotification);
     }
 
     /**
      * @test
      */
-    public function test_constructor()
-    {
-        $this->assertInstanceOf(ServerNotificationContract::class, $this->googleServerNotification);
-    }
-
-    /**
-     * @test
-     */
-    public function test_get_type()
+    public function get_type(): void
     {
         $this->assertEquals(
             SubscriptionNotification::SUBSCRIPTION_EXPIRED,
@@ -53,21 +46,28 @@ class GoogleServerNotificationTest extends TestCase
      * @test
      * @throws GuzzleException
      */
-    public function test_get_subscription()
+    public function get_subscription(): void
     {
         $googleClient = ClientFactory::mock(new Response(200, [], '[]'));
 
-        $this->assertInstanceOf(
-            SubscriptionContract::class,
-            $this->googleServerNotification->getSubscription($googleClient)
-        );
+        $subscription = $this->googleServerNotification->getSubscription($googleClient);
+
+        $this->assertEquals(SubscriptionContract::PROVIDER_GOOGLE_PLAY, $subscription->getProvider());
     }
 
     /**
      * @test
      */
-    public function test_get_bundle()
+    public function get_bundle(): void
     {
-        $this->assertNotNull($this->googleServerNotification->getBundle());
+        $this->assertEquals('com.twigano.fashion', $this->googleServerNotification->getBundle());
+    }
+
+    /**
+     * @test
+     */
+    public function get_payload(): void
+    {
+        $this->assertEquals($this->developerNotification->toArray(), $this->googleServerNotification->getPayload());
     }
 }

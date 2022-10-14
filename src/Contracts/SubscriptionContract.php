@@ -8,10 +8,15 @@ use Imdhemy\Purchases\ValueObjects\Time;
 
 /**
  * Interface SubscriptionContract
+ *
  * @package Imdhemy\Purchases\Events\Contracts
  */
 interface SubscriptionContract
 {
+    // List of providers
+    public const PROVIDER_APP_STORE = 'app_store';
+    public const PROVIDER_GOOGLE_PLAY = 'google_play';
+
     /**
      * @return Time
      */
