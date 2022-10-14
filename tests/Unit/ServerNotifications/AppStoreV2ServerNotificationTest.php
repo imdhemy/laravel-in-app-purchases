@@ -20,7 +20,8 @@ class AppStoreV2ServerNotificationTest extends TestCase
         parent::setUp();
 
         $claims = [
-            'notificationType' => V2DecodedPayload::TYPE_TEST,
+            'notificationType' => V2DecodedPayload::TYPE_SUBSCRIBED,
+            'subtype' => V2DecodedPayload::SUBTYPE_INITIAL_BUY,
             'data' => [
                 'bundleId' => 'com.example.app',
             ],
@@ -36,7 +37,7 @@ class AppStoreV2ServerNotificationTest extends TestCase
      */
     public function get_type(): void
     {
-        $this->assertEquals(V2DecodedPayload::TYPE_TEST, $this->sut->getType());
+        $this->assertEquals(V2DecodedPayload::TYPE_SUBSCRIBED, $this->sut->getType());
     }
 
     /**
@@ -55,7 +56,7 @@ class AppStoreV2ServerNotificationTest extends TestCase
      */
     public function is_test(): void
     {
-        $this->assertTrue($this->sut->isTest());
+        $this->assertFalse($this->sut->isTest());
     }
 
     /**
@@ -72,5 +73,13 @@ class AppStoreV2ServerNotificationTest extends TestCase
     public function get_payload(): void
     {
         $this->assertSame($this->payload->toArray(), $this->sut->getPayload());
+    }
+
+    /**
+     * @test
+     */
+    public function get_subtype(): void
+    {
+        $this->assertEquals(V2DecodedPayload::SUBTYPE_INITIAL_BUY, $this->sut->getSubtype());
     }
 }
