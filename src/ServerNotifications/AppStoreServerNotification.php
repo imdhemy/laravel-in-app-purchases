@@ -89,4 +89,14 @@ class AppStoreServerNotification implements ServerNotificationContract
     {
         return (string)$this->notification->getBid();
     }
+
+    /**
+     * Gets the notification payload
+     *
+     * @return array
+     */
+    public function getPayload(): array
+    {
+        return $this->notification->toArray();
+    }
 }

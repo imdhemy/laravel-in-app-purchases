@@ -17,6 +17,11 @@ class AppStoreServerNotificationTest extends TestCase
     private AppStoreServerNotification $appStoreServerNotification;
 
     /**
+     * @var array
+     */
+    private array $serverNotificationBody;
+
+    /**
      * @inheritDoc
      * @throws JsonException
      */
@@ -24,9 +29,9 @@ class AppStoreServerNotificationTest extends TestCase
     {
         parent::setUp();
         $path = $this->testAssetPath('appstore-server-notification.json');
-        $serverNotificationBody = json_decode(file_get_contents($path), true, 512, JSON_THROW_ON_ERROR);
+        $this->serverNotificationBody = json_decode(file_get_contents($path), true, 512, JSON_THROW_ON_ERROR);
 
-        $serverNotification = ServerNotification::fromArray($serverNotificationBody);
+        $serverNotification = ServerNotification::fromArray($this->serverNotificationBody);
         $this->appStoreServerNotification = new AppStoreServerNotification($serverNotification);
     }
 
@@ -71,6 +76,17 @@ class AppStoreServerNotificationTest extends TestCase
         $this->assertEquals(
             'com.twigano.fashion',
             $this->appStoreServerNotification->getBundle()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function get_payload(): void
+    {
+        $this->assertEquals(
+            $this->serverNotificationBody,
+            $this->appStoreServerNotification->getPayload()
         );
     }
 }

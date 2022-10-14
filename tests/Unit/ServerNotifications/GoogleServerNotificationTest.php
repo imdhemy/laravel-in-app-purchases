@@ -18,6 +18,8 @@ class GoogleServerNotificationTest extends TestCase
      */
     private GoogleServerNotification $googleServerNotification;
 
+    private DeveloperNotification $developerNotification;
+
     /**
      * @inheritDoc
      */
@@ -25,8 +27,8 @@ class GoogleServerNotificationTest extends TestCase
     {
         parent::setUp();
         $data = 'eyJ2ZXJzaW9uIjoiMS4wIiwicGFja2FnZU5hbWUiOiJjb20udHdpZ2Fuby5mYXNoaW9uIiwiZXZlbnRUaW1lTWlsbGlzIjoiMTYwNDAwMjg0MjMzMiIsInN1YnNjcmlwdGlvbk5vdGlmaWNhdGlvbiI6eyJ2ZXJzaW9uIjoiMS4wIiwibm90aWZpY2F0aW9uVHlwZSI6MTMsInB1cmNoYXNlVG9rZW4iOiJuYWRpZmJwZWtmZmRjYmNvZGdwa2NrYWMuQU8tSjFPekxnU0ZQSWFESmVKTVF4dnZIYnBMeTlLZ3dYbHVyQjk1UlBINHFZdGYxSmdzV1B3NHV4bmlkYUlmeGJreXVpTDVOZ3ZudVU3TEpvNzIzeHpfVVRhUEZXc0YyZEEiLCJzdWJzY3JpcHRpb25JZCI6Im1vbnRoX3ByZW1pdW0ifX0=';
-        $developerNotification = DeveloperNotification::parse($data);
-        $this->googleServerNotification = new GoogleServerNotification($developerNotification);
+        $this->developerNotification = DeveloperNotification::parse($data);
+        $this->googleServerNotification = new GoogleServerNotification($this->developerNotification);
     }
 
     /**
@@ -59,5 +61,13 @@ class GoogleServerNotificationTest extends TestCase
     public function get_bundle(): void
     {
         $this->assertEquals('com.twigano.fashion', $this->googleServerNotification->getBundle());
+    }
+
+    /**
+     * @test
+     */
+    public function get_payload(): void
+    {
+        $this->assertEquals($this->developerNotification->toArray(), $this->googleServerNotification->getPayload());
     }
 }
