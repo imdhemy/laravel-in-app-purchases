@@ -99,4 +99,12 @@ class AppStoreServerNotification implements ServerNotificationContract
     {
         return $this->notification->toArray();
     }
+
+    /**
+     * @return string|null
+     */
+    public function getAutoRenewProductId(): ?string
+    {
+        return $this->notification->getAutoRenewProductId();
+    }
 }
