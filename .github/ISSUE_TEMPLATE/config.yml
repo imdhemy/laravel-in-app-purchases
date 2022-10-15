@@ -1,9 +1,9 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Documentation
+  - name: 📖 Documentation
     url: https://imdhemy.com/laravel-iap-docs/
     about: Please read the documentation before asking questions.
-    
-  - name: Q&A and Discussions
+
+  - name: 🙏Q&A and Discussions
     url: https://github.com/imdhemy/laravel-in-app-purchases/discussions
     about: Please ask and answer questions here.
