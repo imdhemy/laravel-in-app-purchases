@@ -8,11 +8,11 @@
 | License       | MIT                                                                      |
 
 <!--
-Replace this notice by a short README for your feature/bugfix.
+Replace this notice with a short README for your feature/bugfix.
 This will help reviewers and should be a good start for the documentation.
 
 For bug fixes and new features, that does not break BC, please base your PR 
-from the `release/y.x` branch. For BC breaks, please base your PR from the 
+on the `release/y.x` branch. For BC breaks, please base your PR on the 
 `master` branch.
 
 Always add tests and ensure they pass.
