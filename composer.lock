@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "da487cd6f2a063dcd7b60efca790a63a",
+    "content-hash": "9c6475c918d276f98508e8bc2ba321fb",
     "packages": [
         {
             "name": "brick/math",
@@ -833,16 +833,16 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "2.4.1",
+            "version": "2.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "69568e4293f4fa993f3b0e51c9723e1e17c41379"
+                "reference": "67c26b443f348a51926030c83481b85718457d3d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/69568e4293f4fa993f3b0e51c9723e1e17c41379",
-                "reference": "69568e4293f4fa993f3b0e51c9723e1e17c41379",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/67c26b443f348a51926030c83481b85718457d3d",
+                "reference": "67c26b443f348a51926030c83481b85718457d3d",
                 "shasum": ""
             },
             "require": {
@@ -932,7 +932,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
-                "source": "https://github.com/guzzle/psr7/tree/2.4.1"
+                "source": "https://github.com/guzzle/psr7/tree/2.4.3"
             },
             "funding": [
                 {
@@ -948,20 +948,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-08-28T14:45:39+00:00"
+            "time": "2022-10-26T14:07:24+00:00"
         },
         {
             "name": "imdhemy/appstore-iap",
-            "version": "1.3.1",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/imdhemy/appstore-iap.git",
-                "reference": "e14b23f1c26097abcdb9483f4b9eba16f04cbdd1"
+                "reference": "940d614458e5e4c94b0800659c3ef4f007c396f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/imdhemy/appstore-iap/zipball/e14b23f1c26097abcdb9483f4b9eba16f04cbdd1",
-                "reference": "e14b23f1c26097abcdb9483f4b9eba16f04cbdd1",
+                "url": "https://api.github.com/repos/imdhemy/appstore-iap/zipball/940d614458e5e4c94b0800659c3ef4f007c396f1",
+                "reference": "940d614458e5e4c94b0800659c3ef4f007c396f1",
                 "shasum": ""
             },
             "require": {
@@ -1000,9 +1000,9 @@
             "description": "PHP Appstore In-App Purchase implementation",
             "support": {
                 "issues": "https://github.com/imdhemy/appstore-iap/issues",
-                "source": "https://github.com/imdhemy/appstore-iap/tree/1.3.1"
+                "source": "https://github.com/imdhemy/appstore-iap/tree/1.4.0"
             },
-            "time": "2022-10-14T05:21:02+00:00"
+            "time": "2022-10-31T10:03:02+00:00"
         },
         {
             "name": "imdhemy/google-play-billing",
