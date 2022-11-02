@@ -1,0 +1,117 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Tests\Unit\Console;
+
+use Symfony\Component\Console\Command\Command;
+use Tests\Doubles\AppStoreTestNotificationServiceBuilderDouble;
+use Tests\TestCase;
+
+class RequestTestNotificationCommandTest extends TestCase
+{
+    private string $privateKey;
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->privateKey = $this->generateP8Key();
+    }
+
+    /**
+     * @test
+     */
+    public function it_validates_private_key_id_is_configured(): void
+    {
+        $this->artisan('liap:apple:test-notification')
+            ->expectsOutput('The private key ID is not configured')
+            ->assertExitCode(Command::FAILURE);
+    }
+
+    /**
+     * @test
+     */
+    public function it_validates_private_key_is_configured(): void
+    {
+        $this->app['config']->set('liap.appstore_private_key_id', 'private-key-id');
+
+        $this->artisan('liap:apple:test-notification')
+            ->expectsOutput('The private key is not configured')
+            ->assertExitCode(Command::FAILURE);
+    }
+
+    /**
+     * @test
+     */
+    public function it_validates_issuer_id_is_configured(): void
+    {
+        $this->app['config']->set('liap.appstore_private_key_id', 'private-key-id');
+        $this->app['config']->set('liap.appstore_private_key', $this->privateKey);
+
+        $this->artisan('liap:apple:test-notification')
+            ->expectsOutput('The issuer ID is not configured')
+            ->assertExitCode(Command::FAILURE);
+    }
+
+    /**
+     * @test
+     */
+    public function it_validates_bundle_id_is_configured(): void
+    {
+        $this->app['config']->set('liap.appstore_private_key_id', 'private-key-id');
+        $this->app['config']->set('liap.appstore_private_key', $this->privateKey);
+        $this->app['config']->set('liap.appstore_issuer_id', 'issuer-id');
+
+        $this->artisan('liap:apple:test-notification')
+            ->expectsOutput('The bundle ID is not configured')
+            ->assertExitCode(Command::FAILURE);
+    }
+
+    /**
+     * @test
+     */
+    public function it_requests_a_test_notification(): void
+    {
+        $this->app['config']->set('liap.appstore_private_key_id', 'private-key-id');
+        $this->app['config']->set('liap.appstore_private_key', $this->privateKey);
+        $this->app['config']->set('liap.appstore_issuer_id', 'issuer-id');
+        $this->app['config']->set('liap.appstore_bundle_id', 'bundle-id');
+
+        $this->artisan('liap:apple:test-notification')
+            ->expectsOutput(
+                sprintf("Test notification token: %s", AppStoreTestNotificationServiceBuilderDouble::PRODUCTION_TOKEN)
+            )
+            ->assertExitCode(Command::SUCCESS);
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_request_a_test_notification_from_sandbox_server(): void
+    {
+        $this->app['config']->set('liap.appstore_private_key_id', 'private-key-id');
+        $this->app['config']->set('liap.appstore_private_key', $this->privateKey);
+        $this->app['config']->set('liap.appstore_issuer_id', 'issuer-id');
+        $this->app['config']->set('liap.appstore_bundle_id', 'bundle-id');
+
+        $this->artisan('liap:apple:test-notification --sandbox')
+            ->expectsOutput(
+                sprintf("Test notification token: %s", AppStoreTestNotificationServiceBuilderDouble::SANDBOX_TOKEN)
+            )
+            ->assertExitCode(Command::SUCCESS);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        $this->deleteFile($this->privateKey);
+    }
+}
