@@ -10,6 +10,7 @@ use Imdhemy\AppStore\Jws\JwsVerifier;
 use Imdhemy\AppStore\Jws\Parser;
 use Imdhemy\Purchases\Console\LiapConfigPublishCommand;
 use Imdhemy\Purchases\Console\LiapUrlCommand;
+use Imdhemy\Purchases\Console\RequestTestNotificationCommand;
 use Imdhemy\Purchases\Console\UrlGenerator;
 use Imdhemy\Purchases\Contracts\UrlGenerator as UrlGeneratorContract;
 use Imdhemy\Purchases\Handlers\HandlerHelpers;
@@ -87,6 +88,7 @@ class LiapServiceProvider extends ServiceProvider
             $this->commands([
                 LiapConfigPublishCommand::class,
                 LiapUrlCommand::class,
+                RequestTestNotificationCommand::class,
             ]);
         }
     }

@@ -7,3 +7,5 @@ vendor/
 .php-cs-fixer.cache
 
 laravel/
+
+*.p8

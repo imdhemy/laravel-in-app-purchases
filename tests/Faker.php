@@ -15,6 +15,8 @@ use RuntimeException;
 /**
  * Class Faker
  * This class is a wrapper for the Faker library.
+ *
+ * @mixin Generator
  */
 class Faker
 {
