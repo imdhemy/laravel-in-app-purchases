@@ -67,4 +67,34 @@ class TestCase extends Orchestra
 
         return $assetsPath;
     }
+
+    /**
+     * Generates a fake p8 key
+     */
+    protected function generateP8Key(): string
+    {
+        $key = 'MHQCAQEEIPKsJBiuilVdbtkxtPpSp0LLlUeqCmwx6Ss2OBvIhTbioAcGBSuBBAAK
+oUQDQgAEacH/sdtom9kl/0AvHFNNuoxnUWzLwWXf70qH2O1FDrvjDXY2aC7NFg9t
+WtcP+PnScROkjnSv6H6A6ekLVAzQYg==';
+
+        $filename = 'privateKey-' . time() . '.p8';
+        $path = $this->testAssetPath($filename);
+
+        if (! file_exists($path)) {
+            $contents = "-----BEGIN EC PRIVATE KEY-----\n" . $key . "\n-----END EC PRIVATE KEY-----";
+            file_put_contents($path, $contents);
+        }
+
+        return $path;
+    }
+
+    /**
+     * Deletes the given file is exists
+     */
+    protected function deleteFile(string $path): void
+    {
+        if (file_exists($path)) {
+            unlink($path);
+        }
+    }
 }
