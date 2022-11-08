@@ -22,7 +22,7 @@
     "ext-openssl": "*",
     "imdhemy/appstore-iap": "^1.4",
     "imdhemy/google-play-billing": "^1.2",
-    "laravel/framework": ">=6.20"
+    "laravel/framework": ">=8.83.26"
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",
