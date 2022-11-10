@@ -33,7 +33,7 @@ class ArtisanCommandsTest extends TestCase
      * {@inheritDoc}
      * - Gets all artisan commands
      * - Deletes the configuration file if it exists
-     * - Enables signed URLs
+     * - Enables signed URLs.
      */
     protected function setUp(): void
     {
