@@ -55,7 +55,7 @@ class TestCase extends Orchestra
     /**
      * Get the path to assets dir.
      */
-    protected function test_asset_path(?string $path = null): string
+    protected function assetPath(?string $path = null): string
     {
         $assetsPath = __DIR__.'/assets';
 
@@ -76,7 +76,7 @@ oUQDQgAEacH/sdtom9kl/0AvHFNNuoxnUWzLwWXf70qH2O1FDrvjDXY2aC7NFg9t
 WtcP+PnScROkjnSv6H6A6ekLVAzQYg==';
 
         $filename = 'privateKey-'.time().'.p8';
-        $path = $this->testAssetPath($filename);
+        $path = $this->assetPath($filename);
 
         if (! file_exists($path)) {
             $contents = "-----BEGIN EC PRIVATE KEY-----\n".$key."\n-----END EC PRIVATE KEY-----";

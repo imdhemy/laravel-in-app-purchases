@@ -77,7 +77,7 @@ class ServerNotificationControllerTest extends TestCase
         $this->withoutExceptionHandling();
 
         $data = json_decode(
-            file_get_contents($this->testAssetPath('appstore-server-notification.json')),
+            file_get_contents($this->assetPath('appstore-server-notification.json')),
             true,
             512,
             JSON_THROW_ON_ERROR
@@ -98,7 +98,7 @@ class ServerNotificationControllerTest extends TestCase
         file_put_contents(storage_path('logs/laravel.log'), '');
 
         $data = json_decode(
-            file_get_contents($this->testAssetPath('weird-token-from-google.json')),
+            file_get_contents($this->assetPath('weird-token-from-google.json')),
             true,
             512,
             JSON_THROW_ON_ERROR
