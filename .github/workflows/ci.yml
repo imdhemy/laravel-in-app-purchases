@@ -2,13 +2,11 @@
 
 name: "Continuous Integration"
 
-on:
-  pull_request:
-  push:
+on: [ push, pull_request ]
 
 jobs:
-  phpunit:
-    name: "PHPUnit tests"
+  tests:
+    name: "🧪Tests"
 
     runs-on: ${{ matrix.operating-system }}
 
@@ -17,8 +15,6 @@ jobs:
         dependencies:
           - "locked"
         php-version:
-          - "7.4"
-          - "8.0"
           - "8.1"
           - "8.2"
         operating-system:
@@ -43,23 +39,13 @@ jobs:
         with:
           dependency-versions: "${{ matrix.dependencies }}"
 
-      - name: "Tests"
+      - name: "Run tests"
         run: "composer test"
 
-  static-analysis-psalm:
-    name: "Static Analysis by Psalm"
-
-    runs-on: ${{ matrix.operating-system }}
-
-    strategy:
-      matrix:
-        dependencies:
-          - "locked"
-        php-version:
-          - "7.4"
-        operating-system:
-          - "ubuntu-latest"
-      
+  code-quality:
+    name: "🔬Check code quality"
+    needs: tests
+    runs-on: "ubuntu-latest"
     steps:
       - name: "Checkout"
         uses: "actions/checkout@v3"
@@ -67,49 +53,18 @@ jobs:
       - name: "Install PHP"
         uses: "shivammathur/setup-php@v2"
         with:
-          coverage: "none"
-          php-version: "${{ matrix.php-version }}"
+          coverage: "pcov"
+          php-version: "8.1"
           ini-values: memory_limit=-1
           extensions: sodium, fileinfo
 
       - name: "Install dependencies"
         uses: "ramsey/composer-install@v2"
         with:
-          dependency-versions: "${{ matrix.dependencies }}"
+          dependency-versions: "locked"
 
-      - name: "psalm"
+      - name: "Psalm"
         run: "composer psalm"
 
-  coding-standards:
-    name: "Check Coding Standards"
-
-    runs-on: ${{ matrix.operating-system }}
-
-    strategy:
-      matrix:
-        dependencies:
-          - "locked"
-        php-version:
-          - "7.4"
-        operating-system:
-          - "ubuntu-latest"
-
-    steps:
-      - name: "Checkout"
-        uses: "actions/checkout@v3"
-
-      - name: "Install PHP"
-        uses: "shivammathur/setup-php@v2"
-        with:
-          coverage: "none"
-          php-version: "${{ matrix.php-version }}"
-          ini-values: memory_limit=-1
-          extensions: sodium, fileinfo
-
-      - name: "Install dependencies"
-        uses: "ramsey/composer-install@v2"
-        with:
-          dependency-versions: "${{ matrix.dependencies }}"
-
-      - name: "Coding Standard"
+      - name: "Cs Fixer"
         run: "composer check-style"
