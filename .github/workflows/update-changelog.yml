@@ -12,7 +12,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          # Fetch entire history of repository to ensure relase date can be
+          # Fetch entire history of repository to ensure release date can be
           # extracted from commit of the given tag.
           fetch-depth: 0
           # Checkout target branch of this release. Ensures that the CHANGELOG
