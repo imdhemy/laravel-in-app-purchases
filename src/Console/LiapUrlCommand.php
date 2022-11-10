@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\Purchases\Console;
 
 use Illuminate\Console\Command;
@@ -8,7 +10,7 @@ use Illuminate\Support\Str;
 use Imdhemy\Purchases\Contracts\UrlGenerator;
 
 /**
- * A command to generate signed url to the server notification handler endpoint
+ * A command to generate signed url to the server notification handler endpoint.
  */
 class LiapUrlCommand extends Command
 {
@@ -29,27 +31,21 @@ class LiapUrlCommand extends Command
      *
      * @var string
      */
-    protected $signature = "liap:url";
+    protected $signature = 'liap:url';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = "Generates a signed URL to the server notifications handler endpoint";
+    protected $description = 'Generates a signed URL to the server notifications handler endpoint';
 
-    /**
-     * @var UrlGenerator
-     */
     private UrlGenerator $urlGenerator;
 
-    /**
-     * @var Collection
-     */
     private Collection $urlCollection;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function __construct(UrlGenerator $urlGenerator, Collection $urlCollection)
     {
@@ -60,11 +56,8 @@ class LiapUrlCommand extends Command
         $this->urlCollection = $urlCollection;
     }
 
-
     /**
      * Execute the console command.
-     *
-     * @return int
      */
     public function handle(): int
     {
@@ -76,9 +69,7 @@ class LiapUrlCommand extends Command
     }
 
     /**
-     * Get selected providers
-     *
-     * @return array
+     * Get selected providers.
      */
     protected function getProviders(): array
     {
@@ -88,7 +79,7 @@ class LiapUrlCommand extends Command
             self::PROVIDER_GOOGLE_PLAY,
         ]);
 
-        if ($provider === self::PROVIDER_ALL) {
+        if (self::PROVIDER_ALL === $provider) {
             return [self::PROVIDER_APP_STORE, self::PROVIDER_GOOGLE_PLAY];
         }
 
@@ -96,11 +87,7 @@ class LiapUrlCommand extends Command
     }
 
     /**
-     * Generates signed URLs for the submitted providers
-     *
-     * @param array $providers
-     *
-     * @return void
+     * Generates signed URLs for the submitted providers.
      */
     private function generateSignedUrls(array $providers): void
     {
@@ -112,25 +99,19 @@ class LiapUrlCommand extends Command
     }
 
     /**
-     * Generates unsigned URLs for the submitted providers
-     *
-     * @param array $providers
-     *
-     * @return void
+     * Generates unsigned URLs for the submitted providers.
      */
     private function generateUnsignedUrls(array $providers): void
     {
         foreach ($providers as $provider) {
             $providerSlug = (string)Str::of($provider)->slug();
-            $url = route('liap.serverNotifications') . '?provider=' . $providerSlug;
+            $url = route('liap.serverNotifications').'?provider='.$providerSlug;
             $this->urlCollection->add([$provider, $url]);
         }
     }
 
     /**
-     * Checks if the user wants to generate signed URLs
-     *
-     * @return bool
+     * Checks if the user wants to generate signed URLs.
      */
     protected function shouldGenerateSignedUrls(): bool
     {
@@ -139,9 +120,6 @@ class LiapUrlCommand extends Command
             $this->confirm(self::CONFIRM_GENERATE_SIGNED_ROUTES);
     }
 
-    /**
-     * @return void
-     */
     protected function generateUrls(): void
     {
         $providers = $this->getProviders();

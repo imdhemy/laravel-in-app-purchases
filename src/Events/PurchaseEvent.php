@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\Purchases\Events;
 
 use GuzzleHttp\Client;
@@ -23,26 +25,18 @@ abstract class PurchaseEvent implements PurchaseEventContract
 
     /**
      * SubscriptionPurchased constructor.
-     *
-     * @param ServerNotificationContract $serverNotification
      */
     public function __construct(ServerNotificationContract $serverNotification)
     {
         $this->serverNotification = $serverNotification;
     }
 
-    /**
-     * @return ServerNotificationContract
-     */
     public function getServerNotification(): ServerNotificationContract
     {
         return $this->serverNotification;
     }
 
     /**
-     * @param \GuzzleHttp\Client|null $client
-     *
-     * @return SubscriptionContract
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getSubscription(?Client $client = null): SubscriptionContract
@@ -51,7 +45,6 @@ abstract class PurchaseEvent implements PurchaseEventContract
     }
 
     /**
-     * @return string
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getSubscriptionId(): string
@@ -60,7 +53,6 @@ abstract class PurchaseEvent implements PurchaseEventContract
     }
 
     /**
-     * @return string
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getSubscriptionIdentifier(): string

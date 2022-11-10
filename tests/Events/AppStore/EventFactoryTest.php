@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Events\AppStore;
 
 use Imdhemy\AppStore\ServerNotifications\ServerNotification;

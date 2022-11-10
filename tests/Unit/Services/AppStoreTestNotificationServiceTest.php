@@ -16,6 +16,7 @@ class AppStoreTestNotificationServiceTest extends TestCase
 {
     /**
      * @test
+     *
      * @throws GuzzleException
      */
     public function request(): void

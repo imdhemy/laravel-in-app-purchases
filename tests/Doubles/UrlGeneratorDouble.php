@@ -1,19 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Doubles;
 
 use Imdhemy\Purchases\Console\UrlGenerator;
 
 /**
- * A Double class to allow testing signed URLs
+ * A Double class to allow testing signed URLs.
  */
 class UrlGeneratorDouble extends UrlGenerator
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function generate(string $provider): string
     {
-        return sprintf("https://example.com?signature=fake_signature&provider=%s", $provider);
+        return sprintf('https://example.com?signature=fake_signature&provider=%s', $provider);
     }
 }

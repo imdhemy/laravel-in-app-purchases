@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Subscriptions;
 
 use GuzzleHttp\Exception\GuzzleException;
@@ -56,6 +58,6 @@ class GoogleSubscriptionTest extends TestCase
      */
     public function test_get_item_id()
     {
-        $this->assertEquals("month_premium", $this->googleSubscription->getItemId());
+        $this->assertEquals('month_premium', $this->googleSubscription->getItemId());
     }
 }

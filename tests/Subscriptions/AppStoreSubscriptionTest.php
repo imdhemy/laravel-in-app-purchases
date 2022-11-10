@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Subscriptions;
 
 use Faker\Factory;
@@ -17,7 +19,7 @@ class AppStoreSubscriptionTest extends TestCase
     private $appStoreSubscription;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function setUp(): void
     {

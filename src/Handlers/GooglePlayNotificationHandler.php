@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\Purchases\Handlers;
 
 use Illuminate\Support\Facades\Log;
@@ -9,7 +11,7 @@ use Imdhemy\Purchases\Events\GooglePlay\EventFactory as GooglePlayEventFactory;
 use Imdhemy\Purchases\ServerNotifications\GoogleServerNotification;
 
 /**
- * Google Play notification handler
+ * Google Play notification handler.
  *
  * Handles Real time developer notifications sent by google play.
  * Dispatches the Google Play event related to the notification type.
@@ -28,7 +30,7 @@ class GooglePlayNotificationHandler extends AbstractNotificationHandler
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function handle()
     {
@@ -54,11 +56,6 @@ class GooglePlayNotificationHandler extends AbstractNotificationHandler
         }
     }
 
-    /**
-     * @param string $data
-     *
-     * @return bool
-     */
     protected function isParsable(string $data): bool
     {
         $decodedData = json_decode(base64_decode($data), true);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\ServerNotifications;
 
 use GuzzleHttp\Exception\GuzzleException;
@@ -13,15 +15,12 @@ use Tests\TestCase;
 
 class GoogleServerNotificationTest extends TestCase
 {
-    /**
-     * @var GoogleServerNotification
-     */
     private GoogleServerNotification $googleServerNotification;
 
     private DeveloperNotification $developerNotification;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function setUp(): void
     {
@@ -44,6 +43,7 @@ class GoogleServerNotificationTest extends TestCase
 
     /**
      * @test
+     *
      * @throws GuzzleException
      */
     public function get_subscription(): void

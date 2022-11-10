@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\Purchases\Console;
 
 use Illuminate\Http\Request;
@@ -8,19 +10,14 @@ use Illuminate\Support\Str;
 use Imdhemy\Purchases\Contracts\UrlGenerator as UrlGeneratorContract;
 
 /**
- * A helper class to generate a signed URL to the server notification handler
+ * A helper class to generate a signed URL to the server notification handler.
  */
 class UrlGenerator implements UrlGeneratorContract
 {
-    /**
-     * @var LaravelUrlGenerator
-     */
     private LaravelUrlGenerator $urlGenerator;
 
     /**
-     * Creates an Url generator instance
-     *
-     * @param LaravelUrlGenerator $urlGenerator
+     * Creates an Url generator instance.
      */
     public function __construct(LaravelUrlGenerator $urlGenerator)
     {
@@ -28,21 +25,21 @@ class UrlGenerator implements UrlGeneratorContract
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function generate(string $provider): string
     {
         $singedUrl = $this->urlGenerator->signedRoute('liap.serverNotifications');
 
-        return sprintf("%s&provider=%s", $singedUrl, $provider);
+        return sprintf('%s&provider=%s', $singedUrl, $provider);
     }
 
     /**
      * This method returns true if and only if the given URL is a valid signed URL
      * It's used to provide the same functionality as the Laravel UrlGenerator v.9
-     * which allows to ignore specific query parameters when validating the URL
+     * which allows to ignore specific query parameters when validating the URL.
      *
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function hasValidSignature(Request $request): bool
     {
@@ -59,7 +56,7 @@ class UrlGenerator implements UrlGeneratorContract
             })
             ->join('&');
 
-        $original = rtrim($url . '?' . $queryString, '?');
+        $original = rtrim($url.'?'.$queryString, '?');
         $signature = hash_hmac('sha256', $original, config('app.key'));
 
         /** @var string $signatureQuery */
@@ -68,9 +65,6 @@ class UrlGenerator implements UrlGeneratorContract
         return hash_equals($signature, $signatureQuery);
     }
 
-    /**
-     * @return bool
-     */
     protected function shouldDelegateToLaravel(): bool
     {
         return version_compare(app()->version(), '9', '>=');
@@ -81,10 +75,7 @@ class UrlGenerator implements UrlGeneratorContract
      * Starting from Laravel 9.0.0, the `hasValidSignature` method allows to
      * pass query names to be ignored when validating the signature.
      *
-     * @param Request $request
-     *
      * @psalm-suppress TooManyArguments
-     * @return bool
      */
     protected function validateByLaravel(Request $request): bool
     {
