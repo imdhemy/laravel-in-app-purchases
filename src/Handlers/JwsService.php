@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\Purchases\Handlers;
 
 use Illuminate\Http\Request;
@@ -9,31 +11,14 @@ use Imdhemy\AppStore\Jws\JwsVerifier;
 
 class JwsService implements JwsServiceInterface
 {
-    /**
-     * @var JwsParser
-     */
     private JwsParser $jwsParser;
 
-    /**
-     * @var JwsVerifier
-     */
     private JwsVerifier $jwsVerifier;
 
-    /**
-     * @var Request
-     */
     private Request $request;
 
-    /**
-     * @var JsonWebSignature|null
-     */
     private ?JsonWebSignature $jws = null;
 
-    /**
-     * @param JwsParser $jwsParser
-     * @param JwsVerifier $jwsVerifier
-     * @param Request $request
-     */
     public function __construct(JwsParser $jwsParser, JwsVerifier $jwsVerifier, Request $request)
     {
         $this->jwsParser = $jwsParser;
@@ -42,18 +27,13 @@ class JwsService implements JwsServiceInterface
     }
 
     /**
-     * Verify the JWS
-     *
-     * @return bool
+     * Verify the JWS.
      */
     public function verify(): bool
     {
         return $this->jwsVerifier->verify($this->jws());
     }
 
-    /**
-     * @return JsonWebSignature
-     */
     private function jws(): JsonWebSignature
     {
         if (is_null($this->jws)) {
@@ -64,9 +44,7 @@ class JwsService implements JwsServiceInterface
     }
 
     /**
-     * Parses the string into a JWS
-     *
-     * @return JsonWebSignature
+     * Parses the string into a JWS.
      */
     public function parse(): JsonWebSignature
     {

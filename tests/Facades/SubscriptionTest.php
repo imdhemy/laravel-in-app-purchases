@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Facades;
 
 use GuzzleHttp\Exception\GuzzleException;
@@ -27,7 +29,7 @@ class SubscriptionTest extends TestCase
     private $itemId;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function setUp(): void
     {
@@ -38,6 +40,7 @@ class SubscriptionTest extends TestCase
 
     /**
      * @test
+     *
      * @throws GuzzleException|InvalidReceiptException
      */
     public function test_facade_can_get_a_google_play_subscription()
@@ -57,6 +60,7 @@ class SubscriptionTest extends TestCase
 
     /**
      * @test
+     *
      * @throws GuzzleException
      */
     public function test_facade_can_acknowledge_a_google_play_subscription()
@@ -73,11 +77,12 @@ class SubscriptionTest extends TestCase
 
     /**
      * @test
+     *
      * @throws GuzzleException|InvalidReceiptException
      */
     public function test_it_can_send_verify_receipt_request_to_app_store()
     {
-        $receipt = json_decode(file_get_contents($this->testAssetPath('iOS-receipt.json')), true);
+        $receipt = json_decode(file_get_contents($this->assetPath('iOS-receipt.json')), true);
         $receiptData = $receipt['transactionReceipt'];
         $password = 'app_store_fake_password';
         $client = ClientFactory::mock(new Response(200, [], json_encode(['status' => 0])));
@@ -90,11 +95,12 @@ class SubscriptionTest extends TestCase
 
     /**
      * @test
+     *
      * @throws GuzzleException|InvalidReceiptException
      */
     public function test_it_handles_the_21007_error_from_the_app_store()
     {
-        $receipt = json_decode(file_get_contents($this->testAssetPath('iOS-receipt.json')), true);
+        $receipt = json_decode(file_get_contents($this->assetPath('iOS-receipt.json')), true);
         $receiptData = $receipt['transactionReceipt'];
         $password = 'app_store_fake_password';
 

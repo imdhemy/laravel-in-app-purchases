@@ -1,13 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\ValueObjects;
 
 use Carbon\Carbon;
-use DateTime;
 use Imdhemy\AppStore\ValueObjects\Time as AppStoreTime;
 use Imdhemy\GooglePlay\ValueObjects\Time as GoogleTime;
 use Imdhemy\Purchases\ValueObjects\Time;
-use Stringable;
 use Tests\TestCase;
 
 class TimeTest extends TestCase
@@ -19,7 +19,7 @@ class TimeTest extends TestCase
     {
         $sut = new Time(0);
 
-        $this->assertInstanceOf(Stringable::class, $sut);
+        $this->assertInstanceOf(\Stringable::class, $sut);
         $this->assertEquals('1970-01-01 00:00:00', $sut->__toString());
     }
 
@@ -58,15 +58,13 @@ class TimeTest extends TestCase
      */
     public function it_could_be_created_from_date_time(): void
     {
-        $sut = Time::fromDateTime(new DateTime('1970-01-01 00:00:00'));
+        $sut = Time::fromDateTime(new \DateTime('1970-01-01 00:00:00'));
 
         $this->assertEquals('1970-01-01 00:00:00', $sut);
     }
 
-
     /**
      * @test
-     * @return Time
      */
     public function is_future_should_return_true_given_value_is_in_the_future(): Time
     {
@@ -79,7 +77,6 @@ class TimeTest extends TestCase
 
     /**
      * @test
-     * @return Time
      */
     public function is_future_should_return_false_give_value_is_passed(): Time
     {
@@ -92,6 +89,7 @@ class TimeTest extends TestCase
 
     /**
      * @test
+     *
      * @depends is_future_should_return_true_given_value_is_in_the_future
      * @depends is_future_should_return_false_give_value_is_passed
      */

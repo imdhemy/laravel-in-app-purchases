@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\Purchases\ServerNotifications;
 
 use GuzzleHttp\Client;
@@ -19,59 +21,37 @@ class AppStoreServerNotification implements ServerNotificationContract
 
     /**
      * AppStoreServerNotification constructor.
-     *
-     * @param ServerNotification $notification
      */
     public function __construct(ServerNotification $notification)
     {
         $this->notification = $notification;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return $this->notification->getNotificationType();
     }
 
-    /**
-     * @param Client|null $client
-     *
-     * @return SubscriptionContract
-     */
     public function getSubscription(?Client $client = null): SubscriptionContract
     {
         return new AppStoreSubscription($this->getFirstReceipt());
     }
 
-    /**
-     * @return bool
-     */
     public function isTest(): bool
     {
         return false;
     }
 
-    /**
-     * @return LatestReceiptInfo|null
-     */
     private function getFirstReceipt(): ?LatestReceiptInfo
     {
         return $this->notification->getUnifiedReceipt()->getLatestReceiptInfo()[0];
     }
 
-    /**
-     * @return bool
-     */
     public function isAutoRenewal(): bool
     {
-        return $this->notification->getAutoRenewStatus() === true;
+        return true === $this->notification->getAutoRenewStatus();
     }
 
-    /**
-     * @return Time|null
-     */
     public function getAutoRenewStatusChangeDate(): ?Time
     {
         $time = $this->notification->getAutoRenewStatusChangeDate();
@@ -82,27 +62,19 @@ class AppStoreServerNotification implements ServerNotificationContract
         return null;
     }
 
-    /**
-     * @return string
-     */
     public function getBundle(): string
     {
         return (string)$this->notification->getBid();
     }
 
     /**
-     * Gets the notification payload
-     *
-     * @return array
+     * Gets the notification payload.
      */
     public function getPayload(): array
     {
         return $this->notification->toArray();
     }
 
-    /**
-     * @return string|null
-     */
     public function getAutoRenewProductId(): ?string
     {
         return $this->notification->getAutoRenewProductId();
