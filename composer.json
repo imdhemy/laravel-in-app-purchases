@@ -22,13 +22,13 @@
     "ext-openssl": "*",
     "imdhemy/appstore-iap": "^1.5",
     "imdhemy/google-play-billing": "^1.2",
-    "laravel/framework": ">=8.83.26"
+    "laravel/framework": "^9.39"
   },
   "require-dev": {
-    "roave/security-advisories": "dev-latest",
     "friendsofphp/php-cs-fixer": "^3.4",
-    "orchestra/testbench": "^6.24",
-    "psalm/plugin-laravel": "^1.5",
+    "orchestra/testbench": "^7.11",
+    "psalm/plugin-laravel": "^2.0",
+    "roave/security-advisories": "dev-latest",
     "vimeo/psalm": "^4.30"
   },
   "autoload": {

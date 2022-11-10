@@ -3,3 +3,7 @@
 ### PHP
 
 - PHP 8.1 or higher is required
+
+### Laravel
+
+- Laravel 9 is required
