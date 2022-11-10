@@ -1,0 +1,9 @@
+version: 2
+updates:
+  - allow:
+      - dependency-type: all
+    directory: /
+    package-ecosystem: composer
+    schedule:
+      interval: weekly
+    versioning-strategy: increase

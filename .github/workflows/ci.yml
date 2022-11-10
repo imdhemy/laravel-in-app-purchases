@@ -1,85 +1,115 @@
-name: CI
+# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
+
+name: "Continuous Integration"
+
 on:
-  push:
-    branches:
-      - '*'
-      - '*/*'
-      - '**'
   pull_request:
-    branches:
-      - '*'
-      - '*/*'
-      - '**'
+  push:
+
 jobs:
-  # PSR-12 Coding standards
-  psr-12:
-    name: PSR-12
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+  phpunit:
+    name: "PHPUnit tests"
 
-      - name: Check PSR-12
-        uses: docker://oskarstark/php-cs-fixer-ga
-        with:
-          args: --config=.php-cs-fixer.dist.php --dry-run
+    runs-on: ${{ matrix.operating-system }}
 
-  # Static code analysis
-  static_code_analysis:
-    name: Psalm - Static code analysis
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: PHP setup
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '7.4'
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, libsodium
-            iconv, imagick, fileinfo, sodium
-          coverage: none
-
-      - name: Cache composer dependencies
-        uses: actions/cache@v1
-        with:
-          path: vendor
-          key: composer-${{ hashFiles('composer.lock') }}
-
-      - name: Install dependencies
-        run: composer install -n --prefer-dist
-
-      - name: Psalm
-        run: composer psalm
-
-  # Tests
-  tests:
-    runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: true
       matrix:
-        os: [ ubuntu-latest, windows-latest, macos-latest ]
-        php: [ 7.4, 8.0, 8.1 ]
-    name: Tests - ${{ matrix.os }} - ${{ matrix.php }}
+        dependencies:
+          - "locked"
+        php-version:
+          - "7.4"
+          - "8.0"
+          - "8.1"
+          - "8.2"
+        operating-system:
+          - "ubuntu-latest"
+          - "windows-latest"
+          - "macos-latest"
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - name: "Checkout"
+        uses: "actions/checkout@v3"
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
         with:
-          ref: ${{ github.head_ref }}
+          coverage: "pcov"
+          php-version: "${{ matrix.php-version }}"
+          ini-values: memory_limit=-1
+          extensions: sodium, fileinfo
 
-      - name: PHP setup
-        uses: shivammathur/setup-php@v2
+      - name: "Install dependencies"
+        uses: "ramsey/composer-install@v2"
         with:
-          php-version: '7.4'
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, libsodium
-            iconv, imagick, fileinfo, sodium
-          coverage: none
+          dependency-versions: "${{ matrix.dependencies }}"
 
-      - name: Install dependencies
-        run: composer install
+      - name: "Tests"
+        run: "composer test"
 
-      - name: Security advice
-        run: composer security-advice
+  static-analysis-psalm:
+    name: "Static Analysis by Psalm"
 
-      - name: Execute PHPUnit tests
-        run: composer test
+    runs-on: ${{ matrix.operating-system }}
+
+    strategy:
+      matrix:
+        dependencies:
+          - "locked"
+        php-version:
+          - "7.4"
+        operating-system:
+          - "ubuntu-latest"
+      
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v3"
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          coverage: "none"
+          php-version: "${{ matrix.php-version }}"
+          ini-values: memory_limit=-1
+          extensions: sodium, fileinfo
+
+      - name: "Install dependencies"
+        uses: "ramsey/composer-install@v2"
+        with:
+          dependency-versions: "${{ matrix.dependencies }}"
+
+      - name: "psalm"
+        run: "composer psalm"
+
+  coding-standards:
+    name: "Check Coding Standards"
+
+    runs-on: ${{ matrix.operating-system }}
+
+    strategy:
+      matrix:
+        dependencies:
+          - "locked"
+        php-version:
+          - "7.4"
+        operating-system:
+          - "ubuntu-latest"
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v3"
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          coverage: "none"
+          php-version: "${{ matrix.php-version }}"
+          ini-values: memory_limit=-1
+          extensions: sodium, fileinfo
+
+      - name: "Install dependencies"
+        uses: "ramsey/composer-install@v2"
+        with:
+          dependency-versions: "${{ matrix.dependencies }}"
+
+      - name: "Coding Standard"
+        run: "composer check-style"
