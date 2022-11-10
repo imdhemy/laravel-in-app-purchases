@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Integration\Artisan;
 
 use Illuminate\Console\Command;
@@ -13,7 +15,7 @@ use Tests\Doubles\UrlGeneratorDouble;
 use Tests\TestCase;
 
 /**
- * The word `it` refers to LIAP package
+ * The word `it` refers to LIAP package.
  */
 class ArtisanCommandsTest extends TestCase
 {
@@ -28,10 +30,10 @@ class ArtisanCommandsTest extends TestCase
     private string $configFilePath;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      * - Gets all artisan commands
      * - Deletes the configuration file if it exists
-     * - Enables signed URLs
+     * - Enables signed URLs.
      */
     protected function setUp(): void
     {
@@ -57,6 +59,7 @@ class ArtisanCommandsTest extends TestCase
 
     /**
      * @test
+     *
      * @depends it_should_provide_config_publish_command
      */
     public function publish_config_command_should_publish_the_config_file(): void
@@ -78,6 +81,7 @@ class ArtisanCommandsTest extends TestCase
 
     /**
      * @test
+     *
      * @depends it_should_provide_url_command
      */
     public function url_command_prints_table_of_provider_endpoints(): void

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Console;
 
 use Illuminate\Foundation\Bootstrap\LoadConfiguration as IlluminateLoadConfiguration;
@@ -14,9 +16,6 @@ use Tests\TestCase;
 
 class UrlGeneratorTest extends TestCase
 {
-    /**
-     * @var UrlGenerator
-     */
     private UrlGenerator $sut;
 
     /**
@@ -25,7 +24,7 @@ class UrlGeneratorTest extends TestCase
     protected $app;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function setUp(): void
     {
@@ -49,6 +48,7 @@ class UrlGeneratorTest extends TestCase
 
     /**
      * @test
+     *
      * @depends generate_should_create_a_url_with_signature_query
      *
      * @param string $url The generated url
@@ -60,6 +60,7 @@ class UrlGeneratorTest extends TestCase
 
     /**
      * @test
+     *
      * @depends generate_should_create_a_url_with_signature_query
      *
      * @param string $url The generated url
@@ -80,13 +81,14 @@ class UrlGeneratorTest extends TestCase
 
     /**
      * @test
+     *
      * @depends generate_should_create_a_url_with_signature_query
      *
      * @param string $url The generated url
      */
     public function has_valid_signature_returns_false_with_modified_url(string $url): void
     {
-        $modifiedUrl = $url . '&attack=true';
+        $modifiedUrl = $url.'&attack=true';
         $urlParts = parse_url($modifiedUrl);
         parse_str($urlParts['query'], $query);
 
@@ -101,6 +103,7 @@ class UrlGeneratorTest extends TestCase
 
     /**
      * @test
+     *
      * @psalm-suppress UndefinedMagicMethod
      */
     public function has_valid_signature_delegates_call_to_laravel_9_implementation(): void
@@ -108,7 +111,7 @@ class UrlGeneratorTest extends TestCase
         $this->app->setCustomVersion('9.0.0');
 
         /** @var IlluminateUrlGenerator|Mockery\MockInterface $mock */
-        $mock = Mockery::mock(IlluminateUrlGenerator::class);
+        $mock = \Mockery::mock(IlluminateUrlGenerator::class);
 
         $sut = new UrlGenerator($mock);
         $request = new Request();
@@ -120,11 +123,11 @@ class UrlGeneratorTest extends TestCase
 
         $this->assertTrue($sut->hasValidSignature($request));
 
-        Mockery::close();
+        \Mockery::close();
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function resolveApplication()
     {
@@ -136,7 +139,7 @@ class UrlGeneratorTest extends TestCase
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function tearDown(): void
     {

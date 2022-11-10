@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\Purchases\Handlers;
 
 use Illuminate\Support\Facades\Log;
@@ -8,7 +10,7 @@ use Imdhemy\Purchases\Events\AppStore\EventFactory as AppStoreEventFactory;
 use Imdhemy\Purchases\ServerNotifications\AppStoreServerNotification;
 
 /**
- * App Store server notification handler
+ * App Store server notification handler.
  *
  * Handles notifications sent by App store.
  * Dispatches the App store subscription event related to the notification type.
@@ -16,7 +18,8 @@ use Imdhemy\Purchases\ServerNotifications\AppStoreServerNotification;
 class AppStoreNotificationHandler extends AbstractNotificationHandler
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
+     *
      * @return void
      */
     protected function handle()

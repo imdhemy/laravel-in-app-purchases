@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Events;
 
 use GuzzleHttp\Exception\GuzzleException;
@@ -24,7 +26,7 @@ class PurchaseEventTest extends TestCase
     private $googleServerNotification;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function setUp(): void
     {
@@ -48,6 +50,7 @@ class PurchaseEventTest extends TestCase
 
     /**
      * @test
+     *
      * @throws GuzzleException
      */
     public function test_it_can_get_subscription()

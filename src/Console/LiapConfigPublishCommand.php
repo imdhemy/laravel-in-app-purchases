@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\Purchases\Console;
 
 use Illuminate\Console\Command;
@@ -7,7 +9,7 @@ use Illuminate\Support\Facades\File;
 use Imdhemy\Purchases\ServiceProviders\LiapServiceProvider;
 
 /**
- * Config publish command
+ * Config publish command.
  *
  * This command is used to publish LIAP configuration file
  */
@@ -16,27 +18,25 @@ class LiapConfigPublishCommand extends Command
     /**
      * @const string The failure message to display if file is already published
      */
-    public const MESSAGE_ALREADY_INSTALLED = "liap.php is already published.";
+    public const MESSAGE_ALREADY_INSTALLED = 'liap.php is already published.';
 
     /**
      * @const string The success message to display if file is published successfully
      */
-    public const MESSAGE_SUCCESS = "liap.php published successfully";
+    public const MESSAGE_SUCCESS = 'liap.php published successfully';
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
-    protected $signature = "liap:config:publish {--f|force}";
+    protected $signature = 'liap:config:publish {--f|force}';
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
-    protected $description = "Publishes the LIAP configuration file.";
+    protected $description = 'Publishes the LIAP configuration file.';
 
     /**
-     * Executes the console command
-     *
-     * @return int
+     * Executes the console command.
      */
     public function handle(): int
     {
@@ -52,9 +52,7 @@ class LiapConfigPublishCommand extends Command
     }
 
     /**
-     * Checks if the command should force publish the configs
-     *
-     * @return bool
+     * Checks if the command should force publish the configs.
      */
     private function shouldForce(): bool
     {
@@ -62,11 +60,7 @@ class LiapConfigPublishCommand extends Command
     }
 
     /**
-     * Publish configurations
-     *
-     * @param bool $force
-     *
-     * @return int
+     * Publish configurations.
      */
     private function publishConfig(bool $force = false): int
     {
@@ -86,19 +80,15 @@ class LiapConfigPublishCommand extends Command
     }
 
     /**
-     * Check if the freya is installed
-     *
-     * @return bool
+     * Check if the freya is installed.
      */
     private function isInstalled(): bool
     {
-        return File::exists(config_path(LiapServiceProvider::CONFIG_KEY . '.php'));
+        return File::exists(config_path(LiapServiceProvider::CONFIG_KEY.'.php'));
     }
 
     /**
      * Should run on command failure.
-     *
-     * @return int
      */
     private function fail(): int
     {
