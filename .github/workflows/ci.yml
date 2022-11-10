@@ -1,5 +1,3 @@
-# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
-
 name: "Continuous Integration"
 
 on: [ push, pull_request ]
