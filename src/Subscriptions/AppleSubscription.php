@@ -30,7 +30,7 @@ class AppleSubscription implements SubscriptionContract
     /**
      * @param V2DecodedPayload $payload
      *
-     * @return static
+     * @return self
      */
     public static function fromV2DecodedPayload(V2DecodedPayload $payload): self
     {
@@ -39,6 +39,7 @@ class AppleSubscription implements SubscriptionContract
 
     /**
      * @return Time
+     * @psalm-suppress PossiblyNullArgument - We know expires date is not null
      */
     public function getExpiryTime(): Time
     {
