@@ -7,7 +7,7 @@ use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\ValueObjects\Time;
 
 /**
- * Class AppleSubscription
+ * Class AppleSubscription [RELATED TO: NOTIFICATIONS V2]
  * This class represents a subscription from Apple and wraps the V2DecodedPayload
  */
 class AppleSubscription implements SubscriptionContract
