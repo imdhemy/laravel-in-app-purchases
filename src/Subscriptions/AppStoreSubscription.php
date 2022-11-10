@@ -6,12 +6,16 @@ use Imdhemy\AppStore\ValueObjects\LatestReceiptInfo;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\ValueObjects\Time;
 
+/**
+ * Class AppleSubscription [RELATED TO: NOTIFICATIONS V1]
+ * This class represents a subscription from Apple and wraps the LatestReceiptInfo
+ */
 class AppStoreSubscription implements SubscriptionContract
 {
     /**
      * @var LatestReceiptInfo
      */
-    private $receipt;
+    private LatestReceiptInfo $receipt;
 
     /**
      * AppStoreSubscription constructor.
@@ -25,6 +29,7 @@ class AppStoreSubscription implements SubscriptionContract
 
     /**
      * @return Time
+     * @psalm-suppress PossiblyNullArgument - We know expires date is not null
      */
     public function getExpiryTime(): Time
     {
