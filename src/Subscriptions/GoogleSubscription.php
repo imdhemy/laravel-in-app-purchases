@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\Purchases\Subscriptions;
 
 use GuzzleHttp\ClientInterface;
@@ -19,27 +21,14 @@ use Imdhemy\Purchases\ValueObjects\Time;
  */
 class GoogleSubscription implements SubscriptionContract
 {
-    /**
-     * @var SubscriptionPurchase
-     */
     protected SubscriptionPurchase $subscription;
 
-    /**
-     * @var string
-     */
     protected string $itemId;
 
-    /**
-     * @var string
-     */
     protected string $token;
 
     /**
      * GoogleSubscription constructor.
-     *
-     * @param SubscriptionPurchase $subscription
-     * @param string $itemId
-     * @param string $token
      */
     public function __construct(SubscriptionPurchase $subscription, string $itemId, string $token)
     {
@@ -49,10 +38,6 @@ class GoogleSubscription implements SubscriptionContract
     }
 
     /**
-     * @param DeveloperNotification $rtdNotification
-     * @param ClientInterface|null $client
-     *
-     * @return self
      * @throws GuzzleException
      */
     public static function createFromDeveloperNotification(
@@ -63,10 +48,7 @@ class GoogleSubscription implements SubscriptionContract
 
         // Make sure the notification is a subscription notification
         if (! $notification instanceof SubscriptionNotification) {
-            throw InvalidNotificationTypeException::create(
-                SubscriptionNotification::class,
-                get_class($notification)
-            );
+            throw InvalidNotificationTypeException::create(SubscriptionNotification::class, get_class($notification));
         }
 
         $packageName = $rtdNotification->getPackageName();
@@ -85,7 +67,6 @@ class GoogleSubscription implements SubscriptionContract
     }
 
     /**
-     * @return Time
      * @psalm-suppress PossiblyNullArgument - We are sure expiration time is not null
      */
     public function getExpiryTime(): Time
@@ -93,33 +74,21 @@ class GoogleSubscription implements SubscriptionContract
         return Time::fromGoogleTime($this->subscription->getExpiryTime());
     }
 
-    /**
-     * @return string
-     */
     public function getItemId(): string
     {
         return $this->itemId;
     }
 
-    /**
-     * @return string
-     */
     public function getProvider(): string
     {
         return 'google_play';
     }
 
-    /**
-     * @return string
-     */
     public function getUniqueIdentifier(): string
     {
         return $this->token;
     }
 
-    /**
-     * @return SubscriptionPurchase
-     */
     public function getProviderRepresentation(): SubscriptionPurchase
     {
         return $this->subscription;
