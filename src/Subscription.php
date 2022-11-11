@@ -101,6 +101,7 @@ class Subscription
     /**
      * @throws GuzzleException
      * @throws InvalidReceiptException
+     *
      * @psalm-suppress PossiblyNullArgument - This method should not be called when verifier params are null
      * @psalm-suppress ArgumentTypeCoercion - This method should not be called when the sandbox client is null
      */
