@@ -21,70 +21,46 @@ use Imdhemy\Purchases\Subscriptions\GoogleSubscription;
 
 class Subscription
 {
-    /**
-     * @var string
-     */
-    protected $itemId;
+    protected ?string $itemId = null;
+
+    protected ?string $token = null;
+
+    protected ?Client $client = null;
+
+    protected ?string $packageName = null;
+
+    protected ?string $receiptData = null;
+
+    protected ?string $password = null;
+
+    protected bool $renewalAble = false;
+
+    protected ?SubscriptionPurchase $googleGetResponse = null;
+
+    protected bool $isGoogle = false;
+
+    private ?ReceiptResponse $appStoreResponse = null;
 
     /**
-     * @var string
+     * @psalm-suppress PropertyTypeCoercion - The client type is compatible
      */
-    protected $token;
-
-    /**
-     * @var Client
-     */
-    protected $client;
-
-    /**
-     * @var string
-     */
-    protected $packageName;
-
-    /**
-     * @var string
-     */
-    protected $receiptData;
-
-    /**
-     * @var string
-     */
-    protected $password;
-
-    /**
-     * @var bool
-     */
-    protected $renewalAble;
-
-    /**
-     * @var SubscriptionPurchase
-     */
-    protected $googleGetResponse;
-
-    /**
-     * @var bool
-     */
-    protected $isGoogle = false;
-
-    /**
-     * @var ReceiptResponse
-     */
-    private $appStoreResponse;
-
     public function googlePlay(?ClientInterface $client = null): self
     {
         $this->isGoogle = true;
         $this->client = $client ?? GooglePlayClientFactory::create([GooglePlayClientFactory::SCOPE_ANDROID_PUBLISHER]);
-        $this->packageName = config('liap.google_play_package_name');
+        $this->packageName = (string)config('liap.google_play_package_name');
 
         return $this;
     }
 
+    /**
+     * @psalm-suppress PropertyTypeCoercion - The client type is compatible
+     */
     public function appStore(?ClientInterface $client = null): self
     {
         $this->isGoogle = false;
         $this->client = $client ?? AppStoreClientFactory::create();
-        $this->password = config('liap.appstore_password');
+        $this->password = (string)config('liap.appstore_password');
         $this->renewalAble = false;
 
         return $this;
@@ -125,6 +101,8 @@ class Subscription
     /**
      * @throws GuzzleException
      * @throws InvalidReceiptException
+     * @psalm-suppress PossiblyNullArgument - This method should not be called when verifier params are null
+     * @psalm-suppress ArgumentTypeCoercion - This method should not be called when the sandbox client is null
      */
     public function verifyReceipt(?ClientInterface $sandboxClient = null): ReceiptResponse
     {
@@ -158,6 +136,9 @@ class Subscription
         return $this->createSubscription()->acknowledge($developerPayload);
     }
 
+    /**
+     * @psalm-suppress PossiblyNullArgument - This method should not be called if params are null
+     */
     public function createSubscription(): GooglePlaySubscription
     {
         return new GooglePlaySubscription(
@@ -191,6 +172,10 @@ class Subscription
     /**
      * @throws GuzzleException
      * @throws InvalidReceiptException
+     *
+     * @psalm-suppress  PossiblyNullArgument - This method should not be called if itemId and token are null
+     * @psalm-suppress  MixedArgument - We know the type of the latest receipt info
+     * @psalm-suppress  PossiblyNullArrayAccess - This method should not be called if the array if empty
      */
     public function toStd(): SubscriptionContract
     {
