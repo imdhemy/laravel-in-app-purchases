@@ -952,16 +952,16 @@
         },
         {
             "name": "imdhemy/appstore-iap",
-            "version": "1.5.0",
+            "version": "1.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/imdhemy/appstore-iap.git",
-                "reference": "120a6b812aee0b234e69159782cf7a5718fd0704"
+                "reference": "cac77c169fd629687bf418ee0b29f3d90ce3bda8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/imdhemy/appstore-iap/zipball/120a6b812aee0b234e69159782cf7a5718fd0704",
-                "reference": "120a6b812aee0b234e69159782cf7a5718fd0704",
+                "url": "https://api.github.com/repos/imdhemy/appstore-iap/zipball/cac77c169fd629687bf418ee0b29f3d90ce3bda8",
+                "reference": "cac77c169fd629687bf418ee0b29f3d90ce3bda8",
                 "shasum": ""
             },
             "require": {
@@ -970,7 +970,7 @@
                 "ext-sodium": "*",
                 "guzzlehttp/guzzle": "^6.5|^7.4",
                 "lcobucci/jwt": "^4.2",
-                "nesbot/carbon": "^2.51",
+                "nesbot/carbon": "^2.64",
                 "php": ">=7.4"
             },
             "require-dev": {
@@ -979,7 +979,7 @@
                 "phpunit/phpunit": "^9.5",
                 "roave/security-advisories": "dev-latest",
                 "symfony/var-dumper": "^5.3",
-                "vimeo/psalm": "^4.27"
+                "vimeo/psalm": "^5.1"
             },
             "type": "library",
             "autoload": {
@@ -1000,9 +1000,9 @@
             "description": "PHP Appstore In-App Purchase implementation",
             "support": {
                 "issues": "https://github.com/imdhemy/appstore-iap/issues",
-                "source": "https://github.com/imdhemy/appstore-iap/tree/1.5.0"
+                "source": "https://github.com/imdhemy/appstore-iap/tree/1.5.1"
             },
-            "time": "2022-11-05T09:21:06+00:00"
+            "time": "2022-12-05T08:31:08+00:00"
         },
         {
             "name": "imdhemy/google-play-billing",
