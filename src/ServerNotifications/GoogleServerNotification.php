@@ -30,11 +30,14 @@ class GoogleServerNotification implements ServerNotificationContract
 
     public function getType(): string
     {
-        $type = $this->isTest() ?
-            self::TESTING_NOTIFICATION :
-            $this->notification->getPayload()->getNotificationType();
+        if ($this->isTest()) {
+            return (string)self::TESTING_NOTIFICATION;
+        }
 
-        return (string)$type;
+        $payload = $this->notification->getPayload();
+        assert(method_exists($payload, 'getNotificationType'));
+
+        return (string)$payload->getNotificationType();
     }
 
     /**
