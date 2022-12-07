@@ -9,6 +9,7 @@ use Imdhemy\AppStore\Jws\JwsVerifier;
 use Imdhemy\Purchases\Events\AppStore\DidChangeRenewalStatus;
 use Imdhemy\Purchases\Events\AppStore\Subscribed;
 use Imdhemy\Purchases\Events\GooglePlay\SubscriptionRecovered;
+use JsonException;
 use Tests\TestCase;
 
 class ServerNotificationControllerTest extends TestCase
@@ -67,7 +68,7 @@ class ServerNotificationControllerTest extends TestCase
     /**
      * @test
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     public function app_store_server_notifications(): void
     {
@@ -91,7 +92,7 @@ class ServerNotificationControllerTest extends TestCase
     /**
      * @test
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     public function it_logs_the_weird__zn_nk_weird_token(): void
     {

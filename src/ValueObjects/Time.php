@@ -8,12 +8,13 @@ use Carbon\Carbon;
 use DateTime;
 use Imdhemy\AppStore\ValueObjects\Time as AppStoreTime;
 use Imdhemy\GooglePlay\ValueObjects\Time as GoogleTime;
+use Stringable;
 
 /**
  * Class Time
  * A smart value object for time.
  */
-final class Time implements \Stringable
+final class Time implements Stringable
 {
     /**
      * @var int the number of microseconds since the Unix epoch
@@ -55,7 +56,7 @@ final class Time implements \Stringable
     /**
      * @return static
      */
-    public static function fromDateTime(\DateTime $dateTime): self
+    public static function fromDateTime(DateTime $dateTime): self
     {
         return self::fromCarbon(Carbon::instance($dateTime));
     }
@@ -89,7 +90,7 @@ final class Time implements \Stringable
     /**
      * Convert the value object to a DateTime instance.
      */
-    public function toDateTime(): \DateTime
+    public function toDateTime(): DateTime
     {
         return $this->toCarbon()->toDateTime();
     }

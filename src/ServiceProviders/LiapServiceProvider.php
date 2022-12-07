@@ -23,6 +23,7 @@ use Imdhemy\Purchases\Product;
 use Imdhemy\Purchases\Subscription;
 use Lcobucci\JWT\Decoder;
 use Lcobucci\JWT\Encoding\JoseEncoder;
+use RuntimeException;
 
 /**
  * Laravel Iap service provider.
@@ -114,7 +115,7 @@ class LiapServiceProvider extends ServiceProvider
         $googleCredentials = config(self::CONFIG_KEY.'.google_application_credentials');
         if (null !== $googleCredentials) {
             if (! file_exists($googleCredentials)) {
-                throw new \RuntimeException("Google Application Credentials file not found at $googleCredentials");
+                throw new RuntimeException("Google Application Credentials file not found at $googleCredentials");
             }
             putenv('GOOGLE_APPLICATION_CREDENTIALS='.$googleCredentials);
         }

@@ -7,6 +7,7 @@ namespace Imdhemy\Purchases\Handlers;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Imdhemy\Purchases\Contracts\NotificationHandlerContract;
+use RuntimeException;
 
 /**
  * Handler factory.
@@ -42,7 +43,7 @@ class HandlerFactory
             case 'app-store-v2':
                 return $this->application->make(AppStoreV2NotificationHandler::class);
             default:
-                throw new \RuntimeException(sprintf('Invalid provider: {%s}', $provider));
+                throw new RuntimeException(sprintf('Invalid provider: {%s}', $provider));
         }
     }
 }

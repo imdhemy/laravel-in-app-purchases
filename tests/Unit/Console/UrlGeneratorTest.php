@@ -111,7 +111,7 @@ class UrlGeneratorTest extends TestCase
         $this->app->setCustomVersion('9.0.0');
 
         /** @var IlluminateUrlGenerator|Mockery\MockInterface $mock */
-        $mock = \Mockery::mock(IlluminateUrlGenerator::class);
+        $mock = Mockery::mock(IlluminateUrlGenerator::class);
 
         $sut = new UrlGenerator($mock);
         $request = new Request();
@@ -123,7 +123,7 @@ class UrlGeneratorTest extends TestCase
 
         $this->assertTrue($sut->hasValidSignature($request));
 
-        \Mockery::close();
+        Mockery::close();
     }
 
     /**

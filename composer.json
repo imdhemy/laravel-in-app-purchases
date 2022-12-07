@@ -25,7 +25,7 @@
     "laravel/framework": "^9.39"
   },
   "require-dev": {
-    "friendsofphp/php-cs-fixer": "^3.4",
+    "friendsofphp/php-cs-fixer": "^3.13",
     "orchestra/testbench": "^7.11",
     "psalm/plugin-laravel": "^2.0",
     "roave/security-advisories": "dev-latest",

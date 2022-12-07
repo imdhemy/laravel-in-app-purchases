@@ -8,6 +8,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 use Imdhemy\AppStore\ClientFactory;
 use Imdhemy\Purchases\Services\AppStoreTestNotificationServiceBuilder;
+use JsonException;
 
 class AppStoreTestNotificationServiceBuilderDouble extends AppStoreTestNotificationServiceBuilder
 {
@@ -15,7 +16,7 @@ class AppStoreTestNotificationServiceBuilderDouble extends AppStoreTestNotificat
     public const SANDBOX_TOKEN = 'sandbox-token';
 
     /**
-     * @throws \JsonException
+     * @throws JsonException
      */
     protected function createClient(): Client
     {

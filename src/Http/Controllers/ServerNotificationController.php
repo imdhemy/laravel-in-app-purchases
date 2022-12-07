@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Imdhemy\Purchases\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Request;
 use Imdhemy\Purchases\Handlers\HandlerFactory;
 
@@ -18,7 +19,7 @@ class ServerNotificationController extends Controller
     /**
      * Handles the server notification request.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function __invoke(HandlerFactory $handlerFactory, Request $request)
     {

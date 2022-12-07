@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <psalm
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        errorLevel="4"
+        errorLevel="1"
         cacheDirectory=".psalm-cache"
         findUnusedVariablesAndParams="true"
         resolveFromConfigFile="true"

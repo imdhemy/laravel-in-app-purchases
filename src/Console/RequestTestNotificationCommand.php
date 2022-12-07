@@ -8,6 +8,8 @@ use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Console\Command;
 use Imdhemy\Purchases\Services\AppStoreTestNotificationService;
 use Imdhemy\Purchases\Services\AppStoreTestNotificationServiceBuilder as ServiceBuilder;
+use JsonException;
+use RuntimeException;
 
 /**
  * This command is used to request a test notification from Apple
@@ -40,7 +42,7 @@ class RequestTestNotificationCommand extends Command
     /**
      * Execute the console command.
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     public function handle(): int
     {
@@ -53,7 +55,7 @@ class RequestTestNotificationCommand extends Command
             $this->info(sprintf('Test notification token: %s', $token));
 
             return self::SUCCESS;
-        } catch (\RuntimeException|GuzzleException $exception) {
+        } catch (RuntimeException|GuzzleException $exception) {
             $this->error($exception->getMessage());
 
             return self::FAILURE;
@@ -81,7 +83,7 @@ class RequestTestNotificationCommand extends Command
         $privateKeyId = config('liap.appstore_private_key_id');
 
         if (null === $privateKeyId) {
-            throw new \RuntimeException('The private key ID is not configured');
+            throw new RuntimeException('The private key ID is not configured');
         }
 
         $this->serviceBuilder->privateKeyId($privateKeyId);
@@ -95,7 +97,7 @@ class RequestTestNotificationCommand extends Command
         $privateKey = config('liap.appstore_private_key');
 
         if (null === $privateKey) {
-            throw new \RuntimeException('The private key is not configured');
+            throw new RuntimeException('The private key is not configured');
         }
 
         $this->serviceBuilder->privateKey(file_get_contents($privateKey));
@@ -109,7 +111,7 @@ class RequestTestNotificationCommand extends Command
         $issuerId = config('liap.appstore_issuer_id');
 
         if (null === $issuerId) {
-            throw new \RuntimeException('The issuer ID is not configured');
+            throw new RuntimeException('The issuer ID is not configured');
         }
 
         $this->serviceBuilder->issuerId($issuerId);
@@ -123,7 +125,7 @@ class RequestTestNotificationCommand extends Command
         $bundleId = config('liap.appstore_bundle_id');
 
         if (null === $bundleId) {
-            throw new \RuntimeException('The bundle ID is not configured');
+            throw new RuntimeException('The bundle ID is not configured');
         }
 
         $this->serviceBuilder->bundleId($bundleId);
