@@ -66,12 +66,12 @@ class GoogleSubscription implements SubscriptionContract
         );
     }
 
-    /**
-     * @psalm-suppress PossiblyNullArgument - We are sure expiration time is not null
-     */
     public function getExpiryTime(): Time
     {
-        return Time::fromGoogleTime($this->subscription->getExpiryTime());
+        $time = $this->subscription->getExpiryTime();
+        assert(! is_null($time));
+
+        return Time::fromGoogleTime($time);
     }
 
     public function getItemId(): string
