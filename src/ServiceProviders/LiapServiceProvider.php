@@ -74,7 +74,7 @@ class LiapServiceProvider extends ServiceProvider
      */
     private function routeConfig(): array
     {
-        return config(self::CONFIG_KEY.'.routing');
+        return (array)config(self::CONFIG_KEY.'.routing');
     }
 
     /**
@@ -114,6 +114,7 @@ class LiapServiceProvider extends ServiceProvider
 
         $googleCredentials = config(self::CONFIG_KEY.'.google_application_credentials');
         if (null !== $googleCredentials) {
+            assert(is_string($googleCredentials));
             if (! file_exists($googleCredentials)) {
                 throw new RuntimeException("Google Application Credentials file not found at $googleCredentials");
             }
