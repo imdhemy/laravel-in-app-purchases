@@ -101,13 +101,17 @@ class Subscription
     /**
      * @throws GuzzleException
      * @throws InvalidReceiptException
-     *
-     * @psalm-suppress PossiblyNullArgument - This method should not be called when verifier params are null
-     * @psalm-suppress ArgumentTypeCoercion - This method should not be called when the sandbox client is null
      */
     public function verifyReceipt(?ClientInterface $sandboxClient = null): ReceiptResponse
     {
         if (is_null($this->appStoreResponse)) {
+            assert(! is_null($this->client));
+            assert(! is_null($this->receiptData));
+            assert(! is_null($this->password));
+            if (! is_null($sandboxClient)) {
+                assert($sandboxClient instanceof Client);
+            }
+
             $verifier = new Verifier($this->client, $this->receiptData, $this->password);
             $this->appStoreResponse = $verifier->verify($this->renewalAble, $sandboxClient);
         }
