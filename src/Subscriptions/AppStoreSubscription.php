@@ -24,12 +24,12 @@ class AppStoreSubscription implements SubscriptionContract
         $this->receipt = $receipt;
     }
 
-    /**
-     * @psalm-suppress PossiblyNullArgument - We know expires date is not null
-     */
     public function getExpiryTime(): Time
     {
-        return Time::fromAppStoreTime($this->receipt->getExpiresDate());
+        $expiryTime = $this->receipt->getExpiresDate();
+        assert(! is_null($expiryTime));
+
+        return Time::fromAppStoreTime($expiryTime);
     }
 
     public function getItemId(): string
