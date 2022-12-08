@@ -102,9 +102,9 @@ class Product
      */
     public function verifyReceipt(): ReceiptResponse
     {
-        $verifier = new Verifier($this->client, $this->receiptData, $this->password);
+        assert($this->client instanceof Client);
 
-        return $verifier->verify();
+        return (new Verifier($this->client, $this->receiptData, $this->password))->verify();
     }
 
     /**
