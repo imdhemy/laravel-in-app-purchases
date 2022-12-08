@@ -34,7 +34,10 @@ class AppStoreServerNotification implements ServerNotificationContract
 
     public function getSubscription(?Client $client = null): SubscriptionContract
     {
-        return new AppStoreSubscription($this->getFirstReceipt());
+        $firstReceipt = $this->getFirstReceipt();
+        assert($firstReceipt instanceof LatestReceiptInfo);
+
+        return new AppStoreSubscription($firstReceipt);
     }
 
     public function isTest(): bool
