@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Imdhemy\Purchases;
 
-use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use Imdhemy\AppStore\ClientFactory as AppStoreClientFactory;
@@ -18,35 +17,17 @@ use Imdhemy\GooglePlay\ValueObjects\EmptyResponse;
 
 class Product
 {
-    /**
-     * @var string
-     */
-    protected $itemId;
+    protected string $itemId = '';
 
-    /**
-     * @var string
-     */
-    protected $token;
+    protected string $token = '';
 
-    /**
-     * @var Client
-     */
-    protected $client;
+    protected ?ClientInterface $client = null;
 
-    /**
-     * @var string
-     */
-    protected $packageName;
+    protected string $packageName = '';
 
-    /**
-     * @var string
-     */
-    protected $receiptData;
+    protected string $receiptData = '';
 
-    /**
-     * @var string
-     */
-    protected $password;
+    protected string $password = '';
 
     public function googlePlay(?ClientInterface $client = null): self
     {
