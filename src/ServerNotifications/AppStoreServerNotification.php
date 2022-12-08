@@ -47,7 +47,16 @@ class AppStoreServerNotification implements ServerNotificationContract
 
     private function getFirstReceipt(): ?LatestReceiptInfo
     {
-        return $this->notification->getUnifiedReceipt()->getLatestReceiptInfo()[0];
+        $unifiedReceipt = $this->notification->getUnifiedReceipt();
+
+        if ($unifiedReceipt && is_array($receipts = $unifiedReceipt->getLatestReceiptInfo()) && ! empty($receipts)) {
+            $latestReceiptInfo = $receipts[0];
+            assert($latestReceiptInfo instanceof LatestReceiptInfo);
+
+            return $latestReceiptInfo;
+        }
+
+        return null;
     }
 
     public function isAutoRenewal(): bool
