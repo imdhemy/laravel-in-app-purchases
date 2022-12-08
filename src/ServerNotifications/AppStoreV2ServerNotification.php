@@ -26,7 +26,8 @@ class AppStoreV2ServerNotification implements ServerNotificationContract, HasSub
     /**
      * Static constructor.
      *
-     * @return static
+     * @param V2DecodedPayload $decodedPayload
+     * @return self
      */
     public static function fromDecodedPayload(V2DecodedPayload $decodedPayload): self
     {
