@@ -33,7 +33,7 @@ class Product
     public function googlePlay(?ClientInterface $client = null): self
     {
         $this->client = $client ?? GooglePlayClientFactory::create([GooglePlayClientFactory::SCOPE_ANDROID_PUBLISHER]);
-        $this->packageName = config('liap.google_play_package_name');
+        $this->packageName = (string)config('liap.google_play_package_name');
 
         return $this;
     }
@@ -43,7 +43,7 @@ class Product
         $sandbox = (bool)config('liap.appstore_sandbox');
 
         $this->client = $client ?? AppStoreClientFactory::create($sandbox);
-        $this->password = config('liap.appstore_password');
+        $this->password = (string)config('liap.appstore_password');
 
         return $this;
     }
