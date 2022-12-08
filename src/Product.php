@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Imdhemy\Purchases;
 
+use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use Imdhemy\AppStore\ClientFactory as AppStoreClientFactory;
@@ -78,6 +79,8 @@ class Product
 
     public function createProduct(): GooglePlayProduct
     {
+        assert($this->client instanceof Client);
+
         return new GooglePlayProduct(
             $this->client,
             $this->packageName,
