@@ -16,8 +16,6 @@ use Imdhemy\Purchases\Subscriptions\GoogleSubscription;
  */
 class GoogleServerNotification implements ServerNotificationContract
 {
-    public const TESTING_NOTIFICATION = -1;
-
     private DeveloperNotification $notification;
 
     /**
@@ -30,14 +28,7 @@ class GoogleServerNotification implements ServerNotificationContract
 
     public function getType(): string
     {
-        if ($this->isTest()) {
-            return (string)self::TESTING_NOTIFICATION;
-        }
-
-        $payload = $this->notification->getPayload();
-        assert(method_exists($payload, 'getNotificationType'));
-
-        return (string)$payload->getNotificationType();
+        return (string)$this->notification->getPayload()->getNotificationType();
     }
 
     /**
