@@ -9,6 +9,7 @@ use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
 use Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification;
 use Imdhemy\Purchases\Events\GooglePlay\EventFactory as GooglePlayEventFactory;
 use Imdhemy\Purchases\ServerNotifications\GoogleServerNotification;
+use JsonException;
 
 /**
  * Google Play notification handler.
@@ -24,20 +25,26 @@ class GooglePlayNotificationHandler extends AbstractNotificationHandler
     protected function rules(): array
     {
         return [
-          'message' => ['required', 'array'],
-          'message.data' => ['required'],
+            'message' => ['required', 'array'],
+            'message.data' => ['required'],
         ];
     }
 
     /**
      * {@inheritdoc}
+     *
+     * @throws JsonException
      */
     protected function handle()
     {
-        $data = $this->request->get('message')['data'];
+        $message = $this->request->input('message');
+        assert(is_array($message) && isset($message['data']) && is_string($message['data']));
+        $data = $message['data'];
 
         if (! $this->isParsable($data)) {
-            Log::info(sprintf('Google Play malformed RTDN: %s', json_encode($this->request->all())));
+            Log::info(
+                sprintf('Google Play malformed RTDN: %s', json_encode($this->request->all(), JSON_THROW_ON_ERROR))
+            );
 
             return;
         }
@@ -58,8 +65,15 @@ class GooglePlayNotificationHandler extends AbstractNotificationHandler
 
     protected function isParsable(string $data): bool
     {
-        $decodedData = json_decode(base64_decode($data), true);
+        $base64Decoded = base64_decode($data, true);
+        if (false === $base64Decoded) {
+            return false;
+        }
 
-        return ! is_null($decodedData);
+        try {
+            return is_array(json_decode($base64Decoded, true, 512, JSON_THROW_ON_ERROR));
+        } catch (JsonException) {
+            return false;
+        }
     }
 }
