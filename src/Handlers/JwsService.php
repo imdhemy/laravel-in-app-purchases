@@ -28,16 +28,18 @@ class JwsService implements JwsServiceInterface
 
     /**
      * Verify the JWS.
+     * @psalm-suppress ArgumentTypeCoercion - This is a bug in AppStore package
      */
     public function verify(): bool
     {
+        // @TODO: resolve after this issue is fixed: https://github.com/imdhemy/appstore-iap/issues/72
         return $this->jwsVerifier->verify($this->jws());
     }
 
     private function jws(): JsonWebSignature
     {
         if (is_null($this->jws)) {
-            $this->jws = $this->jwsParser->parse($this->request->get('signedPayload'));
+            $this->jws = $this->jwsParser->parse((string)$this->request->get('signedPayload'));
         }
 
         return $this->jws;
