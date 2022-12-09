@@ -1019,16 +1019,16 @@
         },
         {
             "name": "imdhemy/appstore-iap",
-            "version": "1.5.2",
+            "version": "1.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/imdhemy/appstore-iap.git",
-                "reference": "e09516886d5afee5c39870f56ba2a80a8858f9f8"
+                "reference": "9c38da122eb04a56a9ce7248474495bd8423850d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/imdhemy/appstore-iap/zipball/e09516886d5afee5c39870f56ba2a80a8858f9f8",
-                "reference": "e09516886d5afee5c39870f56ba2a80a8858f9f8",
+                "url": "https://api.github.com/repos/imdhemy/appstore-iap/zipball/9c38da122eb04a56a9ce7248474495bd8423850d",
+                "reference": "9c38da122eb04a56a9ce7248474495bd8423850d",
                 "shasum": ""
             },
             "require": {
@@ -1067,9 +1067,9 @@
             "description": "PHP Appstore In-App Purchase implementation",
             "support": {
                 "issues": "https://github.com/imdhemy/appstore-iap/issues",
-                "source": "https://github.com/imdhemy/appstore-iap/tree/1.5.2"
+                "source": "https://github.com/imdhemy/appstore-iap/tree/1.5.3"
             },
-            "time": "2022-12-09T09:24:23+00:00"
+            "time": "2022-12-09T09:42:28+00:00"
         },
         {
             "name": "imdhemy/google-play-billing",
