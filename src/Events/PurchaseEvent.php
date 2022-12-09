@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Imdhemy\Purchases\Events;
 
-use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Imdhemy\Purchases\Contracts\PurchaseEventContract;
@@ -37,15 +38,15 @@ abstract class PurchaseEvent implements PurchaseEventContract
     }
 
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
-    public function getSubscription(?Client $client = null): SubscriptionContract
+    public function getSubscription(?ClientInterface $client = null): SubscriptionContract
     {
         return $this->serverNotification->getSubscription($client);
     }
 
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getSubscriptionId(): string
     {
@@ -53,7 +54,7 @@ abstract class PurchaseEvent implements PurchaseEventContract
     }
 
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getSubscriptionIdentifier(): string
     {

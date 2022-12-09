@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Imdhemy\Purchases\ServerNotifications;
 
-use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
 use Imdhemy\Purchases\Contracts\ServerNotificationContract;
@@ -34,7 +34,7 @@ class GoogleServerNotification implements ServerNotificationContract
     /**
      * @throws GuzzleException
      */
-    public function getSubscription(?Client $client = null): SubscriptionContract
+    public function getSubscription(?ClientInterface $client = null): SubscriptionContract
     {
         return GoogleSubscription::createFromDeveloperNotification($this->notification, $client);
     }

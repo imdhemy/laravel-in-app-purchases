@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Imdhemy\Purchases\ServerNotifications;
 
-use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 use Imdhemy\AppStore\ServerNotifications\ServerNotification;
 use Imdhemy\AppStore\ValueObjects\LatestReceiptInfo;
 use Imdhemy\Purchases\Contracts\ServerNotificationContract;
@@ -32,7 +32,7 @@ class AppStoreServerNotification implements ServerNotificationContract
         return $this->notification->getNotificationType();
     }
 
-    public function getSubscription(?Client $client = null): SubscriptionContract
+    public function getSubscription(?ClientInterface $client = null): SubscriptionContract
     {
         $firstReceipt = $this->getFirstReceipt();
         assert($firstReceipt instanceof LatestReceiptInfo);

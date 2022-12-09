@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Imdhemy\Purchases;
 
-use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use Imdhemy\AppStore\ClientFactory as AppStoreClientFactory;
@@ -25,7 +24,7 @@ class Subscription
 
     protected ?string $token = null;
 
-    protected ?Client $client = null;
+    protected ?ClientInterface $client = null;
 
     protected ?string $packageName = null;
 
@@ -108,9 +107,6 @@ class Subscription
             assert(! is_null($this->client));
             assert(! is_null($this->receiptData));
             assert(! is_null($this->password));
-            if (! is_null($sandboxClient)) {
-                assert($sandboxClient instanceof Client);
-            }
 
             $verifier = new Verifier($this->client, $this->receiptData, $this->password);
             $this->appStoreResponse = $verifier->verify($this->renewalAble, $sandboxClient);
