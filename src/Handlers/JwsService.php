@@ -28,6 +28,7 @@ class JwsService implements JwsServiceInterface
 
     /**
      * Verify the JWS.
+     *
      * @psalm-suppress ArgumentTypeCoercion - This is a bug in AppStore package
      */
     public function verify(): bool
