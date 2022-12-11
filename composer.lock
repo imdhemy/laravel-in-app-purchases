@@ -1019,16 +1019,16 @@
         },
         {
             "name": "imdhemy/appstore-iap",
-            "version": "1.5.3",
+            "version": "1.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/imdhemy/appstore-iap.git",
-                "reference": "9c38da122eb04a56a9ce7248474495bd8423850d"
+                "reference": "319253eecb8844fef07848917383d9b4aa9ba2c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/imdhemy/appstore-iap/zipball/9c38da122eb04a56a9ce7248474495bd8423850d",
-                "reference": "9c38da122eb04a56a9ce7248474495bd8423850d",
+                "url": "https://api.github.com/repos/imdhemy/appstore-iap/zipball/319253eecb8844fef07848917383d9b4aa9ba2c6",
+                "reference": "319253eecb8844fef07848917383d9b4aa9ba2c6",
                 "shasum": ""
             },
             "require": {
@@ -1067,9 +1067,9 @@
             "description": "PHP Appstore In-App Purchase implementation",
             "support": {
                 "issues": "https://github.com/imdhemy/appstore-iap/issues",
-                "source": "https://github.com/imdhemy/appstore-iap/tree/1.5.3"
+                "source": "https://github.com/imdhemy/appstore-iap/tree/1.5.4"
             },
-            "time": "2022-12-09T09:42:28+00:00"
+            "time": "2022-12-11T10:53:59+00:00"
         },
         {
             "name": "imdhemy/google-play-billing",
@@ -1506,16 +1506,16 @@
         },
         {
             "name": "league/commonmark",
-            "version": "2.3.7",
+            "version": "2.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "a36bd2be4f5387c0f3a8792a0d76b7d68865abbf"
+                "reference": "c493585c130544c4e91d2e0e131e6d35cb0cbc47"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/a36bd2be4f5387c0f3a8792a0d76b7d68865abbf",
-                "reference": "a36bd2be4f5387c0f3a8792a0d76b7d68865abbf",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/c493585c130544c4e91d2e0e131e6d35cb0cbc47",
+                "reference": "c493585c130544c4e91d2e0e131e6d35cb0cbc47",
                 "shasum": ""
             },
             "require": {
@@ -1543,7 +1543,7 @@
                 "symfony/finder": "^5.3 | ^6.0",
                 "symfony/yaml": "^2.3 | ^3.0 | ^4.0 | ^5.0 | ^6.0",
                 "unleashedtech/php-coding-standard": "^3.1.1",
-                "vimeo/psalm": "^4.24.0"
+                "vimeo/psalm": "^4.24.0 || ^5.0.0"
             },
             "suggest": {
                 "symfony/yaml": "v2.3+ required if using the Front Matter extension"
@@ -1608,7 +1608,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-11-03T17:29:46+00:00"
+            "time": "2022-12-10T16:02:17+00:00"
         },
         {
             "name": "league/config",
@@ -8331,12 +8331,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "a5d6404aa779f8c718f5e90164da5c37a6065aaf"
+                "reference": "cd9af30140f6f34d9132986f4c6f04cf5e90cdc8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/a5d6404aa779f8c718f5e90164da5c37a6065aaf",
-                "reference": "a5d6404aa779f8c718f5e90164da5c37a6065aaf",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/cd9af30140f6f34d9132986f4c6f04cf5e90cdc8",
+                "reference": "cd9af30140f6f34d9132986f4c6f04cf5e90cdc8",
                 "shasum": ""
             },
             "conflict": {
@@ -8345,6 +8345,7 @@
                 "adodb/adodb-php": "<=5.20.20|>=5.21,<=5.21.3",
                 "aheinze/cockpit": "<=2.2.1",
                 "akaunting/akaunting": "<2.1.13",
+                "akeneo/pim-community-dev": "<5.0.119|>=6,<6.0.53",
                 "alextselegidis/easyappointments": "<=1.4.3",
                 "alterphp/easyadmin-extension-bundle": ">=1.2,<1.2.11|>=1.3,<1.3.1",
                 "amazing/media2click": ">=1,<1.3.3",
@@ -8867,7 +8868,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-12-09T00:16:03+00:00"
+            "time": "2022-12-09T21:04:12+00:00"
         },
         {
             "name": "sebastian/cli-parser",
