@@ -50,7 +50,9 @@ class RequestTestNotificationCommand extends Command
             $response = $this->buildService()->request();
 
             $content = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
+            assert(is_array($content) && array_key_exists('notification_type', $content));
             $token = $content['testNotificationToken'];
+            assert(is_string($token));
 
             $this->info(sprintf('Test notification token: %s', $token));
 
@@ -72,7 +74,10 @@ class RequestTestNotificationCommand extends Command
         $this->setIssuerId();
         $this->setBundleId();
 
-        return $this->serviceBuilder->sandbox($this->option('sandbox'))->build();
+        $sandbox = $this->option('sandbox');
+        assert(is_bool($sandbox));
+
+        return $this->serviceBuilder->sandbox($sandbox)->build();
     }
 
     /**
