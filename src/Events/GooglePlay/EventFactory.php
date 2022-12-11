@@ -16,16 +16,30 @@ class EventFactory
     {
         $notificationType = $notification->getType();
         $types = (new ReflectionClass(SubscriptionNotification::class))->getConstants();
-        $type = array_search($notificationType, $types);
-        $className = self::getClassName($type);
+        $type = array_search((int)$notificationType, $types, true);
+        assert(! is_bool($type));
 
-        return new $className($notification);
+        $className = self::getClassName($type);
+        $event = new $className($notification);
+        assert($event instanceof PurchaseEventContract);
+
+        return $event;
     }
 
-    public static function getClassName($type): string
+    /**
+     * Returns the event class name for the given type.
+     *
+     * @psalm-suppress MoreSpecificReturnType
+     * @psalm-suppress LessSpecificReturnStatement
+     *
+     * @psalm-return class-string<PurchaseEventContract>
+     */
+    public static function getClassName(string $type): string
     {
         $camelCaseName = ucfirst(Str::camel(strtolower($type)));
+        $classString = __NAMESPACE__.'\\'.$camelCaseName;
+        assert(class_exists($classString));
 
-        return "\Imdhemy\Purchases\Events\GooglePlay\\".$camelCaseName;
+        return $classString;
     }
 }
