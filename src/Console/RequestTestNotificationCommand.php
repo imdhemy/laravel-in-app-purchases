@@ -50,7 +50,7 @@ class RequestTestNotificationCommand extends Command
             $response = $this->buildService()->request();
 
             $content = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
-            assert(is_array($content) && array_key_exists('notification_type', $content));
+            assert(is_array($content) && array_key_exists('testNotificationToken', $content));
             $token = $content['testNotificationToken'];
             assert(is_string($token));
 
