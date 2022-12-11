@@ -31,11 +31,9 @@ class GooglePlayNotificationHandler extends AbstractNotificationHandler
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws JsonException
      */
-    protected function handle()
+    protected function handle(): void
     {
         $message = $this->request->input('message');
         assert(is_array($message) && isset($message['data']) && is_string($message['data']));

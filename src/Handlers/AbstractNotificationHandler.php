@@ -78,8 +78,5 @@ abstract class AbstractNotificationHandler implements NotificationHandlerContrac
         return [];
     }
 
-    /**
-     * @return mixed
-     */
-    abstract protected function handle();
+    abstract protected function handle(): void;
 }
