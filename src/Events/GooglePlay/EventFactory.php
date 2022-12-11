@@ -19,27 +19,9 @@ class EventFactory
         $type = array_search((int)$notificationType, $types, true);
         assert(! is_bool($type));
 
-        $className = self::getClassName($type);
-        $event = new $className($notification);
-        assert($event instanceof PurchaseEventContract);
+        $classString = __NAMESPACE__.'\\'.ucfirst(Str::camel(strtolower($type)));
+        assert(class_exists($classString) && is_subclass_of($classString, PurchaseEventContract::class));
 
-        return $event;
-    }
-
-    /**
-     * Returns the event class name for the given type.
-     *
-     * @psalm-suppress MoreSpecificReturnType
-     * @psalm-suppress LessSpecificReturnStatement
-     *
-     * @psalm-return class-string<PurchaseEventContract>
-     */
-    public static function getClassName(string $type): string
-    {
-        $camelCaseName = ucfirst(Str::camel(strtolower($type)));
-        $classString = __NAMESPACE__.'\\'.$camelCaseName;
-        assert(class_exists($classString));
-
-        return $classString;
+        return new $classString($notification);
     }
 }
