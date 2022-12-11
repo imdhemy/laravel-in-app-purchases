@@ -32,7 +32,7 @@ abstract class AbstractNotificationHandler implements NotificationHandlerContrac
      * @throws ValidationException
      * @throws AuthorizationException
      */
-    public function execute()
+    public function execute(): void
     {
         $this->authorize();
 
