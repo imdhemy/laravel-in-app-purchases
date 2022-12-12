@@ -4,6 +4,11 @@ namespace Tests;
 
 use Faker\Factory;
 use Imdhemy\Purchases\ServiceProviders\LiapServiceProvider;
+use Lcobucci\JWT\Builder;
+use Lcobucci\JWT\JwtFacade;
+use Lcobucci\JWT\Signer\Hmac\Sha256;
+use Lcobucci\JWT\Signer\Key\InMemory;
+use Lcobucci\JWT\UnencryptedToken;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Tests\Doubles\LiapTestProvider;
 
@@ -59,10 +64,10 @@ class TestCase extends Orchestra
      */
     protected function testAssetPath(?string $path = null): string
     {
-        $assetsPath = __DIR__ . '/assets';
+        $assetsPath = __DIR__.'/assets';
 
         if ($path) {
-            return $assetsPath . '/' . $path;
+            return $assetsPath.'/'.$path;
         }
 
         return $assetsPath;
@@ -77,11 +82,11 @@ class TestCase extends Orchestra
 oUQDQgAEacH/sdtom9kl/0AvHFNNuoxnUWzLwWXf70qH2O1FDrvjDXY2aC7NFg9t
 WtcP+PnScROkjnSv6H6A6ekLVAzQYg==';
 
-        $filename = 'privateKey-' . time() . '.p8';
+        $filename = 'privateKey-'.time().'.p8';
         $path = $this->testAssetPath($filename);
 
         if (! file_exists($path)) {
-            $contents = "-----BEGIN EC PRIVATE KEY-----\n" . $key . "\n-----END EC PRIVATE KEY-----";
+            $contents = "-----BEGIN EC PRIVATE KEY-----\n".$key."\n-----END EC PRIVATE KEY-----";
             file_put_contents($path, $contents);
         }
 
@@ -96,5 +101,26 @@ WtcP+PnScROkjnSv6H6A6ekLVAzQYg==';
         if (file_exists($path)) {
             unlink($path);
         }
+    }
+
+    /**
+     * @param array<string, string> $claims
+     * @return UnencryptedToken
+     */
+    protected function sign(array $claims): UnencryptedToken
+    {
+        $key = InMemory::base64Encoded('hiG8DlOKvtih6AxlZn5XKImZ06yu8I3mkOzaJrEuW8yAv8Jnkw330uMt8AEqQ5LB');
+
+        return (new JwtFacade())->issue(
+            new Sha256(),
+            $key,
+            static function (Builder $builder) use ($claims): Builder {
+                foreach ($claims as $key => $value) {
+                    $builder->withClaim($key, $value);
+                }
+
+                return $builder;
+            }
+        );
     }
 }
