@@ -26,7 +26,7 @@ class DidChangeRenewalStatus extends PurchaseEvent
 
         $payload = V2DecodedPayload::fromArray($this->serverNotification->getPayload());
 
-        return $payload->getRenewalInfo()->getAutoRenewStatus() === JwsRenewalInfo::AUTO_RENEW_STATUS_ON;
+        return JwsRenewalInfo::AUTO_RENEW_STATUS_ON === $payload->getRenewalInfo()->getAutoRenewStatus();
     }
 
     public function getAutoRenewStatusChangeDate(): ?Time

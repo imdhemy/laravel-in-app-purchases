@@ -103,7 +103,6 @@ WtcP+PnScROkjnSv6H6A6ekLVAzQYg==';
 
     /**
      * @param array<string, string> $claims
-     * @return UnencryptedToken
      */
     protected function sign(array $claims): UnencryptedToken
     {
