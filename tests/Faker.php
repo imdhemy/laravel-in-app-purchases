@@ -6,11 +6,13 @@ namespace Tests;
 
 use Faker\Generator;
 use Imdhemy\AppStore\ServerNotifications\V2DecodedPayload;
+use JsonException;
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\JwtFacade;
 use Lcobucci\JWT\Signer\Ecdsa\Sha256;
 use Lcobucci\JWT\Signer\Key\InMemory;
 use Lcobucci\JWT\Token;
+use RuntimeException;
 
 /**
  * Class Faker
@@ -150,8 +152,8 @@ class Faker
     ): string {
         try {
             return base64_encode(json_encode($data, JSON_THROW_ON_ERROR));
-        } catch (\JsonException $e) {
-            throw new \RuntimeException($e->getMessage());
+        } catch (JsonException $e) {
+            throw new RuntimeException($e->getMessage());
         }
     }
 
@@ -163,8 +165,8 @@ class Faker
     ): array {
         try {
             return json_decode($json, true, 512, JSON_THROW_ON_ERROR);
-        } catch (\JsonException $e) {
-            throw new \RuntimeException($e->getMessage());
+        } catch (JsonException $e) {
+            throw new RuntimeException($e->getMessage());
         }
     }
 

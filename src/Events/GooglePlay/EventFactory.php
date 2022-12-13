@@ -8,23 +8,20 @@ use Illuminate\Support\Str;
 use Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification;
 use Imdhemy\Purchases\Contracts\PurchaseEventContract;
 use Imdhemy\Purchases\ServerNotifications\GoogleServerNotification;
+use ReflectionClass;
 
 class EventFactory
 {
     public static function create(GoogleServerNotification $notification): PurchaseEventContract
     {
         $notificationType = $notification->getType();
-        $types = (new \ReflectionClass(SubscriptionNotification::class))->getConstants();
-        $type = array_search($notificationType, $types);
-        $className = self::getClassName($type);
+        $types = (new ReflectionClass(SubscriptionNotification::class))->getConstants();
+        $type = array_search((int)$notificationType, $types, true);
+        assert(! is_bool($type));
 
-        return new $className($notification);
-    }
+        $classString = __NAMESPACE__.'\\'.ucfirst(Str::camel(strtolower($type)));
+        assert(class_exists($classString) && is_subclass_of($classString, PurchaseEventContract::class));
 
-    public static function getClassName($type): string
-    {
-        $camelCaseName = ucfirst(Str::camel(strtolower($type)));
-
-        return "\Imdhemy\Purchases\Events\GooglePlay\\".$camelCaseName;
+        return new $classString($notification);
     }
 }

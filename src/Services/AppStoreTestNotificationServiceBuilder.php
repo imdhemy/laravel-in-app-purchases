@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Imdhemy\Purchases\Services;
 
-use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 use Imdhemy\AppStore\ClientFactory;
 use Imdhemy\AppStore\Jws\AppStoreJwsGenerator;
 use Imdhemy\AppStore\Jws\GeneratorConfig;
@@ -21,19 +21,24 @@ class AppStoreTestNotificationServiceBuilder
 {
     protected bool $sandbox = false;
 
-    private ?string $issuerId = null;
+    private string $issuerId = '';
 
-    private ?string $bundleId = null;
+    private string $bundleId = '';
 
-    private ?string $privateKeyId = null;
+    private string $privateKeyId = '';
 
-    private ?string $privateKey = null;
+    private string $privateKey = '';
 
     /**
      * Builds a new instance of AppStoreTestNotificationService.
      */
     public function build(): AppStoreTestNotificationService
     {
+        assert(! empty($this->issuerId));
+        assert(! empty($this->bundleId));
+        assert(! empty($this->privateKeyId));
+        assert(! empty($this->privateKey));
+
         $config = GeneratorConfig::forAppStore(
             new Issuer(
                 $this->issuerId,
@@ -54,7 +59,7 @@ class AppStoreTestNotificationServiceBuilder
     /**
      * @return $this
      */
-    public function issuerId(?string $issuerId): self
+    public function issuerId(string $issuerId): self
     {
         $this->issuerId = $issuerId;
 
@@ -64,7 +69,7 @@ class AppStoreTestNotificationServiceBuilder
     /**
      * @return $this
      */
-    public function bundleId(?string $bundleId): self
+    public function bundleId(string $bundleId): self
     {
         $this->bundleId = $bundleId;
 
@@ -74,7 +79,7 @@ class AppStoreTestNotificationServiceBuilder
     /**
      * @return $this
      */
-    public function privateKeyId(?string $privateKeyId): self
+    public function privateKeyId(string $privateKeyId): self
     {
         $this->privateKeyId = $privateKeyId;
 
@@ -84,7 +89,7 @@ class AppStoreTestNotificationServiceBuilder
     /**
      * @return $this
      */
-    public function privateKey(?string $privateKey): self
+    public function privateKey(string $privateKey): self
     {
         $this->privateKey = $privateKey;
 
@@ -101,7 +106,7 @@ class AppStoreTestNotificationServiceBuilder
         return $this;
     }
 
-    protected function createClient(): Client
+    protected function createClient(): ClientInterface
     {
         $baseURI = $this->sandbox ? ClientFactory::STORE_KIT_SANDBOX_URI : ClientFactory::STORE_KIT_PRODUCTION_URI;
 

@@ -17,12 +17,7 @@ use Imdhemy\Purchases\ServerNotifications\AppStoreServerNotification;
  */
 class AppStoreNotificationHandler extends AbstractNotificationHandler
 {
-    /**
-     * {@inheritDoc}
-     *
-     * @return void
-     */
-    protected function handle()
+    protected function handle(): void
     {
         $attributes = $this->request->all();
         $serverNotification = ServerNotification::fromArray($attributes);
@@ -42,10 +37,10 @@ class AppStoreNotificationHandler extends AbstractNotificationHandler
     protected function rules(): array
     {
         return [
-          'unified_receipt' => ['array', 'required'],
-          'unified_receipt.latest_receipt' => ['required'],
-          'unified_receipt.latest_receipt_info' => ['required', 'array'],
-          'notification_type' => ['required'],
+            'unified_receipt' => ['array', 'required'],
+            'unified_receipt.latest_receipt' => ['required'],
+            'unified_receipt.latest_receipt_info' => ['required', 'array'],
+            'notification_type' => ['required'],
         ];
     }
 }

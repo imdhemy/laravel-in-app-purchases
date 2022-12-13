@@ -8,6 +8,7 @@ use Imdhemy\AppStore\ServerNotifications\ServerNotification;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\ServerNotifications\AppStoreServerNotification;
 use Imdhemy\Purchases\ValueObjects\Time;
+use JsonException;
 use Tests\TestCase;
 
 class AppStoreServerNotificationTest extends TestCase
@@ -19,7 +20,7 @@ class AppStoreServerNotificationTest extends TestCase
     /**
      * {@inheritDoc}
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     protected function setUp(): void
     {

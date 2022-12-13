@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Imdhemy\Purchases\ServerNotifications;
 
-use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 use Imdhemy\AppStore\ServerNotifications\ServerNotification;
 use Imdhemy\AppStore\ValueObjects\LatestReceiptInfo;
 use Imdhemy\Purchases\Contracts\ServerNotificationContract;
@@ -32,9 +32,12 @@ class AppStoreServerNotification implements ServerNotificationContract
         return $this->notification->getNotificationType();
     }
 
-    public function getSubscription(?Client $client = null): SubscriptionContract
+    public function getSubscription(?ClientInterface $client = null): SubscriptionContract
     {
-        return new AppStoreSubscription($this->getFirstReceipt());
+        $firstReceipt = $this->getFirstReceipt();
+        assert($firstReceipt instanceof LatestReceiptInfo);
+
+        return new AppStoreSubscription($firstReceipt);
     }
 
     public function isTest(): bool
@@ -44,7 +47,16 @@ class AppStoreServerNotification implements ServerNotificationContract
 
     private function getFirstReceipt(): ?LatestReceiptInfo
     {
-        return $this->notification->getUnifiedReceipt()->getLatestReceiptInfo()[0];
+        $unifiedReceipt = $this->notification->getUnifiedReceipt();
+
+        if ($unifiedReceipt && is_array($receipts = $unifiedReceipt->getLatestReceiptInfo()) && ! empty($receipts)) {
+            $latestReceiptInfo = $receipts[0];
+            assert($latestReceiptInfo instanceof LatestReceiptInfo);
+
+            return $latestReceiptInfo;
+        }
+
+        return null;
     }
 
     public function isAutoRenewal(): bool
