@@ -6,6 +6,11 @@ namespace Tests;
 
 use Faker\Factory;
 use Imdhemy\Purchases\ServiceProviders\LiapServiceProvider;
+use Lcobucci\JWT\Builder;
+use Lcobucci\JWT\JwtFacade;
+use Lcobucci\JWT\Signer\Hmac\Sha256;
+use Lcobucci\JWT\Signer\Key\InMemory;
+use Lcobucci\JWT\UnencryptedToken;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Tests\Doubles\LiapTestProvider;
 
@@ -94,5 +99,26 @@ WtcP+PnScROkjnSv6H6A6ekLVAzQYg==';
         if (file_exists($path)) {
             unlink($path);
         }
+    }
+
+    /**
+     * @param array<string, string> $claims
+     * @return UnencryptedToken
+     */
+    protected function sign(array $claims): UnencryptedToken
+    {
+        $key = InMemory::base64Encoded('hiG8DlOKvtih6AxlZn5XKImZ06yu8I3mkOzaJrEuW8yAv8Jnkw330uMt8AEqQ5LB');
+
+        return (new JwtFacade())->issue(
+            new Sha256(),
+            $key,
+            static function (Builder $builder) use ($claims): Builder {
+                foreach ($claims as $key => $value) {
+                    $builder->withClaim($key, $value);
+                }
+
+                return $builder;
+            }
+        );
     }
 }
