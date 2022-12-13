@@ -6,6 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.5.0 - 2022-12-13
+
+### Fixed
+
+- [1.x] Fix apple events by @imdhemy in https://github.com/imdhemy/laravel-in-app-purchases/pull/227
+
+### Changed
+
+- chore(deps): bump league/commonmark from 2.3.7 to 2.3.8 by @dependabot in https://github.com/imdhemy/laravel-in-app-purchases/pull/222
+- chore(deps): bump symfony/yaml from 5.4.14 to 5.4.16 by @dependabot in https://github.com/imdhemy/laravel-in-app-purchases/pull/223
+- chore(deps): bump doctrine/annotations from 1.13.3 to 1.14.1 by @dependabot in https://github.com/imdhemy/laravel-in-app-purchases/pull/224
+- chore(deps): bump netresearch/jsonmapper from 4.0.0 to 4.1.0 by @dependabot in https://github.com/imdhemy/laravel-in-app-purchases/pull/225
+- chore(deps): bump composer/pcre from 3.0.2 to 3.1.0 by @dependabot in https://github.com/imdhemy/laravel-in-app-purchases/pull/226
+- [1.x] Update composer.lock by @imdhemy in https://github.com/imdhemy/laravel-in-app-purchases/pull/228
+
+**Full Changelog**: https://github.com/imdhemy/laravel-in-app-purchases/compare/1.4.2...1.5.0
+
 ## 1.4.2 - 2022-12-06
 
 Bumping dependencies
