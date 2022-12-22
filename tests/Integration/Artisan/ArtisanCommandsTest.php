@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Integration\Artisan;
+namespace Imdhemy\Purchases\Tests\Integration\Artisan;
 
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Console\Kernel;
@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Imdhemy\Purchases\Console\LiapConfigPublishCommand;
 use Imdhemy\Purchases\Console\LiapUrlCommand;
-use Tests\Doubles\UrlGeneratorDouble;
-use Tests\TestCase;
+use Imdhemy\Purchases\Tests\Doubles\UrlGeneratorDouble;
+use Imdhemy\Purchases\Tests\TestCase;
 
 /**
  * The word `it` refers to LIAP package

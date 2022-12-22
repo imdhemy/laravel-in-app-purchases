@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Events;
+namespace Imdhemy\Purchases\Tests\Events;
 
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Response;
@@ -9,7 +9,7 @@ use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
 use Imdhemy\Purchases\Events\GooglePlay\SubscriptionRenewed;
 use Imdhemy\Purchases\Events\PurchaseEvent;
 use Imdhemy\Purchases\ServerNotifications\GoogleServerNotification;
-use Tests\TestCase;
+use Imdhemy\Purchases\Tests\TestCase;
 
 class PurchaseEventTest extends TestCase
 {

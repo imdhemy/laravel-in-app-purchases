@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\Events\AppStore;
+namespace Imdhemy\Purchases\Tests\Events\AppStore;
 
 use Imdhemy\AppStore\ServerNotifications\ServerNotification;
 use Imdhemy\Purchases\Contracts\PurchaseEventContract;
 use Imdhemy\Purchases\Events\AppStore\EventFactory;
 use Imdhemy\Purchases\Events\AppStore\Revoke;
 use Imdhemy\Purchases\ServerNotifications\AppStoreServerNotification;
-use Tests\TestCase;
+use Imdhemy\Purchases\Tests\TestCase;
 
 class EventFactoryTest extends TestCase
 {

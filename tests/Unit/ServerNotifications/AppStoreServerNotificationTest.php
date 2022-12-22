@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\Unit\ServerNotifications;
+namespace Imdhemy\Purchases\Tests\Unit\ServerNotifications;
 
 use Imdhemy\AppStore\ServerNotifications\ServerNotification;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\ServerNotifications\AppStoreServerNotification;
+use Imdhemy\Purchases\Tests\TestCase;
 use Imdhemy\Purchases\ValueObjects\Time;
 use JsonException;
-use Tests\TestCase;
 
 class AppStoreServerNotificationTest extends TestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Doubles\Laravel9;
+namespace Imdhemy\Purchases\Tests\Doubles\Laravel9;
 
 use Illuminate\Foundation\Application as IlluminateApplication;
 

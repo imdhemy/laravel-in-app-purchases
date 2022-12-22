@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Subscriptions;
+namespace Imdhemy\Purchases\Tests\Subscriptions;
 
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Response;
@@ -9,7 +9,7 @@ use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\Facades\Subscription;
 use Imdhemy\Purchases\Subscriptions\GoogleSubscription;
-use Tests\TestCase;
+use Imdhemy\Purchases\Tests\TestCase;
 
 class GoogleSubscriptionTest extends TestCase
 {

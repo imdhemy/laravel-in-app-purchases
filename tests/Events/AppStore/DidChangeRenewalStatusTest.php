@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Tests\Events\AppStore;
+namespace Imdhemy\Purchases\Tests\Events\AppStore;
 
 use Imdhemy\AppStore\ServerNotifications\ServerNotification;
 use Imdhemy\AppStore\ServerNotifications\V2DecodedPayload;
 use Imdhemy\Purchases\Events\AppStore\DidChangeRenewalStatus;
 use Imdhemy\Purchases\ServerNotifications\AppStoreServerNotification;
 use Imdhemy\Purchases\ServerNotifications\AppStoreV2ServerNotification;
-use Tests\TestCase;
+use Imdhemy\Purchases\Tests\TestCase;
 
 class DidChangeRenewalStatusTest extends TestCase
 {
