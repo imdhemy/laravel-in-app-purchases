@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Console;
+namespace Imdhemy\Purchases\Tests\Unit\Console;
 
+use Imdhemy\Purchases\Tests\Doubles\AppStoreTestNotificationServiceBuilderDouble;
+use Imdhemy\Purchases\Tests\TestCase;
 use Symfony\Component\Console\Command\Command;
-use Tests\Doubles\AppStoreTestNotificationServiceBuilderDouble;
-use Tests\TestCase;
 
 class RequestTestNotificationCommandTest extends TestCase
 {

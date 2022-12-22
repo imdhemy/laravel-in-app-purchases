@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Services;
+namespace Imdhemy\Purchases\Tests\Unit\Services;
 
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Response;
@@ -10,7 +10,7 @@ use Imdhemy\AppStore\ClientFactory;
 use Imdhemy\AppStore\Jws\JwsGenerator;
 use Imdhemy\AppStore\ServerNotifications\TestNotificationService;
 use Imdhemy\Purchases\Services\AppStoreTestNotificationService;
-use Tests\TestCase;
+use Imdhemy\Purchases\Tests\TestCase;
 
 class AppStoreTestNotificationServiceTest extends TestCase
 {

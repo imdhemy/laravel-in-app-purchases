@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\Events\GooglePlay;
+namespace Imdhemy\Purchases\Tests\Events\GooglePlay;
 
 use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
 use Imdhemy\Purchases\Events\GooglePlay\EventFactory;
 use Imdhemy\Purchases\Events\GooglePlay\SubscriptionPurchased;
 use Imdhemy\Purchases\ServerNotifications\GoogleServerNotification;
-use Tests\TestCase;
+use Imdhemy\Purchases\Tests\TestCase;
 
 class EventFactoryTest extends TestCase
 {

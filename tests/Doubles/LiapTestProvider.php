@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Doubles;
+namespace Imdhemy\Purchases\Tests\Doubles;
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;

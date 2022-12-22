@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Facades;
+namespace Imdhemy\Purchases\Tests\Facades;
 
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Response;
@@ -10,7 +10,7 @@ use Imdhemy\GooglePlay\ClientFactory;
 use Imdhemy\GooglePlay\Products\ProductPurchase;
 use Imdhemy\GooglePlay\ValueObjects\EmptyResponse;
 use Imdhemy\Purchases\Facades\Product;
-use Tests\TestCase;
+use Imdhemy\Purchases\Tests\TestCase;
 
 class ProductTest extends TestCase
 {
