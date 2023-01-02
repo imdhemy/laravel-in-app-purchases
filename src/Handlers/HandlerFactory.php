@@ -17,9 +17,9 @@ class HandlerFactory
     /**
      * @var Application
      */
-    private Application $application;
+    protected Application $application;
 
-    private Request $request;
+    protected Request $request;
 
     /**
      * @param Application $application

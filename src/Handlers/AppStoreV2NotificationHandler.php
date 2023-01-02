@@ -16,7 +16,7 @@ class AppStoreV2NotificationHandler extends AbstractNotificationHandler
     /**
      * @var JwsServiceInterface
      */
-    private JwsServiceInterface $jwsService;
+    protected JwsServiceInterface $jwsService;
 
     /**
      * @param HandlerHelpersInterface $helpers
