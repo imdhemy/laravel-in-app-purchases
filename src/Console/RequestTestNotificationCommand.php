@@ -33,24 +33,16 @@ class RequestTestNotificationCommand extends Command
     private ServiceBuilder $serviceBuilder;
 
     /**
-     * @param ServiceBuilder $serviceBuilder
-     */
-    public function __construct(ServiceBuilder $serviceBuilder)
-    {
-        parent::__construct();
-
-        $this->serviceBuilder = $serviceBuilder;
-    }
-
-
-    /**
      * Execute the console command
      *
+     * @param  ServiceBuilder  $serviceBuilder
      * @return int
      * @throws JsonException
      */
-    public function handle(): int
+    public function handle(ServiceBuilder $serviceBuilder): int
     {
+        $this->serviceBuilder = $serviceBuilder;
+
         try {
             $response = $this->buildService()->request();
 

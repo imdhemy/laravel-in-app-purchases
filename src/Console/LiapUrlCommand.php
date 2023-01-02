@@ -49,25 +49,18 @@ class LiapUrlCommand extends Command
     private Collection $urlCollection;
 
     /**
-     * @inheritDoc
+     * Execute the console command.
+     *
+     * @param  UrlGenerator  $urlGenerator
+     * @param  Collection  $urlCollection
+     * @return int
      */
-    public function __construct(UrlGenerator $urlGenerator, Collection $urlCollection)
+    public function handle(UrlGenerator $urlGenerator, Collection $urlCollection): int
     {
-        parent::__construct();
-
         $this->urlGenerator = $urlGenerator;
 
         $this->urlCollection = $urlCollection;
-    }
 
-
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
-    public function handle(): int
-    {
         $this->generateUrls();
 
         $this->table(self::TABLE_HEADERS, $this->urlCollection->toArray());
