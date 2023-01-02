@@ -6,7 +6,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Factory;
 use Illuminate\Validation\ValidationException;
-use Imdhemy\Purchases\Contracts\UrlGenerator;
+use Imdhemy\Purchases\Console\UrlGenerator;
 use Imdhemy\Purchases\Handlers\AbstractNotificationHandler;
 use Imdhemy\Purchases\Handlers\HandlerHelpers;
 use Imdhemy\Purchases\Tests\TestCase;
