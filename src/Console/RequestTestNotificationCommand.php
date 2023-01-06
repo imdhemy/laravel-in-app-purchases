@@ -35,8 +35,6 @@ class RequestTestNotificationCommand extends Command
     /**
      * Execute the console command.
      *
-     * @param  ServiceBuilder  $serviceBuilder
-     * @return int
      * @throws JsonException
      */
     public function handle(ServiceBuilder $serviceBuilder): int
