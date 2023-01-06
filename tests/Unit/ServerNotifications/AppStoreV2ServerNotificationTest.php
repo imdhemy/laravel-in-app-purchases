@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\ServerNotifications;
+namespace Imdhemy\Purchases\Tests\Unit\ServerNotifications;
 
 use Imdhemy\AppStore\ServerNotifications\V2DecodedPayload;
 use Imdhemy\Purchases\ServerNotifications\AppStoreV2ServerNotification;
-use Tests\TestCase;
+use Imdhemy\Purchases\Tests\TestCase;
 
 class AppStoreV2ServerNotificationTest extends TestCase
 {

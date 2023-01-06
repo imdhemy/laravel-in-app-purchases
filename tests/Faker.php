@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests;
+namespace Imdhemy\Purchases\Tests;
 
 use Faker\Generator;
 use Imdhemy\AppStore\ServerNotifications\V2DecodedPayload;

@@ -6,6 +6,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.6.0 - 2023-01-02
+
+### Addedd
+
+- [1.x] Allow container to resolve command dependencies via handle() by @cosmastech in https://github.com/imdhemy/laravel-in-app-purchases/pull/238
+- [1.x] Feature/make handler vars protected by @cosmastech in https://github.com/imdhemy/laravel-in-app-purchases/pull/240
+
+### Changed
+
+- chore(deps-dev): bump friendsofphp/php-cs-fixer from 3.13.0 to 3.13.1 by @dependabot in https://github.com/imdhemy/laravel-in-app-purchases/pull/231
+- chore(deps): bump fakerphp/faker from 1.20.0 to 1.21.0 by @dependabot in https://github.com/imdhemy/laravel-in-app-purchases/pull/233
+- [1.x] Rename tests namespace by @imdhemy in https://github.com/imdhemy/laravel-in-app-purchases/pull/235
+
+### New Contributors
+
+- @cosmastech made their first contribution in https://github.com/imdhemy/laravel-in-app-purchases/pull/238
+
+**Full Changelog**: https://github.com/imdhemy/laravel-in-app-purchases/compare/1.5.0...1.6.0
+
 ## 1.5.0 - 2022-12-13
 
 ### Fixed

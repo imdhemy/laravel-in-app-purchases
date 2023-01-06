@@ -18,7 +18,7 @@ class HandlerFactory
 {
     private Application $application;
 
-    private Request $request;
+    protected Request $request;
 
     public function __construct(Application $application, Request $request)
     {

@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Console;
+namespace Imdhemy\Purchases\Tests\Unit\Console;
 
 use Illuminate\Foundation\Bootstrap\LoadConfiguration as IlluminateLoadConfiguration;
 use Illuminate\Http\Request;
 use Illuminate\Routing\UrlGenerator as IlluminateUrlGenerator;
 use Imdhemy\Purchases\Console\UrlGenerator;
+use Imdhemy\Purchases\Tests\Doubles\Laravel9\Application;
+use Imdhemy\Purchases\Tests\TestCase;
 use Mockery;
 use Orchestra\Testbench\Bootstrap\LoadConfiguration as OrchestraLoadConfiguration;
 use Orchestra\Testbench\Foundation\PackageManifest;
-use Tests\Doubles\Laravel9\Application;
-use Tests\TestCase;
 
 class UrlGeneratorTest extends TestCase
 {

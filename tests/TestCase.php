@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Tests;
+namespace Imdhemy\Purchases\Tests;
 
 use Faker\Factory;
 use Imdhemy\Purchases\ServiceProviders\LiapServiceProvider;
+use Imdhemy\Purchases\Tests\Doubles\LiapTestProvider;
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\JwtFacade;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Lcobucci\JWT\Signer\Key\InMemory;
 use Lcobucci\JWT\UnencryptedToken;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Tests\Doubles\LiapTestProvider;
 
 /**
  * Test Case

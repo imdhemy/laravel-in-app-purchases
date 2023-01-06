@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Console;
+namespace Imdhemy\Purchases\Tests\Unit\Console;
 
 use Illuminate\Support\Facades\File;
 use Imdhemy\Purchases\Console\LiapConfigPublishCommand;
-use Tests\TestCase;
+use Imdhemy\Purchases\Tests\TestCase;
 
 class LiapConfigPublishCommandTest extends TestCase
 {

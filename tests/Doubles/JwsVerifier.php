@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Doubles;
+namespace Imdhemy\Purchases\Tests\Doubles;
 
 use Imdhemy\AppStore\Jws\JsonWebSignature;
 use Imdhemy\AppStore\Jws\Jws;

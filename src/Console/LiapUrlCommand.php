@@ -59,8 +59,12 @@ class LiapUrlCommand extends Command
     /**
      * Execute the console command.
      */
-    public function handle(): int
+    public function handle(UrlGenerator $urlGenerator, Collection $urlCollection): int
     {
+        $this->urlGenerator = $urlGenerator;
+
+        $this->urlCollection = $urlCollection;
+
         $this->generateUrls();
 
         $this->table(self::TABLE_HEADERS, $this->urlCollection->toArray());

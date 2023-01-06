@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Tests\Subscriptions;
+namespace Imdhemy\Purchases\Tests\Subscriptions;
 
 use Faker\Factory;
 use Imdhemy\AppStore\ValueObjects\LatestReceiptInfo;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\Subscriptions\AppStoreSubscription;
+use Imdhemy\Purchases\Tests\TestCase;
 use Imdhemy\Purchases\ValueObjects\Time;
-use Tests\TestCase;
 
 class AppStoreSubscriptionTest extends TestCase
 {

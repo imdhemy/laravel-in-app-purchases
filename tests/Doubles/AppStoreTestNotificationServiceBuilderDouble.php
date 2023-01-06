@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Doubles;
+namespace Imdhemy\Purchases\Tests\Doubles;
 
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Response;

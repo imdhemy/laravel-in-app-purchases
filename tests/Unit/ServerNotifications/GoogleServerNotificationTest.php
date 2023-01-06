@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\ServerNotifications;
+namespace Imdhemy\Purchases\Tests\Unit\ServerNotifications;
 
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Response;
@@ -11,7 +11,7 @@ use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
 use Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\ServerNotifications\GoogleServerNotification;
-use Tests\TestCase;
+use Imdhemy\Purchases\Tests\TestCase;
 
 class GoogleServerNotificationTest extends TestCase
 {

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Tests\Http\Controllers;
+namespace Imdhemy\Purchases\Tests\Http\Controllers;
 
 use Illuminate\Support\Facades\Event;
 use Imdhemy\AppStore\Jws\JwsVerifier;
 use Imdhemy\Purchases\Events\AppStore\DidChangeRenewalStatus;
 use Imdhemy\Purchases\Events\AppStore\Subscribed;
 use Imdhemy\Purchases\Events\GooglePlay\SubscriptionRecovered;
+use Imdhemy\Purchases\Tests\TestCase;
 use JsonException;
-use Tests\TestCase;
 
 class ServerNotificationControllerTest extends TestCase
 {
@@ -21,7 +21,7 @@ class ServerNotificationControllerTest extends TestCase
     {
         parent::setUp();
 
-        $this->app->bind(JwsVerifier::class, \Tests\Doubles\JwsVerifier::class);
+        $this->app->bind(JwsVerifier::class, \Imdhemy\Purchases\Tests\Doubles\JwsVerifier::class);
     }
 
     /**

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Doubles;
+namespace Imdhemy\Purchases\Tests\Doubles;
 
 use Imdhemy\Purchases\Console\UrlGenerator;
 

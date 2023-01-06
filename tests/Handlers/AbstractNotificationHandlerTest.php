@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Tests\Handlers;
+namespace Imdhemy\Purchases\Tests\Handlers;
 
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Factory;
 use Illuminate\Validation\ValidationException;
-use Imdhemy\Purchases\Contracts\UrlGenerator;
+use Imdhemy\Purchases\Console\UrlGenerator;
 use Imdhemy\Purchases\Handlers\AbstractNotificationHandler;
 use Imdhemy\Purchases\Handlers\HandlerHelpers;
-use Tests\TestCase;
+use Imdhemy\Purchases\Tests\TestCase;
 
 class AbstractNotificationHandlerTest extends TestCase
 {

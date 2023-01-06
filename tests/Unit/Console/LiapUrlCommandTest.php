@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Console;
+namespace Imdhemy\Purchases\Tests\Unit\Console;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Illuminate\Testing\PendingCommand;
 use Imdhemy\Purchases\Console\LiapUrlCommand;
 use Imdhemy\Purchases\Contracts\UrlGenerator as UrlGeneratorContract;
-use Tests\Doubles\UrlGeneratorDouble;
-use Tests\TestCase;
+use Imdhemy\Purchases\Tests\Doubles\UrlGeneratorDouble;
+use Imdhemy\Purchases\Tests\TestCase;
 
 class LiapUrlCommandTest extends TestCase
 {

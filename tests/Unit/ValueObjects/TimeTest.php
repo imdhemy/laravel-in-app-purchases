@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\ValueObjects;
+namespace Imdhemy\Purchases\Tests\Unit\ValueObjects;
 
 use Carbon\Carbon;
 use DateTime;
 use Imdhemy\AppStore\ValueObjects\Time as AppStoreTime;
 use Imdhemy\GooglePlay\ValueObjects\Time as GoogleTime;
+use Imdhemy\Purchases\Tests\TestCase;
 use Imdhemy\Purchases\ValueObjects\Time;
 use Stringable;
-use Tests\TestCase;
 
 class TimeTest extends TestCase
 {

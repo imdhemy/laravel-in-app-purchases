@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Facades;
+namespace Imdhemy\Purchases\Tests\Facades;
 
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Response;
@@ -14,7 +14,7 @@ use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
 use Imdhemy\GooglePlay\ValueObjects\EmptyResponse;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\Facades\Subscription;
-use Tests\TestCase;
+use Imdhemy\Purchases\Tests\TestCase;
 
 class SubscriptionTest extends TestCase
 {
