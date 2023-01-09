@@ -1,6 +1,6 @@
 <?php
 
-namespace Imdhemy\Purchases\Tests\Unit\Console;
+namespace Imdhemy\Purchases\Tests\Console;
 
 use Illuminate\Support\Facades\File;
 use Imdhemy\Purchases\Console\LiapConfigPublishCommand;
@@ -45,7 +45,7 @@ class LiapConfigPublishCommandTest extends TestCase
      */
     public function it_should_copy_the_contents_of_liap_config_file(): void
     {
-        $expected = file_get_contents(__DIR__.'/../../../config/liap.php');
+        $expected = file_get_contents(__DIR__.'/../../config/liap.php');
         $actual = file_get_contents($this->configFilePath);
 
         $this->assertEquals($expected, $actual);

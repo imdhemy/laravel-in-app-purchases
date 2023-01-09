@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Imdhemy\Purchases\Tests\Unit\Console;
+namespace Imdhemy\Purchases\Tests\Console;
 
 use Imdhemy\Purchases\Tests\Doubles\AppStoreTestNotificationServiceBuilderDouble;
 use Imdhemy\Purchases\Tests\TestCase;

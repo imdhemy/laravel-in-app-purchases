@@ -1,6 +1,6 @@
 <?php
 
-namespace Imdhemy\Purchases\Tests\Integration\Artisan;
+namespace Imdhemy\Purchases\Tests\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Console\Kernel;
