@@ -1,6 +1,6 @@
 <?php
 
-namespace Imdhemy\Purchases\Tests\Unit\Console;
+namespace Imdhemy\Purchases\Tests\Console;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
