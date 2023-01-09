@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Imdhemy\Purchases\Tests\Unit\ValueObjects;
+namespace Imdhemy\Purchases\Tests\ValueObjects;
 
 use Carbon\Carbon;
 use DateTime;

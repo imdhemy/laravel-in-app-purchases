@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Imdhemy\Purchases\Tests\Unit\Services;
+namespace Imdhemy\Purchases\Tests\Services;
 
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Response;

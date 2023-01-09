@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Imdhemy\Purchases\Tests\Unit\ServerNotifications;
+namespace Imdhemy\Purchases\Tests\ServerNotifications;
 
 use Imdhemy\AppStore\ServerNotifications\V2DecodedPayload;
 use Imdhemy\Purchases\ServerNotifications\AppStoreV2ServerNotification;

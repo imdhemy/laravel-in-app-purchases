@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Imdhemy\Purchases\Tests\Unit\Console;
+namespace Imdhemy\Purchases\Tests\Console;
 
 use Illuminate\Foundation\Bootstrap\LoadConfiguration as IlluminateLoadConfiguration;
 use Illuminate\Http\Request;
