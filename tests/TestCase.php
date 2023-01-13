@@ -64,7 +64,7 @@ class TestCase extends Orchestra
      */
     protected function fixturesDir(?string $path = null): string
     {
-        $assetsPath = __DIR__.'/fixtures';
+        $assetsPath = __DIR__.'/Doubles/fixtures';
 
         if ($path) {
             return $assetsPath.'/'.$path;
