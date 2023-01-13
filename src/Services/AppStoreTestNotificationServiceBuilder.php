@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Imdhemy\Purchases\Services;
 
-use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 use Imdhemy\AppStore\ClientFactory;
 use Imdhemy\AppStore\Jws\AppStoreJwsGenerator;
 use Imdhemy\AppStore\Jws\GeneratorConfig;
@@ -129,9 +129,9 @@ class AppStoreTestNotificationServiceBuilder
     }
 
     /**
-     * @return Client
+     * @return ClientInterface
      */
-    protected function createClient(): Client
+    protected function createClient(): ClientInterface
     {
         $baseURI = $this->sandbox ? ClientFactory::STORE_KIT_SANDBOX_URI : ClientFactory::STORE_KIT_PRODUCTION_URI;
 

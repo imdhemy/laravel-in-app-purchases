@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Imdhemy\Purchases\Tests\Doubles;
 
-use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Response;
 use Imdhemy\AppStore\ClientFactory;
 use Imdhemy\Purchases\Services\AppStoreTestNotificationServiceBuilder;
@@ -16,10 +16,10 @@ class AppStoreTestNotificationServiceBuilderDouble extends AppStoreTestNotificat
     public const SANDBOX_TOKEN = 'sandbox-token';
 
     /**
-     * @return Client
+     * @return ClientInterface
      * @throws JsonException
      */
-    protected function createClient(): Client
+    protected function createClient(): ClientInterface
     {
         $token = $this->sandbox ? self::SANDBOX_TOKEN : self::PRODUCTION_TOKEN;
 
