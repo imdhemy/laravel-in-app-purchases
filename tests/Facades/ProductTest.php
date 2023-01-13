@@ -63,7 +63,7 @@ class ProductTest extends TestCase
      */
     public function test_facade_can_verify_product_receipt()
     {
-        $productReceipt = json_decode(file_get_contents($this->testAssetPath('product-receipt.json')), true);
+        $productReceipt = json_decode(file_get_contents($this->fixturesDir('product-receipt.json')), true);
         $receiptData = $productReceipt['transactionReceipt'];
         $password = 'fake_password';
 

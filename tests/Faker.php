@@ -100,7 +100,7 @@ class Faker
     public function appStoreTestNotification(array $data = []): Token
     {
         $alg = Sha256::create();
-        $x5cJson = file_get_contents(__DIR__.'/assets/x5c-chain.json');
+        $x5cJson = file_get_contents(__DIR__.'/fixtures/x5c-chain.json');
         $x5c = $this->jsonDecode($x5cJson);
 
         $data = [
@@ -138,7 +138,7 @@ class Faker
     public function appStoreNotification(array $data = [], ?string $notificationType = null): Token
     {
         $alg = Sha256::create();
-        $x5cJson = file_get_contents(__DIR__.'/assets/x5c-chain.json');
+        $x5cJson = file_get_contents(__DIR__.'/fixtures/x5c-chain.json');
         $x5c = $this->jsonDecode($x5cJson);
 
         $data = [

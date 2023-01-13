@@ -77,7 +77,7 @@ class SubscriptionTest extends TestCase
      */
     public function test_it_can_send_verify_receipt_request_to_app_store()
     {
-        $receipt = json_decode(file_get_contents($this->testAssetPath('iOS-receipt.json')), true);
+        $receipt = json_decode(file_get_contents($this->fixturesDir('iOS-receipt.json')), true);
         $receiptData = $receipt['transactionReceipt'];
         $password = 'app_store_fake_password';
         $client = ClientFactory::mock(new Response(200, [], json_encode(['status' => 0])));
@@ -94,7 +94,7 @@ class SubscriptionTest extends TestCase
      */
     public function test_it_handles_the_21007_error_from_the_app_store()
     {
-        $receipt = json_decode(file_get_contents($this->testAssetPath('iOS-receipt.json')), true);
+        $receipt = json_decode(file_get_contents($this->fixturesDir('iOS-receipt.json')), true);
         $receiptData = $receipt['transactionReceipt'];
         $password = 'app_store_fake_password';
 
