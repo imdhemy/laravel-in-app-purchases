@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Imdhemy\Purchases\Contracts\UrlGenerator as UrlGeneratorContract;
 use Imdhemy\Purchases\Services\AppStoreTestNotificationServiceBuilder;
 use Imdhemy\Purchases\Tests\Doubles\AppStoreTestNotificationServiceBuilder as FakeBuilder;
+use Imdhemy\Purchases\Tests\Doubles\UrlGenerator as FakeUrlGenerator;
 
 /**
  * Service provider for testing purposes
@@ -31,7 +32,7 @@ class LiapTestProvider extends ServiceProvider
     {
         $this->app->bind(
             UrlGeneratorContract::class,
-            UrlGenerator::class
+            FakeUrlGenerator::class
         );
 
         $this->app->bind(
