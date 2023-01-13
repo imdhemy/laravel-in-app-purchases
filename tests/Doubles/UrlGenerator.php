@@ -2,12 +2,12 @@
 
 namespace Imdhemy\Purchases\Tests\Doubles;
 
-use Imdhemy\Purchases\Console\UrlGenerator;
+use Imdhemy\Purchases\Console\UrlGenerator as BaseUrlGenerator;
 
 /**
  * A Double class to allow testing signed URLs
  */
-class UrlGeneratorDouble extends UrlGenerator
+class UrlGenerator extends BaseUrlGenerator
 {
     /**
      * @inheritDoc

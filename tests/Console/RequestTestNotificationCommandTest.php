@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Imdhemy\Purchases\Tests\Console;
 
-use Imdhemy\Purchases\Tests\Doubles\AppStoreTestNotificationServiceBuilderDouble;
+use Imdhemy\Purchases\Tests\Doubles\AppStoreTestNotificationServiceBuilder as FakeAppStoreTestNotificationServiceBuilder;
 use Imdhemy\Purchases\Tests\TestCase;
 use Symfony\Component\Console\Command\Command;
 
@@ -83,7 +83,7 @@ class RequestTestNotificationCommandTest extends TestCase
 
         $this->artisan('liap:apple:test-notification')
             ->expectsOutput(
-                sprintf("Test notification token: %s", AppStoreTestNotificationServiceBuilderDouble::PRODUCTION_TOKEN)
+                sprintf("Test notification token: %s", FakeAppStoreTestNotificationServiceBuilder::PRODUCTION_TOKEN)
             )
             ->assertExitCode(Command::SUCCESS);
     }
@@ -100,7 +100,7 @@ class RequestTestNotificationCommandTest extends TestCase
 
         $this->artisan('liap:apple:test-notification --sandbox')
             ->expectsOutput(
-                sprintf("Test notification token: %s", AppStoreTestNotificationServiceBuilderDouble::SANDBOX_TOKEN)
+                sprintf("Test notification token: %s", FakeAppStoreTestNotificationServiceBuilder::SANDBOX_TOKEN)
             )
             ->assertExitCode(Command::SUCCESS);
     }

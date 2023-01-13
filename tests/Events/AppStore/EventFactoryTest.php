@@ -16,7 +16,7 @@ class EventFactoryTest extends TestCase
      */
     public function test_create()
     {
-        $path = $this->testAssetPath('appstore-server-notification.json');
+        $path = $this->fixturesDir('appstore-server-notification.json');
         $serverNotificationBody = json_decode(file_get_contents($path), true);
 
         $serverNotification = ServerNotification::fromArray($serverNotificationBody);
@@ -29,7 +29,7 @@ class EventFactoryTest extends TestCase
      */
     public function test_it_creates_revoke_event()
     {
-        $path = $this->testAssetPath('appstore-server-notification.json');
+        $path = $this->fixturesDir('appstore-server-notification.json');
         $serverNotificationBody = json_decode(file_get_contents($path), true);
         $serverNotificationBody['notification_type'] = ServerNotification::REVOKE;
 
