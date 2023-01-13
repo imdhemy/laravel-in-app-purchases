@@ -56,7 +56,7 @@ class AppStoreTestNotificationServiceBuilder
                 $this->issuerId,
                 $this->bundleId,
                 new Key($this->privateKeyId, InMemory::plainText($this->privateKey)),
-                Sha256::create()
+                new Sha256()
             ),
         );
         $jwsGenerator = new AppStoreJwsGenerator($config);
