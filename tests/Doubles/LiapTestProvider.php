@@ -31,7 +31,7 @@ class LiapTestProvider extends ServiceProvider
     {
         $this->app->bind(
             UrlGeneratorContract::class,
-            UrlGeneratorDouble::class
+            UrlGenerator::class
         );
 
         $this->app->bind(

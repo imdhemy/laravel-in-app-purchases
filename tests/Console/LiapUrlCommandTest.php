@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\Testing\PendingCommand;
 use Imdhemy\Purchases\Console\LiapUrlCommand;
 use Imdhemy\Purchases\Contracts\UrlGenerator as UrlGeneratorContract;
-use Imdhemy\Purchases\Tests\Doubles\UrlGeneratorDouble;
+use Imdhemy\Purchases\Tests\Doubles\UrlGenerator as FakeUrlGenerator;
 use Imdhemy\Purchases\Tests\TestCase;
 
 class LiapUrlCommandTest extends TestCase
@@ -37,7 +37,7 @@ class LiapUrlCommandTest extends TestCase
 
         config()->set('liap.routing.signed', true);
 
-        $this->urlGenerator = $this->app->make(UrlGeneratorDouble::class);
+        $this->urlGenerator = $this->app->make(FakeUrlGenerator::class);
     }
 
     /**

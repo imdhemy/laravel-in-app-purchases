@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Imdhemy\Purchases\Console\LiapConfigPublishCommand;
 use Imdhemy\Purchases\Console\LiapUrlCommand;
-use Imdhemy\Purchases\Tests\Doubles\UrlGeneratorDouble;
+use Imdhemy\Purchases\Tests\Doubles\UrlGenerator as FakeUrlGenerator;
 use Imdhemy\Purchases\Tests\TestCase;
 
 /**
@@ -88,8 +88,8 @@ class ArtisanCommandsTest extends TestCase
             LiapUrlCommand::PROVIDER_GOOGLE_PLAY,
         ];
 
-        /** @var UrlGeneratorDouble $urlGenerator */
-        $urlGenerator = $this->app->make(UrlGeneratorDouble::class);
+        /** @var FakeUrlGenerator $urlGenerator */
+        $urlGenerator = $this->app->make(FakeUrlGenerator::class);
         $providers = [LiapUrlCommand::PROVIDER_APP_STORE, LiapUrlCommand::PROVIDER_GOOGLE_PLAY];
         $expected = new Collection();
 
