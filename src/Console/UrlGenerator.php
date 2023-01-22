@@ -25,6 +25,7 @@ class UrlGenerator implements UrlGeneratorContract
     public function __construct(LaravelUrlGenerator $urlGenerator)
     {
         $this->urlGenerator = $urlGenerator;
+        $this->urlGenerator->forceScheme('https');
     }
 
     /**

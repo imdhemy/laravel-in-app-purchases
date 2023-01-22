@@ -73,6 +73,7 @@ class UrlGeneratorTest extends TestCase
             'QUERY_STRING' => $urlParts['query'],
             'HTTP_HOST' => $urlParts['host'],
             'REQUEST_URI' => $urlParts['path'],
+            'HTTPS' => 'on',
         ]);
 
         $this->assertTrue($this->sut->hasValidSignature($request));
@@ -109,6 +110,7 @@ class UrlGeneratorTest extends TestCase
 
         /** @var IlluminateUrlGenerator|Mockery\MockInterface $mock */
         $mock = Mockery::mock(IlluminateUrlGenerator::class);
+        $mock->shouldReceive('forceScheme')->once();
 
         $sut = new UrlGenerator($mock);
         $request = new Request();

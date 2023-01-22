@@ -62,6 +62,7 @@ class AbstractNotificationHandlerTest extends TestCase
                 'REQUEST_URI' => $signedUrl,
                 'QUERY_STRING' => $queryString,
                 'HTTP_HOST' => 'localhost',
+                'HTTPS' => 'on',
             ]
         );
 

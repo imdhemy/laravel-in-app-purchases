@@ -35,7 +35,7 @@ class ServerNotificationControllerTest extends TestCase
             ],
         ];
 
-        $uri = url('/liap/notifications?provider=google-play');
+        $uri = secure_url('/liap/notifications?provider=google-play');
 
         $this->post($uri, $data)->assertStatus(200);
 
@@ -55,7 +55,7 @@ class ServerNotificationControllerTest extends TestCase
             ],
         ];
 
-        $uri = url('/liap/notifications?provider=google-play');
+        $uri = secure_url('/liap/notifications?provider=google-play');
         $this->post($uri, $data)->assertStatus(200);
 
         $this->assertNotEmpty(
@@ -80,7 +80,7 @@ class ServerNotificationControllerTest extends TestCase
             512,
             JSON_THROW_ON_ERROR
         );
-        $uri = url('/liap/notifications?provider=app-store');
+        $uri = secure_url('/liap/notifications?provider=app-store');
         $this->post($uri, $data)->assertStatus(200);
 
         Event::assertDispatched(DidChangeRenewalStatus::class);
@@ -100,7 +100,7 @@ class ServerNotificationControllerTest extends TestCase
             512,
             JSON_THROW_ON_ERROR
         );
-        $uri = url('/liap/notifications?provider=google-play');
+        $uri = secure_url('/liap/notifications?provider=google-play');
         $this->post($uri, $data)->assertStatus(200);
 
         $this->assertNotEmpty(
@@ -117,7 +117,7 @@ class ServerNotificationControllerTest extends TestCase
         $this->withoutExceptionHandling();
 
         $signedPayload = $this->faker->appStoreTestNotification();
-        $uri = url('/liap/notifications?provider=app-store');
+        $uri = secure_url('/liap/notifications?provider=app-store');
 
         $this->post($uri, ['signedPayload' => $signedPayload->toString()])->assertStatus(200);
 
@@ -133,7 +133,7 @@ class ServerNotificationControllerTest extends TestCase
         Event::fake();
 
         $signedPayload = $this->faker->appStoreNotification();
-        $uri = url('/liap/notifications?provider=app-store');
+        $uri = secure_url('/liap/notifications?provider=app-store');
 
         $this->post($uri, ['signedPayload' => $signedPayload->toString()])->assertStatus(200);
 
