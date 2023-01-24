@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\Purchases\Tests\Http\Controllers;
 
 use Illuminate\Support\Facades\Event;
@@ -13,7 +15,7 @@ use JsonException;
 class ServerNotificationControllerTest extends TestCase
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function setUp(): void
     {
@@ -47,7 +49,7 @@ class ServerNotificationControllerTest extends TestCase
      */
     public function google_test_notification(): void
     {
-        file_put_contents(storage_path('logs/laravel.log'), "");
+        file_put_contents(storage_path('logs/laravel.log'), '');
         $this->withoutExceptionHandling();
         $data = [
             'message' => [
@@ -59,12 +61,13 @@ class ServerNotificationControllerTest extends TestCase
         $this->post($uri, $data)->assertStatus(200);
 
         $this->assertNotEmpty(
-            file_get_contents(storage_path("/logs/laravel.log"))
+            file_get_contents(storage_path('/logs/laravel.log'))
         );
     }
 
     /**
      * @test
+     *
      * @throws JsonException
      */
     public function app_store_server_notifications(): void
@@ -88,11 +91,12 @@ class ServerNotificationControllerTest extends TestCase
 
     /**
      * @test
+     *
      * @throws JsonException
      */
-    public function it_logs_the_weird_ZnNk_weird_token(): void
+    public function it_logs_the_weird__zn_nk_weird_token(): void
     {
-        file_put_contents(storage_path('logs/laravel.log'), "");
+        file_put_contents(storage_path('logs/laravel.log'), '');
 
         $data = json_decode(
             file_get_contents($this->fixturesDir('weird-token-from-google.json')),
@@ -104,7 +108,7 @@ class ServerNotificationControllerTest extends TestCase
         $this->post($uri, $data)->assertStatus(200);
 
         $this->assertNotEmpty(
-            file_get_contents(storage_path("/logs/laravel.log"))
+            file_get_contents(storage_path('/logs/laravel.log'))
         );
     }
 
@@ -113,7 +117,7 @@ class ServerNotificationControllerTest extends TestCase
      */
     public function app_store_test_notification(): void
     {
-        file_put_contents(storage_path('logs/laravel.log'), "");
+        file_put_contents(storage_path('logs/laravel.log'), '');
         $this->withoutExceptionHandling();
 
         $signedPayload = $this->faker->appStoreTestNotification();
@@ -121,7 +125,7 @@ class ServerNotificationControllerTest extends TestCase
 
         $this->post($uri, ['signedPayload' => $signedPayload->toString()])->assertStatus(200);
 
-        $logs = file_get_contents(storage_path("/logs/laravel.log"));
+        $logs = file_get_contents(storage_path('/logs/laravel.log'));
         $this->assertStringContainsString('AppStoreV2NotificationHandler: Test notification received', $logs);
     }
 

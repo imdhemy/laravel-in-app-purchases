@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\Purchases\ServiceProviders;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as BaseEventServiceProvider;
@@ -17,18 +19,16 @@ class EventServiceProvider extends BaseEventServiceProvider
 
     /**
      * EventServiceProvider constructor.
-     *
-     * @param $app
      */
     public function __construct($app)
     {
         parent::__construct($app);
 
-        $this->listen = (array)config(LiapServiceProvider::CONFIG_KEY . '.eventListeners');
+        $this->listen = (array)config(LiapServiceProvider::CONFIG_KEY.'.eventListeners');
     }
 
     /**
-     * Register any events for your application
+     * Register any events for your application.
      */
     public function boot()
     {

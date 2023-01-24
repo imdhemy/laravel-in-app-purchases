@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\Purchases\Handlers;
 
 use Illuminate\Foundation\Application;
@@ -8,23 +10,16 @@ use Imdhemy\Purchases\Contracts\NotificationHandlerContract;
 use RuntimeException;
 
 /**
- * Handler factory
+ * Handler factory.
  *
  * Creates a notification handler instance based on the provider type
  */
 class HandlerFactory
 {
-    /**
-     * @var Application
-     */
     protected Application $application;
 
     protected Request $request;
 
-    /**
-     * @param Application $application
-     * @param Request $request
-     */
     public function __construct(Application $application, Request $request)
     {
         $this->application = $application;
@@ -32,14 +27,11 @@ class HandlerFactory
         $this->request = $request;
     }
 
-    /**
-     * @return NotificationHandlerContract
-     */
     public function create(): NotificationHandlerContract
     {
         $provider = $this->request->get('provider');
 
-        if ($provider === 'app-store' && $this->request->has('signedPayload')) {
+        if ('app-store' === $provider && $this->request->has('signedPayload')) {
             $provider = 'app-store-v2';
         }
 

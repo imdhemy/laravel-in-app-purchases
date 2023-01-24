@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\Purchases\Tests\Console;
 
 use Illuminate\Support\Collection;
@@ -23,13 +25,10 @@ class LiapUrlCommandTest extends TestCase
         LiapUrlCommand::PROVIDER_GOOGLE_PLAY,
     ];
 
-    /**
-     * @var UrlGeneratorContract
-     */
     private UrlGeneratorContract $urlGenerator;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function setUp(): void
     {
@@ -41,11 +40,7 @@ class LiapUrlCommandTest extends TestCase
     }
 
     /**
-     * A helper method to run the SUT
-     *
-     * @param string $choice
-     *
-     * @return PendingCommand
+     * A helper method to run the SUT.
      */
     private function runWithChoice(string $choice = LiapUrlCommand::PROVIDER_ALL): PendingCommand
     {
@@ -119,20 +114,13 @@ class LiapUrlCommandTest extends TestCase
     }
 
     /**
-     * Picks a random provider from the available providers
-     *
-     * @return string
+     * Picks a random provider from the available providers.
      */
     private function getRandomProvider(): string
     {
         return $this->faker->randomElement(self::ALL_PROVIDERS);
     }
 
-    /**
-     * @param array $providers
-     *
-     * @return array
-     */
     private function getExpectedCollection(array $providers): array
     {
         $expected = new Collection();

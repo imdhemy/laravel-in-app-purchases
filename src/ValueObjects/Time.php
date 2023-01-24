@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\Purchases\ValueObjects;
 
 use Carbon\Carbon;
@@ -15,14 +17,12 @@ use Stringable;
 final class Time implements Stringable
 {
     /**
-     * @var int The number of microseconds since the Unix epoch.
+     * @var int the number of microseconds since the Unix epoch
      */
     private int $timestampMilliseconds;
 
     /**
-     * Time constructor
-     *
-     * @param int $timestampMilliseconds
+     * Time constructor.
      */
     public function __construct(int $timestampMilliseconds)
     {
@@ -30,8 +30,6 @@ final class Time implements Stringable
     }
 
     /**
-     * @param GoogleTime $time
-     *
      * @return static
      */
     public static function fromGoogleTime(GoogleTime $time): self
@@ -40,8 +38,6 @@ final class Time implements Stringable
     }
 
     /**
-     * @param AppStoreTime $time
-     *
      * @return static
      */
     public static function fromAppStoreTime(AppStoreTime $time): self
@@ -50,8 +46,6 @@ final class Time implements Stringable
     }
 
     /**
-     * @param Carbon $carbon
-     *
      * @return static
      */
     public static function fromCarbon(Carbon $carbon): self
@@ -60,8 +54,6 @@ final class Time implements Stringable
     }
 
     /**
-     * @param DateTime $dateTime
-     *
      * @return static
      */
     public static function fromDateTime(DateTime $dateTime): self
@@ -69,25 +61,18 @@ final class Time implements Stringable
         return self::fromCarbon(Carbon::instance($dateTime));
     }
 
-    /**
-     * @return bool
-     */
     public function isFuture(): bool
     {
         return $this->toCarbon()->isFuture();
     }
 
-    /**
-     * @return bool
-     */
     public function isPast(): bool
     {
         return $this->toCarbon()->isPast();
     }
 
     /**
-     * @return Carbon
-     * @deprecated Use toCarbon() instead.
+     * @deprecated use toCarbon() instead
      */
     public function getCarbon(): Carbon
     {
@@ -96,8 +81,6 @@ final class Time implements Stringable
 
     /**
      * Converts the value object to a Carbon instance.
-     *
-     * @return Carbon
      */
     public function toCarbon(): Carbon
     {
@@ -106,17 +89,12 @@ final class Time implements Stringable
 
     /**
      * Convert the value object to a DateTime instance.
-     *
-     * @return DateTime
      */
     public function toDateTime(): DateTime
     {
         return $this->toCarbon()->toDateTime();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string)$this->toCarbon();

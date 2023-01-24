@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\Purchases\Events\AppStore;
 
 use Imdhemy\AppStore\ServerNotifications\V2DecodedPayload;
@@ -9,9 +11,6 @@ use Imdhemy\Purchases\ServerNotifications\AppStoreV2ServerNotification;
 
 class DidChangeRenewalPref extends PurchaseEvent
 {
-    /**
-     * @return string|null
-     */
     public function getAutoRenewProductId(): ?string
     {
         assert(

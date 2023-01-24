@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\Purchases\Tests\Handlers;
 
 use Illuminate\Auth\Access\AuthorizationException;
@@ -15,6 +17,7 @@ class AbstractNotificationHandlerTest extends TestCase
 {
     /**
      * @test
+     *
      * @throws AuthorizationException|ValidationException
      */
     public function it_should_not_authorize_unsigned_urls()
@@ -36,6 +39,7 @@ class AbstractNotificationHandlerTest extends TestCase
 
     /**
      * @test
+     *
      * @throws AuthorizationException|ValidationException
      */
     public function it_should_authorized_a_signed_url_with_provider()

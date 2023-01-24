@@ -9,18 +9,12 @@ use Imdhemy\AppStore\ServerNotifications\TestNotificationService;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * This class is used to request a test notification from Apple
+ * This class is used to request a test notification from Apple.
  */
 final class AppStoreTestNotificationService
 {
-    /**
-     * @var TestNotificationService
-     */
     private TestNotificationService $service;
 
-    /**
-     * @param TestNotificationService $service
-     */
     public function __construct(TestNotificationService $service)
     {
         $this->service = $service;

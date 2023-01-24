@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\Purchases\Tests\ValueObjects;
 
 use Carbon\Carbon;
@@ -63,10 +65,8 @@ class TimeTest extends TestCase
         $this->assertEquals('1970-01-01 00:00:00', $sut);
     }
 
-
     /**
      * @test
-     * @return Time
      */
     public function is_future_should_return_true_given_value_is_in_the_future(): Time
     {
@@ -79,7 +79,6 @@ class TimeTest extends TestCase
 
     /**
      * @test
-     * @return Time
      */
     public function is_future_should_return_false_give_value_is_passed(): Time
     {
@@ -92,6 +91,7 @@ class TimeTest extends TestCase
 
     /**
      * @test
+     *
      * @depends is_future_should_return_true_given_value_is_in_the_future
      * @depends is_future_should_return_false_give_value_is_passed
      */

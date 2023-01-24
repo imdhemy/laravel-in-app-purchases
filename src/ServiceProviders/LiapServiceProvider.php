@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\Purchases\ServiceProviders;
 
 use Illuminate\Support\Facades\Route;
@@ -24,20 +26,18 @@ use Lcobucci\JWT\Encoding\JoseEncoder;
 use RuntimeException;
 
 /**
- * Laravel Iap service provider
+ * Laravel Iap service provider.
  */
 class LiapServiceProvider extends ServiceProvider
 {
     public const CONFIG_KEY = 'liap';
 
-    public const CONFIG_PATH = __DIR__ . '/../../config/' . self::CONFIG_KEY . '.php';
+    public const CONFIG_PATH = __DIR__.'/../../config/'.self::CONFIG_KEY.'.php';
 
-    public const ROUTES_PATH = __DIR__ . '/../../routes/routes.php';
+    public const ROUTES_PATH = __DIR__.'/../../routes/routes.php';
 
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
     public function boot(): void
     {
@@ -49,18 +49,18 @@ class LiapServiceProvider extends ServiceProvider
     }
 
     /**
-     * publishes configurations
+     * publishes configurations.
      */
     public function publishConfig(): void
     {
         if ($this->app->runningInConsole()) {
-            $paths = [self::CONFIG_PATH => config_path(self::CONFIG_KEY . '.php')];
+            $paths = [self::CONFIG_PATH => config_path(self::CONFIG_KEY.'.php')];
             $this->publishes($paths, 'config');
         }
     }
 
     /**
-     * Boots routes
+     * Boots routes.
      */
     public function bootRoutes(): void
     {
@@ -70,17 +70,15 @@ class LiapServiceProvider extends ServiceProvider
     }
 
     /**
-     * Gets routes configuration
-     *
-     * @return array
+     * Gets routes configuration.
      */
     private function routeConfig(): array
     {
-        return config(self::CONFIG_KEY . '.routing');
+        return config(self::CONFIG_KEY.'.routing');
     }
 
     /**
-     * Boots console commands
+     * Boots console commands.
      */
     private function bootCommands(): void
     {
@@ -95,8 +93,6 @@ class LiapServiceProvider extends ServiceProvider
 
     /**
      * Register any application services.
-     *
-     * @return void
      */
     public function register(): void
     {
@@ -110,24 +106,24 @@ class LiapServiceProvider extends ServiceProvider
     }
 
     /**
-     * Merges published configurations with default config
+     * Merges published configurations with default config.
      */
     private function registerConfig(): void
     {
         $this->mergeConfigFrom(self::CONFIG_PATH, self::CONFIG_KEY);
 
-        $googleCredentials = config(self::CONFIG_KEY . '.google_application_credentials');
+        $googleCredentials = config(self::CONFIG_KEY.'.google_application_credentials');
 
-        if ($googleCredentials !== null && ! is_dir($googleCredentials)) {
+        if (null !== $googleCredentials && ! is_dir($googleCredentials)) {
             if (! file_exists($googleCredentials)) {
                 throw new RuntimeException("Google Application Credentials file not found at $googleCredentials");
             }
-            putenv('GOOGLE_APPLICATION_CREDENTIALS=' . $googleCredentials);
+            putenv('GOOGLE_APPLICATION_CREDENTIALS='.$googleCredentials);
         }
     }
 
     /**
-     * Registers LIAP event service provider
+     * Registers LIAP event service provider.
      */
     private function registerEvents(): void
     {
@@ -135,7 +131,7 @@ class LiapServiceProvider extends ServiceProvider
     }
 
     /**
-     * Binds facades
+     * Binds facades.
      */
     private function bindFacades(): void
     {
@@ -149,9 +145,7 @@ class LiapServiceProvider extends ServiceProvider
     }
 
     /**
-     * Bind concrete classes
-     *
-     * @return void
+     * Bind concrete classes.
      */
     private function bindConcretes(): void
     {

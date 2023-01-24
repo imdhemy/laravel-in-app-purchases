@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\Purchases;
 
 use GuzzleHttp\Client;
@@ -46,11 +48,6 @@ class Product
      */
     protected $password;
 
-    /**
-     * @param ClientInterface|null $client
-     *
-     * @return self
-     */
     public function googlePlay(?ClientInterface $client = null): self
     {
         $this->client = $client ?? GooglePlayClientFactory::create([GooglePlayClientFactory::SCOPE_ANDROID_PUBLISHER]);
@@ -59,11 +56,6 @@ class Product
         return $this;
     }
 
-    /**
-     * @param ClientInterface|null $client
-     *
-     * @return self
-     */
     public function appStore(?ClientInterface $client = null): self
     {
         $sandbox = (bool)config('liap.appstore_sandbox');
@@ -74,11 +66,6 @@ class Product
         return $this;
     }
 
-    /**
-     * @param string $packageName
-     *
-     * @return self
-     */
     public function packageName(string $packageName): self
     {
         $this->packageName = $packageName;
@@ -86,11 +73,6 @@ class Product
         return $this;
     }
 
-    /**
-     * @param string $itemId
-     *
-     * @return self
-     */
     public function id(string $itemId): self
     {
         $this->itemId = $itemId;
@@ -98,11 +80,6 @@ class Product
         return $this;
     }
 
-    /**
-     * @param string $token
-     *
-     * @return self
-     */
     public function token(string $token): self
     {
         $this->token = $token;
@@ -111,7 +88,6 @@ class Product
     }
 
     /**
-     * @return ProductPurchase
      * @throws GuzzleException
      */
     public function get(): ProductPurchase
@@ -119,9 +95,6 @@ class Product
         return $this->createProduct()->get();
     }
 
-    /**
-     * @return GooglePlayProduct
-     */
     public function createProduct(): GooglePlayProduct
     {
         return new GooglePlayProduct(
@@ -133,9 +106,6 @@ class Product
     }
 
     /**
-     * @param string|null $developerPayload
-     *
-     * @return EmptyResponse
      * @throws GuzzleException
      */
     public function acknowledge(?string $developerPayload = null): EmptyResponse
@@ -144,7 +114,6 @@ class Product
     }
 
     /**
-     * @return ReceiptResponse
      * @throws GuzzleException|InvalidReceiptException
      */
     public function verifyReceipt(): ReceiptResponse
@@ -155,8 +124,6 @@ class Product
     }
 
     /**
-     * @param string $receiptData
-     *
      * @return $this
      */
     public function receiptData(string $receiptData): self
@@ -167,8 +134,6 @@ class Product
     }
 
     /**
-     * @param string $password
-     *
      * @return $this
      */
     public function password(string $password): self

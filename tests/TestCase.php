@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\Purchases\Tests;
 
 use Faker\Factory;
@@ -14,14 +16,14 @@ use Orchestra\Testbench\TestCase as Orchestra;
 
 /**
  * Test Case
- * All test cases that requires a laravel app instance should extend this class
+ * All test cases that requires a laravel app instance should extend this class.
  */
 class TestCase extends Orchestra
 {
     protected Faker $faker;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function setUp(): void
     {
@@ -31,7 +33,7 @@ class TestCase extends Orchestra
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getPackageProviders($app): array
     {
@@ -42,7 +44,7 @@ class TestCase extends Orchestra
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getEnvironmentSetUp($app): void
     {
@@ -57,10 +59,6 @@ class TestCase extends Orchestra
 
     /**
      * Get the path to fixtures dir.
-     *
-     * @param string|null $path
-     *
-     * @return string
      */
     protected function fixturesDir(?string $path = null): string
     {
@@ -74,7 +72,7 @@ class TestCase extends Orchestra
     }
 
     /**
-     * Generates a fake p8 key
+     * Generates a fake p8 key.
      */
     protected function generateP8Key(): string
     {
@@ -94,7 +92,7 @@ WtcP+PnScROkjnSv6H6A6ekLVAzQYg==';
     }
 
     /**
-     * Deletes the given file is exists
+     * Deletes the given file is exists.
      */
     protected function deleteFile(string $path): void
     {
@@ -105,7 +103,6 @@ WtcP+PnScROkjnSv6H6A6ekLVAzQYg==';
 
     /**
      * @param array<string, string> $claims
-     * @return UnencryptedToken
      */
     protected function sign(array $claims): UnencryptedToken
     {

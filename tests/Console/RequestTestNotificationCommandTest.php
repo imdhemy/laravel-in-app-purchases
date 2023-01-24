@@ -83,7 +83,7 @@ class RequestTestNotificationCommandTest extends TestCase
 
         $this->artisan('liap:apple:test-notification')
             ->expectsOutput(
-                sprintf("Test notification token: %s", FakeAppStoreTestNotificationServiceBuilder::PRODUCTION_TOKEN)
+                sprintf('Test notification token: %s', FakeAppStoreTestNotificationServiceBuilder::PRODUCTION_TOKEN)
             )
             ->assertExitCode(Command::SUCCESS);
     }
@@ -100,7 +100,7 @@ class RequestTestNotificationCommandTest extends TestCase
 
         $this->artisan('liap:apple:test-notification --sandbox')
             ->expectsOutput(
-                sprintf("Test notification token: %s", FakeAppStoreTestNotificationServiceBuilder::SANDBOX_TOKEN)
+                sprintf('Test notification token: %s', FakeAppStoreTestNotificationServiceBuilder::SANDBOX_TOKEN)
             )
             ->assertExitCode(Command::SUCCESS);
     }

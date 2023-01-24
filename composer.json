@@ -42,9 +42,9 @@
     }
   },
   "scripts": {
-    "psalm": "vendor/bin/psalm --show-info=true --no-cache --shepherd --stats",
+    "psalm": "vendor/bin/psalm --show-info=true",
     "format": "vendor/bin/php-cs-fixer fix --allow-risky=yes",
-    "check-style": "vendor/bin/php-cs-fixer fix --dry-run",
+    "check-style": "vendor/bin/php-cs-fixer fix --dry-run --allow-risky=yes --format=txt --verbose",
     "test": "vendor/bin/phpunit --testdox",
     "security-advice": "composer update --dry-run roave/security-advisories"
   },

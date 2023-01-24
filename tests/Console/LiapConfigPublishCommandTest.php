@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\Purchases\Tests\Console;
 
 use Illuminate\Support\Facades\File;
@@ -8,13 +10,10 @@ use Imdhemy\Purchases\Tests\TestCase;
 
 class LiapConfigPublishCommandTest extends TestCase
 {
-    /**
-     * @var string
-     */
     private string $configFilePath;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function setUp(): void
     {
@@ -41,6 +40,7 @@ class LiapConfigPublishCommandTest extends TestCase
 
     /**
      * @test
+     *
      * @depends it_should_publish_liap_config_file
      */
     public function it_should_copy_the_contents_of_liap_config_file(): void
@@ -53,6 +53,7 @@ class LiapConfigPublishCommandTest extends TestCase
 
     /**
      * @test
+     *
      * @depends it_should_copy_the_contents_of_liap_config_file
      */
     public function it_should_fail_if_liap_config_file_already_published(): void
@@ -64,6 +65,7 @@ class LiapConfigPublishCommandTest extends TestCase
 
     /**
      * @test
+     *
      * @depends it_should_fail_if_liap_config_file_already_published
      */
     public function it_should_publish_liap_config_file_when_force_is_passed(): void

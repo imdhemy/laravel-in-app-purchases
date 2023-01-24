@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\Purchases\Tests\Console;
 
 use Illuminate\Foundation\Bootstrap\LoadConfiguration as IlluminateLoadConfiguration;
@@ -14,9 +16,6 @@ use Orchestra\Testbench\Foundation\PackageManifest;
 
 class UrlGeneratorTest extends TestCase
 {
-    /**
-     * @var UrlGenerator
-     */
     private UrlGenerator $sut;
 
     /**
@@ -25,7 +24,7 @@ class UrlGeneratorTest extends TestCase
     protected $app;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function setUp(): void
     {
@@ -49,6 +48,7 @@ class UrlGeneratorTest extends TestCase
 
     /**
      * @test
+     *
      * @depends generate_should_create_a_url_with_signature_query
      *
      * @param string $url The generated url
@@ -60,6 +60,7 @@ class UrlGeneratorTest extends TestCase
 
     /**
      * @test
+     *
      * @depends generate_should_create_a_url_with_signature_query
      *
      * @param string $url The generated url
@@ -80,6 +81,7 @@ class UrlGeneratorTest extends TestCase
 
     /**
      * @test
+     *
      * @depends generate_should_create_a_url_with_signature_query
      *
      * @param string $url The generated url
@@ -101,6 +103,7 @@ class UrlGeneratorTest extends TestCase
 
     /**
      * @test
+     *
      * @psalm-suppress UndefinedMagicMethod
      */
     public function has_valid_signature_delegates_call_to_laravel_9_implementation(): void
@@ -124,7 +127,7 @@ class UrlGeneratorTest extends TestCase
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function resolveApplication()
     {
@@ -136,7 +139,7 @@ class UrlGeneratorTest extends TestCase
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function tearDown(): void
     {
