@@ -58,11 +58,11 @@ class TestCase extends Orchestra
     }
 
     /**
-     * Get the path to assets dir.
+     * Get the path to fixtures dir.
      */
-    protected function assetPath(?string $path = null): string
+    protected function fixturesDir(?string $path = null): string
     {
-        $assetsPath = __DIR__.'/assets';
+        $assetsPath = __DIR__.'/Doubles/fixtures';
 
         if ($path) {
             return $assetsPath.'/'.$path;
@@ -81,7 +81,7 @@ oUQDQgAEacH/sdtom9kl/0AvHFNNuoxnUWzLwWXf70qH2O1FDrvjDXY2aC7NFg9t
 WtcP+PnScROkjnSv6H6A6ekLVAzQYg==';
 
         $filename = 'privateKey-'.time().'.p8';
-        $path = $this->assetPath($filename);
+        $path = $this->fixturesDir($filename);
 
         if (! file_exists($path)) {
             $contents = "-----BEGIN EC PRIVATE KEY-----\n".$key."\n-----END EC PRIVATE KEY-----";

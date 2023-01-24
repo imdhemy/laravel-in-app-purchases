@@ -64,9 +64,7 @@ class Faker
      */
     public function googleTestNotification(array $data = []): string
     {
-        $testNotification = array_merge([
-            'version' => '1.0',
-        ], $data);
+        $testNotification = array_merge(['version' => '1.0'], $data);
 
         $data = [
             'version' => '1.0',
@@ -83,8 +81,8 @@ class Faker
      */
     public function appStoreTestNotification(array $data = []): Token
     {
-        $alg = Sha256::create();
-        $x5cJson = file_get_contents(__DIR__.'/assets/x5c-chain.json');
+        $alg = new Sha256();
+        $x5cJson = file_get_contents(__DIR__.'/Doubles/fixtures/x5c-chain.json');
         $x5c = $this->jsonDecode($x5cJson);
 
         $data = [
@@ -116,8 +114,8 @@ class Faker
      */
     public function appStoreNotification(array $data = [], ?string $notificationType = null): Token
     {
-        $alg = Sha256::create();
-        $x5cJson = file_get_contents(__DIR__.'/assets/x5c-chain.json');
+        $alg = new Sha256();
+        $x5cJson = file_get_contents(__DIR__.'/Doubles/fixtures/x5c-chain.json');
         $x5c = $this->jsonDecode($x5cJson);
 
         $data = [
@@ -147,9 +145,8 @@ class Faker
     /**
      * Safe bas64 encoding.
      */
-    public function base64Encode(
-        $data
-    ): string {
+    public function base64Encode($data): string
+    {
         try {
             return base64_encode(json_encode($data, JSON_THROW_ON_ERROR));
         } catch (JsonException $e) {
@@ -160,9 +157,8 @@ class Faker
     /**
      * Safe JSON decoding.
      */
-    public function jsonDecode(
-        string $json
-    ): array {
+    public function jsonDecode(string $json): array
+    {
         try {
             return json_decode($json, true, 512, JSON_THROW_ON_ERROR);
         } catch (JsonException $e) {

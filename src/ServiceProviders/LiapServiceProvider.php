@@ -113,8 +113,8 @@ class LiapServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(self::CONFIG_PATH, self::CONFIG_KEY);
 
         $googleCredentials = config(self::CONFIG_KEY.'.google_application_credentials');
-        if (null !== $googleCredentials) {
-            assert(is_string($googleCredentials));
+
+        if (null !== $googleCredentials && ! is_dir($googleCredentials)) {
             if (! file_exists($googleCredentials)) {
                 throw new RuntimeException("Google Application Credentials file not found at $googleCredentials");
             }

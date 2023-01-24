@@ -7,10 +7,10 @@ namespace Imdhemy\Purchases\Tests\Doubles;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Response;
 use Imdhemy\AppStore\ClientFactory;
-use Imdhemy\Purchases\Services\AppStoreTestNotificationServiceBuilder;
+use Imdhemy\Purchases\Services\AppStoreTestNotificationServiceBuilder as Builder;
 use JsonException;
 
-class AppStoreTestNotificationServiceBuilderDouble extends AppStoreTestNotificationServiceBuilder
+class AppStoreTestNotificationServiceBuilder extends Builder
 {
     public const PRODUCTION_TOKEN = 'production-token';
     public const SANDBOX_TOKEN = 'sandbox-token';

@@ -15,7 +15,7 @@ use Imdhemy\Purchases\ServerNotifications\AppStoreV2ServerNotification;
  */
 class AppStoreV2NotificationHandler extends AbstractNotificationHandler
 {
-    private JwsServiceInterface $jwsService;
+    protected JwsServiceInterface $jwsService;
 
     public function __construct(HandlerHelpersInterface $helpers, JwsServiceInterface $jwsService)
     {

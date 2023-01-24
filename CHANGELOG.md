@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.6.2 - 2023-01-24
+
+### What's Changed
+
+- [1.x] Improve test doubles by @imdhemy in https://github.com/imdhemy/laravel-in-app-purchases/pull/251
+- [1.x] Support Laravel 8 starting from `8.0` by @dependabot in https://github.com/imdhemy/laravel-in-app-purchases/pull/254
+- [1.x] Fetch the google credentials file from the base path by @imdhemy in https://github.com/imdhemy/laravel-in-app-purchases/pull/262
+
+**Full Changelog**: https://github.com/imdhemy/laravel-in-app-purchases/compare/1.6.1...1.6.2
+
 ## 1.6.0 - 2023-01-02
 
 ### Addedd

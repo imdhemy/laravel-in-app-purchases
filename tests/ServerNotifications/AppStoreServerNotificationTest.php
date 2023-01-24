@@ -25,7 +25,7 @@ class AppStoreServerNotificationTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $path = $this->assetPath('appstore-server-notification.json');
+        $path = $this->fixturesDir('appstore-server-notification.json');
         $this->serverNotificationBody = json_decode(file_get_contents($path), true, 512, JSON_THROW_ON_ERROR);
 
         $serverNotification = ServerNotification::fromArray($this->serverNotificationBody);

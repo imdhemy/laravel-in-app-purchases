@@ -22,4 +22,12 @@ class EventServiceProvider extends BaseEventServiceProvider
 
         $this->listen = (array)config(LiapServiceProvider::CONFIG_KEY.'.eventListeners');
     }
+
+    /**
+     * Register any events for your application.
+     */
+    public function boot()
+    {
+        parent::boot();
+    }
 }

@@ -16,7 +16,7 @@ use RuntimeException;
  */
 class HandlerFactory
 {
-    private Application $application;
+    protected Application $application;
 
     protected Request $request;
 
