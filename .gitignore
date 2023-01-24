@@ -5,6 +5,7 @@ vendor/
 .phpunit.cache
 .php_cs.cache
 .php-cs-fixer.cache
+.psalm-cache
 
 laravel/
 
