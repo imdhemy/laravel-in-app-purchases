@@ -42,7 +42,7 @@
     }
   },
   "scripts": {
-    "psalm": "vendor/bin/psalm --show-info=true --no-cache",
+    "psalm": "vendor/bin/psalm --show-info=true",
     "format": "vendor/bin/php-cs-fixer fix",
     "check-style": "vendor/bin/php-cs-fixer fix --dry-run --verbose",
     "test": "vendor/bin/phpunit --testdox",
