@@ -14,18 +14,20 @@ class EventFactory
 {
     public static function create(GoogleServerNotification $notification): PurchaseEventContract
     {
-        $notificationType = $notification->getType();
+        $notificationType = (int)$notification->getType();
         $types = (new ReflectionClass(SubscriptionNotification::class))->getConstants();
-        $type = array_search($notificationType, $types);
+        $type = array_search($notificationType, $types, true);
         $className = self::getClassName($type);
+        assert(class_exists($className) && is_subclass_of($className, PurchaseEventContract::class));
 
         return new $className($notification);
     }
 
-    public static function getClassName($type): string
+    public static function getClassName(string $type): string
     {
         $camelCaseName = ucfirst(Str::camel(strtolower($type)));
+        $namespace = (new ReflectionClass(self::class))->getNamespaceName();
 
-        return "\Imdhemy\Purchases\Events\GooglePlay\\".$camelCaseName;
+        return $namespace.'\\'.$camelCaseName;
     }
 }
