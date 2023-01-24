@@ -17,17 +17,10 @@ class EventFactory
         $notificationType = (int)$notification->getType();
         $types = (new ReflectionClass(SubscriptionNotification::class))->getConstants();
         $type = array_search($notificationType, $types, true);
-        $className = self::getClassName($type);
+        $camelCaseName = ucfirst(Str::camel(strtolower($type)));
+        $className = __NAMESPACE__."\\$camelCaseName";
         assert(class_exists($className) && is_subclass_of($className, PurchaseEventContract::class));
 
         return new $className($notification);
-    }
-
-    public static function getClassName(string $type): string
-    {
-        $camelCaseName = ucfirst(Str::camel(strtolower($type)));
-        $namespace = (new ReflectionClass(self::class))->getNamespaceName();
-
-        return $namespace.'\\'.$camelCaseName;
     }
 }
