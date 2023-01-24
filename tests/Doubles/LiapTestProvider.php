@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\Purchases\Tests\Doubles;
 
 use Illuminate\Support\ServiceProvider;
@@ -9,24 +11,19 @@ use Imdhemy\Purchases\Tests\Doubles\AppStoreTestNotificationServiceBuilder as Fa
 use Imdhemy\Purchases\Tests\Doubles\UrlGenerator as FakeUrlGenerator;
 
 /**
- * Service provider for testing purposes
+ * Service provider for testing purposes.
  */
 class LiapTestProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
     public function boot(): void
     {
-        //
     }
 
     /**
      * Register any application services.
-     *
-     * @return void
      */
     public function register(): void
     {

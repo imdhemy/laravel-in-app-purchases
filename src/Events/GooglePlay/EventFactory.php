@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\Purchases\Events\GooglePlay;
 
 use Illuminate\Support\Str;
@@ -10,10 +12,6 @@ use ReflectionClass;
 
 class EventFactory
 {
-    /**
-     * @param GoogleServerNotification $notification
-     * @return PurchaseEventContract
-     */
     public static function create(GoogleServerNotification $notification): PurchaseEventContract
     {
         $notificationType = $notification->getType();
@@ -24,14 +22,10 @@ class EventFactory
         return new $className($notification);
     }
 
-    /**
-     * @param $type
-     * @return string
-     */
     public static function getClassName($type): string
     {
         $camelCaseName = ucfirst(Str::camel(strtolower($type)));
 
-        return "\Imdhemy\Purchases\Events\GooglePlay\\" . $camelCaseName;
+        return "\Imdhemy\Purchases\Events\GooglePlay\\".$camelCaseName;
     }
 }

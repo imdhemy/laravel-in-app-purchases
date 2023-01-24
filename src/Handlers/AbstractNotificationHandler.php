@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\Purchases\Handlers;
 
 use Illuminate\Auth\Access\AuthorizationException;
@@ -11,24 +13,12 @@ use Imdhemy\Purchases\Contracts\UrlGenerator;
 
 abstract class AbstractNotificationHandler implements NotificationHandlerContract
 {
-    /**
-     * @var Request
-     */
     protected Request $request;
 
-    /**
-     * @var Factory
-     */
     protected Factory $validator;
 
-    /**
-     * @var UrlGenerator
-     */
     private UrlGenerator $urlGenerator;
 
-    /**
-     * @param HandlerHelpersInterface $helpers
-     */
     public function __construct(HandlerHelpersInterface $helpers)
     {
         $this->request = $helpers->getRequest();
@@ -37,7 +27,7 @@ abstract class AbstractNotificationHandler implements NotificationHandlerContrac
     }
 
     /**
-     * Executes the handler
+     * Executes the handler.
      *
      * @throws ValidationException
      * @throws AuthorizationException
@@ -61,9 +51,6 @@ abstract class AbstractNotificationHandler implements NotificationHandlerContrac
         }
     }
 
-    /**
-     * @return bool
-     */
     protected function isAuthorized(): bool
     {
         $shouldAuthorize = (bool)config('liap.routing.signed', false);

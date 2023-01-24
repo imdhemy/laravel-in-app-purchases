@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\Purchases\Tests\Facades;
 
 use GuzzleHttp\Exception\GuzzleException;
@@ -27,7 +29,7 @@ class SubscriptionTest extends TestCase
     private $itemId;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function setUp(): void
     {
@@ -38,6 +40,7 @@ class SubscriptionTest extends TestCase
 
     /**
      * @test
+     *
      * @throws GuzzleException|InvalidReceiptException
      */
     public function test_facade_can_get_a_google_play_subscription()
@@ -57,6 +60,7 @@ class SubscriptionTest extends TestCase
 
     /**
      * @test
+     *
      * @throws GuzzleException
      */
     public function test_facade_can_acknowledge_a_google_play_subscription()
@@ -73,6 +77,7 @@ class SubscriptionTest extends TestCase
 
     /**
      * @test
+     *
      * @throws GuzzleException|InvalidReceiptException
      */
     public function test_it_can_send_verify_receipt_request_to_app_store()
@@ -90,6 +95,7 @@ class SubscriptionTest extends TestCase
 
     /**
      * @test
+     *
      * @throws GuzzleException|InvalidReceiptException
      */
     public function test_it_handles_the_21007_error_from_the_app_store()

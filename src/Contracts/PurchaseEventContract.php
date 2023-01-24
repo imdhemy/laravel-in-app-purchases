@@ -1,15 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\Purchases\Contracts;
 
 /**
- * Interface PurchaseEventContract
- * @package Imdhemy\Purchases\Events\Contracts
+ * Interface PurchaseEventContract.
  */
 interface PurchaseEventContract
 {
-    /**
-     * @return ServerNotificationContract
-     */
     public function getServerNotification(): ServerNotificationContract;
 }

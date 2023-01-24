@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\Purchases;
 
 use GuzzleHttp\Client;
@@ -69,11 +71,6 @@ class Subscription
      */
     private $appStoreResponse;
 
-    /**
-     * @param ClientInterface|null $client
-     *
-     * @return self
-     */
     public function googlePlay(?ClientInterface $client = null): self
     {
         $this->isGoogle = true;
@@ -83,11 +80,6 @@ class Subscription
         return $this;
     }
 
-    /**
-     * @param ClientInterface|null $client
-     *
-     * @return self
-     */
     public function appStore(?ClientInterface $client = null): self
     {
         $this->isGoogle = false;
@@ -98,11 +90,6 @@ class Subscription
         return $this;
     }
 
-    /**
-     * @param string $itemId
-     *
-     * @return self
-     */
     public function id(string $itemId): self
     {
         $this->itemId = $itemId;
@@ -110,11 +97,6 @@ class Subscription
         return $this;
     }
 
-    /**
-     * @param string $token
-     *
-     * @return self
-     */
     public function token(string $token): self
     {
         $this->token = $token;
@@ -122,11 +104,6 @@ class Subscription
         return $this;
     }
 
-    /**
-     * @param string $packageName
-     *
-     * @return self
-     */
     public function packageName(string $packageName): self
     {
         $this->packageName = $packageName;
@@ -135,9 +112,6 @@ class Subscription
     }
 
     /**
-     * @param ClientInterface|null $sandboxClient
-     *
-     * @return ReceiptResponse
      * @throws GuzzleException
      * @throws InvalidReceiptException
      */
@@ -149,9 +123,6 @@ class Subscription
     }
 
     /**
-     * @param ClientInterface|null $sandboxClient
-     *
-     * @return ReceiptResponse
      * @throws GuzzleException
      * @throws InvalidReceiptException
      */
@@ -165,9 +136,6 @@ class Subscription
         return $this->appStoreResponse;
     }
 
-    /**
-     * @return self
-     */
     public function renewable(): self
     {
         $this->renewalAble = true;
@@ -175,9 +143,6 @@ class Subscription
         return $this;
     }
 
-    /**
-     * @return self
-     */
     public function nonRenewable(): self
     {
         $this->renewalAble = false;
@@ -186,9 +151,6 @@ class Subscription
     }
 
     /**
-     * @param string|null $developerPayload
-     *
-     * @return EmptyResponse
      * @throws GuzzleException
      */
     public function acknowledge(?string $developerPayload = null): EmptyResponse
@@ -196,9 +158,6 @@ class Subscription
         return $this->createSubscription()->acknowledge($developerPayload);
     }
 
-    /**
-     * @return GooglePlaySubscription
-     */
     public function createSubscription(): GooglePlaySubscription
     {
         return new GooglePlaySubscription(
@@ -210,8 +169,6 @@ class Subscription
     }
 
     /**
-     * @param string $receiptData
-     *
      * @return $this
      */
     public function receiptData(string $receiptData): self
@@ -222,8 +179,6 @@ class Subscription
     }
 
     /**
-     * @param string $password
-     *
      * @return $this
      */
     public function password(string $password): self
@@ -234,7 +189,6 @@ class Subscription
     }
 
     /**
-     * @return SubscriptionContract
      * @throws GuzzleException
      * @throws InvalidReceiptException
      */
@@ -252,7 +206,6 @@ class Subscription
     }
 
     /**
-     * @return SubscriptionPurchase
      * @throws GuzzleException
      */
     public function get(): SubscriptionPurchase

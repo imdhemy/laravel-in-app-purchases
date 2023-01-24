@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\Purchases\Events\AppStore;
 
 use Imdhemy\AppStore\ServerNotifications\V2DecodedPayload;
@@ -11,9 +13,6 @@ use Imdhemy\Purchases\ValueObjects\Time;
 
 class DidChangeRenewalStatus extends PurchaseEvent
 {
-    /**
-     * @return bool
-     */
     public function isAutoRenewal(): bool
     {
         assert(
@@ -27,12 +26,9 @@ class DidChangeRenewalStatus extends PurchaseEvent
 
         $payload = V2DecodedPayload::fromArray($this->serverNotification->getPayload());
 
-        return $payload->getRenewalInfo()->getAutoRenewStatus() === JwsRenewalInfo::AUTO_RENEW_STATUS_ON;
+        return JwsRenewalInfo::AUTO_RENEW_STATUS_ON === $payload->getRenewalInfo()->getAutoRenewStatus();
     }
 
-    /**
-     * @return Time|null
-     */
     public function getAutoRenewStatusChangeDate(): ?Time
     {
         assert(

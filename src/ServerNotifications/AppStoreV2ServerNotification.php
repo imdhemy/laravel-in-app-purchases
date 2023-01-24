@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\Purchases\ServerNotifications;
 
 use GuzzleHttp\Client;
@@ -11,15 +13,10 @@ use Imdhemy\Purchases\Subscriptions\AppleSubscription;
 
 class AppStoreV2ServerNotification implements ServerNotificationContract, HasSubtype
 {
-    /**
-     * @var V2DecodedPayload
-     */
     private V2DecodedPayload $payload;
 
     /**
-     * Prevents the creation of the object from outside the class
-     *
-     * @param V2DecodedPayload $payload
+     * Prevents the creation of the object from outside the class.
      */
     private function __construct(V2DecodedPayload $payload)
     {
@@ -27,9 +24,7 @@ class AppStoreV2ServerNotification implements ServerNotificationContract, HasSub
     }
 
     /**
-     * Static constructor
-     *
-     * @param V2DecodedPayload $decodedPayload
+     * Static constructor.
      *
      * @return static
      */
@@ -38,44 +33,28 @@ class AppStoreV2ServerNotification implements ServerNotificationContract, HasSub
         return new self($decodedPayload);
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return $this->payload->getType();
     }
 
-    /**
-     * @param Client|null $client
-     *
-     * @return SubscriptionContract
-     */
     public function getSubscription(?Client $client = null): SubscriptionContract
     {
         return AppleSubscription::fromV2DecodedPayload($this->payload);
     }
 
-    /**
-     * @return bool
-     */
     public function isTest(): bool
     {
-        return $this->payload->getType() === V2DecodedPayload::TYPE_TEST;
+        return V2DecodedPayload::TYPE_TEST === $this->payload->getType();
     }
 
-    /**
-     * @return string
-     */
     public function getBundle(): string
     {
         return $this->payload->getAppMetadata()->bundleId();
     }
 
     /**
-     * Gets the notification payload
-     *
-     * @return array
+     * Gets the notification payload.
      */
     public function getPayload(): array
     {
@@ -83,9 +62,7 @@ class AppStoreV2ServerNotification implements ServerNotificationContract, HasSub
     }
 
     /**
-     * Gets subscription subtype
-     *
-     * @return string
+     * Gets subscription subtype.
      */
     public function getSubtype(): string
     {

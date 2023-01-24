@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\Purchases\Tests\Events\GooglePlay;
 
 use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;

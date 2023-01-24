@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\Purchases\ServerNotifications;
 
 use GuzzleHttp\Client;
@@ -10,32 +12,22 @@ use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\Subscriptions\GoogleSubscription;
 
 /**
- * Class GoogleServerNotification
- *
- * @package Imdhemy\Purchases\ServerNotifications
+ * Class GoogleServerNotification.
  */
 class GoogleServerNotification implements ServerNotificationContract
 {
     public const TESTING_NOTIFICATION = -1;
 
-    /**
-     * @var DeveloperNotification
-     */
     private DeveloperNotification $notification;
 
     /**
      * GoogleServerNotification constructor.
-     *
-     * @param DeveloperNotification $notification
      */
     public function __construct(DeveloperNotification $notification)
     {
         $this->notification = $notification;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         $type = $this->isTest() ?
@@ -46,9 +38,6 @@ class GoogleServerNotification implements ServerNotificationContract
     }
 
     /**
-     * @param Client|null $client
-     *
-     * @return SubscriptionContract
      * @throws GuzzleException
      */
     public function getSubscription(?Client $client = null): SubscriptionContract
@@ -56,26 +45,18 @@ class GoogleServerNotification implements ServerNotificationContract
         return GoogleSubscription::createFromDeveloperNotification($this->notification, $client);
     }
 
-    /**
-     * @return bool
-     */
     public function isTest(): bool
     {
         return $this->notification->isTestNotification();
     }
 
-    /**
-     * @return string
-     */
     public function getBundle(): string
     {
         return $this->notification->getPackageName();
     }
 
     /**
-     * Gets the notification payload
-     *
-     * @return array
+     * Gets the notification payload.
      */
     public function getPayload(): array
     {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\Purchases\Tests\ServerNotifications;
 
 use Imdhemy\AppStore\ServerNotifications\V2DecodedPayload;
@@ -13,7 +15,7 @@ class AppStoreV2ServerNotificationTest extends TestCase
     private AppStoreV2ServerNotification $sut;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function setUp(): void
     {

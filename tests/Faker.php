@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\Purchases\Tests;
 
 use Faker\Generator;
@@ -20,14 +22,8 @@ use RuntimeException;
  */
 class Faker
 {
-    /**
-     * @var Generator
-     */
     private Generator $faker;
 
-    /**
-     * @param Generator $faker
-     */
     public function __construct(Generator $faker)
     {
         $this->faker = $faker;
@@ -42,11 +38,7 @@ class Faker
     }
 
     /**
-     * Generates a Google subscription notification with the given data
-     *
-     * @param array $data
-     *
-     * @return string
+     * Generates a Google subscription notification with the given data.
      */
     public function googleSubscriptionNotification(array $data = []): string
     {
@@ -68,11 +60,7 @@ class Faker
     }
 
     /**
-     * Generates a Google test notification with the given data
-     *
-     * @param array $data
-     *
-     * @return string
+     * Generates a Google test notification with the given data.
      */
     public function googleTestNotification(array $data = []): string
     {
@@ -89,11 +77,7 @@ class Faker
     }
 
     /**
-     * Generates an App Store subscription notification with the given data
-     *
-     * @param array $data
-     *
-     * @return Token
+     * Generates an App Store subscription notification with the given data.
      */
     public function appStoreTestNotification(array $data = []): Token
     {
@@ -126,12 +110,7 @@ class Faker
     }
 
     /**
-     * Generates an App Store server notification v2 with the given data
-     *
-     * @param array $data
-     * @param string|null $notificationType
-     *
-     * @return Token
+     * Generates an App Store server notification v2 with the given data.
      */
     public function appStoreNotification(array $data = [], ?string $notificationType = null): Token
     {
@@ -164,11 +143,7 @@ class Faker
     }
 
     /**
-     * Safe bas64 encoding
-     *
-     * @param $data
-     *
-     * @return string
+     * Safe bas64 encoding.
      */
     public function base64Encode($data): string
     {
@@ -180,11 +155,7 @@ class Faker
     }
 
     /**
-     * Safe JSON decoding
-     *
-     * @param string $json
-     *
-     * @return array
+     * Safe JSON decoding.
      */
     public function jsonDecode(string $json): array
     {
@@ -196,9 +167,7 @@ class Faker
     }
 
     /**
-     * Generates an EC private key
-     *
-     * @return string
+     * Generates an EC private key.
      */
     public function generateECPrivateKey(): string
     {

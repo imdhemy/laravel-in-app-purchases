@@ -1,16 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\Purchases\Contracts;
 
 /**
- * Notification handler
+ * Notification handler.
  *
  * All server notification handlers MUST implement this contract
  */
 interface NotificationHandlerContract
 {
     /**
-     * Executes the handler
+     * Executes the handler.
      */
     public function execute();
 }

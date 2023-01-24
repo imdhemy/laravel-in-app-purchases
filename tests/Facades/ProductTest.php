@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\Purchases\Tests\Facades;
 
 use GuzzleHttp\Exception\GuzzleException;
@@ -25,7 +27,7 @@ class ProductTest extends TestCase
     private $itemId;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function setUp(): void
     {
@@ -36,6 +38,7 @@ class ProductTest extends TestCase
 
     /**
      * @test
+     *
      * @throws GuzzleException
      */
     public function test_facade_can_get_google_play_product()
@@ -47,6 +50,7 @@ class ProductTest extends TestCase
 
     /**
      * @test
+     *
      * @throws GuzzleException
      */
     public function test_facade_can_acknowledge_google_play_product()
@@ -59,6 +63,7 @@ class ProductTest extends TestCase
 
     /**
      * @test
+     *
      * @throws GuzzleException|InvalidReceiptException
      */
     public function test_facade_can_verify_product_receipt()

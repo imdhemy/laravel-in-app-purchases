@@ -15,39 +15,22 @@ use Lcobucci\JWT\Signer\Ecdsa\Sha256;
 use Lcobucci\JWT\Signer\Key\InMemory;
 
 /**
- * This class is used to build AppStoreTestNotificationService
+ * This class is used to build AppStoreTestNotificationService.
  */
 class AppStoreTestNotificationServiceBuilder
 {
-    /**
-     * @var bool
-     */
     protected bool $sandbox = false;
 
-    /**
-     * @var string|null
-     */
     private ?string $issuerId = null;
 
-    /**
-     * @var string|null
-     */
     private ?string $bundleId = null;
 
-    /**
-     * @var string|null
-     */
     private ?string $privateKeyId = null;
 
-    /**
-     * @var string|null
-     */
     private ?string $privateKey = null;
 
     /**
-     * Builds a new instance of AppStoreTestNotificationService
-     *
-     * @return AppStoreTestNotificationService
+     * Builds a new instance of AppStoreTestNotificationService.
      */
     public function build(): AppStoreTestNotificationService
     {
@@ -69,8 +52,6 @@ class AppStoreTestNotificationServiceBuilder
     }
 
     /**
-     * @param string|null $issuerId
-     *
      * @return $this
      */
     public function issuerId(?string $issuerId): self
@@ -81,8 +62,6 @@ class AppStoreTestNotificationServiceBuilder
     }
 
     /**
-     * @param string|null $bundleId
-     *
      * @return $this
      */
     public function bundleId(?string $bundleId): self
@@ -93,8 +72,6 @@ class AppStoreTestNotificationServiceBuilder
     }
 
     /**
-     * @param string|null $privateKeyId
-     *
      * @return $this
      */
     public function privateKeyId(?string $privateKeyId): self
@@ -105,8 +82,6 @@ class AppStoreTestNotificationServiceBuilder
     }
 
     /**
-     * @param string|null $privateKey
-     *
      * @return $this
      */
     public function privateKey(?string $privateKey): self
@@ -117,8 +92,6 @@ class AppStoreTestNotificationServiceBuilder
     }
 
     /**
-     * @param bool $sandbox
-     *
      * @return $this
      */
     public function sandbox(bool $sandbox): self
@@ -128,9 +101,6 @@ class AppStoreTestNotificationServiceBuilder
         return $this;
     }
 
-    /**
-     * @return ClientInterface
-     */
     protected function createClient(): ClientInterface
     {
         $baseURI = $this->sandbox ? ClientFactory::STORE_KIT_SANDBOX_URI : ClientFactory::STORE_KIT_PRODUCTION_URI;

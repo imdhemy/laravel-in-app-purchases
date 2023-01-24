@@ -16,7 +16,6 @@ class AppStoreTestNotificationServiceBuilder extends Builder
     public const SANDBOX_TOKEN = 'sandbox-token';
 
     /**
-     * @return ClientInterface
      * @throws JsonException
      */
     protected function createClient(): ClientInterface
