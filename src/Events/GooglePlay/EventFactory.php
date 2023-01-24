@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification;
 use Imdhemy\Purchases\Contracts\PurchaseEventContract;
 use Imdhemy\Purchases\ServerNotifications\GoogleServerNotification;
+use LogicException;
 use ReflectionClass;
 
 class EventFactory
@@ -17,6 +18,7 @@ class EventFactory
         $notificationType = (int)$notification->getType();
         $types = (new ReflectionClass(SubscriptionNotification::class))->getConstants();
         $type = array_search($notificationType, $types, true);
+        assert(false !== $type, new LogicException("Unknown notification type: $notificationType"));
         $camelCaseName = ucfirst(Str::camel(strtolower($type)));
         $className = __NAMESPACE__."\\$camelCaseName";
         assert(class_exists($className) && is_subclass_of($className, PurchaseEventContract::class));
