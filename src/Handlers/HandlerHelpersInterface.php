@@ -7,6 +7,7 @@ namespace Imdhemy\Purchases\Handlers;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Http\Request;
 use Imdhemy\Purchases\Contracts\UrlGenerator;
+use Imdhemy\Purchases\Events\EventFactory;
 
 /**
  * Handler Helpers
@@ -19,4 +20,6 @@ interface HandlerHelpersInterface
     public function getValidator(): Factory;
 
     public function getUrlGenerator(): UrlGenerator;
+
+    public function getEventFactory(): EventFactory;
 }
