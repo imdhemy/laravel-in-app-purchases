@@ -25,54 +25,31 @@ class EventFactory implements EventFactoryContract
 
     public function create(ServerNotification $notification): PurchaseEvent
     {
+        $provider = $notification->getProvider();
         assert(
             array_key_exists($notification->getProvider(), self::NAMESPACES),
-            new LogicException("Unknown provider: {$notification->getProvider()}")
+            new LogicException("Unknown provider: $provider")
         );
 
-        $eventClass = ServerNotification::PROVIDER_GOOGLE_PLAY === $notification->getProvider()
-            ? $this->googleEvent($notification)
-            : $this->appStoreEvent($notification);
+        $type = $notification->getType();
+        if (ServerNotification::PROVIDER_GOOGLE_PLAY === $provider) {
+            $notificationType = (int)$notification->getType();
+            $types = (new ReflectionClass(SubscriptionNotification::class))->getConstants();
+            $type = array_search($notificationType, $types, true);
+        }
 
-        assert(
-            is_subclass_of($eventClass, PurchaseEvent::class),
-            new LogicException(
-                "Class $eventClass must implement ".PurchaseEvent::class
-            )
-        );
-
-        return new $eventClass($notification);
-    }
-
-    /**
-     * @return class-string<PurchaseEvent>
-     */
-    private function googleEvent(ServerNotification $notification): string
-    {
-        $notificationType = (int)$notification->getType();
-        $types = (new ReflectionClass(SubscriptionNotification::class))->getConstants();
-        $type = array_search($notificationType, $types, true);
-        assert(false !== $type, new LogicException("Unknown notification type: $notificationType"));
-        $camelCaseName = (string)Str::of($type)->lower()->studly();
-        $className = self::NAMESPACES[$notification->getProvider()]."\\$camelCaseName";
-
-        assert(class_exists($className), new LogicException("Class $className does not exist"));
-
-        return $className;
-    }
-
-    /**
-     * @return class-string<PurchaseEvent>
-     */
-    private function appStoreEvent(ServerNotification $notification): string
-    {
-        $className = (string)Str::of($notification->getType())
+        $className = (string)Str::of($type)
             ->lower()
             ->studly()
-            ->prepend(self::NAMESPACES[$notification->getProvider()].'\\');
-
+            ->prepend(self::NAMESPACES[$provider].'\\');
         assert(class_exists($className), new LogicException("Class $className does not exist"));
 
-        return $className;
+        $event = new $className($notification);
+        assert(
+            $event instanceof PurchaseEvent,
+            new LogicException("Class $className is not an instance of PurchaseEvent")
+        );
+
+        return $event;
     }
 }
