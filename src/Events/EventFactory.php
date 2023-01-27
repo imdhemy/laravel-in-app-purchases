@@ -18,7 +18,7 @@ use ReflectionClass;
  */
 class EventFactory implements EventFactoryContract
 {
-    private const NAMESPACES = [
+    protected const NAMESPACES = [
         'google_play' => 'Imdhemy\Purchases\Events\GooglePlay',
         'app_store' => 'Imdhemy\Purchases\Events\AppStore',
     ];
