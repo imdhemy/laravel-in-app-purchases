@@ -84,4 +84,12 @@ class AppStoreV2ServerNotificationTest extends TestCase
     {
         $this->assertEquals(V2DecodedPayload::SUBTYPE_INITIAL_BUY, $this->sut->getSubtype());
     }
+
+    /**
+     * @test
+     */
+    public function get_provider(): void
+    {
+        $this->assertEquals('app_store', $this->sut->getProvider());
+    }
 }
