@@ -68,4 +68,9 @@ class AppStoreV2ServerNotification implements ServerNotificationContract, HasSub
     {
         return (string)$this->payload->getSubType();
     }
+
+    public function getProvider(): string
+    {
+        return self::PROVIDER_APP_STORE;
+    }
 }

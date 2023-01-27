@@ -70,4 +70,12 @@ class GoogleServerNotificationTest extends TestCase
     {
         $this->assertEquals($this->developerNotification->toArray(), $this->googleServerNotification->getPayload());
     }
+
+    /**
+     * @test
+     */
+    public function get_provider(): void
+    {
+        $this->assertEquals('google_play', $this->googleServerNotification->getProvider());
+    }
 }
