@@ -53,7 +53,7 @@ class EventFactory implements EventFactoryContract
         $types = (new ReflectionClass(SubscriptionNotification::class))->getConstants();
         $type = array_search($notificationType, $types, true);
         assert(false !== $type, new LogicException("Unknown notification type: $notificationType"));
-        $camelCaseName = (string)Str::of($type)->lower()->camel();
+        $camelCaseName = (string)Str::of($type)->lower()->camel()->ucfirst();
         $className = self::NAMESPACES[$notification->getProvider()]."\\$camelCaseName";
 
         assert(class_exists($className), new LogicException("Class $className does not exist"));
