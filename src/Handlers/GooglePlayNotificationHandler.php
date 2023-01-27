@@ -7,7 +7,6 @@ namespace Imdhemy\Purchases\Handlers;
 use Illuminate\Support\Facades\Log;
 use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
 use Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification;
-use Imdhemy\Purchases\Events\GooglePlay\EventFactory as GooglePlayEventFactory;
 use Imdhemy\Purchases\ServerNotifications\GoogleServerNotification;
 
 /**
@@ -24,8 +23,8 @@ class GooglePlayNotificationHandler extends AbstractNotificationHandler
     protected function rules(): array
     {
         return [
-          'message' => ['required', 'array'],
-          'message.data' => ['required'],
+            'message' => ['required', 'array'],
+            'message.data' => ['required'],
         ];
     }
 
@@ -51,7 +50,7 @@ class GooglePlayNotificationHandler extends AbstractNotificationHandler
         }
 
         if ($developerNotification->getPayload() instanceof SubscriptionNotification) {
-            $event = GooglePlayEventFactory::create($googleNotification);
+            $event = $this->eventFactory->create($googleNotification);
             event($event);
         }
     }

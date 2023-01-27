@@ -6,7 +6,6 @@ namespace Imdhemy\Purchases\Handlers;
 
 use Illuminate\Support\Facades\Log;
 use Imdhemy\AppStore\ServerNotifications\ServerNotification;
-use Imdhemy\Purchases\Events\AppStore\EventFactory as AppStoreEventFactory;
 use Imdhemy\Purchases\ServerNotifications\AppStoreServerNotification;
 
 /**
@@ -32,7 +31,7 @@ class AppStoreNotificationHandler extends AbstractNotificationHandler
             Log::info('AppStore Test Notification');
         }
 
-        $event = AppStoreEventFactory::create($appStoreNotification);
+        $event = $this->eventFactory->create($appStoreNotification);
         event($event);
     }
 
@@ -42,10 +41,10 @@ class AppStoreNotificationHandler extends AbstractNotificationHandler
     protected function rules(): array
     {
         return [
-          'unified_receipt' => ['array', 'required'],
-          'unified_receipt.latest_receipt' => ['required'],
-          'unified_receipt.latest_receipt_info' => ['required', 'array'],
-          'notification_type' => ['required'],
+            'unified_receipt' => ['array', 'required'],
+            'unified_receipt.latest_receipt' => ['required'],
+            'unified_receipt.latest_receipt_info' => ['required', 'array'],
+            'notification_type' => ['required'],
         ];
     }
 }
