@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Imdhemy\Purchases\ServiceProviders;
 
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as BaseEventServiceProvider;
 
 /**
@@ -13,25 +14,12 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as BaseEventSer
 class EventServiceProvider extends BaseEventServiceProvider
 {
     /**
-     * @var array
+     * {@inheritdoc}
      */
-    protected $listen = [];
-
-    /**
-     * EventServiceProvider constructor.
-     */
-    public function __construct($app)
+    public function __construct(Application $app)
     {
         parent::__construct($app);
 
         $this->listen = (array)config(LiapServiceProvider::CONFIG_KEY.'.eventListeners');
-    }
-
-    /**
-     * Register any events for your application.
-     */
-    public function boot()
-    {
-        parent::boot();
     }
 }
