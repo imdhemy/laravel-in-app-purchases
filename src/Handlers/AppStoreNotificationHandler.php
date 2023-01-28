@@ -21,7 +21,7 @@ class AppStoreNotificationHandler extends AbstractNotificationHandler
      *
      * @return void
      */
-    protected function handle()
+    protected function handle(): void
     {
         $attributes = $this->request->all();
         $serverNotification = ServerNotification::fromArray($attributes);
