@@ -34,6 +34,11 @@ class AppStoreTestNotificationServiceBuilder
      */
     public function build(): AppStoreTestNotificationService
     {
+        assert(! empty($this->issuerId));
+        assert(! empty($this->bundleId));
+        assert(! empty($this->privateKeyId));
+        assert(! empty($this->privateKey));
+        
         $config = GeneratorConfig::forAppStore(
             new Issuer(
                 $this->issuerId,
