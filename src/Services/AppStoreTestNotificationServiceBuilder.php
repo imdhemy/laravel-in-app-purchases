@@ -38,7 +38,7 @@ class AppStoreTestNotificationServiceBuilder
         assert(! empty($this->bundleId));
         assert(! empty($this->privateKeyId));
         assert(! empty($this->privateKey));
-        
+
         $config = GeneratorConfig::forAppStore(
             new Issuer(
                 $this->issuerId,
