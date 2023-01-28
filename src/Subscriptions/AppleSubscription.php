@@ -24,9 +24,6 @@ class AppleSubscription implements SubscriptionContract
         $this->payload = $payload;
     }
 
-    /**
-     * @return static
-     */
     public static function fromV2DecodedPayload(V2DecodedPayload $payload): self
     {
         return new self($payload);
@@ -34,7 +31,10 @@ class AppleSubscription implements SubscriptionContract
 
     public function getExpiryTime(): Time
     {
-        return Time::fromAppStoreTime($this->payload->getTransactionInfo()->getExpiresDate());
+        $time = $this->payload->getTransactionInfo()->getExpiresDate();
+        assert(! is_null($time));
+
+        return Time::fromAppStoreTime($time);
     }
 
     public function getItemId(): string
