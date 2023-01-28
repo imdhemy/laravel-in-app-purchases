@@ -10,15 +10,23 @@ use Imdhemy\AppStore\ClientFactory;
 use Imdhemy\AppStore\Exceptions\InvalidReceiptException;
 use Imdhemy\AppStore\Receipts\Verifier;
 
+/**
+ * @deprecated - This rule will be removed in the next major release
+ */
 class ValidReceipt implements Rule
 {
     /**
      * Determine if the validation rule passes.
      *
      * @param string $attribute
-     * @param mixed  $value
+     * @param mixed $value
      *
      * @throws InvalidReceiptException
+     * @deprecated - This rule will be removed in the next major release
+     * @psalm-suppress MixedAssignment
+     * @psalm-suppress MixedArrayAccess
+     * @psalm-suppress MixedArgument
+     * @psalm-suppress DeprecatedMethod
      */
     public function passes($attribute, $value): bool
     {
