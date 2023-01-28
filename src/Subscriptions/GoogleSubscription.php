@@ -14,7 +14,6 @@ use Imdhemy\Purchases\Exceptions\InvalidNotificationTypeException;
 use Imdhemy\Purchases\Facades\Subscription;
 use Imdhemy\Purchases\ValueObjects\Time;
 
-
 class GoogleSubscription implements SubscriptionContract
 {
     protected SubscriptionPurchase $subscription;
