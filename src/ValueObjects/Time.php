@@ -42,7 +42,7 @@ final class Time implements Stringable
      */
     public static function fromAppStoreTime(AppStoreTime $time): self
     {
-        return self::fromCarbon($time->getCarbon());
+        return self::fromCarbon($time->toCarbon());
     }
 
     /**
