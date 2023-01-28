@@ -18,8 +18,6 @@ class AppStoreNotificationHandler extends AbstractNotificationHandler
 {
     /**
      * {@inheritDoc}
-     *
-     * @return void
      */
     protected function handle(): void
     {
