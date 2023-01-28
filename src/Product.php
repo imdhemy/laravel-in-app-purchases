@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Imdhemy\Purchases;
 
-use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use Imdhemy\AppStore\ClientFactory as AppStoreClientFactory;
@@ -18,40 +17,22 @@ use Imdhemy\GooglePlay\ValueObjects\EmptyResponse;
 
 class Product
 {
-    /**
-     * @var string
-     */
-    protected $itemId;
+    protected string $itemId = '';
 
-    /**
-     * @var string
-     */
-    protected $token;
+    protected string $token = '';
 
-    /**
-     * @var Client
-     */
-    protected $client;
+    protected ?ClientInterface $client = null;
 
-    /**
-     * @var string
-     */
-    protected $packageName;
+    protected string $packageName = '';
 
-    /**
-     * @var string
-     */
-    protected $receiptData;
+    protected string $receiptData = '';
 
-    /**
-     * @var string
-     */
-    protected $password;
+    protected string $password = '';
 
     public function googlePlay(?ClientInterface $client = null): self
     {
         $this->client = $client ?? GooglePlayClientFactory::create([GooglePlayClientFactory::SCOPE_ANDROID_PUBLISHER]);
-        $this->packageName = config('liap.google_play_package_name');
+        $this->packageName = (string)config('liap.google_play_package_name');
 
         return $this;
     }
@@ -61,7 +42,7 @@ class Product
         $sandbox = (bool)config('liap.appstore_sandbox');
 
         $this->client = $client ?? AppStoreClientFactory::create($sandbox);
-        $this->password = config('liap.appstore_password');
+        $this->password = (string)config('liap.appstore_password');
 
         return $this;
     }
@@ -97,6 +78,8 @@ class Product
 
     public function createProduct(): GooglePlayProduct
     {
+        assert(! is_null($this->client));
+
         return new GooglePlayProduct(
             $this->client,
             $this->packageName,
@@ -118,9 +101,9 @@ class Product
      */
     public function verifyReceipt(): ReceiptResponse
     {
-        $verifier = new Verifier($this->client, $this->receiptData, $this->password);
+        assert(! is_null($this->client));
 
-        return $verifier->verify();
+        return (new Verifier($this->client, $this->receiptData, $this->password))->verify();
     }
 
     /**
