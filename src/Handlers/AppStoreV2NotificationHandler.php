@@ -29,9 +29,10 @@ class AppStoreV2NotificationHandler extends AbstractNotificationHandler
         $serverNotification = AppStoreV2ServerNotification::fromDecodedPayload($decodedPayload);
 
         if ($serverNotification->isTest()) {
+            $signedPayload = (string)$this->request->get('signedPayload');
             Log::info(
                 'AppStoreV2NotificationHandler: Test notification received '.
-                $this->request->get('signedPayload')
+                $signedPayload
             );
 
             return;
