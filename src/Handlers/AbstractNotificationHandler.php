@@ -32,8 +32,9 @@ abstract class AbstractNotificationHandler implements NotificationHandlerContrac
      *
      * @throws ValidationException
      * @throws AuthorizationException
+     * @psalm-suppress MissingReturnType - @todo: fix missing return type
      */
-    public function execute(): void
+    public function execute()
     {
         $this->authorize();
 
@@ -79,5 +80,8 @@ abstract class AbstractNotificationHandler implements NotificationHandlerContrac
         return [];
     }
 
-    abstract protected function handle(): void;
+    /**
+     * @psalm-suppress MissingReturnType - @todo: fix missing return type
+     */
+    abstract protected function handle();
 }

@@ -29,7 +29,10 @@ class GooglePlayNotificationHandler extends AbstractNotificationHandler
         ];
     }
 
-    protected function handle(): void
+    /**
+     * @psalm-suppress MissingReturnType - @todo fix missing return type
+     */
+    protected function handle()
     {
         $message = $this->request->input('message');
         assert(is_array($message) && isset($message['data']) && is_string($message['data']));
