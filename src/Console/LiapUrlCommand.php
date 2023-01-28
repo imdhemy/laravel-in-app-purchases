@@ -62,6 +62,8 @@ class LiapUrlCommand extends Command
 
     /**
      * Get selected providers.
+     *
+     * @return string[] List of selected providers
      */
     protected function getProviders(): array
     {
@@ -70,6 +72,7 @@ class LiapUrlCommand extends Command
             self::PROVIDER_APP_STORE,
             self::PROVIDER_GOOGLE_PLAY,
         ]);
+        assert(is_string($provider));
 
         if (self::PROVIDER_ALL === $provider) {
             return [self::PROVIDER_APP_STORE, self::PROVIDER_GOOGLE_PLAY];
@@ -80,6 +83,8 @@ class LiapUrlCommand extends Command
 
     /**
      * Generates signed URLs for the submitted providers.
+     *
+     * @param string[] $providers List of providers
      */
     private function generateSignedUrls(array $providers): void
     {
@@ -92,6 +97,8 @@ class LiapUrlCommand extends Command
 
     /**
      * Generates unsigned URLs for the submitted providers.
+     *
+     * @param string[] $providers List of providers
      */
     private function generateUnsignedUrls(array $providers): void
     {
