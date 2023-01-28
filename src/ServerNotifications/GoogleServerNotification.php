@@ -56,4 +56,9 @@ class GoogleServerNotification implements ServerNotificationContract
     {
         return $this->notification->toArray();
     }
+
+    public function getProvider(): string
+    {
+        return self::PROVIDER_GOOGLE_PLAY;
+    }
 }

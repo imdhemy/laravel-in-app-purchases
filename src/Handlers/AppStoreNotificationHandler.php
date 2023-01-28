@@ -6,7 +6,6 @@ namespace Imdhemy\Purchases\Handlers;
 
 use Illuminate\Support\Facades\Log;
 use Imdhemy\AppStore\ServerNotifications\ServerNotification;
-use Imdhemy\Purchases\Events\AppStore\EventFactory as AppStoreEventFactory;
 use Imdhemy\Purchases\ServerNotifications\AppStoreServerNotification;
 
 /**
@@ -27,7 +26,7 @@ class AppStoreNotificationHandler extends AbstractNotificationHandler
             Log::info('AppStore Test Notification');
         }
 
-        $event = AppStoreEventFactory::create($appStoreNotification);
+        $event = $this->eventFactory->create($appStoreNotification);
         event($event);
     }
 

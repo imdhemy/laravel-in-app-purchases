@@ -11,6 +11,9 @@ use GuzzleHttp\ClientInterface;
  */
 interface ServerNotificationContract
 {
+    public const PROVIDER_GOOGLE_PLAY = 'google_play';
+    public const PROVIDER_APP_STORE = 'app_store';
+
     /**
      * Gets the notification type.
      */
@@ -35,4 +38,9 @@ interface ServerNotificationContract
      * Gets the notification payload.
      */
     public function getPayload(): array;
+
+    /**
+     * Gets the notification provider.
+     */
+    public function getProvider(): string;
 }

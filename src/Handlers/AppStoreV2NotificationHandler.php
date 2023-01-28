@@ -6,7 +6,6 @@ namespace Imdhemy\Purchases\Handlers;
 
 use Illuminate\Support\Facades\Log;
 use Imdhemy\AppStore\ServerNotifications\V2DecodedPayload;
-use Imdhemy\Purchases\Events\AppStore\EventFactory as AppStoreEventFactory;
 use Imdhemy\Purchases\ServerNotifications\AppStoreV2ServerNotification;
 
 /**
@@ -39,7 +38,7 @@ class AppStoreV2NotificationHandler extends AbstractNotificationHandler
             return;
         }
 
-        $event = AppStoreEventFactory::create($serverNotification);
+        $event = $this->eventFactory->create($serverNotification);
         event($event);
     }
 

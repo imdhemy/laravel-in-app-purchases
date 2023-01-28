@@ -14,13 +14,13 @@ use Imdhemy\Purchases\Tests\TestCase;
 
 class LiapUrlCommandTest extends TestCase
 {
-    public const CHOICES = [
+    private const CHOICES = [
         LiapUrlCommand::PROVIDER_ALL,
         LiapUrlCommand::PROVIDER_APP_STORE,
         LiapUrlCommand::PROVIDER_GOOGLE_PLAY,
     ];
 
-    public const ALL_PROVIDERS = [
+    private const ALL_PROVIDERS = [
         LiapUrlCommand::PROVIDER_APP_STORE,
         LiapUrlCommand::PROVIDER_GOOGLE_PLAY,
     ];

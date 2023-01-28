@@ -14,10 +14,7 @@ use Imdhemy\Purchases\ValueObjects\Time;
 
 class AppStoreServerNotification implements ServerNotificationContract
 {
-    /**
-     * @var ServerNotification
-     */
-    private $notification;
+    private ServerNotification $notification;
 
     /**
      * AppStoreServerNotification constructor.
@@ -90,5 +87,10 @@ class AppStoreServerNotification implements ServerNotificationContract
     public function getAutoRenewProductId(): ?string
     {
         return $this->notification->getAutoRenewProductId();
+    }
+
+    public function getProvider(): string
+    {
+        return self::PROVIDER_APP_STORE;
     }
 }

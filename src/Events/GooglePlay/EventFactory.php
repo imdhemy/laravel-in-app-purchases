@@ -11,8 +11,16 @@ use Imdhemy\Purchases\ServerNotifications\GoogleServerNotification;
 use LogicException;
 use ReflectionClass;
 
+/**
+ * @deprecated Use \Imdhemy\Purchases\Events\EventFactory instead
+ * @see \Imdhemy\Purchases\Events\EventFactory
+ */
 class EventFactory
 {
+    /**
+     * @deprecated Use \Imdhemy\Purchases\Events\EventFactory::create() instead
+     * @see \Imdhemy\Purchases\Events\EventFactory::create()
+     */
     public static function create(GoogleServerNotification $notification): PurchaseEventContract
     {
         $notificationType = (int)$notification->getType();

@@ -14,7 +14,9 @@ use Imdhemy\Purchases\Console\LiapConfigPublishCommand;
 use Imdhemy\Purchases\Console\LiapUrlCommand;
 use Imdhemy\Purchases\Console\RequestTestNotificationCommand;
 use Imdhemy\Purchases\Console\UrlGenerator;
+use Imdhemy\Purchases\Contracts\EventFactory as EventFactoryContract;
 use Imdhemy\Purchases\Contracts\UrlGenerator as UrlGeneratorContract;
+use Imdhemy\Purchases\Events\EventFactory;
 use Imdhemy\Purchases\Handlers\HandlerHelpers;
 use Imdhemy\Purchases\Handlers\HandlerHelpersInterface;
 use Imdhemy\Purchases\Handlers\JwsService;
@@ -112,8 +114,13 @@ class LiapServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(self::CONFIG_PATH, self::CONFIG_KEY);
 
-        $googleCredentials = (string)config(self::CONFIG_KEY.'.google_application_credentials');
+        // Check if it should set GOOGLE_APPLICATION_CREDENTIALS to the configured path
+        $currentGoogleCredPath = getenv('GOOGLE_APPLICATION_CREDENTIALS');
+        if ($currentGoogleCredPath && file_exists($currentGoogleCredPath)) {
+            return;
+        }
 
+        $googleCredentials = (string)config(self::CONFIG_KEY.'.google_application_credentials');
         if (! empty($googleCredentials) && ! is_dir($googleCredentials)) {
             if (! file_exists($googleCredentials)) {
                 throw new RuntimeException("Google Application Credentials file not found at $googleCredentials");
@@ -158,6 +165,7 @@ class LiapServiceProvider extends ServiceProvider
         $this->app->bind(Decoder::class, JoseEncoder::class);
 
         // Bind Handlers
+        $this->app->bind(EventFactoryContract::class, EventFactory::class);
         $this->app->bind(HandlerHelpersInterface::class, HandlerHelpers::class);
         $this->app->bind(JwsServiceInterface::class, JwsService::class);
     }

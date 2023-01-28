@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Factory;
 use Illuminate\Validation\ValidationException;
 use Imdhemy\Purchases\Console\UrlGenerator;
+use Imdhemy\Purchases\Events\EventFactory;
 use Imdhemy\Purchases\Handlers\AbstractNotificationHandler;
 use Imdhemy\Purchases\Handlers\HandlerHelpers;
 use Imdhemy\Purchases\Tests\TestCase;
@@ -29,9 +30,10 @@ class AbstractNotificationHandlerTest extends TestCase
         $request = new Request();
         $validatorFactory = $this->app->make(Factory::class);
         $urlGenerator = $this->app->make(UrlGenerator::class);
+        $eventFactory = new EventFactory();
 
         $stub = $this->getMockBuilder(AbstractNotificationHandler::class)
-            ->setConstructorArgs([new HandlerHelpers($request, $validatorFactory, $urlGenerator)])
+            ->setConstructorArgs([new HandlerHelpers($request, $validatorFactory, $urlGenerator, $eventFactory)])
             ->getMockForAbstractClass();
 
         $stub->execute();
@@ -71,9 +73,10 @@ class AbstractNotificationHandlerTest extends TestCase
 
         $request->attributes->set('signature', 'bar');
         $validatorFactory = $this->app->make(Factory::class);
+        $eventFactory = new EventFactory();
 
         $stub = $this->getMockBuilder(AbstractNotificationHandler::class)
-            ->setConstructorArgs([new HandlerHelpers($request, $validatorFactory, $urlGenerator)])
+            ->setConstructorArgs([new HandlerHelpers($request, $validatorFactory, $urlGenerator, $eventFactory)])
             ->getMockForAbstractClass();
 
         $stub->execute();
