@@ -14,7 +14,9 @@ use Imdhemy\Purchases\Console\LiapConfigPublishCommand;
 use Imdhemy\Purchases\Console\LiapUrlCommand;
 use Imdhemy\Purchases\Console\RequestTestNotificationCommand;
 use Imdhemy\Purchases\Console\UrlGenerator;
+use Imdhemy\Purchases\Contracts\EventFactory as EventFactoryContract;
 use Imdhemy\Purchases\Contracts\UrlGenerator as UrlGeneratorContract;
+use Imdhemy\Purchases\Events\EventFactory;
 use Imdhemy\Purchases\Handlers\HandlerHelpers;
 use Imdhemy\Purchases\Handlers\HandlerHelpersInterface;
 use Imdhemy\Purchases\Handlers\JwsService;
@@ -163,6 +165,7 @@ class LiapServiceProvider extends ServiceProvider
         $this->app->bind(Decoder::class, JoseEncoder::class);
 
         // Bind Handlers
+        $this->app->bind(EventFactoryContract::class, EventFactory::class);
         $this->app->bind(HandlerHelpersInterface::class, HandlerHelpers::class);
         $this->app->bind(JwsServiceInterface::class, JwsService::class);
     }

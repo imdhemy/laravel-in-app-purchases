@@ -8,22 +8,23 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Imdhemy\Purchases\Contracts\EventFactory;
 use Imdhemy\Purchases\Contracts\NotificationHandlerContract;
 use Imdhemy\Purchases\Contracts\UrlGenerator;
 
 abstract class AbstractNotificationHandler implements NotificationHandlerContract
 {
     protected Request $request;
-
     protected Factory $validator;
-
-    private UrlGenerator $urlGenerator;
+    protected UrlGenerator $urlGenerator;
+    protected EventFactory $eventFactory;
 
     public function __construct(HandlerHelpersInterface $helpers)
     {
         $this->request = $helpers->getRequest();
         $this->validator = $helpers->getValidator();
         $this->urlGenerator = $helpers->getUrlGenerator();
+        $this->eventFactory = $helpers->getEventFactory();
     }
 
     /**
