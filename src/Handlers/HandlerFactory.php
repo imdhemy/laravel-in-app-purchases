@@ -27,9 +27,13 @@ class HandlerFactory
         $this->request = $request;
     }
 
+    /**
+     * @psalm-suppress MixedInferredReturnType - Laravel's make() method returns mixed
+     * @psalm-suppress MixedReturnStatement - We are returning a NotificationHandlerContract
+     */
     public function create(): NotificationHandlerContract
     {
-        $provider = $this->request->get('provider');
+        $provider = (string)$this->request->get('provider');
 
         if ('app-store' === $provider && $this->request->has('signedPayload')) {
             $provider = 'app-store-v2';
