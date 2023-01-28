@@ -37,7 +37,7 @@ class JwsService implements JwsServiceInterface
     private function jws(): JsonWebSignature
     {
         if (is_null($this->jws)) {
-            $this->jws = $this->jwsParser->parse($this->request->get('signedPayload'));
+            $this->jws = $this->jwsParser->parse((string)$this->request->get('signedPayload'));
         }
 
         return $this->jws;
