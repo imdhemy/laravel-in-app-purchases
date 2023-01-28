@@ -14,5 +14,5 @@ interface NotificationHandlerContract
     /**
      * Executes the handler.
      */
-    public function execute(): void;
+    public function execute();
 }
