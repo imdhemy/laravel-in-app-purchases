@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.6.3 - 2023-01-28
+
+### Added
+
+- [1.x] Get provider from server notification by @imdhemy in https://github.com/imdhemy/laravel-in-app-purchases/pull/267
+
+### Fixed
+
+- [1.x] Stop setting Credentials path twice by @imdhemy in https://github.com/imdhemy/laravel-in-app-purchases/pull/270
+
+### What's Changed
+
+- [1.x] change coding style by @imdhemy in https://github.com/imdhemy/laravel-in-app-purchases/pull/263
+- [1.x] Fix psalm errors by @imdhemy in https://github.com/imdhemy/laravel-in-app-purchases/pull/264
+- [1.x] Improve console tests by @imdhemy in https://github.com/imdhemy/laravel-in-app-purchases/pull/265
+
+**Full Changelog**: https://github.com/imdhemy/laravel-in-app-purchases/compare/1.6.2...1.6.3
+
 ## 1.6.2 - 2023-01-24
 
 ### What's Changed
