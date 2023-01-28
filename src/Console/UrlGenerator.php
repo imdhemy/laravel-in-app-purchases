@@ -57,7 +57,7 @@ class UrlGenerator implements UrlGeneratorContract
             ->join('&');
 
         $original = rtrim($url.'?'.$queryString, '?');
-        $signature = hash_hmac('sha256', $original, config('app.key'));
+        $signature = hash_hmac('sha256', $original, (string)config('app.key'));
 
         /** @var string $signatureQuery */
         $signatureQuery = $request->query('signature', '');
