@@ -76,7 +76,7 @@ class LiapServiceProvider extends ServiceProvider
      */
     private function routeConfig(): array
     {
-        return config(self::CONFIG_KEY.'.routing');
+        return (array)config(self::CONFIG_KEY.'.routing');
     }
 
     /**
