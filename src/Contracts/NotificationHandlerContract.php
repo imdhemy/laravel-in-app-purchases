@@ -13,6 +13,7 @@ interface NotificationHandlerContract
 {
     /**
      * Executes the handler.
+     *
      * @psalm-suppress MissingReturnType - @todo add return type
      */
     public function execute();

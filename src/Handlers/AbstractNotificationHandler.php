@@ -32,6 +32,7 @@ abstract class AbstractNotificationHandler implements NotificationHandlerContrac
      *
      * @throws ValidationException
      * @throws AuthorizationException
+     *
      * @psalm-suppress MissingReturnType - @todo: fix missing return type
      */
     public function execute()
