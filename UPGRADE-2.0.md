@@ -12,3 +12,7 @@ In case you are overriding the default handlers, you should update the event fac
       Use `Imdhemy\Purchases\Events\EventFactory` instead.
     * The `Imdhemy\Purchases\Events\GooglePlay\EventFactory` class has been removed.
       Use `Imdhemy\Purchases\Events\EventFactory` instead.
+
+### Validation Rules
+
+The rule class `\Imdhemy\Purchases\Http\Rules\ValidReceipt` has been removed.
