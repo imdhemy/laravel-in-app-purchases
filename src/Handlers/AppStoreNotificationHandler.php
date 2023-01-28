@@ -17,9 +17,9 @@ use Imdhemy\Purchases\ServerNotifications\AppStoreServerNotification;
 class AppStoreNotificationHandler extends AbstractNotificationHandler
 {
     /**
-     * {@inheritDoc}
+     * @psalm-suppress MissingReturnType - @todo: fix missing return type
      */
-    protected function handle(): void
+    protected function handle()
     {
         $attributes = $this->request->all();
         $serverNotification = ServerNotification::fromArray($attributes);
