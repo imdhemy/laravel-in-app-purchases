@@ -26,7 +26,7 @@ class AppStoreV2NotificationHandler extends AbstractNotificationHandler
     /**
      * @psalm-suppress MissingReturnType - @todo: fix missing return type
      */
-    protected function handle()
+    protected function handle(): void
     {
         $decodedPayload = V2DecodedPayload::fromJws($this->jwsService->parse());
         $serverNotification = AppStoreV2ServerNotification::fromDecodedPayload($decodedPayload);
