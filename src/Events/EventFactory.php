@@ -35,7 +35,7 @@ class EventFactory implements EventFactoryContract
         if (ServerNotification::PROVIDER_GOOGLE_PLAY === $provider) {
             $notificationType = (int)$notification->getType();
             $types = (new ReflectionClass(SubscriptionNotification::class))->getConstants();
-            $type = array_search($notificationType, $types, true);
+            $type = (string)array_search($notificationType, $types, true);
         }
 
         $className = (string)Str::of($type)
@@ -43,13 +43,11 @@ class EventFactory implements EventFactoryContract
             ->studly()
             ->prepend(self::NAMESPACES[$provider].'\\');
         assert(class_exists($className), new LogicException("Class $className does not exist"));
-
-        $event = new $className($notification);
         assert(
-            $event instanceof PurchaseEvent,
-            new LogicException("Class $className is not an instance of PurchaseEvent")
+            is_subclass_of($className, PurchaseEvent::class),
+            new LogicException("Class $className is not a subclass of PurchaseEvent")
         );
 
-        return $event;
+        return new $className($notification);
     }
 }

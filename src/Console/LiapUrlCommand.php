@@ -63,7 +63,7 @@ class LiapUrlCommand extends Command
     /**
      * Get selected providers.
      *
-     * @return string[]
+     * @return string[] List of selected providers
      */
     protected function getProviders(): array
     {
@@ -84,7 +84,7 @@ class LiapUrlCommand extends Command
     /**
      * Generates signed URLs for the submitted providers.
      *
-     * @param string[] $providers
+     * @param string[] $providers List of providers
      */
     private function generateSignedUrls(array $providers): void
     {
@@ -98,7 +98,7 @@ class LiapUrlCommand extends Command
     /**
      * Generates unsigned URLs for the submitted providers.
      *
-     * @param string[] $providers
+     * @param string[] $providers List of providers
      */
     private function generateUnsignedUrls(array $providers): void
     {

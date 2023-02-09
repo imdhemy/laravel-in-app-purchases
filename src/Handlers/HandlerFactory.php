@@ -27,6 +27,10 @@ class HandlerFactory
         $this->request = $request;
     }
 
+    /**
+     * @psalm-suppress MixedInferredReturnType - Laravel's make() method returns mixed
+     * @psalm-suppress MixedReturnStatement - We are returning a NotificationHandlerContract
+     */
     public function create(): NotificationHandlerContract
     {
         $provider = (string)$this->request->get('provider');

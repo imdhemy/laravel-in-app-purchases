@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.7.0 - 2023-01-28
+
+### What's Changed
+
+- [1.x] Single event factory by @imdhemy in https://github.com/imdhemy/laravel-in-app-purchases/pull/268
+- chore(deps-dev): bump friendsofphp/php-cs-fixer from 3.13.2 to 3.14.1 by @dependabot in https://github.com/imdhemy/laravel-in-app-purchases/pull/275
+- [1.x] Fix psalm errors 🔬🕵️ by @imdhemy in https://github.com/imdhemy/laravel-in-app-purchases/pull/271
+
+**Full Changelog**: https://github.com/imdhemy/laravel-in-app-purchases/compare/1.6.3...1.6.4
+
 ## 1.6.3 - 2023-01-28
 
 ### Added
