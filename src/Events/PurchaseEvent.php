@@ -36,25 +36,16 @@ abstract class PurchaseEvent implements PurchaseEventContract
         return $this->serverNotification;
     }
 
-    /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
     public function getSubscription(?Client $client = null): SubscriptionContract
     {
         return $this->serverNotification->getSubscription($client);
     }
 
-    /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
     public function getSubscriptionId(): string
     {
         return $this->getSubscription()->getItemId();
     }
 
-    /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
     public function getSubscriptionIdentifier(): string
     {
         return $this->getSubscription()->getUniqueIdentifier();
