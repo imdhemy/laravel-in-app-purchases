@@ -4,62 +4,54 @@ declare(strict_types=1);
 
 namespace Imdhemy\Purchases\Tests\Events;
 
-use GuzzleHttp\Exception\GuzzleException;
-use GuzzleHttp\Psr7\Response;
-use Imdhemy\GooglePlay\ClientFactory;
-use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
-use Imdhemy\Purchases\Events\GooglePlay\SubscriptionRenewed;
+use Imdhemy\Purchases\Contracts\ServerNotificationContract;
+use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\Events\PurchaseEvent;
-use Imdhemy\Purchases\ServerNotifications\GoogleServerNotification;
 use Imdhemy\Purchases\Tests\TestCase;
 
 class PurchaseEventTest extends TestCase
 {
-    /**
-     * @var PurchaseEvent
-     */
-    private $event;
-
-    /**
-     * @var GoogleServerNotification
-     */
-    private $googleServerNotification;
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function setUp(): void
+    /** @test */
+    public function get_server_notification(): void
     {
-        parent::setUp();
-        $data = 'eyJ2ZXJzaW9uIjoiMS4wIiwicGFja2FnZU5hbWUiOiJjb20udHdpZ2Fuby5mYXNoaW9uIiwiZXZlbnRUaW1lTWlsbGlzIjoiMTYwMzMwMDgwNzM2MSIsInN1YnNjcmlwdGlvbk5vdGlmaWNhdGlvbiI6eyJ2ZXJzaW9uIjoiMS4wIiwibm90aWZpY2F0aW9uVHlwZSI6NCwicHVyY2hhc2VUb2tlbiI6ImFuZWZjcG1jamZib2RqbGNqZWVhY2piaC5BTy1KMU95NkxWQ2lJSkJBWUY4WVJCZklsaGZiSjlWTUJUamUybHo1bk1vSUV1SEdpMmdLVHczQXlZWEN4enhueGxKbWNOb0NEZlo2VnhFR05EQ0lLS1ZuVXZqUFZRODBPZyIsInN1YnNjcmlwdGlvbklkIjoid2Vla19wcmVtaXVtIn19';
-        $developerNotification = DeveloperNotification::parse($data);
-        $this->googleServerNotification = new GoogleServerNotification($developerNotification);
-        $this->event = new SubscriptionRenewed($this->googleServerNotification);
+        $serverNotification = $this->mock(ServerNotificationContract::class);
+        $sut = $this->getMockForAbstractClass(PurchaseEvent::class, [$serverNotification]);
+
+        $this->assertSame($serverNotification, $sut->getServerNotification());
     }
 
-    /**
-     * @test
-     */
-    public function test_it_can_get_server_notification()
+    /** @test */
+    public function get_subscription(): void
     {
-        $this->assertSame(
-            $this->googleServerNotification,
-            $this->event->getServerNotification()
-        );
+        $subscription = $this->mock(SubscriptionContract::class);
+        $serverNotification = $this->mock(ServerNotificationContract::class);
+        $serverNotification->shouldReceive('getSubscription')->andReturn($subscription);
+        $sut = $this->getMockForAbstractClass(PurchaseEvent::class, [$serverNotification]);
+
+        $this->assertSame($subscription, $sut->getSubscription());
     }
 
-    /**
-     * @test
-     *
-     * @throws GuzzleException
-     */
-    public function test_it_can_get_subscription()
+    /** @test */
+    public function get_subscription_id(): void
     {
-        $client = ClientFactory::mock(new Response(200, [], '[]'));
+        $subscription = $this->mock(SubscriptionContract::class);
+        $subscription->shouldReceive('getItemId')->andReturn('com.example.subscription');
+        $serverNotification = $this->mock(ServerNotificationContract::class);
+        $serverNotification->shouldReceive('getSubscription')->andReturn($subscription);
+        $sut = $this->getMockForAbstractClass(PurchaseEvent::class, [$serverNotification]);
 
-        $this->assertEquals(
-            $this->googleServerNotification->getSubscription($client),
-            $this->event->getSubscription($client)
-        );
+        $this->assertSame('com.example.subscription', $sut->getSubscriptionId());
+    }
+
+    /** @test */
+    public function get_subscription_identifier(): void
+    {
+        $subscription = $this->mock(SubscriptionContract::class);
+        $subscription->shouldReceive('getUniqueIdentifier')->andReturn('com.example.subscription.123456');
+        $serverNotification = $this->mock(ServerNotificationContract::class);
+        $serverNotification->shouldReceive('getSubscription')->andReturn($subscription);
+        $sut = $this->getMockForAbstractClass(PurchaseEvent::class, [$serverNotification]);
+
+        $this->assertSame('com.example.subscription.123456', $sut->getSubscriptionIdentifier());
     }
 }
