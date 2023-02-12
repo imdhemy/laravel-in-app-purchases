@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Imdhemy\Purchases\Contracts;
 
-use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 
 /**
  * Interface ServerNotificationContract.
@@ -22,7 +22,7 @@ interface ServerNotificationContract
     /**
      * Gets the subscription associated with the notification.
      */
-    public function getSubscription(?Client $client = null): SubscriptionContract;
+    public function getSubscription(?ClientInterface $client = null): SubscriptionContract;
 
     /**
      * Returns true if the notification is a test notification.

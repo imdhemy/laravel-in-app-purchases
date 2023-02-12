@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Imdhemy\Purchases\Events\GooglePlay;
 
 use Imdhemy\Purchases\Events\PurchaseEvent;
+use Imdhemy\Purchases\ServerNotifications\GoogleServerNotification;
 
 /**
- * Class SubscriptionPurchased.
+ * @method GoogleServerNotification getServerNotification()
  */
 class SubscriptionPurchased extends PurchaseEvent
 {

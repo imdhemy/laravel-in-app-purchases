@@ -4,24 +4,19 @@ declare(strict_types=1);
 
 namespace Imdhemy\Purchases\Events;
 
-use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Imdhemy\Purchases\Contracts\PurchaseEventContract;
 use Imdhemy\Purchases\Contracts\ServerNotificationContract;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
-use Imdhemy\Purchases\ServerNotifications\AppStoreServerNotification;
-use Imdhemy\Purchases\ServerNotifications\GoogleServerNotification;
 
 abstract class PurchaseEvent implements PurchaseEventContract
 {
     use Dispatchable;
     use SerializesModels;
 
-    /**
-     * @var ServerNotificationContract|AppStoreServerNotification|GoogleServerNotification
-     */
-    protected $serverNotification;
+    protected ServerNotificationContract $serverNotification;
 
     /**
      * SubscriptionPurchased constructor.
@@ -36,7 +31,7 @@ abstract class PurchaseEvent implements PurchaseEventContract
         return $this->serverNotification;
     }
 
-    public function getSubscription(?Client $client = null): SubscriptionContract
+    public function getSubscription(?ClientInterface $client = null): SubscriptionContract
     {
         return $this->serverNotification->getSubscription($client);
     }
