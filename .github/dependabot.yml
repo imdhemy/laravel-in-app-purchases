@@ -6,4 +6,9 @@ updates:
     package-ecosystem: composer
     schedule:
       interval: weekly
+      day: monday
+      time: "00:00"
+      timezone: Europe/Berlin
     versioning-strategy: increase
+    reviewers:
+      - "imdhemy"
