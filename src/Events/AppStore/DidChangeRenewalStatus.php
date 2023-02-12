@@ -11,6 +11,9 @@ use Imdhemy\Purchases\ServerNotifications\AppStoreServerNotification;
 use Imdhemy\Purchases\ServerNotifications\AppStoreV2ServerNotification;
 use Imdhemy\Purchases\ValueObjects\Time;
 
+/**
+ * @method AppStoreServerNotification|AppStoreV2ServerNotification getServerNotification()
+ */
 class DidChangeRenewalStatus extends PurchaseEvent
 {
     public function isAutoRenewal(): bool
