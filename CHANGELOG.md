@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.7.1 - 2023-02-12
+
+### What's Changed
+
+- chore(deps): bump phpunit/phpunit from 9.5.28 to 9.6.3 by @dependabot in https://github.com/imdhemy/laravel-in-app-purchases/pull/280
+- [1.x] Improve purchase event tests by @imdhemy in https://github.com/imdhemy/laravel-in-app-purchases/pull/282
+- [1.x] Improve purchase event by @imdhemy in https://github.com/imdhemy/laravel-in-app-purchases/pull/283
+- Improve workflows by @imdhemy in https://github.com/imdhemy/laravel-in-app-purchases/pull/284
+- chore(deps): bump nesbot/carbon from 2.65.0 to 2.66.0 by @dependabot in https://github.com/imdhemy/laravel-in-app-purchases/pull/286
+- Update composer.lock by @imdhemy in https://github.com/imdhemy/laravel-in-app-purchases/pull/290
+
+**Full Changelog**: https://github.com/imdhemy/laravel-in-app-purchases/compare/1.7.0...1.7.1
+
 ## 1.7.0 - 2023-01-28
 
 ### What's Changed
