@@ -27,7 +27,7 @@
   "require-dev": {
     "roave/security-advisories": "dev-latest",
     "friendsofphp/php-cs-fixer": "^3.14",
-    "orchestra/testbench": "^6.24",
+    "orchestra/testbench": "^6.27",
     "psalm/plugin-laravel": "^1.5",
     "vimeo/psalm": "^4.30"
   },
