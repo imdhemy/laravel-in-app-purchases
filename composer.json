@@ -17,11 +17,11 @@
     }
   ],
   "require": {
-    "php": ">=7.4",
+    "php": ">=8.0",
     "ext-json": "*",
     "ext-openssl": "*",
-    "imdhemy/appstore-iap": "^1.5",
-    "imdhemy/google-play-billing": "^1.2",
+    "imdhemy/appstore-iap": "^1.6",
+    "imdhemy/google-play-billing": "^1.4",
     "laravel/framework": ">=8.0"
   },
   "require-dev": {
@@ -63,7 +63,7 @@
     "sort-packages": true,
     "allow-plugins": {},
     "platform": {
-      "php": "7.4"
+      "php": "8.0"
     }
   }
 }
