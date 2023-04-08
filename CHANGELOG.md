@@ -6,6 +6,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.8.0 - 2023-04-08
+
+### What's Changed
+
+- [1.x] Drop php74 by @imdhemy in https://github.com/imdhemy/laravel-in-app-purchases/pull/321
+
+
+---
+
+- chore(deps): bump guzzlehttp/psr7 from 2.4.3 to 2.4.4 by @dependabot in https://github.com/imdhemy/laravel-in-app-purchases/pull/301
+- chore(deps): bump symfony/event-dispatcher from 5.4.19 to 5.4.21 by @dependabot in https://github.com/imdhemy/laravel-in-app-purchases/pull/302
+- chore(deps): bump phpunit/phpunit from 9.6.4 to 9.6.5 by @dependabot in https://github.com/imdhemy/laravel-in-app-purchases/pull/303
+- chore(deps): bump myclabs/deep-copy from 1.11.0 to 1.11.1 by @dependabot in https://github.com/imdhemy/laravel-in-app-purchases/pull/304
+- chore(deps): bump symfony/translation from 5.4.19 to 5.4.21 by @dependabot in https://github.com/imdhemy/laravel-in-app-purchases/pull/305
+- chore(deps): bump symfony/filesystem from 5.4.19 to 5.4.21 by @dependabot in https://github.com/imdhemy/laravel-in-app-purchases/pull/306
+- chore(deps): bump phpdocumentor/type-resolver from 1.6.2 to 1.7.0 by @dependabot in https://github.com/imdhemy/laravel-in-app-purchases/pull/307
+- chore(deps): bump symfony/stopwatch from 5.4.19 to 5.4.21 by @dependabot in https://github.com/imdhemy/laravel-in-app-purchases/pull/308
+- chore(deps): bump league/commonmark from 2.3.9 to 2.4.0 by @dependabot in https://github.com/imdhemy/laravel-in-app-purchases/pull/309
+
+**Full Changelog**: https://github.com/imdhemy/laravel-in-app-purchases/compare/1.7.2...1.8.0
+
 ## 1.7.2 - 2023-03-06
 
 ### What's Changed
