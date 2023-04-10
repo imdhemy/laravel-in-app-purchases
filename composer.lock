@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dbca857b752e2d77c399c4721307064d",
+    "content-hash": "f2a9f689aa8ada5fce58ace753016fe7",
     "packages": [
         {
             "name": "brick/math",
@@ -7172,16 +7172,16 @@
         },
         {
             "name": "netresearch/jsonmapper",
-            "version": "v4.1.0",
+            "version": "v4.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cweiske/jsonmapper.git",
-                "reference": "cfa81ea1d35294d64adb9c68aa4cb9e92400e53f"
+                "reference": "f60565f8c0566a31acf06884cdaa591867ecc956"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cweiske/jsonmapper/zipball/cfa81ea1d35294d64adb9c68aa4cb9e92400e53f",
-                "reference": "cfa81ea1d35294d64adb9c68aa4cb9e92400e53f",
+                "url": "https://api.github.com/repos/cweiske/jsonmapper/zipball/f60565f8c0566a31acf06884cdaa591867ecc956",
+                "reference": "f60565f8c0566a31acf06884cdaa591867ecc956",
                 "shasum": ""
             },
             "require": {
@@ -7217,9 +7217,9 @@
             "support": {
                 "email": "cweiske@cweiske.de",
                 "issues": "https://github.com/cweiske/jsonmapper/issues",
-                "source": "https://github.com/cweiske/jsonmapper/tree/v4.1.0"
+                "source": "https://github.com/cweiske/jsonmapper/tree/v4.2.0"
             },
-            "time": "2022-12-08T20:46:14+00:00"
+            "time": "2023-04-09T17:37:40+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -8265,41 +8265,45 @@
         },
         {
             "name": "psalm/plugin-laravel",
-            "version": "v1.6.2",
+            "version": "v2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/psalm/psalm-plugin-laravel.git",
-                "reference": "8c46a820d4de59ae601a9fcf5534df6bb03e619a"
+                "reference": "681b22cea74ac4ba06acd47f5db79daf5351dc08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/psalm/psalm-plugin-laravel/zipball/8c46a820d4de59ae601a9fcf5534df6bb03e619a",
-                "reference": "8c46a820d4de59ae601a9fcf5534df6bb03e619a",
+                "url": "https://api.github.com/repos/psalm/psalm-plugin-laravel/zipball/681b22cea74ac4ba06acd47f5db79daf5351dc08",
+                "reference": "681b22cea74ac4ba06acd47f5db79daf5351dc08",
                 "shasum": ""
             },
             "require": {
-                "barryvdh/laravel-ide-helper": ">=2.8.0",
+                "barryvdh/laravel-ide-helper": "^2.10",
                 "ext-simplexml": "*",
-                "illuminate/config": "^6.0 || ^8.0",
-                "illuminate/container": "^6.0 || ^8.0",
-                "illuminate/contracts": "^6.0 || ^8.0",
-                "illuminate/database": "^6.0 || ^8.0",
-                "illuminate/events": "^6.0 || ^8.0",
-                "illuminate/http": "^6.0 || ^8.0",
-                "illuminate/routing": "^6.0 || ^8.0",
-                "illuminate/support": "^6.0 || ^8.0",
-                "illuminate/view": "^6.0 || ^8.0",
-                "orchestra/testbench": "^3.8 || ^4.0 || ^5.0 || ^6.22 || ^7.0",
-                "php": "^7.3|^8.0",
-                "vimeo/psalm": "^4.8.1"
+                "illuminate/config": "^8.0 || ^9.0",
+                "illuminate/container": "^8.0 || ^9.0",
+                "illuminate/contracts": "^8.0 || ^9.0",
+                "illuminate/database": "^8.0 || ^9.0",
+                "illuminate/events": "^8.0 || ^9.0",
+                "illuminate/http": "^8.0 || ^9.0",
+                "illuminate/routing": "^8.0 || ^9.0",
+                "illuminate/support": "^8.0 || ^9.0",
+                "illuminate/view": "^8.0 || ^9.0",
+                "orchestra/testbench": "^6.22 || ^7.0",
+                "php": "^8.0",
+                "vimeo/psalm": "^4.8.1|^5"
             },
             "require-dev": {
-                "codeception/codeception": "^4.1.6",
-                "codeception/module-asserts": "^1.0.0",
-                "codeception/module-phpbrowser": "^1.0.0",
+                "codeception/codeception": "^5.0",
+                "codeception/module-asserts": "*@dev",
+                "codeception/module-cli": "^2.0",
+                "codeception/module-filesystem": "^3.0",
+                "codeception/module-phpbrowser": "*@dev",
+                "phpoption/phpoption": "^1.8.0",
+                "ramsey/collection": "^1.2.0",
                 "slevomat/coding-standard": "^6.2",
                 "squizlabs/php_codesniffer": "*",
-                "weirdan/codeception-psalm-module": "^0.13.1"
+                "symfony/http-foundation": "^5.3.7 || ^6.0"
             },
             "type": "psalm-plugin",
             "extra": {
@@ -8326,9 +8330,9 @@
             "homepage": "https://github.com/psalm/psalm-plugin-laravel",
             "support": {
                 "issues": "https://github.com/psalm/psalm-plugin-laravel/issues",
-                "source": "https://github.com/psalm/psalm-plugin-laravel/tree/v1.6.2"
+                "source": "https://github.com/psalm/psalm-plugin-laravel/tree/v2.0.2"
             },
-            "time": "2022-06-22T15:30:59+00:00"
+            "time": "2022-12-01T20:24:04+00:00"
         },
         {
             "name": "roave/security-advisories",
