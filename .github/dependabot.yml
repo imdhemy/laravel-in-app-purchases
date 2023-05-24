@@ -1,14 +1,13 @@
 version: 2
 updates:
-  - allow:
-      - dependency-type: all
-    directory: /
-    package-ecosystem: composer
+  - package-ecosystem: "composer"
+    directory: "/"
     schedule:
-      interval: weekly
-      day: monday
-      time: "00:00"
-      timezone: Europe/Berlin
-    versioning-strategy: increase
+      interval: "monthly"
+    allow:
+      - dependency-type: "direct"
+    labels:
+      - "🧱 Dependencies"
     reviewers:
       - "imdhemy"
+    versioning-strategy: auto
