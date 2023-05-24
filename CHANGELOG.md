@@ -6,6 +6,31 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.8.1 - 2023-05-24
+
+> **Note** No big changes, just bumping dependencies.
+
+### What's Changed
+
+- chore(deps-dev): bump psalm/plugin-laravel from 1.6.2 to 2.0.2 by @dependabot in https://github.com/imdhemy/laravel-in-app-purchases/pull/322
+- chore(deps): bump phpunit/phpunit from 9.6.6 to 9.6.7 by @dependabot in https://github.com/imdhemy/laravel-in-app-purchases/pull/324
+- chore(deps): bump orchestra/testbench-core from 6.31.1 to 6.31.2 by @dependabot in https://github.com/imdhemy/laravel-in-app-purchases/pull/325
+- chore(deps): bump psr/http-client from 1.0.1 to 1.0.2 by @dependabot in https://github.com/imdhemy/laravel-in-app-purchases/pull/326
+- chore(deps): bump ramsey/uuid from 4.7.3 to 4.7.4 by @dependabot in https://github.com/imdhemy/laravel-in-app-purchases/pull/327
+- chore(deps): bump guzzlehttp/psr7 from 2.4.4 to 2.5.0 by @dependabot in https://github.com/imdhemy/laravel-in-app-purchases/pull/329
+- chore(deps-dev): bump vimeo/psalm from 4.30.0 to 5.11.0 by @dependabot in https://github.com/imdhemy/laravel-in-app-purchases/pull/334
+- chore(deps): bump symfony/process from 5.4.22 to 5.4.23 by @dependabot in https://github.com/imdhemy/laravel-in-app-purchases/pull/335
+- chore(deps): bump guzzlehttp/guzzle from 7.5.0 to 7.6.0 by @dependabot in https://github.com/imdhemy/laravel-in-app-purchases/pull/336
+- chore(deps): bump phpunit/phpunit from 9.6.7 to 9.6.8 by @dependabot in https://github.com/imdhemy/laravel-in-app-purchases/pull/337
+- chore(deps): bump symfony/var-dumper from 5.4.22 to 5.4.23 by @dependabot in https://github.com/imdhemy/laravel-in-app-purchases/pull/338
+- chore(deps): bump guzzlehttp/guzzle from 7.6.0 to 7.7.0 by @dependabot in https://github.com/imdhemy/laravel-in-app-purchases/pull/340
+- chore(deps): bump fakerphp/faker from 1.21.0 to 1.22.0 by @dependabot in https://github.com/imdhemy/laravel-in-app-purchases/pull/341
+- chore(deps): bump phpstan/phpdoc-parser from 1.20.4 to 1.21.0 by @dependabot in https://github.com/imdhemy/laravel-in-app-purchases/pull/342
+- [deps] Update dependabot config by @imdhemy in https://github.com/imdhemy/laravel-in-app-purchases/pull/345
+- chore(deps-dev): bump vimeo/psalm from 5.11.0 to 5.12.0 by @dependabot in https://github.com/imdhemy/laravel-in-app-purchases/pull/346
+
+**Full Changelog**: https://github.com/imdhemy/laravel-in-app-purchases/compare/1.8.0...1.8.1
+
 ## 1.8.0 - 2023-04-08
 
 ### What's Changed
