@@ -1,17 +1,15 @@
 <?php
+declare(strict_types=1);
 
-use PhpCsFixer\Config;
-use PhpCsFixer\Finder;
+$finder = PhpCsFixer\Finder::create()
+    ->in(__DIR__)
+    ->exclude('vendor');
 
-$includedPatterns = [
-  __DIR__ . '/src',
-  __DIR__ . '/tests',
-];
-
-$rules = [
+$ruleSet = [
     '@Symfony' => true,
     // > PHPUnit
     'php_unit_method_casing' => ['case' => 'snake_case'],
+    'php_unit_test_annotation' => ['style' => 'annotation'],
     // > Strict
     'declare_strict_types' => true,
     // > Operator
@@ -26,15 +24,8 @@ $rules = [
     ],
 ];
 
-$finder = Finder::create()
-  ->in($includedPatterns)
-  ->name('*.php')
-  ->notName('.*.blade.php')
-  ->ignoreDotFiles(true)
-  ->ignoreVCS(true);
+$config = new PhpCsFixer\Config();
 
-$config = new Config();
-$config->setRules($rules);
-$config->setFinder($finder);
+$config->setFinder($finder)->setRules($ruleSet)->setRiskyAllowed(true);
 
 return $config;

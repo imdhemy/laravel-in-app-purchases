@@ -39,15 +39,11 @@ class HandlerFactory
             $provider = 'app-store-v2';
         }
 
-        switch ($provider) {
-            case 'google-play':
-                return $this->application->make(GooglePlayNotificationHandler::class);
-            case 'app-store':
-                return $this->application->make(AppStoreNotificationHandler::class);
-            case 'app-store-v2':
-                return $this->application->make(AppStoreV2NotificationHandler::class);
-            default:
-                throw new RuntimeException(sprintf('Invalid provider: {%s}', $provider));
-        }
+        return match ($provider) {
+            'google-play' => $this->application->make(GooglePlayNotificationHandler::class),
+            'app-store' => $this->application->make(AppStoreNotificationHandler::class),
+            'app-store-v2' => $this->application->make(AppStoreV2NotificationHandler::class),
+            default => throw new RuntimeException(sprintf('Invalid provider: {%s}', $provider)),
+        };
     }
 }
