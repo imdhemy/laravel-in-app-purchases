@@ -65,4 +65,4 @@ jobs:
         run: "composer psalm"
 
       - name: "Cs Fixer"
-        run: "composer check-style"
+        run: "composer cs-check"
