@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Imdhemy\Purchases\Tests\Facades;
 
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Imdhemy\AppStore\Exceptions\InvalidReceiptException;
 use Imdhemy\AppStore\Receipts\ReceiptResponse;
 use Imdhemy\GooglePlay\ClientFactory;
+use Imdhemy\GooglePlay\Products\ProductClient;
 use Imdhemy\GooglePlay\Products\ProductPurchase;
 use Imdhemy\GooglePlay\ValueObjects\EmptyResponse;
 use Imdhemy\Purchases\Facades\Product;
@@ -78,5 +80,21 @@ class ProductTest extends TestCase
         $receiptResponse = Product::appStore($client)->receiptData($receiptData)->password($password)->verifyReceipt();
         $this->assertInstanceOf(ReceiptResponse::class, $receiptResponse);
         $this->assertEquals($status, $receiptResponse->getStatus()->getValue());
+    }
+
+    /** @test */
+    public function facade_can_consume_google_play_product(): void
+    {
+        $history = [];
+        $response = new Response(200, [], '[]');
+        $client = ClientFactory::mock($response, $history);
+
+        Product::googlePlay($client)->id($this->itemId)->token($this->token)->consume();
+
+        $this->assertCount(1, $history);
+        /** @var Request $request */
+        $request = $history[0]['request'];
+        $expectedUri = sprintf(ProductClient::URI_CONSUME, 'com.some.thing', $this->itemId, $this->token);
+        $this->assertEquals($expectedUri, $request->getUri()->__toString());
     }
 }
