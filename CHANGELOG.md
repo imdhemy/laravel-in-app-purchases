@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.9.0 - 2023-09-19
+
+### Added
+
+- [google-play] support product consume by @lolitototo in https://github.com/imdhemy/laravel-in-app-purchases/pull/362
+
+### What's Changed
+
+- chore(deps): bump imdhemy/google-play-billing from 1.4.1 to 1.4.2 by @dependabot in https://github.com/imdhemy/laravel-in-app-purchases/pull/353
+- chore(deps-dev): bump vimeo/psalm from 5.13.1 to 5.14.1 by @dependabot in https://github.com/imdhemy/laravel-in-app-purchases/pull/354
+- [CI] Update coding style by @imdhemy in https://github.com/imdhemy/laravel-in-app-purchases/pull/357
+
+### New Contributors
+
+- @lolitototo made their first contribution in https://github.com/imdhemy/laravel-in-app-purchases/pull/362
+
+**Full Changelog**: https://github.com/imdhemy/laravel-in-app-purchases/compare/1.8.2...1.9.0
+
 ## 1.8.2 - 2023-07-04
 
 ### What's Changed
