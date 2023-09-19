@@ -97,6 +97,14 @@ class Product
     }
 
     /**
+     * @throws GuzzleException
+     */
+    public function consume(): EmptyResponse
+    {
+        return $this->createProduct()->consume();
+    }
+
+    /**
      * @throws GuzzleException|InvalidReceiptException
      */
     public function verifyReceipt(): ReceiptResponse

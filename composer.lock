@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fe1abfc817463eb99c7c21362e895306",
+    "content-hash": "8733cc5c2a607e8391b8a821bce0cbcb",
     "packages": [
         {
             "name": "brick/math",
@@ -995,16 +995,16 @@
         },
         {
             "name": "imdhemy/google-play-billing",
-            "version": "1.4.2",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/imdhemy/google-play-billing.git",
-                "reference": "d318db28efafb56ac8954c9f651fbe6ac367d637"
+                "reference": "a227174a71bc5d7b3e5f9aa4fcad2c4a9a11a8a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/imdhemy/google-play-billing/zipball/d318db28efafb56ac8954c9f651fbe6ac367d637",
-                "reference": "d318db28efafb56ac8954c9f651fbe6ac367d637",
+                "url": "https://api.github.com/repos/imdhemy/google-play-billing/zipball/a227174a71bc5d7b3e5f9aa4fcad2c4a9a11a8a4",
+                "reference": "a227174a71bc5d7b3e5f9aa4fcad2c4a9a11a8a4",
                 "shasum": ""
             },
             "require": {
@@ -1040,9 +1040,9 @@
             "description": "Google Play Billing",
             "support": {
                 "issues": "https://github.com/imdhemy/google-play-billing/issues",
-                "source": "https://github.com/imdhemy/google-play-billing/tree/1.4.2"
+                "source": "https://github.com/imdhemy/google-play-billing/tree/1.5.0"
             },
-            "time": "2023-07-04T16:00:39+00:00"
+            "time": "2023-09-17T12:33:33+00:00"
         },
         {
             "name": "laravel/framework",
