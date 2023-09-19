@@ -99,9 +99,6 @@ class Product
     /**
      * @throws GuzzleException
      */
-    /**
-     * byme
-     */
     public function consume(): EmptyResponse
     {
         return $this->createProduct()->consume();
