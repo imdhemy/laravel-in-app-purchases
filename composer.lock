@@ -995,16 +995,16 @@
         },
         {
             "name": "imdhemy/google-play-billing",
-            "version": "1.5.0",
+            "version": "1.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/imdhemy/google-play-billing.git",
-                "reference": "a227174a71bc5d7b3e5f9aa4fcad2c4a9a11a8a4"
+                "reference": "bb94f3b6ddb021605815e528f31b8c930c41677c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/imdhemy/google-play-billing/zipball/a227174a71bc5d7b3e5f9aa4fcad2c4a9a11a8a4",
-                "reference": "a227174a71bc5d7b3e5f9aa4fcad2c4a9a11a8a4",
+                "url": "https://api.github.com/repos/imdhemy/google-play-billing/zipball/bb94f3b6ddb021605815e528f31b8c930c41677c",
+                "reference": "bb94f3b6ddb021605815e528f31b8c930c41677c",
                 "shasum": ""
             },
             "require": {
@@ -1040,9 +1040,9 @@
             "description": "Google Play Billing",
             "support": {
                 "issues": "https://github.com/imdhemy/google-play-billing/issues",
-                "source": "https://github.com/imdhemy/google-play-billing/tree/1.5.0"
+                "source": "https://github.com/imdhemy/google-play-billing/tree/1.5.1"
             },
-            "time": "2023-09-17T12:33:33+00:00"
+            "time": "2023-12-15T10:25:05+00:00"
         },
         {
             "name": "laravel/framework",
