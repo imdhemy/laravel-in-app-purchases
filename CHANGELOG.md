@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.10.0 - 2024-02-17
+
+### What's Changed
+
+* [Subscription] Cancel google subscription by @imdhemy in https://github.com/imdhemy/laravel-in-app-purchases/pull/386
+
+**Full Changelog**: https://github.com/imdhemy/laravel-in-app-purchases/compare/1.9.1...1.10.0
+
 ## 1.9.1 - 2023-12-15
 
 ### What's Changed
