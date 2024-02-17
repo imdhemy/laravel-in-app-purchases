@@ -116,4 +116,18 @@ class SubscriptionTest extends TestCase
 
         $this->assertTrue($response->getStatus()->isValid());
     }
+
+    /** @test */
+    public function cancel_google_subscription(): void
+    {
+        $this->expectNotToPerformAssertions();
+
+        $client = GoogleClientFactory::mock(new Response());
+
+        Subscription::googlePlay($client)
+            ->packageName('com.twigano.fashion')
+            ->id($this->itemId)
+            ->token($this->token)
+            ->cancel();
+    }
 }
