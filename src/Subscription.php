@@ -202,4 +202,12 @@ class Subscription
 
         return $this->googleGetResponse;
     }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function cancel(): EmptyResponse
+    {
+        return $this->createSubscription()->cancel();
+    }
 }
