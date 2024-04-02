@@ -1,11 +1,9 @@
-| Q             | A                                                                  |
-|---------------|--------------------------------------------------------------------|
-| Branch?       | 1.x or main for bc <!-- see below -->                              |
-| Bug fix?      | yes/no                                                             |
-| New feature?  | yes/no <!-- please update /CHANGELOG.md files -->                  |
-| Deprecations? | yes/no <!-- please update UPGRADE-*.md and /CHANGELOG.md files --> |
-| Tickets       | Fix #... <!-- prefix each issue number with "Fix #", -->           |
-| License       | MIT                                                                |
+| Q             | A                                                                    |
+|---------------|----------------------------------------------------------------------|
+| Branch?       | 1.x or main for bc <!-- see below -->                                |
+| Deprecations? | yes/no <!-- please update UPGRADE-2.0.md and /CHANGELOG.md files --> |
+| Tickets       | Fix #... <!-- prefix each issue number with "Fix #", -->             |
+| License       | MIT                                                                  |
 
 <!--
 Replace this notice with a short README for your feature/bugfix.
