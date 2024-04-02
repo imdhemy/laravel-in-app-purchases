@@ -17,14 +17,8 @@ use RuntimeException;
  */
 class RequestTestNotificationCommand extends Command
 {
-    /**
-     * {@inheritdoc}
-     */
     protected $signature = 'liap:apple:test-notification {--s|sandbox}';
 
-    /**
-     * {@inheritdoc}
-     */
     protected $description = 'Request a test notification from Apple';
 
     /**

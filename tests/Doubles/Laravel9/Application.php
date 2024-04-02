@@ -21,9 +21,6 @@ class Application extends IlluminateApplication
      */
     public const ORIGINAL_VERSION = IlluminateApplication::VERSION;
 
-    /**
-     * {@inheritDoc}
-     */
     public function version(): string
     {
         return $this->customVersion;

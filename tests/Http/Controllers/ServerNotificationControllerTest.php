@@ -14,9 +14,6 @@ use JsonException;
 
 class ServerNotificationControllerTest extends TestCase
 {
-    /**
-     * {@inheritDoc}
-     */
     protected function setUp(): void
     {
         parent::setUp();

@@ -19,8 +19,8 @@ class DidChangeRenewalStatus extends PurchaseEvent
     public function isAutoRenewal(): bool
     {
         assert(
-            $this->serverNotification instanceof AppStoreServerNotification ||
-            $this->serverNotification instanceof AppStoreV2ServerNotification
+            $this->serverNotification instanceof AppStoreServerNotification
+            || $this->serverNotification instanceof AppStoreV2ServerNotification
         );
 
         if ($this->serverNotification instanceof AppStoreServerNotification) {
@@ -35,8 +35,8 @@ class DidChangeRenewalStatus extends PurchaseEvent
     public function getAutoRenewStatusChangeDate(): ?Time
     {
         assert(
-            $this->serverNotification instanceof AppStoreServerNotification ||
-            $this->serverNotification instanceof AppStoreV2ServerNotification
+            $this->serverNotification instanceof AppStoreServerNotification
+            || $this->serverNotification instanceof AppStoreV2ServerNotification
         );
 
         if ($this->serverNotification instanceof AppStoreServerNotification) {

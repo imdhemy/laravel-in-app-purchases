@@ -19,9 +19,6 @@ class GoogleServerNotificationTest extends TestCase
 
     private DeveloperNotification $developerNotification;
 
-    /**
-     * {@inheritDoc}
-     */
     protected function setUp(): void
     {
         parent::setUp();

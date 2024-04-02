@@ -12,9 +12,6 @@ class LiapConfigPublishCommandTest extends TestCase
 {
     private string $configFilePath;
 
-    /**
-     * {@inheritdoc}
-     */
     protected function setUp(): void
     {
         parent::setUp();

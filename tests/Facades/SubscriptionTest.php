@@ -28,9 +28,6 @@ class SubscriptionTest extends TestCase
      */
     private $itemId;
 
-    /**
-     * {@inheritDoc}
-     */
     protected function setUp(): void
     {
         parent::setUp();

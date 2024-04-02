@@ -11,9 +11,6 @@ use Imdhemy\Purchases\Console\UrlGenerator as BaseUrlGenerator;
  */
 class UrlGenerator extends BaseUrlGenerator
 {
-    /**
-     * {@inheritDoc}
-     */
     public function generate(string $provider): string
     {
         return sprintf('https://example.com?signature=fake_signature&provider=%s', $provider);

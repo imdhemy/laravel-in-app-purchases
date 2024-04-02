@@ -25,14 +25,8 @@ class LiapConfigPublishCommand extends Command
      */
     public const MESSAGE_SUCCESS = 'liap.php published successfully';
 
-    /**
-     * {@inheritdoc}
-     */
     protected $signature = 'liap:config:publish {--f|force}';
 
-    /**
-     * {@inheritdoc}
-     */
     protected $description = 'Publishes the LIAP configuration file.';
 
     /**

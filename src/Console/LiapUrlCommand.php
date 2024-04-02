@@ -115,8 +115,8 @@ class LiapUrlCommand extends Command
     protected function shouldGenerateSignedUrls(): bool
     {
         return
-            config('liap.routing.signed') ||
-            $this->confirm(self::CONFIRM_GENERATE_SIGNED_ROUTES);
+            config('liap.routing.signed')
+            || $this->confirm(self::CONFIRM_GENERATE_SIGNED_ROUTES);
     }
 
     protected function generateUrls(): void

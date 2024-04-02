@@ -18,9 +18,6 @@ class AppStoreSubscriptionTest extends TestCase
      */
     private $appStoreSubscription;
 
-    /**
-     * {@inheritDoc}
-     */
     protected function setUp(): void
     {
         parent::setUp();

@@ -29,9 +29,6 @@ class Faker
         $this->faker = $faker;
     }
 
-    /**
-     * @return mixed
-     */
     public function __call($name, $arguments)
     {
         return $this->faker->$name(...$arguments);

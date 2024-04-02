@@ -13,9 +13,6 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as BaseEventSer
  */
 class EventServiceProvider extends BaseEventServiceProvider
 {
-    /**
-     * {@inheritdoc}
-     */
     public function __construct(Application $app)
     {
         parent::__construct($app);

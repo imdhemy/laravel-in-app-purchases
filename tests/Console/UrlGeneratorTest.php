@@ -23,9 +23,6 @@ class UrlGeneratorTest extends TestCase
      */
     protected $app;
 
-    /**
-     * {@inheritDoc}
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -126,9 +123,6 @@ class UrlGeneratorTest extends TestCase
         Mockery::close();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     protected function resolveApplication()
     {
         return tap(new Application($this->getBasePath()), function ($app) {
@@ -138,9 +132,6 @@ class UrlGeneratorTest extends TestCase
         });
     }
 
-    /**
-     * {@inheritDoc}
-     */
     protected function tearDown(): void
     {
         $this->app->setCustomVersion(Application::ORIGINAL_VERSION);

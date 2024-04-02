@@ -18,8 +18,6 @@ class AppStoreServerNotificationTest extends TestCase
     private array $serverNotificationBody;
 
     /**
-     * {@inheritDoc}
-     *
      * @throws JsonException
      */
     protected function setUp(): void

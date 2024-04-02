@@ -14,9 +14,6 @@ class AppStoreV2ServerNotificationTest extends TestCase
 
     private AppStoreV2ServerNotification $sut;
 
-    /**
-     * {@inheritDoc}
-     */
     protected function setUp(): void
     {
         parent::setUp();

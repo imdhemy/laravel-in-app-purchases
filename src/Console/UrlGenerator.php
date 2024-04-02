@@ -24,9 +24,6 @@ class UrlGenerator implements UrlGeneratorContract
         $this->urlGenerator = $urlGenerator;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function generate(string $provider): string
     {
         $singedUrl = $this->urlGenerator->signedRoute('liap.serverNotifications');

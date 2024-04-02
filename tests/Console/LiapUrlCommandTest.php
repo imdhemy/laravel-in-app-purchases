@@ -27,9 +27,6 @@ class LiapUrlCommandTest extends TestCase
 
     private UrlGeneratorContract $urlGenerator;
 
-    /**
-     * {@inheritDoc}
-     */
     protected function setUp(): void
     {
         parent::setUp();

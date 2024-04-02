@@ -12,9 +12,6 @@ class RequestTestNotificationCommandTest extends TestCase
 {
     private string $privateKey;
 
-    /**
-     * {@inheritdoc}
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -105,9 +102,6 @@ class RequestTestNotificationCommandTest extends TestCase
             ->assertExitCode(Command::SUCCESS);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function tearDown(): void
     {
         parent::tearDown();

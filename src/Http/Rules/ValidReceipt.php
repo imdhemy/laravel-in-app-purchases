@@ -19,7 +19,6 @@ class ValidReceipt implements Rule
      * Determine if the validation rule passes.
      *
      * @param string $attribute
-     * @param mixed  $value
      *
      * @throws InvalidReceiptException
      *
