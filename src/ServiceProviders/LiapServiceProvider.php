@@ -116,7 +116,7 @@ class LiapServiceProvider extends ServiceProvider
 
         // Check if it should set GOOGLE_APPLICATION_CREDENTIALS to the configured path
         $currentGoogleCredPath = getenv('GOOGLE_APPLICATION_CREDENTIALS');
-        if ($currentGoogleCredPath && file_exists($currentGoogleCredPath)) {
+        if (is_string($currentGoogleCredPath) && file_exists($currentGoogleCredPath)) {
             return;
         }
 
