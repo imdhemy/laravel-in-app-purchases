@@ -1011,33 +1011,33 @@
         },
         {
             "name": "imdhemy/appstore-iap",
-            "version": "1.6.0",
+            "version": "1.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/imdhemy/appstore-iap.git",
-                "reference": "ccf75f2d9fd628ebabfc7e9ee9a6754259769c1b"
+                "reference": "025d176a097b864f306dad7dc3506598aa6e5990"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/imdhemy/appstore-iap/zipball/ccf75f2d9fd628ebabfc7e9ee9a6754259769c1b",
-                "reference": "ccf75f2d9fd628ebabfc7e9ee9a6754259769c1b",
+                "url": "https://api.github.com/repos/imdhemy/appstore-iap/zipball/025d176a097b864f306dad7dc3506598aa6e5990",
+                "reference": "025d176a097b864f306dad7dc3506598aa6e5990",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "ext-openssl": "*",
                 "ext-sodium": "*",
-                "guzzlehttp/guzzle": "^6.5|^7.5",
+                "guzzlehttp/guzzle": "^7.6.0",
                 "lcobucci/jwt": "^4.3",
-                "nesbot/carbon": "^2.66",
+                "nesbot/carbon": "^2.66|^3.1",
                 "php": ">=8.0"
             },
             "require-dev": {
-                "fakerphp/faker": "^1.21",
+                "fakerphp/faker": "^1.22",
                 "friendsofphp/php-cs-fixer": "^3.16",
                 "phpunit/phpunit": "^9.6",
                 "roave/security-advisories": "dev-latest",
-                "vimeo/psalm": "^5.9"
+                "vimeo/psalm": "^5.11"
             },
             "type": "library",
             "autoload": {
@@ -1058,9 +1058,9 @@
             "description": "PHP Appstore In-App Purchase implementation",
             "support": {
                 "issues": "https://github.com/imdhemy/appstore-iap/issues",
-                "source": "https://github.com/imdhemy/appstore-iap/tree/1.6.0"
+                "source": "https://github.com/imdhemy/appstore-iap/tree/1.6.1"
             },
-            "time": "2023-04-08T10:10:00+00:00"
+            "time": "2024-03-27T09:17:17+00:00"
         },
         {
             "name": "imdhemy/google-play-billing",
