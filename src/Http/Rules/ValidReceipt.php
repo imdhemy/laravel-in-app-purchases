@@ -18,16 +18,14 @@ class ValidReceipt implements Rule
     /**
      * Determine if the validation rule passes.
      *
-     * @param string $attribute
-     *
      * @throws InvalidReceiptException
-     *
-     * @deprecated - This rule will be removed in the next major release
      *
      * @psalm-suppress MixedAssignment
      * @psalm-suppress MixedArrayAccess
      * @psalm-suppress MixedArgument
      * @psalm-suppress DeprecatedMethod
+     *
+     * @deprecated     - This rule will be removed in the next major release
      */
     public function passes($attribute, $value): bool
     {
