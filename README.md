@@ -31,6 +31,13 @@ Use composer to install the package:
 composer require imdhemy/laravel-purchases
 ```
 
+## Sponsor this project 🙏
+
+When I started this project, I used to have an Apple Developer Program membership, but now I don't have it anymore.
+The membership is required to test the Apple IAP Notifications, and it costs $99/year. If you find this package useful and
+you want to support this work, click on the [sponsor button](https://github.com/sponsors/imdhemy) to the right.
+
+
 ## Documentation
 
 The documentation is available on [Liap manual](https://imdhemy.com/laravel-iap-docs/).
