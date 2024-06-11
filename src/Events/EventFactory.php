@@ -42,10 +42,14 @@ class EventFactory implements EventFactoryContract
             ->lower()
             ->studly()
             ->prepend(self::NAMESPACES[$provider].'\\');
-        assert(class_exists($className), new LogicException("Class $className does not exist"));
+
+        if (! class_exists($className)) {
+            return new FallbackEvent($notification);
+        }
+
         assert(
-            is_subclass_of($className, PurchaseEvent::class),
-            new LogicException("Class $className is not a subclass of PurchaseEvent")
+            is_a($className, PurchaseEvent::class, true),
+            new LogicException("Invalid event class: $className")
         );
 
         return new $className($notification);

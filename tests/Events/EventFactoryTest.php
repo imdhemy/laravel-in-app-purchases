@@ -20,6 +20,7 @@ use Imdhemy\Purchases\Events\AppStore\PriceIncreaseConsent;
 use Imdhemy\Purchases\Events\AppStore\Refund;
 use Imdhemy\Purchases\Events\AppStore\Revoke;
 use Imdhemy\Purchases\Events\EventFactory;
+use Imdhemy\Purchases\Events\FallbackEvent;
 use Imdhemy\Purchases\Events\GooglePlay\SubscriptionCanceled;
 use Imdhemy\Purchases\Events\GooglePlay\SubscriptionDeferred;
 use Imdhemy\Purchases\Events\GooglePlay\SubscriptionExpired;
@@ -109,6 +110,10 @@ class EventFactoryTest extends TestCase
                 GoogleNotification::SUBSCRIPTION_EXPIRED,
                 SubscriptionExpired::class,
             ],
+            [
+                'InvalidType',
+                FallbackEvent::class,
+            ],
         ];
 
         foreach ($data as &$item) {
@@ -169,6 +174,10 @@ class EventFactoryTest extends TestCase
             [
                 AppstoreNotification::REVOKE,
                 Revoke::class,
+            ],
+            [
+                'InvalidType',
+                FallbackEvent::class,
             ],
         ];
 
