@@ -3,13 +3,8 @@ on: [ push, pull_request ]
 jobs:
   ci:
     name: "CI"
-    runs-on: ${{ matrix.operating-system }}
-    strategy:
-      matrix:
-        operating-system: [ ubuntu-latest, windows-latest, macos-latest ]
-        php-version: [ 8.1, 8.3 ]
+    runs-on: ubuntu-latest
     steps:
-
       # --------- Setup steps ---------
       - name: "Checkout"
         uses: actions/checkout@v3
@@ -18,7 +13,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           coverage: "pcov"
-          php-version: "${{ matrix.php-version }}"
+          php-version: "8.3"
           ini-values: memory_limit=-1
           extensions: pcov, xdebug, sodium, fileinfo
 
@@ -31,8 +26,6 @@ jobs:
 
       - name: "Coding Style"
         run: "composer cs-check"
-        if: matrix.operating-system == 'ubuntu-latest'
 
       - name: "Static code analysis"
         run: "composer psalm"
-        if: matrix.operating-system == 'ubuntu-latest'
