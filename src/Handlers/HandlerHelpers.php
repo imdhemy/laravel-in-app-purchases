@@ -24,7 +24,7 @@ final class HandlerHelpers implements HandlerHelpersInterface
         Request $request,
         Factory $validator,
         UrlGenerator $urlGenerator,
-        EventFactory $eventFactory
+        EventFactory $eventFactory,
     ) {
         $this->request = $request;
         $this->validator = $validator;

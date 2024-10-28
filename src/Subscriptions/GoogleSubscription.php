@@ -37,7 +37,7 @@ class GoogleSubscription implements SubscriptionContract
      */
     public static function createFromDeveloperNotification(
         DeveloperNotification $rtdNotification,
-        ?ClientInterface $client = null
+        ?ClientInterface $client = null,
     ): self {
         $notification = $rtdNotification->getPayload();
 
