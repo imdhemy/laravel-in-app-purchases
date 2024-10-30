@@ -5,130 +5,72 @@ declare(strict_types=1);
 namespace Imdhemy\Purchases\Console;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Imdhemy\Purchases\Contracts\UrlGenerator;
 
 /**
  * A command to generate signed url to the server notification handler endpoint.
  */
-class LiapUrlCommand extends Command
+final class LiapUrlCommand extends Command
 {
-    public const CHOICE_PROVIDER = 'Select provider';
+    private const CHOICE_ALL = 'All Providers';
+    private const CHOICES = [
+        self::CHOICE_ALL,
+        'App Store',
+        'Google Play',
+    ];
 
-    public const CONFIRM_GENERATE_SIGNED_ROUTES = 'Signed routes are disabled. Do you want to generate signed routes?';
-
-    public const PROVIDER_ALL = 'All Providers';
-
-    public const PROVIDER_APP_STORE = 'App Store';
-
-    public const PROVIDER_GOOGLE_PLAY = 'Google Play';
-
-    public const TABLE_HEADERS = ['Provider', 'URL'];
-
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'liap:url';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Generates a signed URL to the server notifications handler endpoint';
 
     private UrlGenerator $urlGenerator;
 
-    private Collection $urlCollection;
-
-    /**
-     * Execute the console command.
-     */
-    public function handle(UrlGenerator $urlGenerator, Collection $urlCollection): int
+    public function __construct(UrlGenerator $urlGenerator)
     {
+        parent::__construct();
+
         $this->urlGenerator = $urlGenerator;
+    }
 
-        $this->urlCollection = $urlCollection;
+    public function handle(): int
+    {
+        $choices = $this->choices();
 
-        $this->generateUrls();
-
-        $this->table(self::TABLE_HEADERS, $this->urlCollection->toArray());
+        foreach ($choices as $choice) {
+            $url = $this->generateUrlOf($choice);
+            $this->info(sprintf('%s: %s', $choice, $url));
+        }
 
         return self::SUCCESS;
     }
 
     /**
-     * Get selected providers.
-     *
-     * @return string[] List of selected providers
+     * @return string[]
      */
-    protected function getProviders(): array
+    private function choices(): array
     {
-        $provider = $this->choice(self::CHOICE_PROVIDER, [
-            self::PROVIDER_ALL,
-            self::PROVIDER_APP_STORE,
-            self::PROVIDER_GOOGLE_PLAY,
-        ]);
-        assert(is_string($provider));
+        $choice = $this->choice('Select provider', self::CHOICES);
+        assert(is_string($choice));
 
-        if (self::PROVIDER_ALL === $provider) {
-            return [self::PROVIDER_APP_STORE, self::PROVIDER_GOOGLE_PLAY];
+        $result = array_slice(self::CHOICES, 1);
+        if (self::CHOICE_ALL !== $choice) {
+            $result = [$choice];
         }
 
-        return [$provider];
+        return $result;
     }
 
-    /**
-     * Generates signed URLs for the submitted providers.
-     *
-     * @param string[] $providers List of providers
-     */
-    private function generateSignedUrls(array $providers): void
+    private function generateUrlOf(string $provider): string
     {
-        foreach ($providers as $provider) {
-            $providerSlug = (string)Str::of($provider)->slug();
-            $url = $this->urlGenerator->generate($providerSlug);
-            $this->urlCollection->add([$provider, $url]);
-        }
+        $providerSlug = (string)Str::of($provider)->slug();
+
+        return $this->shouldSign()
+            ? $this->urlGenerator->signedUrl($providerSlug)
+            : $this->urlGenerator->unsignedUrl($providerSlug);
     }
 
-    /**
-     * Generates unsigned URLs for the submitted providers.
-     *
-     * @param string[] $providers List of providers
-     */
-    private function generateUnsignedUrls(array $providers): void
+    private function shouldSign(): bool
     {
-        foreach ($providers as $provider) {
-            $providerSlug = (string)Str::of($provider)->slug();
-            $url = route('liap.serverNotifications').'?provider='.$providerSlug;
-            $this->urlCollection->add([$provider, $url]);
-        }
-    }
-
-    /**
-     * Checks if the user wants to generate signed URLs.
-     */
-    protected function shouldGenerateSignedUrls(): bool
-    {
-        return
-            config('liap.routing.signed')
-            || $this->confirm(self::CONFIRM_GENERATE_SIGNED_ROUTES);
-    }
-
-    protected function generateUrls(): void
-    {
-        $providers = $this->getProviders();
-
-        if ($this->shouldGenerateSignedUrls()) {
-            $this->generateSignedUrls($providers);
-
-            return;
-        }
-
-        $this->generateUnsignedUrls($providers);
+        return (bool)config('liap.routing.signed');
     }
 }

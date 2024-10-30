@@ -78,4 +78,18 @@ class UrlGenerator implements UrlGeneratorContract
     {
         return $this->urlGenerator->hasValidSignature($request, true, ['provider']);
     }
+
+    public function signedUrl(string $provider): string
+    {
+        $singedUrl = $this->urlGenerator->signedRoute('liap.serverNotifications');
+
+        return sprintf('%s&provider=%s', $singedUrl, $provider);
+    }
+
+    public function unsignedUrl(string $provider): string
+    {
+        $url = $this->urlGenerator->route('liap.serverNotifications');
+
+        return sprintf('%s?provider=%s', $url, $provider);
+    }
 }

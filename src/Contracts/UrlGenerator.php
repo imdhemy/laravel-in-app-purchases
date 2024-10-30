@@ -12,9 +12,19 @@ use Illuminate\Http\Request;
 interface UrlGenerator
 {
     /**
-     * Generates URL to the server notification handler.
+     * @deprecated use signedUrl() instead
      */
     public function generate(string $provider): string;
+
+    /**
+     * Generate a signed URL for the given provider.
+     */
+    public function signedUrl(string $provider): string;
+
+    /**
+     * Generate an unsigned URL for the given provider.
+     */
+    public function unsignedUrl(string $provider): string;
 
     /**
      * Determine if the given request has a valid signature.
