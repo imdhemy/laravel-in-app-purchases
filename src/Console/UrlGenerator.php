@@ -62,7 +62,7 @@ class UrlGenerator implements UrlGeneratorContract
         return hash_equals($signature, $signatureQuery);
     }
 
-    protected function shouldDelegateToLaravel(): bool
+    private function shouldDelegateToLaravel(): bool
     {
         return version_compare(app()->version(), '9', '>=');
     }
@@ -74,7 +74,7 @@ class UrlGenerator implements UrlGeneratorContract
      *
      * @psalm-suppress TooManyArguments
      */
-    protected function validateByLaravel(Request $request): bool
+    private function validateByLaravel(Request $request): bool
     {
         return $this->urlGenerator->hasValidSignature($request, true, ['provider']);
     }
