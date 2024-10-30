@@ -7,7 +7,6 @@ namespace Imdhemy\Purchases\Tests\Console;
 use Illuminate\Support\Str;
 use Illuminate\Testing\PendingCommand;
 use Imdhemy\Purchases\Contracts\UrlGenerator as UrlGeneratorContract;
-use Imdhemy\Purchases\Tests\Doubles\UrlGenerator as FakeUrlGenerator;
 use Imdhemy\Purchases\Tests\TestCase;
 
 final class LiapUrlCommandTest extends TestCase
@@ -18,30 +17,34 @@ final class LiapUrlCommandTest extends TestCase
     {
         parent::setUp();
 
-        config()->set('liap.routing.signed', true);
+        $urlGenerator = $this->app->make(UrlGeneratorContract::class);
+        assert($urlGenerator instanceof UrlGeneratorContract);
 
-        $this->urlGenerator = $this->app->make(FakeUrlGenerator::class);
+        $this->urlGenerator = $urlGenerator;
     }
 
     /** @test */
     public function generate_a_signed_url(): void
     {
+        config()->set('liap.routing.signed', true);
         $provider = (string)$this->faker->randomElement([
             'App Store',
             'Google Play',
         ]);
+        $slug = Str::slug($provider);
 
         $this->runWithChoice($provider)
-            ->expectsOutput(sprintf('%s: %s', $provider, $this->signedUrlOf($provider)))
+            ->expectsOutput(sprintf('%s: %s', $provider, $this->urlGenerator->signedUrl($slug)))
             ->assertSuccessful();
     }
 
     /** @test */
     public function generate_singed_url_for_all_providers(): void
     {
+        config()->set('liap.routing.signed', true);
         $this->runWithChoice()
-            ->expectsOutput(sprintf('%s: %s', 'App Store', $this->signedUrlOf('App Store')))
-            ->expectsOutput(sprintf('%s: %s', 'Google Play', $this->signedUrlOf('Google Play')))
+            ->expectsOutput(sprintf('%s: %s', 'App Store', $this->urlGenerator->signedUrl('app-store')))
+            ->expectsOutput(sprintf('%s: %s', 'Google Play', $this->urlGenerator->signedUrl('google-play')))
             ->assertSuccessful();
     }
 
@@ -49,10 +52,9 @@ final class LiapUrlCommandTest extends TestCase
     public function it_should_sign_urls_only_if_config_is_enabled(): void
     {
         config()->set('liap.routing.signed', false);
-
         $this->runWithChoice()
-            ->expectsOutput(sprintf('%s: %s', 'App Store', $this->unsignedUrlOf('App Store')))
-            ->expectsOutput(sprintf('%s: %s', 'Google Play', $this->unsignedUrlOf('Google Play')))
+            ->expectsOutput(sprintf('%s: %s', 'App Store', $this->urlGenerator->unsignedUrl('app-store')))
+            ->expectsOutput(sprintf('%s: %s', 'Google Play', $this->urlGenerator->unsignedUrl('google-play')))
             ->assertSuccessful();
     }
 
@@ -65,15 +67,5 @@ final class LiapUrlCommandTest extends TestCase
                     'App Store',
                     'Google Play',
                 ]);
-    }
-
-    private function signedUrlOf(string $provider): string
-    {
-        return $this->urlGenerator->signedUrl((string)Str::of($provider)->slug());
-    }
-
-    private function unsignedUrlOf(string $provider): string
-    {
-        return route('liap.serverNotifications').'?provider='.Str::of($provider)->slug();
     }
 }
