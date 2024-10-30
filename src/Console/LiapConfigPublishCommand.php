@@ -45,10 +45,7 @@ final class LiapConfigPublishCommand extends Command
             $params['--force'] = true;
         }
 
-        $result = $this->call('vendor:publish', $params);
-        $this->info('liap.php is already published.');
-
-        return $result;
+        return $this->call('vendor:publish', $params);
     }
 
     private function isPublished(): bool
