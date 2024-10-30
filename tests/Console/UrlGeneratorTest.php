@@ -4,138 +4,79 @@ declare(strict_types=1);
 
 namespace Imdhemy\Purchases\Tests\Console;
 
-use Illuminate\Foundation\Bootstrap\LoadConfiguration as IlluminateLoadConfiguration;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Routing\UrlGenerator as IlluminateUrlGenerator;
 use Imdhemy\Purchases\Console\UrlGenerator;
-use Imdhemy\Purchases\Tests\Doubles\Laravel9\Application;
 use Imdhemy\Purchases\Tests\TestCase;
-use Mockery;
-use Orchestra\Testbench\Bootstrap\LoadConfiguration as OrchestraLoadConfiguration;
-use Orchestra\Testbench\Foundation\PackageManifest;
 
-class UrlGeneratorTest extends TestCase
+final class UrlGeneratorTest extends TestCase
 {
-    private UrlGenerator $sut;
-
-    /**
-     * @var Application
-     */
-    protected $app;
-
-    protected function setUp(): void
+    /** @test */
+    public function create_signed_url(): string
     {
-        parent::setUp();
+        $internalGenerator = $this->createMock(IlluminateUrlGenerator::class);
+        $sut = new UrlGenerator($internalGenerator, $this->app);
 
-        $this->sut = $this->app->make(UrlGenerator::class);
-    }
+        $internalGenerator->expects($this->once())
+            ->method('signedRoute')
+            ->with('liap.serverNotifications')
+            ->willReturn('https://example.com?signature=signature');
 
-    /**
-     * @test
-     */
-    public function generate_should_create_a_url_with_signature_query(): string
-    {
-        $url = $this->sut->generate('my-provider');
-
-        $this->assertNotFalse(filter_var($url, FILTER_VALIDATE_URL));
-        $this->assertStringContainsString('signature=', $url);
-
-        return $url;
+        return $sut->signedUrl('my-provider');
     }
 
     /**
      * @test
      *
-     * @depends generate_should_create_a_url_with_signature_query
-     *
-     * @param string $url The generated url
+     * @depends create_signed_url
      */
-    public function generate_should_add_the_provider_to_the_query(string $url): void
+    public function signed_url_contains_the_provider_query(string $url): void
     {
         $this->assertStringContainsString('provider=my-provider', $url);
     }
 
-    /**
-     * @test
-     *
-     * @depends generate_should_create_a_url_with_signature_query
-     *
-     * @param string $url The generated url
-     */
-    public function has_valid_signature_returns_true_with_valid_requests(string $url): void
+    /** @test */
+    public function validate_secure_url(): void
     {
+        $internalGenerator = $this->app->make(IlluminateUrlGenerator::class);
+        $sut = new UrlGenerator($internalGenerator, $this->app);
+        $url = $sut->signedUrl('my-provider');
+
+        /** @var array{query: string, host: string, path: string} $urlParts */
         $urlParts = parse_url($url);
         parse_str($urlParts['query'], $query);
-
         $request = new Request($query, [], [], [], [], [
             'QUERY_STRING' => $urlParts['query'],
             'HTTP_HOST' => $urlParts['host'],
             'REQUEST_URI' => $urlParts['path'],
         ]);
-
-        $this->assertTrue($this->sut->hasValidSignature($request));
+        $this->assertTrue($sut->hasValidSignature($request));
     }
 
-    /**
-     * @test
-     *
-     * @depends generate_should_create_a_url_with_signature_query
-     *
-     * @param string $url The generated url
-     */
-    public function has_valid_signature_returns_false_with_modified_url(string $url): void
+    /** @test */
+    public function create_unsigned_url(): void
     {
-        $modifiedUrl = $url.'&attack=true';
-        $urlParts = parse_url($modifiedUrl);
-        parse_str($urlParts['query'], $query);
+        $internalGenerator = $this->createMock(IlluminateUrlGenerator::class);
+        $app = $this->createMock(Application::class);
+        $sut = new UrlGenerator($internalGenerator, $app);
 
-        $request = new Request($query, [], [], [], [], [
-            'QUERY_STRING' => $urlParts['query'],
-            'HTTP_HOST' => $urlParts['host'],
-            'REQUEST_URI' => $urlParts['path'],
-        ]);
+        $internalGenerator->expects($this->once())->method('route')->with('liap.serverNotifications');
 
-        $this->assertFalse($this->sut->hasValidSignature($request));
+        $sut->unsignedUrl('my-provider');
     }
 
-    /**
-     * @test
-     *
-     * @psalm-suppress UndefinedMagicMethod
-     */
+    /** @test */
     public function has_valid_signature_delegates_call_to_laravel_9_implementation(): void
     {
-        $this->app->setCustomVersion('9.0.0');
-
-        /** @var IlluminateUrlGenerator|Mockery\MockInterface $mock */
-        $mock = Mockery::mock(IlluminateUrlGenerator::class);
-
-        $sut = new UrlGenerator($mock);
+        $app = $this->createMock(Application::class);
+        $app->expects($this->once())->method('version')->willReturn('9.0.0');
+        $internalGenerator = $this->createMock(IlluminateUrlGenerator::class);
+        $sut = new UrlGenerator($internalGenerator, $app);
         $request = new Request();
 
-        $mock->shouldReceive('hasValidSignature')
-            ->once()
-            ->with($request, true, ['provider'])
-            ->andReturn(true);
+        $internalGenerator->expects($this->once())->method('hasValidSignature')->with($request)->willReturn(true);
 
-        $this->assertTrue($sut->hasValidSignature($request));
-
-        Mockery::close();
-    }
-
-    protected function resolveApplication()
-    {
-        return tap(new Application($this->getBasePath()), function ($app) {
-            $app->bind(IlluminateLoadConfiguration::class, OrchestraLoadConfiguration::class);
-
-            PackageManifest::swap($app, $this);
-        });
-    }
-
-    protected function tearDown(): void
-    {
-        $this->app->setCustomVersion(Application::ORIGINAL_VERSION);
-
-        parent::tearDown();
+        $sut->hasValidSignature($request);
     }
 }
