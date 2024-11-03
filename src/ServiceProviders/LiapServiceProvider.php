@@ -112,12 +112,6 @@ class LiapServiceProvider extends ServiceProvider
     private function registerConfig(): void
     {
         $this->mergeConfigFrom(self::CONFIG_PATH, self::CONFIG_KEY);
-
-        $googleApplicationCredentials = (string)config('liap.google_application_credentials');
-
-        if (! empty($googleApplicationCredentials) && file_exists($googleApplicationCredentials)) {
-            putenv("GOOGLE_APPLICATION_CREDENTIALS=$googleApplicationCredentials");
-        }
     }
 
     /**
