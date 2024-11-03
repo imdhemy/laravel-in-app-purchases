@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Imdhemy\Purchases\Console;
 
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Routing\UrlGenerator as LaravelUrlGenerator;
 use Illuminate\Support\Str;
@@ -15,20 +16,31 @@ use Imdhemy\Purchases\Contracts\UrlGenerator as UrlGeneratorContract;
 class UrlGenerator implements UrlGeneratorContract
 {
     private LaravelUrlGenerator $urlGenerator;
+    private Application $app;
 
-    /**
-     * Creates an Url generator instance.
-     */
-    public function __construct(LaravelUrlGenerator $urlGenerator)
+    public function __construct(LaravelUrlGenerator $urlGenerator, Application $app)
     {
         $this->urlGenerator = $urlGenerator;
+        $this->app = $app;
     }
 
-    public function generate(string $provider): string
+    public function signedUrl(string $provider): string
     {
         $singedUrl = $this->urlGenerator->signedRoute('liap.serverNotifications');
 
         return sprintf('%s&provider=%s', $singedUrl, $provider);
+    }
+
+    public function unsignedUrl(string $provider): string
+    {
+        $url = $this->urlGenerator->route('liap.serverNotifications');
+
+        return sprintf('%s?provider=%s', $url, $provider);
+    }
+
+    public function generate(string $provider): string
+    {
+        return $this->signedUrl($provider);
     }
 
     /**
@@ -62,9 +74,9 @@ class UrlGenerator implements UrlGeneratorContract
         return hash_equals($signature, $signatureQuery);
     }
 
-    protected function shouldDelegateToLaravel(): bool
+    private function shouldDelegateToLaravel(): bool
     {
-        return version_compare(app()->version(), '9', '>=');
+        return version_compare($this->app->version(), '9', '>=');
     }
 
     /**
@@ -74,7 +86,7 @@ class UrlGenerator implements UrlGeneratorContract
      *
      * @psalm-suppress TooManyArguments
      */
-    protected function validateByLaravel(Request $request): bool
+    private function validateByLaravel(Request $request): bool
     {
         return $this->urlGenerator->hasValidSignature($request, true, ['provider']);
     }

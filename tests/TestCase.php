@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Imdhemy\Purchases\Tests;
 
 use Faker\Factory;
+use Illuminate\Testing\PendingCommand;
 use Imdhemy\Purchases\ServiceProviders\LiapServiceProvider;
 use Imdhemy\Purchases\Tests\Doubles\LiapTestProvider;
 use Lcobucci\JWT\Builder;
@@ -110,5 +111,13 @@ WtcP+PnScROkjnSv6H6A6ekLVAzQYg==';
                 return $builder;
             }
         );
+    }
+
+    public function artisan($command, $parameters = []): PendingCommand
+    {
+        $result = parent::artisan($command, $parameters);
+        assert($result instanceof PendingCommand);
+
+        return $result;
     }
 }

@@ -13,6 +13,7 @@ use Imdhemy\AppStore\Jws\Key;
 use Imdhemy\AppStore\ServerNotifications\TestNotificationService;
 use Lcobucci\JWT\Signer\Ecdsa\Sha256;
 use Lcobucci\JWT\Signer\Key\InMemory;
+use RuntimeException;
 
 /**
  * This class is used to build AppStoreTestNotificationService.
@@ -59,7 +60,7 @@ class AppStoreTestNotificationServiceBuilder
     /**
      * @return $this
      */
-    public function issuerId(?string $issuerId): self
+    public function issuerId(string $issuerId): self
     {
         $this->issuerId = $issuerId;
 
@@ -69,7 +70,7 @@ class AppStoreTestNotificationServiceBuilder
     /**
      * @return $this
      */
-    public function bundleId(?string $bundleId): self
+    public function bundleId(string $bundleId): self
     {
         $this->bundleId = $bundleId;
 
@@ -79,7 +80,7 @@ class AppStoreTestNotificationServiceBuilder
     /**
      * @return $this
      */
-    public function privateKeyId(?string $privateKeyId): self
+    public function privateKeyId(string $privateKeyId): self
     {
         $this->privateKeyId = $privateKeyId;
 
@@ -89,7 +90,7 @@ class AppStoreTestNotificationServiceBuilder
     /**
      * @return $this
      */
-    public function privateKey(?string $privateKey): self
+    public function privateKey(string $privateKey): self
     {
         $this->privateKey = $privateKey;
 
@@ -111,5 +112,35 @@ class AppStoreTestNotificationServiceBuilder
         $baseURI = $this->sandbox ? ClientFactory::STORE_KIT_SANDBOX_URI : ClientFactory::STORE_KIT_PRODUCTION_URI;
 
         return ClientFactory::create($this->sandbox, ['base_uri' => $baseURI]);
+    }
+
+    public function of(array $config): self
+    {
+        $keys = [
+            'appstore_private_key_id' => 'private key ID',
+            'appstore_private_key' => 'private key',
+            'appstore_issuer_id' => 'issuer ID',
+            'appstore_bundle_id' => 'bundle ID',
+        ];
+
+        foreach ($keys as $key => $value) {
+            if (! array_key_exists($key, $config) || empty($config[$key])) {
+                throw new RuntimeException("The $value is not configured");
+            }
+        }
+
+        assert(is_string($config['appstore_private_key_id']));
+        assert(is_string($config['appstore_private_key']));
+        assert(is_string($config['appstore_issuer_id']));
+        assert(is_string($config['appstore_bundle_id']));
+        assert(is_bool($config['sandbox']));
+
+        $this->privateKeyId($config['appstore_private_key_id']);
+        $this->privateKey(file_get_contents($config['appstore_private_key']));
+        $this->issuerId($config['appstore_issuer_id']);
+        $this->bundleId($config['appstore_bundle_id']);
+        $this->sandbox($config['sandbox']);
+
+        return $this;
     }
 }
