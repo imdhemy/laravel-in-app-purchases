@@ -34,17 +34,6 @@ return [
 
     /*
      |--------------------------------------------------------------------------
-     | Google Application Credentials
-     |--------------------------------------------------------------------------
-     |
-     | This value is the path to the Google Application Credentials file.
-     | @see https://imdhemy.com/laravel-iap-docs/docs/credentials/google-play
-     |
-     */
-    'google_application_credentials' => base_path((string)env('GOOGLE_APPLICATION_CREDENTIALS')),
-
-    /*
-     |--------------------------------------------------------------------------
      | App Store Password
      |--------------------------------------------------------------------------
      |
