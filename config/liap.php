@@ -31,7 +31,7 @@ return [
      |
      */
     'google_play_package_name' => env('GOOGLE_PLAY_PACKAGE_NAME', 'com.some.thing'),
-    
+
     /*
      |--------------------------------------------------------------------------
      | App Store Password
