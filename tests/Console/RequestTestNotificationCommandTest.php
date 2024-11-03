@@ -22,6 +22,40 @@ class RequestTestNotificationCommandTest extends TestCase
     /**
      * @test
      */
+    public function it_requests_a_test_notification(): void
+    {
+        $this->app['config']->set('liap.appstore_private_key_id', 'private-key-id');
+        $this->app['config']->set('liap.appstore_private_key', $this->privateKey);
+        $this->app['config']->set('liap.appstore_issuer_id', 'issuer-id');
+        $this->app['config']->set('liap.appstore_bundle_id', 'bundle-id');
+
+        $this->artisan('liap:apple:test-notification')
+            ->expectsOutput(
+                sprintf('Test notification token: %s', FakeAppStoreTestNotificationServiceBuilder::PRODUCTION_TOKEN)
+            )
+            ->assertExitCode(Command::SUCCESS);
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_request_a_test_notification_from_sandbox_server(): void
+    {
+        $this->app['config']->set('liap.appstore_private_key_id', 'private-key-id');
+        $this->app['config']->set('liap.appstore_private_key', $this->privateKey);
+        $this->app['config']->set('liap.appstore_issuer_id', 'issuer-id');
+        $this->app['config']->set('liap.appstore_bundle_id', 'bundle-id');
+
+        $this->artisan('liap:apple:test-notification --sandbox')
+            ->expectsOutput(
+                sprintf('Test notification token: %s', FakeAppStoreTestNotificationServiceBuilder::SANDBOX_TOKEN)
+            )
+            ->assertExitCode(Command::SUCCESS);
+    }
+
+    /**
+     * @test
+     */
     public function it_validates_private_key_id_is_configured(): void
     {
         $this->artisan('liap:apple:test-notification')
@@ -66,40 +100,6 @@ class RequestTestNotificationCommandTest extends TestCase
         $this->artisan('liap:apple:test-notification')
             ->expectsOutput('The bundle ID is not configured')
             ->assertExitCode(Command::FAILURE);
-    }
-
-    /**
-     * @test
-     */
-    public function it_requests_a_test_notification(): void
-    {
-        $this->app['config']->set('liap.appstore_private_key_id', 'private-key-id');
-        $this->app['config']->set('liap.appstore_private_key', $this->privateKey);
-        $this->app['config']->set('liap.appstore_issuer_id', 'issuer-id');
-        $this->app['config']->set('liap.appstore_bundle_id', 'bundle-id');
-
-        $this->artisan('liap:apple:test-notification')
-            ->expectsOutput(
-                sprintf('Test notification token: %s', FakeAppStoreTestNotificationServiceBuilder::PRODUCTION_TOKEN)
-            )
-            ->assertExitCode(Command::SUCCESS);
-    }
-
-    /**
-     * @test
-     */
-    public function it_can_request_a_test_notification_from_sandbox_server(): void
-    {
-        $this->app['config']->set('liap.appstore_private_key_id', 'private-key-id');
-        $this->app['config']->set('liap.appstore_private_key', $this->privateKey);
-        $this->app['config']->set('liap.appstore_issuer_id', 'issuer-id');
-        $this->app['config']->set('liap.appstore_bundle_id', 'bundle-id');
-
-        $this->artisan('liap:apple:test-notification --sandbox')
-            ->expectsOutput(
-                sprintf('Test notification token: %s', FakeAppStoreTestNotificationServiceBuilder::SANDBOX_TOKEN)
-            )
-            ->assertExitCode(Command::SUCCESS);
     }
 
     protected function tearDown(): void

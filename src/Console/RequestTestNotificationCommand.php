@@ -6,9 +6,8 @@ namespace Imdhemy\Purchases\Console;
 
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Console\Command;
-use Imdhemy\Purchases\Services\AppStoreTestNotificationService;
-use Imdhemy\Purchases\Services\AppStoreTestNotificationServiceBuilder as ServiceBuilder;
-use JsonException;
+use Imdhemy\Purchases\Services\AppStoreTestNotificationServiceBuilder as AppStoreTestBuilder;
+use Psr\Http\Message\ResponseInterface;
 use RuntimeException;
 
 /**
@@ -18,32 +17,30 @@ use RuntimeException;
 class RequestTestNotificationCommand extends Command
 {
     protected $signature = 'liap:apple:test-notification {--s|sandbox}';
-
     protected $description = 'Request a test notification from Apple';
 
-    /**
-     * @var ServiceBuilder App Store test notification service builder
-     */
-    private ServiceBuilder $serviceBuilder;
+    private AppStoreTestBuilder $testBuilder;
 
-    /**
-     * Execute the console command.
-     *
-     * @throws JsonException
-     */
-    public function handle(ServiceBuilder $serviceBuilder): int
+    public function __construct(AppStoreTestBuilder $testBuilder)
     {
-        $this->serviceBuilder = $serviceBuilder;
+        $this->testBuilder = $testBuilder;
 
+        parent::__construct();
+    }
+
+    public function handle(): int
+    {
         try {
-            $response = $this->buildService()->request();
+            $config = (array)config('liap');
+            $config['sandbox'] = (bool)$this->option('sandbox');
+            $testService = $this->testBuilder->of($config)->build();
 
-            $content = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
-            assert(is_array($content) && array_key_exists('testNotificationToken', $content));
-            $token = $content['testNotificationToken'];
-            assert(is_string($token));
-
-            $this->info(sprintf('Test notification token: %s', $token));
+            $this->info(
+                sprintf(
+                    'Test notification token: %s',
+                    $this->parseToken($testService->request())
+                )
+            );
 
             return self::SUCCESS;
         } catch (RuntimeException|GuzzleException $exception) {
@@ -53,79 +50,14 @@ class RequestTestNotificationCommand extends Command
         }
     }
 
-    /**
-     * Builds the AppStoreTestNotificationService.
-     */
-    private function buildService(): AppStoreTestNotificationService
+    private function parseToken(ResponseInterface $response): string
     {
-        $this->setPrivateKeyId();
-        $this->setPrivateKey();
-        $this->setIssuerId();
-        $this->setBundleId();
+        $content = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
+        assert(is_array($content) && array_key_exists('testNotificationToken', $content));
 
-        $sandbox = $this->option('sandbox');
-        assert(is_bool($sandbox));
+        $token = $content['testNotificationToken'];
+        assert(is_string($token));
 
-        return $this->serviceBuilder->sandbox($sandbox)->build();
-    }
-
-    /**
-     * Set the private key ID.
-     */
-    private function setPrivateKeyId(): void
-    {
-        $privateKeyId = config('liap.appstore_private_key_id');
-        assert(is_string($privateKeyId) || is_null($privateKeyId));
-
-        if (null === $privateKeyId) {
-            throw new RuntimeException('The private key ID is not configured');
-        }
-
-        $this->serviceBuilder->privateKeyId($privateKeyId);
-    }
-
-    /**
-     * Sets the private key.
-     */
-    private function setPrivateKey(): void
-    {
-        $privateKey = config('liap.appstore_private_key');
-        assert(is_string($privateKey) || is_null($privateKey));
-
-        if (null === $privateKey) {
-            throw new RuntimeException('The private key is not configured');
-        }
-
-        $this->serviceBuilder->privateKey(file_get_contents($privateKey));
-    }
-
-    /**
-     * Sets the issuer ID.
-     */
-    private function setIssuerId(): void
-    {
-        $issuerId = config('liap.appstore_issuer_id');
-        assert(is_string($issuerId) || is_null($issuerId));
-
-        if (null === $issuerId) {
-            throw new RuntimeException('The issuer ID is not configured');
-        }
-
-        $this->serviceBuilder->issuerId($issuerId);
-    }
-
-    /**
-     * Sets the bundle ID.
-     */
-    private function setBundleId(): void
-    {
-        $bundleId = config('liap.appstore_bundle_id');
-        assert(is_string($bundleId) || is_null($bundleId));
-
-        if (null === $bundleId) {
-            throw new RuntimeException('The bundle ID is not configured');
-        }
-
-        $this->serviceBuilder->bundleId($bundleId);
+        return $token;
     }
 }
