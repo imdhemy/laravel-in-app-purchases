@@ -35,10 +35,10 @@ class AppStoreTestNotificationServiceBuilder
      */
     public function build(): AppStoreTestNotificationService
     {
-        assert(is_string($this->issuerId) && !empty($this->issuerId));
-        assert(is_string($this->bundleId) && !empty($this->bundleId));
-        assert(is_string($this->privateKeyId) && !empty($this->privateKeyId));
-        assert(is_string($this->privateKey) && !empty($this->privateKey));
+        assert(is_string($this->issuerId) && ! empty($this->issuerId));
+        assert(is_string($this->bundleId) && ! empty($this->bundleId));
+        assert(is_string($this->privateKeyId) && ! empty($this->privateKeyId));
+        assert(is_string($this->privateKey) && ! empty($this->privateKey));
 
         $config = GeneratorConfig::forAppStore(
             new Issuer(
@@ -124,7 +124,7 @@ class AppStoreTestNotificationServiceBuilder
         ];
 
         foreach ($keys as $key => $value) {
-            if (!array_key_exists($key, $config) || empty($config[$key])) {
+            if (! array_key_exists($key, $config) || empty($config[$key])) {
                 throw new RuntimeException("The $value is not configured");
             }
         }
