@@ -20,7 +20,7 @@ class EventServiceProvider extends BaseEventServiceProvider
         $this->listen = (array)config(LiapServiceProvider::CONFIG_KEY.'.eventListeners');
     }
 
-    protected function configureEmailVerification()
+    protected function configureEmailVerification(): void
     {
     }
 }
