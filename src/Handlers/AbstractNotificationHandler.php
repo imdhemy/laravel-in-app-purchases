@@ -11,6 +11,7 @@ use Illuminate\Validation\ValidationException;
 use Imdhemy\Purchases\Contracts\EventFactory;
 use Imdhemy\Purchases\Contracts\NotificationHandlerContract;
 use Imdhemy\Purchases\Contracts\UrlGenerator;
+use Imdhemy\Purchases\Events\NotificationReceived;
 
 abstract class AbstractNotificationHandler implements NotificationHandlerContract
 {
@@ -40,6 +41,10 @@ abstract class AbstractNotificationHandler implements NotificationHandlerContrac
         $this->authorize();
 
         $this->validate();
+
+        NotificationReceived::dispatch(
+            json_decode($this->request->getContent(), true)
+        );
 
         $this->handle();
     }
