@@ -42,9 +42,10 @@ abstract class AbstractNotificationHandler implements NotificationHandlerContrac
 
         $this->validate();
 
-        NotificationReceived::dispatch(
-            json_decode($this->request->getContent(), true)
-        );
+        $requestContent = (string)$this->request->getContent();
+        if ('' !== trim($requestContent)) {
+            NotificationReceived::dispatch(json_decode($requestContent, true));
+        }
 
         $this->handle();
     }
