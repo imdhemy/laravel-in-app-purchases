@@ -42,10 +42,7 @@ abstract class AbstractNotificationHandler implements NotificationHandlerContrac
 
         $this->validate();
 
-        $requestContent = (string)$this->request->getContent();
-        if ('' !== trim($requestContent)) {
-            NotificationReceived::dispatch(json_decode($requestContent, true));
-        }
+        $this->dispatchEvent();
 
         $this->handle();
     }
@@ -69,6 +66,17 @@ abstract class AbstractNotificationHandler implements NotificationHandlerContrac
         }
 
         return $this->urlGenerator->hasValidSignature($this->request);
+    }
+
+    protected function dispatchEvent(): void
+    {
+        $requestContent = (string)$this->request->getContent();
+
+        if ('' !== trim($requestContent)) {
+            $payload = (array)json_decode($requestContent, true);
+            $event = new NotificationReceived($payload);
+            event($event);
+        }
     }
 
     /**
