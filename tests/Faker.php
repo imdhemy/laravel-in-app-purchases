@@ -96,10 +96,10 @@ class Faker
         $fakeSignKey = InMemory::plainText($this->generateECPrivateKey());
 
         return (new JwtFacade())->issue($alg, $fakeSignKey, static function (Builder $builder) use ($data, $x5c) {
-            $builder->withHeader('x5c', $x5c);
+            $builder = $builder->withHeader('x5c', $x5c);
 
             foreach ($data as $key => $value) {
-                $builder->withClaim($key, $value);
+                $builder = $builder->withClaim($key, $value);
             }
 
             return $builder;
