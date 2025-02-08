@@ -35,14 +35,10 @@ class DidChangeRenewalPrefTest extends TestCase
      */
     public function v2_get_aut_renew_product_id(): void
     {
-        $signedRenewalInfo = $this->sign([
-            'autoRenewProductId' => 'com.example.product',
-        ])->toString();
-
         $decodedPayload = V2DecodedPayload::fromArray([
             'notification_type' => ServerNotification::DID_CHANGE_RENEWAL_PREF,
             'data' => [
-                'signedRenewalInfo' => $signedRenewalInfo,
+                'signedRenewalInfo' => $this->sign(['autoRenewProductId' => 'com.example.product'])->toString(),
             ],
         ]);
         $serverNotification = AppStoreV2ServerNotification::fromDecodedPayload($decodedPayload);
