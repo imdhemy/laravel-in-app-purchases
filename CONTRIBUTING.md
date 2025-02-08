@@ -44,11 +44,20 @@ an issue or pull request.
 - Submit a pull request immediately even before completing your code but, add the `[WIP]` tag to the title.
 - If you want to contribute, but don't know where to start? check the project board and grab your next task.
 
+### Development environment
+You can build the docker image using the following command:
+
+```bash
+docker build -t imdhemy/liap .
+```
+
+Then you can configure PHPStorm to use the docker image as a remote interpreter.
+
 ### Requirements
 
 Requirements related to code the code contribution listed below:
 
-- `PSR-12 `coding standard. Use `composer format` to apply conventions.
+- `Symfony `coding standard. Use `composer format` to apply conventions.
 - Add tests! - Your patch won't be accepted if it does not have tests.
 - Document any change in behaviour - Make sure the README.md and any other relevant documentation are kept up-to-date.
 - One pull request per feature - If you want to do more than one thing, send multiple pull requests.
