@@ -132,7 +132,7 @@ class Faker
             $builder = $builder->withHeader('x5c', $x5c);
 
             foreach ($data as $key => $value) {
-               $builder =  $builder->withClaim($key, $value);
+                $builder = $builder->withClaim($key, $value);
             }
 
             return $builder;
