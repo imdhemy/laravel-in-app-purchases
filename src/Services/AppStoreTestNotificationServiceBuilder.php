@@ -109,7 +109,7 @@ class AppStoreTestNotificationServiceBuilder
 
     protected function createClient(): ClientInterface
     {
-        $baseURI = $this->sandbox ? ClientFactory::STORE_KIT_SANDBOX_URI : ClientFactory::STORE_KIT_PRODUCTION_URI;
+        $baseURI = $this->sandbox ? ClientFactory::BASE_URI_SANDBOX : ClientFactory::BASE_URI;
 
         return ClientFactory::create($this->sandbox, ['base_uri' => $baseURI]);
     }
