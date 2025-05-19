@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a123dc36f5bc6d0d2180cdba0593f492",
+    "content-hash": "e0cc279e5c75c3c6f73dd753e8cc1325",
     "packages": [
         {
             "name": "brick/math",
@@ -1022,16 +1022,16 @@
         },
         {
             "name": "imdhemy/appstore-iap",
-            "version": "1.7.0",
+            "version": "1.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/imdhemy/appstore-iap.git",
-                "reference": "c82aa2ad083c8029121ca4062c0bd494c09746c1"
+                "reference": "4ee9f863989ff8241c5cbcb86ab6d7aa4640aa81"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/imdhemy/appstore-iap/zipball/c82aa2ad083c8029121ca4062c0bd494c09746c1",
-                "reference": "c82aa2ad083c8029121ca4062c0bd494c09746c1",
+                "url": "https://api.github.com/repos/imdhemy/appstore-iap/zipball/4ee9f863989ff8241c5cbcb86ab6d7aa4640aa81",
+                "reference": "4ee9f863989ff8241c5cbcb86ab6d7aa4640aa81",
                 "shasum": ""
             },
             "require": {
@@ -1048,6 +1048,7 @@
                 "fakerphp/faker": "^1.22",
                 "friendsofphp/php-cs-fixer": "^3.16",
                 "phpunit/phpunit": "^9.6",
+                "psalm/plugin-phpunit": "^0.19.0",
                 "roave/security-advisories": "dev-latest",
                 "vimeo/psalm": "^5.11"
             },
@@ -1070,9 +1071,9 @@
             "description": "PHP Appstore In-App Purchase implementation",
             "support": {
                 "issues": "https://github.com/imdhemy/appstore-iap/issues",
-                "source": "https://github.com/imdhemy/appstore-iap/tree/1.7.0"
+                "source": "https://github.com/imdhemy/appstore-iap/tree/1.7.1"
             },
-            "time": "2024-06-30T18:08:57+00:00"
+            "time": "2025-05-18T07:56:17+00:00"
         },
         {
             "name": "imdhemy/google-play-billing",
@@ -11812,9 +11813,9 @@
         "ext-json": "*",
         "ext-openssl": "*"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "platform-overrides": {
         "php": "8.1"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
