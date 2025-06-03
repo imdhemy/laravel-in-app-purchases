@@ -41,10 +41,15 @@ class Product
     {
         $sandbox = (bool)config('liap.appstore_sandbox');
 
-        $this->client = $client ?? AppStoreClientFactory::create($sandbox);
+        $this->client = $client ?? $this->createAppStoreClient($sandbox);
         $this->password = (string)config('liap.appstore_password');
 
         return $this;
+    }
+
+    private function createAppStoreClient(bool $sandbox): ClientInterface
+    {
+        return $sandbox ? AppStoreClientFactory::createForITunesSandbox() : AppStoreClientFactory::createForITunes();
     }
 
     public function packageName(string $packageName): self
@@ -78,7 +83,7 @@ class Product
 
     public function createProduct(): GooglePlayProduct
     {
-        assert(! is_null($this->client));
+        assert(null !== $this->client);
 
         return new GooglePlayProduct(
             $this->client,
@@ -109,7 +114,7 @@ class Product
      */
     public function verifyReceipt(): ReceiptResponse
     {
-        assert(! is_null($this->client));
+        assert(null !== $this->client);
 
         return (new Verifier($this->client, $this->receiptData, $this->password))->verify();
     }

@@ -16,6 +16,7 @@ use Imdhemy\Purchases\Events\AppStore\DidRecover;
 use Imdhemy\Purchases\Events\AppStore\DidRenew;
 use Imdhemy\Purchases\Events\AppStore\InitialBuy;
 use Imdhemy\Purchases\Events\AppStore\InteractiveRenewal;
+use Imdhemy\Purchases\Events\AppStore\OneTimeCharge;
 use Imdhemy\Purchases\Events\AppStore\PriceIncreaseConsent;
 use Imdhemy\Purchases\Events\AppStore\Refund;
 use Imdhemy\Purchases\Events\AppStore\Revoke;
@@ -174,6 +175,10 @@ class EventFactoryTest extends TestCase
             [
                 AppstoreNotification::REVOKE,
                 Revoke::class,
+            ],
+            [
+                AppstoreNotification::ONE_TIME_CHARGE,
+                OneTimeCharge::class,
             ],
             [
                 'InvalidType',

@@ -58,7 +58,7 @@ class Subscription
     public function appStore(?ClientInterface $client = null): self
     {
         $this->isGoogle = false;
-        $this->client = $client ?? AppStoreClientFactory::create();
+        $this->client = $client ?? AppStoreClientFactory::createForITunes();
         $this->password = (string)config('liap.appstore_password');
         $this->renewalAble = false;
 
