@@ -41,13 +41,13 @@ class Product
     {
         $sandbox = (bool)config('liap.appstore_sandbox');
 
-        $this->client = $client ?? $this->createClient($sandbox);
+        $this->client = $client ?? $this->createAppStoreClient($sandbox);
         $this->password = (string)config('liap.appstore_password');
 
         return $this;
     }
 
-    private function createClient(bool $sandbox): ClientInterface
+    private function createAppStoreClient(bool $sandbox): ClientInterface
     {
         return $sandbox ? AppStoreClientFactory::createForITunesSandbox() : AppStoreClientFactory::createForITunes();
     }
