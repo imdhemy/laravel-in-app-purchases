@@ -1,11 +1,12 @@
-start:
+.PHONY: build bash
+
+start: build bash
+
+build:
 	docker build -t imdhemy/liap .
 
-composer:
-	docker run --rm -v $(PWD):/app -w /app imdhemy/liap composer $(filter-out $@,$(MAKECMDGOALS))
-
 bash:
-	docker run --rm -it -v $(PWD):/app -w /app imdhemy/liap bash
+	docker run --rm -it -v $(PWD):/var/www imdhemy/liap bash
 
 %:
 	@:
