@@ -31,11 +31,11 @@ use Lcobucci\JWT\Encoding\JoseEncoder;
  */
 class LiapServiceProvider extends ServiceProvider
 {
-    public const CONFIG_KEY = 'liap';
+    public const string CONFIG_KEY = 'liap';
 
-    public const CONFIG_PATH = __DIR__.'/../../config/'.self::CONFIG_KEY.'.php';
+    public const string CONFIG_PATH = __DIR__.'/../../config/'.self::CONFIG_KEY.'.php';
 
-    public const ROUTES_PATH = __DIR__.'/../../routes/routes.php';
+    public const string ROUTES_PATH = __DIR__.'/../../routes/routes.php';
 
     /**
      * Bootstrap any application services.
