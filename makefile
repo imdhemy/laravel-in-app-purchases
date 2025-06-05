@@ -1,4 +1,4 @@
-.PHONY: build bash
+.PHONY: build bash start
 
 start: build bash
 
