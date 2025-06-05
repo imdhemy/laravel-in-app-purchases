@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Imdhemy\Purchases\Tests\Console;
 
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Routing\UrlGenerator as IlluminateUrlGenerator;
 use Imdhemy\Purchases\Console\UrlGenerator;
@@ -16,7 +15,7 @@ final class UrlGeneratorTest extends TestCase
     public function create_signed_url(): string
     {
         $internalGenerator = $this->createMock(IlluminateUrlGenerator::class);
-        $sut = new UrlGenerator($internalGenerator, $this->app);
+        $sut = new UrlGenerator($internalGenerator);
 
         $internalGenerator->expects($this->once())
             ->method('signedRoute')
@@ -40,7 +39,7 @@ final class UrlGeneratorTest extends TestCase
     public function validate_secure_url(): void
     {
         $internalGenerator = $this->app->make(IlluminateUrlGenerator::class);
-        $sut = new UrlGenerator($internalGenerator, $this->app);
+        $sut = new UrlGenerator($internalGenerator);
         $url = $sut->signedUrl('my-provider');
 
         /** @var array{query: string, host: string, path: string} $urlParts */
@@ -58,8 +57,7 @@ final class UrlGeneratorTest extends TestCase
     public function create_unsigned_url(): void
     {
         $internalGenerator = $this->createMock(IlluminateUrlGenerator::class);
-        $app = $this->createMock(Application::class);
-        $sut = new UrlGenerator($internalGenerator, $app);
+        $sut = new UrlGenerator($internalGenerator);
 
         $internalGenerator->expects($this->once())->method('route')->with('liap.serverNotifications');
 
@@ -69,10 +67,8 @@ final class UrlGeneratorTest extends TestCase
     /** @test */
     public function has_valid_signature_delegates_call_to_laravel_9_implementation(): void
     {
-        $app = $this->createMock(Application::class);
-        $app->expects($this->once())->method('version')->willReturn('9.0.0');
         $internalGenerator = $this->createMock(IlluminateUrlGenerator::class);
-        $sut = new UrlGenerator($internalGenerator, $app);
+        $sut = new UrlGenerator($internalGenerator);
         $request = new Request();
 
         $internalGenerator->expects($this->once())->method('hasValidSignature')->with($request)->willReturn(true);
