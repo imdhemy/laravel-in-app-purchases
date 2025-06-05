@@ -17,19 +17,18 @@
     }
   ],
   "require": {
-    "php": ">=8.1",
+    "php": ">=8.3",
     "ext-json": "*",
     "ext-openssl": "*",
-    "imdhemy/appstore-iap": "^1.8",
+    "imdhemy/appstore-iap": "^1.9",
     "imdhemy/google-play-billing": "^1.5",
-    "laravel/framework": ">=8.0"
+    "laravel/framework": ">=8.83"
   },
   "require-dev": {
     "friendsofphp/php-cs-fixer": "^3.14",
     "orchestra/testbench": "^6.24",
     "psalm/plugin-laravel": "^2.0",
     "psalm/plugin-phpunit": "^0.19.0",
-    "roave/security-advisories": "dev-latest",
     "vimeo/psalm": "^5.11"
   },
   "autoload": {
@@ -64,7 +63,7 @@
     "sort-packages": true,
     "allow-plugins": {},
     "platform": {
-      "php": "8.1"
+      "php": "8.3"
     }
   }
 }

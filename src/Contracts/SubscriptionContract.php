@@ -15,8 +15,8 @@ use Imdhemy\Purchases\ValueObjects\Time;
 interface SubscriptionContract
 {
     // List of providers
-    public const PROVIDER_APP_STORE = 'app_store';
-    public const PROVIDER_GOOGLE_PLAY = 'google_play';
+    public const string PROVIDER_APP_STORE = 'app_store';
+    public const string PROVIDER_GOOGLE_PLAY = 'google_play';
 
     public function getExpiryTime(): Time;
 

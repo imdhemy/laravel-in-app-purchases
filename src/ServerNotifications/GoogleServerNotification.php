@@ -16,7 +16,7 @@ use Imdhemy\Purchases\Subscriptions\GoogleSubscription;
  */
 class GoogleServerNotification implements ServerNotificationContract
 {
-    public const TESTING_NOTIFICATION = -1;
+    public const int TESTING_NOTIFICATION = -1;
 
     private DeveloperNotification $notification;
 
