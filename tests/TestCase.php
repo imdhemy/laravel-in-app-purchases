@@ -120,4 +120,16 @@ WtcP+PnScROkjnSv6H6A6ekLVAzQYg==';
 
         return $result;
     }
+
+    protected function clearLogs(): void
+    {
+        file_put_contents(storage_path('logs/laravel.log'), '');
+    }
+
+    protected function assertLogsContain(string $needle, string $message = ''): void
+    {
+        $logs = file_get_contents(storage_path('logs/laravel.log'));
+
+        $this->assertStringContainsString($needle, $logs, $message);
+    }
 }

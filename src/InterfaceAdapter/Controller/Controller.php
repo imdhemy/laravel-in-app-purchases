@@ -2,18 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Imdhemy\Purchases\Http\Controllers;
+namespace Imdhemy\Purchases\InterfaceAdapter\Controller;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Routing\Controller as BaseController;
 
-/**
- * Base Controller class.
- */
-class Controller extends \Illuminate\Routing\Controller
+class Controller extends BaseController
 {
     use AuthorizesRequests;
-    use DispatchesJobs;
     use ValidatesRequests;
 }

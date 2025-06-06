@@ -7,6 +7,7 @@ namespace Imdhemy\Purchases\Http\Controllers;
 use Exception;
 use Illuminate\Http\Request;
 use Imdhemy\Purchases\Handlers\HandlerFactory;
+use Imdhemy\Purchases\InterfaceAdapter\Controller\Controller;
 
 /**
  * Server notification controller.
