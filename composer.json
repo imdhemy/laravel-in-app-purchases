@@ -22,11 +22,11 @@
     "ext-openssl": "*",
     "imdhemy/appstore-iap": "^1.9",
     "imdhemy/google-play-billing": "^1.5",
-    "laravel/framework": ">=9"
+    "laravel/framework": ">=10"
   },
   "require-dev": {
     "friendsofphp/php-cs-fixer": "^3.14",
-    "orchestra/testbench": "^7",
+    "orchestra/testbench": "^8",
     "psalm/plugin-laravel": "^2.0",
     "psalm/plugin-phpunit": "^0.19.0",
     "vimeo/psalm": "^5.11"
