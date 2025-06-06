@@ -7,6 +7,7 @@ namespace Imdhemy\Purchases\Tests\Feature;
 use Illuminate\Support\Facades\Event;
 use Imdhemy\AppStore\Jws\JwsVerifier;
 use Imdhemy\Purchases\Events\AppStore\Subscribed;
+use Imdhemy\Purchases\Tests\Doubles\JwsVerifier as FakeJwsVerifier;
 use Imdhemy\Purchases\Tests\TestCase;
 
 final class HandleAppStoreNotificationFeatureTest extends TestCase
@@ -15,32 +16,37 @@ final class HandleAppStoreNotificationFeatureTest extends TestCase
     {
         parent::setUp();
 
-        $this->app->bind(JwsVerifier::class, \Imdhemy\Purchases\Tests\Doubles\JwsVerifier::class);
-    }
-
-    /** @test */
-    public function handle_app_store_test_notification(): void
-    {
-        file_put_contents(storage_path('logs/laravel.log'), '');
+        $this->app->bind(JwsVerifier::class, FakeJwsVerifier::class);
         $this->withoutExceptionHandling();
-        $signedPayload = $this->faker->appStoreTestNotification();
-
-        $this->post('/liap/notifications?provider=app-store', ['signedPayload' => $signedPayload->toString()]
-        )->assertStatus(200);
-
-        $logs = file_get_contents(storage_path('/logs/laravel.log'));
-        $this->assertStringContainsString('AppStoreV2NotificationHandler: Test notification received', $logs);
     }
 
     /** @test */
-    public function handle_app_store_server_notification_v2(): void
+    public function it_dispatches_server_notification_event(): void
     {
         Event::fake();
-        $signedPayload = $this->faker->appStoreNotification();
+        $data = ['signedPayload' => $this->faker->appStoreNotification()->toString()];
 
-        $this->post('/liap/notifications?provider=app-store', ['signedPayload' => $signedPayload->toString()]
-        )->assertStatus(200);
+        $response = $this->post('/liap/notifications?provider=app-store', $data);
 
+        $response->assertStatus(200);
         Event::assertDispatched(Subscribed::class);
+    }
+
+    /** @test */
+    public function it_logs_test_notification(): void
+    {
+        $data = ['signedPayload' => $this->faker->appStoreTestNotification()->toString()];
+
+        $response = $this->post('/liap/notifications?provider=app-store', $data);
+
+        $response->assertStatus(200);
+        $this->assertLogsContain('AppStoreV2NotificationHandler: Test notification received');
+    }
+
+    protected function tearDown(): void
+    {
+        $this->clearLogs();
+
+        parent::tearDown();
     }
 }

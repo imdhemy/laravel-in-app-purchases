@@ -10,19 +10,27 @@ use Imdhemy\Purchases\Tests\TestCase;
 
 final class HandleLegacyAppStoreNotificationFeatureTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->withoutExceptionHandling();
+        Event::fake();
+    }
+
     /** @test */
     public function handle_app_store_server_notifications(): void
     {
-        $this->withoutExceptionHandling();
-        Event::fake();
         $data = json_decode(
             file_get_contents($this->fixturesDir('appstore-server-notification.json')),
             true,
             512,
             JSON_PARTIAL_OUTPUT_ON_ERROR
         );
-        $this->post('/liap/notifications?provider=app-store', $data)->assertStatus(200);
 
+        $response = $this->post('/liap/notifications?provider=app-store', $data);
+
+        $response->assertStatus(200);
         Event::assertDispatched(DidChangeRenewalStatus::class);
     }
 }

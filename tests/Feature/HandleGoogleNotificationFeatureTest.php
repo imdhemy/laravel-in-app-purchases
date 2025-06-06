@@ -10,11 +10,17 @@ use Imdhemy\Purchases\Tests\TestCase;
 
 final class HandleGoogleNotificationFeatureTest extends TestCase
 {
-    /** @test */
-    public function handle_google_subscription_notification(): void
+    protected function setUp(): void
     {
-        Event::fake();
+        parent::setUp();
+
         $this->withoutExceptionHandling();
+        Event::fake();
+    }
+
+    /** @test */
+    public function it_dispatches_server_notification_test(): void
+    {
         $data = [
             'message' => [
                 'data' => $this->faker->googleSubscriptionNotification(),
@@ -28,11 +34,8 @@ final class HandleGoogleNotificationFeatureTest extends TestCase
     }
 
     /** @test */
-    public function handle_google_test_notification(): void
+    public function it_logs_test_notification(): void
     {
-        Event::fake();
-        file_put_contents(storage_path('logs/laravel.log'), '');
-        $this->withoutExceptionHandling();
         $data = [
             'message' => [
                 'data' => $this->faker->googleTestNotification(),
@@ -42,13 +45,12 @@ final class HandleGoogleNotificationFeatureTest extends TestCase
         $response = $this->post('/liap/notifications?provider=google-play', $data);
 
         $response->assertStatus(200);
-        $this->assertNotEmpty(file_get_contents(storage_path('/logs/laravel.log')));
+        $this->assertLogsContain('Google Play Test Notification, version: 1.0');
     }
 
     /** @test */
     public function it_logs_the_weird__zn_nk_weird_token(): void
     {
-        file_put_contents(storage_path('logs/laravel.log'), '');
         $data = json_decode(
             file_get_contents($this->fixturesDir('weird-token-from-google.json')),
             true,
@@ -57,8 +59,13 @@ final class HandleGoogleNotificationFeatureTest extends TestCase
         );
         $this->post('/liap/notifications?provider=google-play', $data)->assertStatus(200);
 
-        $this->assertNotEmpty(
-            file_get_contents(storage_path('/logs/laravel.log'))
-        );
+        $this->assertLogsContain('Google Play malformed RTDN');
+    }
+
+    protected function tearDown(): void
+    {
+        $this->clearLogs();
+
+        parent::tearDown();
     }
 }
