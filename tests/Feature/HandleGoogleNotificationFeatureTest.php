@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Imdhemy\Purchases\Tests\Feature;
 
 use Illuminate\Support\Facades\Event;
+use Imdhemy\Purchases\Domain\Event\GooglePlayNotificationReceivedEvent;
 use Imdhemy\Purchases\Events\GooglePlay\SubscriptionRecovered;
 use Imdhemy\Purchases\Tests\TestCase;
 
@@ -31,6 +32,7 @@ final class HandleGoogleNotificationFeatureTest extends TestCase
 
         $response->assertStatus(200);
         Event::assertDispatched(SubscriptionRecovered::class);
+        Event::assertDispatched(GooglePlayNotificationReceivedEvent::class);
     }
 
     /** @test */
@@ -46,6 +48,7 @@ final class HandleGoogleNotificationFeatureTest extends TestCase
 
         $response->assertStatus(200);
         $this->assertLogsContain('Google Play Test Notification, version: 1.0');
+        Event::assertDispatched(GooglePlayNotificationReceivedEvent::class);
     }
 
     /** @test */
@@ -60,6 +63,7 @@ final class HandleGoogleNotificationFeatureTest extends TestCase
         $this->post('/liap/notifications?provider=google-play', $data)->assertStatus(200);
 
         $this->assertLogsContain('Google Play malformed RTDN');
+        Event::assertDispatched(GooglePlayNotificationReceivedEvent::class);
     }
 
     protected function tearDown(): void

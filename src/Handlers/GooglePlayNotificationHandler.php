@@ -7,6 +7,7 @@ namespace Imdhemy\Purchases\Handlers;
 use Illuminate\Support\Facades\Log;
 use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
 use Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification;
+use Imdhemy\Purchases\Domain\Event\GooglePlayNotificationReceivedEvent;
 use Imdhemy\Purchases\ServerNotifications\GoogleServerNotification;
 use JsonException;
 
@@ -43,6 +44,9 @@ class GooglePlayNotificationHandler extends AbstractNotificationHandler
                 sprintf('Google Play malformed RTDN: %s', json_encode($this->request->all(), JSON_THROW_ON_ERROR))
             );
 
+            $event = new GooglePlayNotificationReceivedEvent();
+            event($event);
+
             return;
         }
 
@@ -52,15 +56,21 @@ class GooglePlayNotificationHandler extends AbstractNotificationHandler
         if ($developerNotification->isTestNotification()) {
             $version = $developerNotification->getPayload()->getVersion();
             Log::info(sprintf('Google Play Test Notification, version: %s', $version));
+
+            $event = new GooglePlayNotificationReceivedEvent();
+            event($event);
         }
 
         if ($developerNotification->getPayload() instanceof SubscriptionNotification) {
-            $event = $this->eventFactory->create($googleNotification);
+            $legacyEvent = $this->eventFactory->create($googleNotification);
+            event($legacyEvent);
+
+            $event = new GooglePlayNotificationReceivedEvent();
             event($event);
         }
     }
 
-    protected function isParsable(string $data): bool
+    private function isParsable(string $data): bool
     {
         $base64Decoded = base64_decode($data, true);
         if (false === $base64Decoded) {
@@ -69,7 +79,7 @@ class GooglePlayNotificationHandler extends AbstractNotificationHandler
 
         try {
             return is_array(json_decode($base64Decoded, true, 512, JSON_THROW_ON_ERROR));
-        } catch (JsonException $ex) {
+        } catch (JsonException) {
             return false;
         }
     }
