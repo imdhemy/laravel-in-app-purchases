@@ -6,11 +6,12 @@ namespace Imdhemy\Purchases\Handlers;
 
 use Illuminate\Support\Facades\Log;
 use Imdhemy\AppStore\ServerNotifications\V2DecodedPayload;
+use Imdhemy\Purchases\Domain\Event\AppStoreNotificationReceivedEvent;
 use Imdhemy\Purchases\ServerNotifications\AppStoreV2ServerNotification;
 
 /**
  * Class AppStoreV2NotificationHandler
- * This class is used to handle AppStore V2 notifications.
+ * This class is used to handle App Store V2 notifications.
  */
 class AppStoreV2NotificationHandler extends AbstractNotificationHandler
 {
@@ -38,10 +39,16 @@ class AppStoreV2NotificationHandler extends AbstractNotificationHandler
                 $signedPayload
             );
 
+            $event = new AppStoreNotificationReceivedEvent();
+            event($event);
+
             return;
         }
 
-        $event = $this->eventFactory->create($serverNotification);
+        $legacyEvent = $this->eventFactory->create($serverNotification);
+        event($legacyEvent);
+
+        $event = new AppStoreNotificationReceivedEvent();
         event($event);
     }
 
