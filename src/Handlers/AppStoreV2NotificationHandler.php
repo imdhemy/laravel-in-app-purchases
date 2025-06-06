@@ -7,7 +7,7 @@ namespace Imdhemy\Purchases\Handlers;
 use Illuminate\Support\Facades\Log;
 use Imdhemy\AppStore\ServerNotifications\V2DecodedPayload;
 use Imdhemy\Purchases\Domain\Event\AppStoreNotificationReceivedEvent;
-use Imdhemy\Purchases\Domain\Model\AppStoreNotificationPayload;
+use Imdhemy\Purchases\Domain\Model\AppStore\AppStoreNotificationPayload;
 use Imdhemy\Purchases\ServerNotifications\AppStoreV2ServerNotification;
 
 /**

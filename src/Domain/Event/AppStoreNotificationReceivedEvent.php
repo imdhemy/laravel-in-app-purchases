@@ -6,7 +6,7 @@ namespace Imdhemy\Purchases\Domain\Event;
 
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Imdhemy\Purchases\Domain\Model\AppStoreNotificationPayload;
+use Imdhemy\Purchases\Domain\Model\AppStore\AppStoreNotificationPayload;
 
 final readonly class AppStoreNotificationReceivedEvent
 {
