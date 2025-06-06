@@ -7,6 +7,7 @@ namespace Imdhemy\Purchases\Handlers;
 use Illuminate\Support\Facades\Log;
 use Imdhemy\AppStore\ServerNotifications\V2DecodedPayload;
 use Imdhemy\Purchases\Domain\Event\AppStoreNotificationReceivedEvent;
+use Imdhemy\Purchases\Domain\Model\AppStoreNotificationPayload;
 use Imdhemy\Purchases\ServerNotifications\AppStoreV2ServerNotification;
 
 /**
@@ -31,15 +32,16 @@ class AppStoreV2NotificationHandler extends AbstractNotificationHandler
     {
         $decodedPayload = V2DecodedPayload::fromJws($this->jwsService->parse());
         $serverNotification = AppStoreV2ServerNotification::fromDecodedPayload($decodedPayload);
+        $signedPayload = (string)$this->request->get('signedPayload');
+        $appStoreNotificationPayload = new AppStoreNotificationPayload($signedPayload);
 
         if ($serverNotification->isTest()) {
-            $signedPayload = (string)$this->request->get('signedPayload');
             Log::info(
                 'AppStoreV2NotificationHandler: Test notification received '.
                 $signedPayload
             );
 
-            $event = new AppStoreNotificationReceivedEvent();
+            $event = new AppStoreNotificationReceivedEvent(payload: $appStoreNotificationPayload);
             event($event);
 
             return;
@@ -48,7 +50,7 @@ class AppStoreV2NotificationHandler extends AbstractNotificationHandler
         $legacyEvent = $this->eventFactory->create($serverNotification);
         event($legacyEvent);
 
-        $event = new AppStoreNotificationReceivedEvent();
+        $event = new AppStoreNotificationReceivedEvent(payload: $appStoreNotificationPayload);
         event($event);
     }
 

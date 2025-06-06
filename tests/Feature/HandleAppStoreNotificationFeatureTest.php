@@ -31,7 +31,11 @@ final class HandleAppStoreNotificationFeatureTest extends TestCase
 
         $response->assertStatus(200);
         Event::assertDispatched(Subscribed::class);
-        Event::assertDispatched(AppStoreNotificationReceivedEvent::class);
+        Event::assertDispatched(
+            AppStoreNotificationReceivedEvent::class,
+            static fn (AppStoreNotificationReceivedEvent $event,
+            ) => $event->payload->signedPayload === $data['signedPayload']
+        );
     }
 
     /** @test */
@@ -43,7 +47,11 @@ final class HandleAppStoreNotificationFeatureTest extends TestCase
 
         $response->assertStatus(200);
         $this->assertLogsContain('AppStoreV2NotificationHandler: Test notification received');
-        Event::assertDispatched(AppStoreNotificationReceivedEvent::class);
+        Event::assertDispatched(
+            AppStoreNotificationReceivedEvent::class,
+            static fn (AppStoreNotificationReceivedEvent $event,
+            ) => $event->payload->signedPayload === $data['signedPayload']
+        );
     }
 
     protected function tearDown(): void
