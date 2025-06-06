@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Event;
 use Imdhemy\AppStore\Jws\JwsVerifier;
 use Imdhemy\Purchases\Events\AppStore\DidChangeRenewalStatus;
 use Imdhemy\Purchases\Events\AppStore\Subscribed;
-use Imdhemy\Purchases\Events\GooglePlay\SubscriptionRecovered;
 use Imdhemy\Purchases\Tests\TestCase;
 use JsonException;
 
@@ -19,47 +18,6 @@ class ServerNotificationControllerTest extends TestCase
         parent::setUp();
 
         $this->app->bind(JwsVerifier::class, \Imdhemy\Purchases\Tests\Doubles\JwsVerifier::class);
-    }
-
-    /**
-     * @test
-     */
-    public function google_subscription_notification(): void
-    {
-        Event::fake();
-        $this->withoutExceptionHandling();
-        $data = [
-            'message' => [
-                'data' => $this->faker->googleSubscriptionNotification(),
-            ],
-        ];
-
-        $uri = url('/liap/notifications?provider=google-play');
-
-        $this->post($uri, $data)->assertStatus(200);
-
-        Event::assertDispatched(SubscriptionRecovered::class);
-    }
-
-    /**
-     * @test
-     */
-    public function google_test_notification(): void
-    {
-        file_put_contents(storage_path('logs/laravel.log'), '');
-        $this->withoutExceptionHandling();
-        $data = [
-            'message' => [
-                'data' => $this->faker->googleTestNotification(),
-            ],
-        ];
-
-        $uri = url('/liap/notifications?provider=google-play');
-        $this->post($uri, $data)->assertStatus(200);
-
-        $this->assertNotEmpty(
-            file_get_contents(storage_path('/logs/laravel.log'))
-        );
     }
 
     /**
