@@ -32,7 +32,11 @@ final class HandleGoogleNotificationFeatureTest extends TestCase
 
         $response->assertStatus(200);
         Event::assertDispatched(SubscriptionRecovered::class);
-        Event::assertDispatched(GooglePlayNotificationReceivedEvent::class);
+        Event::assertDispatched(
+            GooglePlayNotificationReceivedEvent::class,
+            static fn (GooglePlayNotificationReceivedEvent $event,
+            ) => $event->payload->message->data === $data['message']['data']
+        );
     }
 
     /** @test */
@@ -48,7 +52,11 @@ final class HandleGoogleNotificationFeatureTest extends TestCase
 
         $response->assertStatus(200);
         $this->assertLogsContain('Google Play Test Notification, version: 1.0');
-        Event::assertDispatched(GooglePlayNotificationReceivedEvent::class);
+        Event::assertDispatched(
+            GooglePlayNotificationReceivedEvent::class,
+            static fn (GooglePlayNotificationReceivedEvent $event,
+            ) => $event->payload->message->data === $data['message']['data']
+        );
     }
 
     /** @test */
@@ -63,7 +71,12 @@ final class HandleGoogleNotificationFeatureTest extends TestCase
         $this->post('/liap/notifications?provider=google-play', $data)->assertStatus(200);
 
         $this->assertLogsContain('Google Play malformed RTDN');
-        Event::assertDispatched(GooglePlayNotificationReceivedEvent::class);
+        Event::assertDispatched(
+            GooglePlayNotificationReceivedEvent::class,
+            static fn (
+                GooglePlayNotificationReceivedEvent $event,
+            ): bool => $event->payload->message->data === $data['message']['data']
+        );
     }
 
     protected function tearDown(): void
