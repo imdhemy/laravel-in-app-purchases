@@ -44,4 +44,21 @@ final class HandleGoogleNotificationFeatureTest extends TestCase
         $response->assertStatus(200);
         $this->assertNotEmpty(file_get_contents(storage_path('/logs/laravel.log')));
     }
+
+    /** @test */
+    public function it_logs_the_weird__zn_nk_weird_token(): void
+    {
+        file_put_contents(storage_path('logs/laravel.log'), '');
+        $data = json_decode(
+            file_get_contents($this->fixturesDir('weird-token-from-google.json')),
+            true,
+            512,
+            JSON_PARTIAL_OUTPUT_ON_ERROR
+        );
+        $this->post('/liap/notifications?provider=google-play', $data)->assertStatus(200);
+
+        $this->assertNotEmpty(
+            file_get_contents(storage_path('/logs/laravel.log'))
+        );
+    }
 }
