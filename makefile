@@ -6,7 +6,7 @@ build:
 	docker build -t imdhemy/liap .
 
 bash:
-	docker run --rm -it -v $(PWD):/var/www imdhemy/liap bash
+	docker run --rm -it --name liap-container -v $(PWD):/var/www imdhemy/liap bash
 
 %:
 	@:
