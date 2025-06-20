@@ -109,7 +109,7 @@ class AppStoreTestNotificationServiceBuilder
 
     protected function createClient(): ClientInterface
     {
-        return $this->sandbox ? ClientFactory::createForITunesSandbox() : ClientFactory::createForITunes();
+        return $this->sandbox ? ClientFactory::createForStoreKitSandbox() : ClientFactory::createForStoreKit();
     }
 
     public function of(array $config): self
