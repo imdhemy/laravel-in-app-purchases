@@ -25,6 +25,7 @@ use Imdhemy\Purchases\Product;
 use Imdhemy\Purchases\Subscription;
 use Lcobucci\JWT\Decoder;
 use Lcobucci\JWT\Encoding\JoseEncoder;
+use Google\Auth\CredentialsLoader;
 
 /**
  * Laravel Iap service provider.
@@ -47,6 +48,20 @@ class LiapServiceProvider extends ServiceProvider
         $this->bootRoutes();
 
         $this->bootCommands();
+
+        $this->booted(function () {
+            if (empty(getenv(CredentialsLoader::ENV_VAR))) {
+                putenv(CredentialsLoader::ENV_VAR . '=' . config('liap.google_application_credentials'));
+            }
+
+            if (
+                !file_exists(getenv(CredentialsLoader::ENV_VAR))
+                && file_exists(base_path(getenv(CredentialsLoader::ENV_VAR)))
+            ) {
+                putenv(CredentialsLoader::ENV_VAR . '=' . base_path(getenv(CredentialsLoader::ENV_VAR)));
+            }
+        });
+
     }
 
     /**
