@@ -1,7 +1,7 @@
 name: 📝 Task
 description: Create a task issue.
 type: task
-projects: [ "imdhemy/2", "imdhemy/2" ]
+projects: [ "imdhemy/2" ]
 
 body:
   - type: textarea
