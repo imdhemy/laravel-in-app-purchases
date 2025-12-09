@@ -8,6 +8,4 @@ updates:
       - dependency-type: "direct"
     labels:
       - "🧱 Dependencies"
-    reviewers:
-      - "imdhemy"
     versioning-strategy: auto
