@@ -1,6 +1,8 @@
 name: 🚀 Feature Request
 description: Ideas for new features and improvements
 labels: [ Feature Request ]
+type: feature-request
+projects: [ "imdhemy/2", "imdhemy/2" ]
 
 body:
   - type: textarea

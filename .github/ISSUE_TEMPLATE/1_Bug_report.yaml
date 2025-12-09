@@ -2,6 +2,7 @@ name: 🐛 Bug Report
 description: ⚠️ Report a bug to help us improve Liap.
 labels: [ Bug ]
 type: bug
+projects: [ "imdhemy/2", "imdhemy/2" ]
 
 body:
   - type: dropdown
