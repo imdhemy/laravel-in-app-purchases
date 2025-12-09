@@ -1,6 +1,5 @@
 name: 📝 Task
 description: Create a task issue.
-type: task
 
 body:
   - type: textarea
