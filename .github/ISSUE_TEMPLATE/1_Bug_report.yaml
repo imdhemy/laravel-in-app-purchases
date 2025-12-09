@@ -1,13 +1,17 @@
 name: 🐛 Bug Report
-description: ⚠️ For Q&A, please use the [Discussions](https://github.com/imdhemy/laravel-in-app-purchases/discussions) tab.
+description: ⚠️ Report a bug to help us improve Liap.
 labels: [ Bug ]
+type: bug
+projects: [ "imdhemy/2" ]
 
 body:
-  - type: input
+  - type: dropdown
     id: affected-versions
     attributes:
-      label: Liap version(s) affected
-      placeholder: x.y.z
+      label: Liap version affected
+      options:
+        - 1.x
+        - 0.x
     validations:
       required: true
   - type: textarea

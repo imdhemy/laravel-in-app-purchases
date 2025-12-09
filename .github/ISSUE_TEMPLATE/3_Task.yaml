@@ -1,0 +1,13 @@
+name: 📝 Task
+description: Create a task issue.
+type: task
+projects: [ "imdhemy/2" ]
+
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A clear and concise description of the task
+    validations:
+      required: true
