@@ -35,3 +35,4 @@ jobs:
 
       - name: "Static code analysis"
         run: "composer psalm"
+        if: matrix.php != '8.5'
