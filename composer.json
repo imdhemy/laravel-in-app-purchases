@@ -26,7 +26,7 @@
   },
   "require-dev": {
     "friendsofphp/php-cs-fixer": "^3.14",
-    "orchestra/testbench": "^9",
+    "orchestra/testbench": "^9.15",
     "phpunit/phpunit": "^10.5",
     "psalm/plugin-laravel": "^2.0",
     "psalm/plugin-phpunit": "^0.19.0",
