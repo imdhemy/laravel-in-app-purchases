@@ -56,7 +56,7 @@ class EventFactoryTest extends TestCase
         $this->assertSame($expectedEvent, get_class($event));
     }
 
-    public function googlePlayEventsProvider(): array
+    public static function googlePlayEventsProvider(): array
     {
         $data = [
             [
@@ -125,7 +125,7 @@ class EventFactoryTest extends TestCase
         return $data;
     }
 
-    public function appStoreEventsProvider(): array
+    public static function appStoreEventsProvider(): array
     {
         $data = [
             [
