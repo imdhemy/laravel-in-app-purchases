@@ -38,7 +38,7 @@ final class LiapConfigPublishCommandTest extends TestCase
     /**
      * @test
      */
-    public function it_should_file_if_config_is_published(): void
+    public function it_should_fail_if_config_is_published(): void
     {
         $this->artisan('liap:config:publish');
 
