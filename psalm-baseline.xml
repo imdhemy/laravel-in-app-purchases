@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="6.5.0@38fc8444edf0cebc9205296ee6e30e906ade783b">
+  <file src="src/Console/RequestTestNotificationCommand.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[__construct]]></code>
+      <code><![CDATA[handle]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Console/UrlGenerator.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[__construct]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Contracts/HasSubtype.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[getSubtype]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Contracts/PurchaseEventContract.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[getServerNotification]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Contracts/ServerNotificationContract.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[getBundle]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Contracts/SubscriptionContract.php">
+    <DeprecatedClass>
+      <code><![CDATA[mixed|SubscriptionPurchase|ReceiptResponse|V2DecodedPayload]]></code>
+    </DeprecatedClass>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[getExpiryTime]]></code>
+      <code><![CDATA[getProvider]]></code>
+      <code><![CDATA[getProviderRepresentation]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Contracts/UrlGenerator.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[generate]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Domain/Event/AppStoreNotificationReceivedEvent.php">
+    <PossiblyUnusedProperty>
+      <code><![CDATA[$payload]]></code>
+    </PossiblyUnusedProperty>
+  </file>
+  <file src="src/Domain/Event/GooglePlayNotificationReceivedEvent.php">
+    <PossiblyUnusedProperty>
+      <code><![CDATA[$payload]]></code>
+    </PossiblyUnusedProperty>
+  </file>
+  <file src="src/Domain/Model/AppStore/AppStoreNotificationPayload.php">
+    <PossiblyUnusedProperty>
+      <code><![CDATA[$signedPayload]]></code>
+    </PossiblyUnusedProperty>
+  </file>
+  <file src="src/Domain/Model/GooglePlay/GooglePlayNotificationPayload.php">
+    <PossiblyUnusedProperty>
+      <code><![CDATA[$message]]></code>
+    </PossiblyUnusedProperty>
+  </file>
+  <file src="src/Domain/Model/GooglePlay/Message.php">
+    <PossiblyUnusedProperty>
+      <code><![CDATA[$data]]></code>
+    </PossiblyUnusedProperty>
+  </file>
+  <file src="src/Events/AppStore/Cancel.php">
+    <UnusedClass>
+      <code><![CDATA[Cancel]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Events/AppStore/ConsumptionRequest.php">
+    <UnusedClass>
+      <code><![CDATA[ConsumptionRequest]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Events/AppStore/DidChangeRenewalPref.php">
+    <UnusedClass>
+      <code><![CDATA[DidChangeRenewalPref]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Events/AppStore/DidChangeRenewalStatus.php">
+    <UnusedClass>
+      <code><![CDATA[DidChangeRenewalStatus]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Events/AppStore/DidFailToRenew.php">
+    <UnusedClass>
+      <code><![CDATA[DidFailToRenew]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Events/AppStore/DidRecover.php">
+    <UnusedClass>
+      <code><![CDATA[DidRecover]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Events/AppStore/DidRenew.php">
+    <UnusedClass>
+      <code><![CDATA[DidRenew]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Events/AppStore/EventFactory.php">
+    <UnusedClass>
+      <code><![CDATA[EventFactory]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Events/AppStore/Expired.php">
+    <UnusedClass>
+      <code><![CDATA[Expired]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Events/AppStore/GracePeriodExpired.php">
+    <UnusedClass>
+      <code><![CDATA[GracePeriodExpired]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Events/AppStore/InitialBuy.php">
+    <UnusedClass>
+      <code><![CDATA[InitialBuy]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Events/AppStore/InteractiveRenewal.php">
+    <UnusedClass>
+      <code><![CDATA[InteractiveRenewal]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Events/AppStore/OfferRedeemed.php">
+    <UnusedClass>
+      <code><![CDATA[OfferRedeemed]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Events/AppStore/OneTimeCharge.php">
+    <UnusedClass>
+      <code><![CDATA[OneTimeCharge]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Events/AppStore/PriceIncrease.php">
+    <UnusedClass>
+      <code><![CDATA[PriceIncrease]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Events/AppStore/PriceIncreaseConsent.php">
+    <UnusedClass>
+      <code><![CDATA[PriceIncreaseConsent]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Events/AppStore/Refund.php">
+    <UnusedClass>
+      <code><![CDATA[Refund]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Events/AppStore/RefundDeclined.php">
+    <UnusedClass>
+      <code><![CDATA[RefundDeclined]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Events/AppStore/Renewal.php">
+    <UnusedClass>
+      <code><![CDATA[Renewal]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Events/AppStore/RenewalExtended.php">
+    <UnusedClass>
+      <code><![CDATA[RenewalExtended]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Events/AppStore/Revoke.php">
+    <UnusedClass>
+      <code><![CDATA[Revoke]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Events/AppStore/Subscribed.php">
+    <UnusedClass>
+      <code><![CDATA[Subscribed]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Events/EventFactory.php">
+    <DeprecatedClass>
+      <code><![CDATA[SubscriptionNotification::class]]></code>
+    </DeprecatedClass>
+  </file>
+  <file src="src/Events/GooglePlay/EventFactory.php">
+    <DeprecatedClass>
+      <code><![CDATA[SubscriptionNotification::class]]></code>
+    </DeprecatedClass>
+    <UnusedClass>
+      <code><![CDATA[EventFactory]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Events/GooglePlay/SubscriptionCanceled.php">
+    <UnusedClass>
+      <code><![CDATA[SubscriptionCanceled]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Events/GooglePlay/SubscriptionDeferred.php">
+    <UnusedClass>
+      <code><![CDATA[SubscriptionDeferred]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Events/GooglePlay/SubscriptionExpired.php">
+    <UnusedClass>
+      <code><![CDATA[SubscriptionExpired]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Events/GooglePlay/SubscriptionInGracePeriod.php">
+    <UnusedClass>
+      <code><![CDATA[SubscriptionInGracePeriod]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Events/GooglePlay/SubscriptionOnHold.php">
+    <UnusedClass>
+      <code><![CDATA[SubscriptionOnHold]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Events/GooglePlay/SubscriptionPauseScheduleChanged.php">
+    <UnusedClass>
+      <code><![CDATA[SubscriptionPauseScheduleChanged]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Events/GooglePlay/SubscriptionPaused.php">
+    <UnusedClass>
+      <code><![CDATA[SubscriptionPaused]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Events/GooglePlay/SubscriptionPriceChangeConfirmed.php">
+    <UnusedClass>
+      <code><![CDATA[SubscriptionPriceChangeConfirmed]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Events/GooglePlay/SubscriptionPurchased.php">
+    <UnusedClass>
+      <code><![CDATA[SubscriptionPurchased]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Events/GooglePlay/SubscriptionRecovered.php">
+    <UnusedClass>
+      <code><![CDATA[SubscriptionRecovered]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Events/GooglePlay/SubscriptionRenewed.php">
+    <UnusedClass>
+      <code><![CDATA[SubscriptionRenewed]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Events/GooglePlay/SubscriptionRestarted.php">
+    <UnusedClass>
+      <code><![CDATA[SubscriptionRestarted]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Events/GooglePlay/SubscriptionRevoked.php">
+    <UnusedClass>
+      <code><![CDATA[SubscriptionRevoked]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Events/PurchaseEvent.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[getSubscriptionId]]></code>
+      <code><![CDATA[getSubscriptionIdentifier]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Facades/Product.php">
+    <UnusedClass>
+      <code><![CDATA[Product]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Handlers/AppStoreV2NotificationHandler.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[__construct]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Handlers/GooglePlayNotificationHandler.php">
+    <DeprecatedClass>
+      <code><![CDATA[DeveloperNotification::parse($data)]]></code>
+      <code><![CDATA[DeveloperNotification::parse($data)]]></code>
+    </DeprecatedClass>
+    <DeprecatedInterface>
+      <code><![CDATA[$developerNotification->getPayload()]]></code>
+      <code><![CDATA[$developerNotification->getPayload()]]></code>
+    </DeprecatedInterface>
+  </file>
+  <file src="src/Handlers/HandlerFactory.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[__construct]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Handlers/HandlerHelpers.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[__construct]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Handlers/JwsService.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[__construct]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Http/Controllers/ServerNotificationController.php">
+    <PossiblyUnusedParam>
+      <code><![CDATA[$request]]></code>
+    </PossiblyUnusedParam>
+    <UnusedClass>
+      <code><![CDATA[ServerNotificationController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Product.php">
+    <DeprecatedClass>
+      <code><![CDATA[$this->createProduct()->get()]]></code>
+      <code><![CDATA[GooglePlayClientFactory::SCOPE_ANDROID_PUBLISHER]]></code>
+      <code><![CDATA[GooglePlayClientFactory::create([GooglePlayClientFactory::SCOPE_ANDROID_PUBLISHER])]]></code>
+      <code><![CDATA[GooglePlayProduct]]></code>
+      <code><![CDATA[ProductPurchase]]></code>
+      <code><![CDATA[new GooglePlayProduct(
+            $this->client,
+            $this->packageName,
+            $this->itemId,
+            $this->token
+        )]]></code>
+    </DeprecatedClass>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[acknowledge]]></code>
+      <code><![CDATA[appStore]]></code>
+      <code><![CDATA[consume]]></code>
+      <code><![CDATA[get]]></code>
+      <code><![CDATA[googlePlay]]></code>
+      <code><![CDATA[id]]></code>
+      <code><![CDATA[packageName]]></code>
+      <code><![CDATA[password]]></code>
+      <code><![CDATA[receiptData]]></code>
+      <code><![CDATA[token]]></code>
+      <code><![CDATA[verifyReceipt]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/ServerNotifications/GoogleServerNotification.php">
+    <DeprecatedClass>
+      <code><![CDATA[DeveloperNotification]]></code>
+      <code><![CDATA[DeveloperNotification]]></code>
+    </DeprecatedClass>
+    <DeprecatedInterface>
+      <code><![CDATA[$this->notification->getPayload()]]></code>
+    </DeprecatedInterface>
+  </file>
+  <file src="src/ServiceProviders/EventServiceProvider.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[__construct]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/ServiceProviders/LiapServiceProvider.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[boot]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Services/AppStoreTestNotificationServiceBuilder.php">
+    <PossiblyFalseArgument>
+      <code><![CDATA[file_get_contents($config['appstore_private_key'])]]></code>
+    </PossiblyFalseArgument>
+  </file>
+  <file src="src/Subscription.php">
+    <DeprecatedClass>
+      <code><![CDATA[$this->createSubscription()->get()]]></code>
+      <code><![CDATA[?SubscriptionPurchase]]></code>
+      <code><![CDATA[GooglePlayClientFactory::SCOPE_ANDROID_PUBLISHER]]></code>
+      <code><![CDATA[GooglePlayClientFactory::create([GooglePlayClientFactory::SCOPE_ANDROID_PUBLISHER])]]></code>
+      <code><![CDATA[GooglePlaySubscription]]></code>
+      <code><![CDATA[SubscriptionPurchase]]></code>
+      <code><![CDATA[new GooglePlaySubscription(
+            $this->client,
+            $this->packageName,
+            $this->itemId,
+            $this->token
+        )]]></code>
+    </DeprecatedClass>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[acknowledge]]></code>
+      <code><![CDATA[appStore]]></code>
+      <code><![CDATA[cancel]]></code>
+      <code><![CDATA[googlePlay]]></code>
+      <code><![CDATA[nonRenewable]]></code>
+      <code><![CDATA[password]]></code>
+      <code><![CDATA[receiptData]]></code>
+      <code><![CDATA[renewable]]></code>
+      <code><![CDATA[toStd]]></code>
+      <code><![CDATA[verifyRenewable]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Subscriptions/GoogleSubscription.php">
+    <DeprecatedClass>
+      <code><![CDATA[DeveloperNotification]]></code>
+      <code><![CDATA[SubscriptionNotification::class]]></code>
+      <code><![CDATA[SubscriptionPurchase]]></code>
+      <code><![CDATA[SubscriptionPurchase]]></code>
+      <code><![CDATA[SubscriptionPurchase]]></code>
+    </DeprecatedClass>
+    <DeprecatedInterface>
+      <code><![CDATA[$rtdNotification->getPayload()]]></code>
+    </DeprecatedInterface>
+  </file>
+  <file src="src/ValueObjects/Time.php">
+    <DeprecatedMethod>
+      <code><![CDATA[getCarbon]]></code>
+    </DeprecatedMethod>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[fromDateTime]]></code>
+      <code><![CDATA[getCarbon]]></code>
+      <code><![CDATA[isFuture]]></code>
+      <code><![CDATA[isPast]]></code>
+      <code><![CDATA[toDateTime]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+</files>

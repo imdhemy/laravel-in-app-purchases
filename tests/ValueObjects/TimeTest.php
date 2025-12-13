@@ -30,7 +30,7 @@ class TimeTest extends TestCase
      */
     public function it_could_be_created_from_google_time(): void
     {
-        $sut = Time::fromGoogleTime(new GoogleTime(0));
+        $sut = Time::fromGoogleTime(new GoogleTime((string)0));
 
         $this->assertEquals('1970-01-01 00:00:00', $sut);
     }

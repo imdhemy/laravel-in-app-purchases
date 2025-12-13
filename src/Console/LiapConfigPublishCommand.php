@@ -10,6 +10,8 @@ use Imdhemy\Purchases\ServiceProviders\LiapServiceProvider;
 
 /**
  * This command is used to publish LIAP configuration file.
+ *
+ * @psalm-api
  */
 final class LiapConfigPublishCommand extends Command
 {
