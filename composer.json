@@ -44,6 +44,7 @@
   },
   "scripts": {
     "psalm": "vendor/bin/psalm --show-info=true",
+    "psalm-u": "psalm --no-cache --update-baseline",
     "cs-fix": "vendor/bin/php-cs-fixer fix --allow-risky=yes",
     "cs-check": "vendor/bin/php-cs-fixer fix --dry-run --allow-risky=yes --verbose",
     "test": "vendor/bin/phpunit"
