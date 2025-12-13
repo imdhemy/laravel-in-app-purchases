@@ -10,6 +10,8 @@ use Imdhemy\Purchases\Contracts\UrlGenerator;
 
 /**
  * A command to generate signed url to the server notification handler endpoint.
+ *
+ * @psalm-api
  */
 final class LiapUrlCommand extends Command
 {

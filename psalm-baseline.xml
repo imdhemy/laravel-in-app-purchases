@@ -1,16 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="6.5.0@38fc8444edf0cebc9205296ee6e30e906ade783b">
-  <file src="src/Console/LiapConfigPublishCommand.php">
-    <PossiblyUnusedMethod>
-      <code><![CDATA[handle]]></code>
-    </PossiblyUnusedMethod>
-  </file>
-  <file src="src/Console/LiapUrlCommand.php">
-    <PossiblyUnusedMethod>
-      <code><![CDATA[__construct]]></code>
-      <code><![CDATA[handle]]></code>
-    </PossiblyUnusedMethod>
-  </file>
   <file src="src/Console/RequestTestNotificationCommand.php">
     <PossiblyUnusedMethod>
       <code><![CDATA[__construct]]></code>
