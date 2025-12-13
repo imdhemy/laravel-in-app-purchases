@@ -17,7 +17,7 @@
     }
   ],
   "require": {
-    "php": ">=8.3",
+    "php": ">=8.4",
     "ext-json": "*",
     "ext-openssl": "*",
     "imdhemy/appstore-iap": "^1.9",
@@ -64,7 +64,7 @@
     "sort-packages": true,
     "allow-plugins": {},
     "platform": {
-      "php": "8.3"
+      "php": "8.4"
     }
   }
 }

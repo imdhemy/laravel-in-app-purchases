@@ -7,7 +7,6 @@ jobs:
     strategy:
       matrix:
         php:
-          - "8.3"
           - "8.4"
           - "8.5"
     steps:
@@ -32,8 +31,8 @@ jobs:
 
       - name: "Coding Style"
         run: "composer cs-check"
-        if: matrix.php == '8.3'
+        if: matrix.php == '8.4'
 
       - name: "Static code analysis"
         run: "composer psalm"
-        if: matrix.php == '8.3'
+        if: matrix.php == '8.4'
