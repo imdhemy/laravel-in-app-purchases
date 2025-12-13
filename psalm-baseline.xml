@@ -4,41 +4,18 @@
     <PossiblyUnusedMethod>
       <code><![CDATA[handle]]></code>
     </PossiblyUnusedMethod>
-    <PropertyNotSetInConstructor>
-      <code><![CDATA[LiapConfigPublishCommand]]></code>
-      <code><![CDATA[LiapConfigPublishCommand]]></code>
-      <code><![CDATA[LiapConfigPublishCommand]]></code>
-      <code><![CDATA[LiapConfigPublishCommand]]></code>
-      <code><![CDATA[LiapConfigPublishCommand]]></code>
-    </PropertyNotSetInConstructor>
   </file>
   <file src="src/Console/LiapUrlCommand.php">
     <PossiblyUnusedMethod>
       <code><![CDATA[__construct]]></code>
       <code><![CDATA[handle]]></code>
     </PossiblyUnusedMethod>
-    <PropertyNotSetInConstructor>
-      <code><![CDATA[LiapUrlCommand]]></code>
-      <code><![CDATA[LiapUrlCommand]]></code>
-      <code><![CDATA[LiapUrlCommand]]></code>
-      <code><![CDATA[LiapUrlCommand]]></code>
-      <code><![CDATA[LiapUrlCommand]]></code>
-      <code><![CDATA[LiapUrlCommand]]></code>
-    </PropertyNotSetInConstructor>
   </file>
   <file src="src/Console/RequestTestNotificationCommand.php">
     <PossiblyUnusedMethod>
       <code><![CDATA[__construct]]></code>
       <code><![CDATA[handle]]></code>
     </PossiblyUnusedMethod>
-    <PropertyNotSetInConstructor>
-      <code><![CDATA[RequestTestNotificationCommand]]></code>
-      <code><![CDATA[RequestTestNotificationCommand]]></code>
-      <code><![CDATA[RequestTestNotificationCommand]]></code>
-      <code><![CDATA[RequestTestNotificationCommand]]></code>
-      <code><![CDATA[RequestTestNotificationCommand]]></code>
-      <code><![CDATA[RequestTestNotificationCommand]]></code>
-    </PropertyNotSetInConstructor>
   </file>
   <file src="src/Console/UrlGenerator.php">
     <PossiblyUnusedMethod>
@@ -61,6 +38,9 @@
     </PossiblyUnusedMethod>
   </file>
   <file src="src/Contracts/SubscriptionContract.php">
+    <DeprecatedClass>
+      <code><![CDATA[mixed|SubscriptionPurchase|ReceiptResponse|V2DecodedPayload]]></code>
+    </DeprecatedClass>
     <PossiblyUnusedMethod>
       <code><![CDATA[getExpiryTime]]></code>
       <code><![CDATA[getProvider]]></code>
@@ -207,7 +187,15 @@
       <code><![CDATA[Subscribed]]></code>
     </UnusedClass>
   </file>
+  <file src="src/Events/EventFactory.php">
+    <DeprecatedClass>
+      <code><![CDATA[SubscriptionNotification::class]]></code>
+    </DeprecatedClass>
+  </file>
   <file src="src/Events/GooglePlay/EventFactory.php">
+    <DeprecatedClass>
+      <code><![CDATA[SubscriptionNotification::class]]></code>
+    </DeprecatedClass>
     <UnusedClass>
       <code><![CDATA[EventFactory]]></code>
     </UnusedClass>
@@ -293,6 +281,16 @@
       <code><![CDATA[__construct]]></code>
     </PossiblyUnusedMethod>
   </file>
+  <file src="src/Handlers/GooglePlayNotificationHandler.php">
+    <DeprecatedClass>
+      <code><![CDATA[DeveloperNotification::parse($data)]]></code>
+      <code><![CDATA[DeveloperNotification::parse($data)]]></code>
+    </DeprecatedClass>
+    <DeprecatedInterface>
+      <code><![CDATA[$developerNotification->getPayload()]]></code>
+      <code><![CDATA[$developerNotification->getPayload()]]></code>
+    </DeprecatedInterface>
+  </file>
   <file src="src/Handlers/HandlerFactory.php">
     <PossiblyUnusedMethod>
       <code><![CDATA[__construct]]></code>
@@ -317,10 +315,19 @@
     </UnusedClass>
   </file>
   <file src="src/Product.php">
-    <PossiblyInvalidCast>
-      <code><![CDATA[config('liap.appstore_password')]]></code>
-      <code><![CDATA[config('liap.google_play_package_name')]]></code>
-    </PossiblyInvalidCast>
+    <DeprecatedClass>
+      <code><![CDATA[$this->createProduct()->get()]]></code>
+      <code><![CDATA[GooglePlayClientFactory::SCOPE_ANDROID_PUBLISHER]]></code>
+      <code><![CDATA[GooglePlayClientFactory::create([GooglePlayClientFactory::SCOPE_ANDROID_PUBLISHER])]]></code>
+      <code><![CDATA[GooglePlayProduct]]></code>
+      <code><![CDATA[ProductPurchase]]></code>
+      <code><![CDATA[new GooglePlayProduct(
+            $this->client,
+            $this->packageName,
+            $this->itemId,
+            $this->token
+        )]]></code>
+    </DeprecatedClass>
     <PossiblyUnusedMethod>
       <code><![CDATA[acknowledge]]></code>
       <code><![CDATA[appStore]]></code>
@@ -335,10 +342,18 @@
       <code><![CDATA[verifyReceipt]]></code>
     </PossiblyUnusedMethod>
   </file>
+  <file src="src/ServerNotifications/GoogleServerNotification.php">
+    <DeprecatedClass>
+      <code><![CDATA[DeveloperNotification]]></code>
+      <code><![CDATA[DeveloperNotification]]></code>
+    </DeprecatedClass>
+    <DeprecatedInterface>
+      <code><![CDATA[$this->notification->getPayload()]]></code>
+    </DeprecatedInterface>
+  </file>
   <file src="src/ServiceProviders/EventServiceProvider.php">
     <PossiblyUnusedMethod>
       <code><![CDATA[__construct]]></code>
-      <code><![CDATA[configureEmailVerification]]></code>
     </PossiblyUnusedMethod>
   </file>
   <file src="src/ServiceProviders/LiapServiceProvider.php">
@@ -352,10 +367,20 @@
     </PossiblyFalseArgument>
   </file>
   <file src="src/Subscription.php">
-    <PossiblyInvalidCast>
-      <code><![CDATA[config('liap.appstore_password')]]></code>
-      <code><![CDATA[config('liap.google_play_package_name')]]></code>
-    </PossiblyInvalidCast>
+    <DeprecatedClass>
+      <code><![CDATA[$this->createSubscription()->get()]]></code>
+      <code><![CDATA[?SubscriptionPurchase]]></code>
+      <code><![CDATA[GooglePlayClientFactory::SCOPE_ANDROID_PUBLISHER]]></code>
+      <code><![CDATA[GooglePlayClientFactory::create([GooglePlayClientFactory::SCOPE_ANDROID_PUBLISHER])]]></code>
+      <code><![CDATA[GooglePlaySubscription]]></code>
+      <code><![CDATA[SubscriptionPurchase]]></code>
+      <code><![CDATA[new GooglePlaySubscription(
+            $this->client,
+            $this->packageName,
+            $this->itemId,
+            $this->token
+        )]]></code>
+    </DeprecatedClass>
     <PossiblyUnusedMethod>
       <code><![CDATA[acknowledge]]></code>
       <code><![CDATA[appStore]]></code>
@@ -368,6 +393,18 @@
       <code><![CDATA[toStd]]></code>
       <code><![CDATA[verifyRenewable]]></code>
     </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Subscriptions/GoogleSubscription.php">
+    <DeprecatedClass>
+      <code><![CDATA[DeveloperNotification]]></code>
+      <code><![CDATA[SubscriptionNotification::class]]></code>
+      <code><![CDATA[SubscriptionPurchase]]></code>
+      <code><![CDATA[SubscriptionPurchase]]></code>
+      <code><![CDATA[SubscriptionPurchase]]></code>
+    </DeprecatedClass>
+    <DeprecatedInterface>
+      <code><![CDATA[$rtdNotification->getPayload()]]></code>
+    </DeprecatedInterface>
   </file>
   <file src="src/ValueObjects/Time.php">
     <DeprecatedMethod>
