@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e8a88d0ce3701e62f2c3c3e428f4ecd4",
+    "content-hash": "1012ce2e66f6fdd6fa1d62f69c02fac8",
     "packages": [
         {
             "name": "brick/math",
@@ -10320,46 +10320,46 @@
         },
         {
             "name": "psalm/plugin-laravel",
-            "version": "v2.12.2",
+            "version": "v3.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/psalm/psalm-plugin-laravel.git",
-                "reference": "703460407db9df774984fd21490a0970bc37f22e"
+                "reference": "364a35e28d45cabaece26f2a2e51e50fc43e99b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/psalm/psalm-plugin-laravel/zipball/703460407db9df774984fd21490a0970bc37f22e",
-                "reference": "703460407db9df774984fd21490a0970bc37f22e",
+                "url": "https://api.github.com/repos/psalm/psalm-plugin-laravel/zipball/364a35e28d45cabaece26f2a2e51e50fc43e99b4",
+                "reference": "364a35e28d45cabaece26f2a2e51e50fc43e99b4",
                 "shasum": ""
             },
             "require": {
-                "barryvdh/laravel-ide-helper": "^2.15 || >=3.4.0 <3.6",
+                "barryvdh/laravel-ide-helper": "~3.5.4",
                 "ext-simplexml": "*",
-                "illuminate/config": "^10.48 || ^11.0",
-                "illuminate/container": "^10.48 || ^11.0",
-                "illuminate/contracts": "^10.48 || ^11.0",
-                "illuminate/database": "^10.48 || ^11.0",
-                "illuminate/events": "^10.48 || ^11.0",
-                "illuminate/http": "^10.48 || ^11.0",
-                "illuminate/routing": "^10.48 || ^11.0",
-                "illuminate/support": "^10.48 || ^11.0",
-                "illuminate/view": "^10.48 || ^11.0",
-                "nikic/php-parser": "^4.18 || ^5.0",
-                "orchestra/testbench-core": "^8.22 || ^9.0",
-                "php": "^8.1",
-                "symfony/console": "^6.0 || ^7.0",
-                "symfony/finder": "^6.0 || ^7.0",
-                "vimeo/psalm": "^5.20 || ^6"
+                "illuminate/config": "^11.35 || ^12.0",
+                "illuminate/container": "^11.35 || ^12.0",
+                "illuminate/contracts": "^11.35 || ^12.0",
+                "illuminate/database": "^11.35 || ^12.0",
+                "illuminate/events": "^11.35 || ^12.0",
+                "illuminate/http": "^11.35 || ^12.0",
+                "illuminate/routing": "^11.35 || ^12.0",
+                "illuminate/support": "^11.35 || ^12.0",
+                "illuminate/view": "^11.35 || ^12.0",
+                "nikic/php-parser": "^5.0",
+                "orchestra/testbench-core": "^9.11 || ^10.0",
+                "php": "^8.2",
+                "symfony/console": "^7.1",
+                "symfony/finder": "^7.1",
+                "vimeo/psalm": "dev-master || ^6.0 || ^7.0.0-beta1"
             },
             "require-dev": {
-                "laravel/framework": "^10.48 || ^11.0",
-                "phpunit/phpunit": "^10.5 || ^11.0",
+                "laravel/framework": "^11.35 || ^12.0",
+                "phpunit/phpunit": "^10.5 || ^11.5",
                 "phpyh/psalm-tester": "^0.1.0",
                 "ramsey/collection": "^1.3",
-                "rector/rector": "^1.0",
-                "slevomat/coding-standard": "^8.8",
-                "squizlabs/php_codesniffer": "*",
-                "symfony/http-foundation": "^6.0 || ^7.0"
+                "rector/rector": "^2.0",
+                "slevomat/coding-standard": "^8.15",
+                "squizlabs/php_codesniffer": "^3.11",
+                "symfony/http-foundation": "^7.1"
             },
             "type": "psalm-plugin",
             "extra": {
@@ -10392,9 +10392,9 @@
             ],
             "support": {
                 "issues": "https://github.com/psalm/psalm-plugin-laravel/issues",
-                "source": "https://github.com/psalm/psalm-plugin-laravel/tree/v2.12.2"
+                "source": "https://github.com/psalm/psalm-plugin-laravel/tree/v3.0.4"
             },
-            "time": "2025-12-01T17:05:55+00:00"
+            "time": "2025-08-12T18:13:40+00:00"
         },
         {
             "name": "psalm/plugin-phpunit",
