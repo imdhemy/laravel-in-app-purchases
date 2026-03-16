@@ -35,6 +35,7 @@ abstract class AbstractNotificationHandler implements NotificationHandlerContrac
      *
      * @psalm-suppress MissingReturnType - @todo: fix missing return type
      */
+    #[\Override]
     public function execute()
     {
         $this->authorize();

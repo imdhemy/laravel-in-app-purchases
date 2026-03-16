@@ -22,15 +22,15 @@
     "ext-openssl": "*",
     "imdhemy/appstore-iap": "^1.9",
     "imdhemy/google-play-billing": "^1.5",
-    "laravel/framework": ">=11"
+    "laravel/framework": ">=12"
   },
   "require-dev": {
     "friendsofphp/php-cs-fixer": "^3.14",
-    "orchestra/testbench": "^9.15",
-    "phpunit/phpunit": "^10.5",
-    "psalm/plugin-laravel": "^3.0",
-    "psalm/plugin-phpunit": "^0.19.0",
-    "vimeo/psalm": "^6.0"
+    "orchestra/testbench": "^10.0",
+    "phpunit/phpunit": "^11.0",
+    "psalm/plugin-laravel": "^4.0@beta",
+    "psalm/plugin-phpunit": "^0.19.3",
+    "vimeo/psalm": "^7.0@beta"
   },
   "autoload": {
     "psr-4": {
@@ -64,7 +64,7 @@
     "sort-packages": true,
     "allow-plugins": {},
     "platform": {
-      "php": "8.4"
+      "php": "8.4.19"
     }
   }
 }

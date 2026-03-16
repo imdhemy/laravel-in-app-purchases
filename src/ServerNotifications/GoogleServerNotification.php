@@ -28,6 +28,7 @@ class GoogleServerNotification implements ServerNotificationContract
         $this->notification = $notification;
     }
 
+    #[\Override]
     public function getType(): string
     {
         $type = $this->isTest() ?
@@ -40,16 +41,19 @@ class GoogleServerNotification implements ServerNotificationContract
     /**
      * @throws GuzzleException
      */
+    #[\Override]
     public function getSubscription(?ClientInterface $client = null): SubscriptionContract
     {
         return GoogleSubscription::createFromDeveloperNotification($this->notification, $client);
     }
 
+    #[\Override]
     public function isTest(): bool
     {
         return $this->notification->isTestNotification();
     }
 
+    #[\Override]
     public function getBundle(): string
     {
         return $this->notification->getPackageName();
@@ -58,11 +62,13 @@ class GoogleServerNotification implements ServerNotificationContract
     /**
      * Gets the notification payload.
      */
+    #[\Override]
     public function getPayload(): array
     {
         return $this->notification->toArray();
     }
 
+    #[\Override]
     public function getProvider(): string
     {
         return self::PROVIDER_GOOGLE_PLAY;

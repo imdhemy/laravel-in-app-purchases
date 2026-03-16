@@ -26,6 +26,7 @@ abstract class PurchaseEvent implements PurchaseEventContract
         $this->serverNotification = $serverNotification;
     }
 
+    #[\Override]
     public function getServerNotification(): ServerNotificationContract
     {
         return $this->serverNotification;

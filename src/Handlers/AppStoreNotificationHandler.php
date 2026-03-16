@@ -19,6 +19,7 @@ class AppStoreNotificationHandler extends AbstractNotificationHandler
     /**
      * @psalm-suppress MissingReturnType - @todo: fix missing return type
      */
+    #[\Override]
     protected function handle()
     {
         $attributes = $this->request->all();
@@ -36,6 +37,7 @@ class AppStoreNotificationHandler extends AbstractNotificationHandler
     /**
      * @return string[][]
      */
+    #[\Override]
     protected function rules(): array
     {
         return [

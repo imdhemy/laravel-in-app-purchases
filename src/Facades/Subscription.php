@@ -16,6 +16,7 @@ class Subscription extends Facade
     /**
      * @return string
      */
+    #[\Override]
     protected static function getFacadeAccessor()
     {
         return 'subscription';

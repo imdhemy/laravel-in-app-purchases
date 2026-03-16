@@ -16,6 +16,7 @@ class Product extends Facade
     /**
      * @return string
      */
+    #[\Override]
     protected static function getFacadeAccessor()
     {
         return 'product';

@@ -31,21 +31,25 @@ class AppStoreV2ServerNotification implements ServerNotificationContract, HasSub
         return new self($decodedPayload);
     }
 
+    #[\Override]
     public function getType(): string
     {
         return $this->payload->getType();
     }
 
+    #[\Override]
     public function getSubscription(?ClientInterface $client = null): SubscriptionContract
     {
         return AppleSubscription::fromV2DecodedPayload($this->payload);
     }
 
+    #[\Override]
     public function isTest(): bool
     {
         return V2DecodedPayload::TYPE_TEST === $this->payload->getType();
     }
 
+    #[\Override]
     public function getBundle(): string
     {
         return $this->payload->getAppMetadata()->bundleId();
@@ -54,6 +58,7 @@ class AppStoreV2ServerNotification implements ServerNotificationContract, HasSub
     /**
      * Gets the notification payload.
      */
+    #[\Override]
     public function getPayload(): array
     {
         return $this->payload->toArray();
@@ -62,11 +67,13 @@ class AppStoreV2ServerNotification implements ServerNotificationContract, HasSub
     /**
      * Gets subscription subtype.
      */
+    #[\Override]
     public function getSubtype(): string
     {
         return (string)$this->payload->getSubType();
     }
 
+    #[\Override]
     public function getProvider(): string
     {
         return self::PROVIDER_APP_STORE;

@@ -32,21 +32,25 @@ final class HandlerHelpers implements HandlerHelpersInterface
         $this->eventFactory = $eventFactory;
     }
 
+    #[\Override]
     public function getRequest(): Request
     {
         return $this->request;
     }
 
+    #[\Override]
     public function getValidator(): Factory
     {
         return $this->validator;
     }
 
+    #[\Override]
     public function getUrlGenerator(): UrlGenerator
     {
         return $this->urlGenerator;
     }
 
+    #[\Override]
     public function getEventFactory(): EventFactory
     {
         return $this->eventFactory;

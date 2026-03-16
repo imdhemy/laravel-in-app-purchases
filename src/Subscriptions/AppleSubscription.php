@@ -29,6 +29,7 @@ class AppleSubscription implements SubscriptionContract
         return new self($payload);
     }
 
+    #[\Override]
     public function getExpiryTime(): Time
     {
         $time = $this->payload->getTransactionInfo()->getExpiresDate();
@@ -37,21 +38,25 @@ class AppleSubscription implements SubscriptionContract
         return Time::fromAppStoreTime($time);
     }
 
+    #[\Override]
     public function getItemId(): string
     {
         return (string)$this->payload->getTransactionInfo()->getProductId();
     }
 
+    #[\Override]
     public function getProvider(): string
     {
         return SubscriptionContract::PROVIDER_APP_STORE;
     }
 
+    #[\Override]
     public function getUniqueIdentifier(): string
     {
         return (string)$this->payload->getTransactionInfo()->getOriginalTransactionId();
     }
 
+    #[\Override]
     public function getProviderRepresentation(): V2DecodedPayload
     {
         return $this->payload;

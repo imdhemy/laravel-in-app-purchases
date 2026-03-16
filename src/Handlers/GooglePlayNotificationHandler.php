@@ -24,6 +24,7 @@ class GooglePlayNotificationHandler extends AbstractNotificationHandler
     /**
      * @return string[][]
      */
+    #[\Override]
     protected function rules(): array
     {
         return [
@@ -35,6 +36,7 @@ class GooglePlayNotificationHandler extends AbstractNotificationHandler
     /**
      * @psalm-suppress MissingReturnType - @todo fix missing return type
      */
+    #[\Override]
     protected function handle()
     {
         $message = $this->request->input('message');

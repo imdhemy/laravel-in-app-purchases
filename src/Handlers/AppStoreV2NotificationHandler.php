@@ -28,11 +28,12 @@ class AppStoreV2NotificationHandler extends AbstractNotificationHandler
     /**
      * @psalm-suppress MissingReturnType - @todo: fix missing return type
      */
+    #[\Override]
     protected function handle()
     {
         $decodedPayload = V2DecodedPayload::fromJws($this->jwsService->parse());
         $serverNotification = AppStoreV2ServerNotification::fromDecodedPayload($decodedPayload);
-        $signedPayload = (string)$this->request->get('signedPayload');
+        $signedPayload = (string)$this->request->input('signedPayload');
         $appStoreNotificationPayload = new AppStoreNotificationPayload($signedPayload);
 
         if ($serverNotification->isTest()) {
@@ -54,6 +55,7 @@ class AppStoreV2NotificationHandler extends AbstractNotificationHandler
         event($event);
     }
 
+    #[\Override]
     protected function isAuthorized(): bool
     {
         return parent::isAuthorized() && $this->jwsService->verify();
@@ -62,6 +64,7 @@ class AppStoreV2NotificationHandler extends AbstractNotificationHandler
     /**
      * @return string[][]
      */
+    #[\Override]
     protected function rules(): array
     {
         return [

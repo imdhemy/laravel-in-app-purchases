@@ -34,7 +34,7 @@ final class Time implements Stringable
      */
     public static function fromGoogleTime(GoogleTime $time): self
     {
-        return self::fromCarbon($time->getCarbon());
+        return self::fromCarbon($time->carbon);
     }
 
     /**
@@ -95,6 +95,7 @@ final class Time implements Stringable
         return $this->toCarbon()->toDateTime();
     }
 
+    #[\Override]
     public function __toString(): string
     {
         return (string)$this->toCarbon();

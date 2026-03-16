@@ -23,6 +23,7 @@ class EventFactory implements EventFactoryContract
         'app_store' => 'Imdhemy\Purchases\Events\AppStore',
     ];
 
+    #[\Override]
     public function create(ServerNotification $notification): PurchaseEvent
     {
         $provider = $notification->getProvider();

@@ -29,6 +29,7 @@ class JwsService implements JwsServiceInterface
     /**
      * Verify the JWS.
      */
+    #[\Override]
     public function verify(): bool
     {
         return $this->jwsVerifier->verify($this->jws());
@@ -37,7 +38,7 @@ class JwsService implements JwsServiceInterface
     private function jws(): JsonWebSignature
     {
         if (is_null($this->jws)) {
-            $this->jws = $this->jwsParser->parse((string)$this->request->get('signedPayload'));
+            $this->jws = $this->jwsParser->parse((string)$this->request->input('signedPayload'));
         }
 
         return $this->jws;
@@ -46,6 +47,7 @@ class JwsService implements JwsServiceInterface
     /**
      * Parses the string into a JWS.
      */
+    #[\Override]
     public function parse(): JsonWebSignature
     {
         return $this->jws();

@@ -20,6 +20,7 @@ class AppStoreSubscription implements SubscriptionContract
         $this->receipt = $receipt;
     }
 
+    #[\Override]
     public function getExpiryTime(): Time
     {
         $expiryTime = $this->receipt->getExpiresDate();
@@ -28,21 +29,25 @@ class AppStoreSubscription implements SubscriptionContract
         return Time::fromAppStoreTime($expiryTime);
     }
 
+    #[\Override]
     public function getItemId(): string
     {
         return $this->receipt->getProductId();
     }
 
+    #[\Override]
     public function getProvider(): string
     {
         return 'app_store';
     }
 
+    #[\Override]
     public function getUniqueIdentifier(): string
     {
         return $this->receipt->getOriginalTransactionId();
     }
 
+    #[\Override]
     public function getProviderRepresentation(): LatestReceiptInfo
     {
         return $this->receipt;

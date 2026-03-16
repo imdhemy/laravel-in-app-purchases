@@ -33,7 +33,7 @@ class HandlerFactory
      */
     public function create(): NotificationHandlerContract
     {
-        $provider = (string)$this->request->get('provider');
+        $provider = (string)$this->request->input('provider');
 
         if ('app-store' === $provider && $this->request->has('signedPayload')) {
             $provider = 'app-store-v2';

@@ -22,6 +22,7 @@ class EventServiceProvider extends BaseEventServiceProvider
         $this->listen = $eventListeners;
     }
 
+    #[\Override]
     protected function configureEmailVerification(): void
     {
     }
