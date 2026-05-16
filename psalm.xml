@@ -11,6 +11,8 @@
         errorBaseline="psalm-baseline.xml"
 >
     <projectFiles>
+        <directory name="config"/>
+        <directory name="routes"/>
         <directory name="src"/>
         <ignoreFiles>
             <directory name="vendor"/>
@@ -21,4 +23,9 @@
         <pluginClass class="Psalm\LaravelPlugin\Plugin"/>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
     </plugins>
+
+    <issueHandlers>
+        <ClassMustBeFinal errorLevel="info"/>
+        <MissingOverrideAttribute errorLevel="info"/>
+    </issueHandlers>
 </psalm>

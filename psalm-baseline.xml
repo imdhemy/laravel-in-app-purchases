@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="6.5.0@38fc8444edf0cebc9205296ee6e30e906ade783b">
+<files psalm-version="6.16.1@f1f5de594dc76faf8784e02d3dc4716c91c6f6ac">
   <file src="src/Console/RequestTestNotificationCommand.php">
     <PossiblyUnusedMethod>
       <code><![CDATA[__construct]]></code>
-      <code><![CDATA[handle]]></code>
     </PossiblyUnusedMethod>
   </file>
   <file src="src/Console/UrlGenerator.php">
@@ -343,11 +342,6 @@
   <file src="src/ServiceProviders/EventServiceProvider.php">
     <PossiblyUnusedMethod>
       <code><![CDATA[__construct]]></code>
-    </PossiblyUnusedMethod>
-  </file>
-  <file src="src/ServiceProviders/LiapServiceProvider.php">
-    <PossiblyUnusedMethod>
-      <code><![CDATA[boot]]></code>
     </PossiblyUnusedMethod>
   </file>
   <file src="src/Services/AppStoreTestNotificationServiceBuilder.php">
