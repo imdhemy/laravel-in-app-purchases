@@ -298,9 +298,6 @@
     <PossiblyUnusedParam>
       <code><![CDATA[$request]]></code>
     </PossiblyUnusedParam>
-    <UnusedClass>
-      <code><![CDATA[ServerNotificationController]]></code>
-    </UnusedClass>
   </file>
   <file src="src/Product.php">
     <DeprecatedClass>
