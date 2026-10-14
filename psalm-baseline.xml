@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="6.5.0@38fc8444edf0cebc9205296ee6e30e906ade783b">
+<files psalm-version="6.20.0@804f03c0c183d149fcd4b8c7c0c9b3fbf836d34c">
+  <file src="src/Console/LiapConfigPublishCommand.php">
+    <RedundantCast>
+      <code><![CDATA[(bool)$this->option('force')]]></code>
+    </RedundantCast>
+  </file>
+  <file src="src/Console/LiapUrlCommand.php">
+    <RedundantCast>
+      <code><![CDATA[(bool)config('liap.routing.signed')]]></code>
+    </RedundantCast>
+  </file>
   <file src="src/Console/RequestTestNotificationCommand.php">
-    <PossiblyUnusedMethod>
-      <code><![CDATA[__construct]]></code>
-      <code><![CDATA[handle]]></code>
-    </PossiblyUnusedMethod>
+    <RedundantCast>
+      <code><![CDATA[(array)config('liap')]]></code>
+      <code><![CDATA[(bool)$this->option('sandbox')]]></code>
+    </RedundantCast>
   </file>
   <file src="src/Console/UrlGenerator.php">
     <PossiblyUnusedMethod>
@@ -265,6 +275,11 @@
       <code><![CDATA[Product]]></code>
     </UnusedClass>
   </file>
+  <file src="src/Handlers/AbstractNotificationHandler.php">
+    <RedundantCast>
+      <code><![CDATA[(bool)config('liap.routing.signed', false)]]></code>
+    </RedundantCast>
+  </file>
   <file src="src/Handlers/AppStoreV2NotificationHandler.php">
     <PossiblyUnusedMethod>
       <code><![CDATA[__construct]]></code>
@@ -279,11 +294,6 @@
       <code><![CDATA[$developerNotification->getPayload()]]></code>
       <code><![CDATA[$developerNotification->getPayload()]]></code>
     </DeprecatedInterface>
-  </file>
-  <file src="src/Handlers/HandlerFactory.php">
-    <PossiblyUnusedMethod>
-      <code><![CDATA[__construct]]></code>
-    </PossiblyUnusedMethod>
   </file>
   <file src="src/Handlers/HandlerHelpers.php">
     <PossiblyUnusedMethod>
@@ -327,6 +337,10 @@
       <code><![CDATA[token]]></code>
       <code><![CDATA[verifyReceipt]]></code>
     </PossiblyUnusedMethod>
+    <RedundantCast>
+      <code><![CDATA[(string)config('liap.appstore_password')]]></code>
+      <code><![CDATA[(string)config('liap.google_play_package_name')]]></code>
+    </RedundantCast>
   </file>
   <file src="src/ServerNotifications/GoogleServerNotification.php">
     <DeprecatedClass>
@@ -338,14 +352,14 @@
     </DeprecatedInterface>
   </file>
   <file src="src/ServiceProviders/EventServiceProvider.php">
-    <PossiblyUnusedMethod>
-      <code><![CDATA[__construct]]></code>
-    </PossiblyUnusedMethod>
+    <RedundantCast>
+      <code><![CDATA[(array)config(LiapServiceProvider::CONFIG_KEY.'.eventListeners')]]></code>
+    </RedundantCast>
   </file>
   <file src="src/ServiceProviders/LiapServiceProvider.php">
-    <PossiblyUnusedMethod>
-      <code><![CDATA[boot]]></code>
-    </PossiblyUnusedMethod>
+    <RedundantCast>
+      <code><![CDATA[(array)config(self::CONFIG_KEY.'.routing')]]></code>
+    </RedundantCast>
   </file>
   <file src="src/Services/AppStoreTestNotificationServiceBuilder.php">
     <PossiblyFalseArgument>
@@ -379,6 +393,10 @@
       <code><![CDATA[toStd]]></code>
       <code><![CDATA[verifyRenewable]]></code>
     </PossiblyUnusedMethod>
+    <RedundantCast>
+      <code><![CDATA[(string)config('liap.appstore_password')]]></code>
+      <code><![CDATA[(string)config('liap.google_play_package_name')]]></code>
+    </RedundantCast>
   </file>
   <file src="src/Subscriptions/GoogleSubscription.php">
     <DeprecatedClass>
