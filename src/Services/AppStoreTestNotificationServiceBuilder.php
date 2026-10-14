@@ -134,7 +134,13 @@ class AppStoreTestNotificationServiceBuilder
         assert(is_bool($config['sandbox']));
 
         $this->privateKeyId($config['appstore_private_key_id']);
-        $this->privateKey(file_get_contents($config['appstore_private_key']));
+        $privateKeyPath = $config['appstore_private_key'];
+        $privateKey = is_readable($privateKeyPath) ? file_get_contents($privateKeyPath) : false;
+        if (false === $privateKey) {
+            throw new RuntimeException(sprintf('Unable to read the App Store private key file "%s"', $privateKeyPath));
+        }
+
+        $this->privateKey($privateKey);
         $this->issuerId($config['appstore_issuer_id']);
         $this->bundleId($config['appstore_bundle_id']);
         $this->sandbox($config['sandbox']);
