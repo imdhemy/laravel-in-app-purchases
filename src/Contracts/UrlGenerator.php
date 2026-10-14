@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 
 /**
  * URL Generator interface.
+ *
+ * @psalm-api
  */
 interface UrlGenerator
 {

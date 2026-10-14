@@ -8,6 +8,9 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Imdhemy\Purchases\Domain\Model\GooglePlay\GooglePlayNotificationPayload;
 
+/**
+ * @psalm-api
+ */
 final readonly class GooglePlayNotificationReceivedEvent
 {
     use Dispatchable;

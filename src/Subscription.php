@@ -18,6 +18,9 @@ use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\Subscriptions\AppStoreSubscription;
 use Imdhemy\Purchases\Subscriptions\GoogleSubscription;
 
+/**
+ * @psalm-api
+ */
 class Subscription
 {
     protected ?string $itemId = null;

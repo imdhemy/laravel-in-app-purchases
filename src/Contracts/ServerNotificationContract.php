@@ -8,6 +8,8 @@ use GuzzleHttp\ClientInterface;
 
 /**
  * Interface ServerNotificationContract.
+ *
+ * @psalm-api
  */
 interface ServerNotificationContract
 {

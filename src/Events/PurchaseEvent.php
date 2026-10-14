@@ -11,6 +11,9 @@ use Imdhemy\Purchases\Contracts\PurchaseEventContract;
 use Imdhemy\Purchases\Contracts\ServerNotificationContract;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
 
+/**
+ * @psalm-api
+ */
 abstract class PurchaseEvent implements PurchaseEventContract
 {
     use Dispatchable;

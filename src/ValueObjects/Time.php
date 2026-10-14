@@ -13,6 +13,8 @@ use Stringable;
 /**
  * Class Time
  * A smart value object for time.
+ *
+ * @psalm-api
  */
 final class Time implements Stringable
 {
