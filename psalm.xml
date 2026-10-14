@@ -11,6 +11,8 @@
         errorBaseline="psalm-baseline.xml"
 >
     <projectFiles>
+        <directory name="config"/>
+        <directory name="routes"/>
         <directory name="src"/>
         <ignoreFiles>
             <directory name="vendor"/>
