@@ -8,6 +8,9 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Imdhemy\Purchases\Domain\Model\AppStore\AppStoreNotificationPayload;
 
+/**
+ * @psalm-api
+ */
 final readonly class AppStoreNotificationReceivedEvent
 {
     use Dispatchable;

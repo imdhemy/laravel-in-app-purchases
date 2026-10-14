@@ -13,6 +13,7 @@ use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\Exceptions\InvalidNotificationTypeException;
 use Imdhemy\Purchases\Facades\Subscription;
 use Imdhemy\Purchases\ValueObjects\Time;
+use Override;
 
 class GoogleSubscription implements SubscriptionContract
 {
@@ -61,6 +62,7 @@ class GoogleSubscription implements SubscriptionContract
         );
     }
 
+    #[Override]
     public function getExpiryTime(): Time
     {
         $time = $this->subscription->getExpiryTime();
@@ -69,21 +71,25 @@ class GoogleSubscription implements SubscriptionContract
         return Time::fromGoogleTime($time);
     }
 
+    #[Override]
     public function getItemId(): string
     {
         return $this->itemId;
     }
 
+    #[Override]
     public function getProvider(): string
     {
         return 'google_play';
     }
 
+    #[Override]
     public function getUniqueIdentifier(): string
     {
         return $this->token;
     }
 
+    #[Override]
     public function getProviderRepresentation(): SubscriptionPurchase
     {
         return $this->subscription;

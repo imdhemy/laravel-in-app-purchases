@@ -6,6 +6,8 @@ namespace Imdhemy\Purchases\Contracts;
 
 /**
  * Interface PurchaseEventContract.
+ *
+ * @psalm-api
  */
 interface PurchaseEventContract
 {

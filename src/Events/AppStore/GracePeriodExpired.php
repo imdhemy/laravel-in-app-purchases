@@ -9,6 +9,8 @@ use Imdhemy\Purchases\ServerNotifications\AppStoreV2ServerNotification;
 
 /**
  * @method AppStoreV2ServerNotification getServerNotification()
+ *
+ * @psalm-api
  */
 class GracePeriodExpired extends PurchaseEvent
 {

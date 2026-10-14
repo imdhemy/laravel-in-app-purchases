@@ -15,6 +15,9 @@ use Imdhemy\GooglePlay\Products\ProductClient as GooglePlayProduct;
 use Imdhemy\GooglePlay\Products\ProductPurchase;
 use Imdhemy\GooglePlay\ValueObjects\EmptyResponse;
 
+/**
+ * @psalm-api
+ */
 class Product
 {
     protected string $itemId = '';

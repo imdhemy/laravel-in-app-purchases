@@ -12,6 +12,7 @@ use Imdhemy\Purchases\Domain\Model\GooglePlay\GooglePlayNotificationPayload;
 use Imdhemy\Purchases\Domain\Model\GooglePlay\Message;
 use Imdhemy\Purchases\ServerNotifications\GoogleServerNotification;
 use JsonException;
+use Override;
 
 /**
  * Google Play notification handler.
@@ -24,6 +25,7 @@ class GooglePlayNotificationHandler extends AbstractNotificationHandler
     /**
      * @return string[][]
      */
+    #[Override]
     protected function rules(): array
     {
         return [
@@ -35,6 +37,7 @@ class GooglePlayNotificationHandler extends AbstractNotificationHandler
     /**
      * @psalm-suppress MissingReturnType - @todo fix missing return type
      */
+    #[Override]
     protected function handle()
     {
         $message = $this->request->input('message');

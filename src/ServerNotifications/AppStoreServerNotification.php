@@ -11,6 +11,7 @@ use Imdhemy\Purchases\Contracts\ServerNotificationContract;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\Subscriptions\AppStoreSubscription;
 use Imdhemy\Purchases\ValueObjects\Time;
+use Override;
 
 class AppStoreServerNotification implements ServerNotificationContract
 {
@@ -24,11 +25,13 @@ class AppStoreServerNotification implements ServerNotificationContract
         $this->notification = $notification;
     }
 
+    #[Override]
     public function getType(): string
     {
         return $this->notification->getNotificationType();
     }
 
+    #[Override]
     public function getSubscription(?ClientInterface $client = null): SubscriptionContract
     {
         $firstReceipt = $this->getFirstReceipt();
@@ -37,6 +40,7 @@ class AppStoreServerNotification implements ServerNotificationContract
         return new AppStoreSubscription($firstReceipt);
     }
 
+    #[Override]
     public function isTest(): bool
     {
         return false;
@@ -71,6 +75,7 @@ class AppStoreServerNotification implements ServerNotificationContract
         return null;
     }
 
+    #[Override]
     public function getBundle(): string
     {
         return (string)$this->notification->getBid();
@@ -79,6 +84,7 @@ class AppStoreServerNotification implements ServerNotificationContract
     /**
      * Gets the notification payload.
      */
+    #[Override]
     public function getPayload(): array
     {
         return $this->notification->toArray();
@@ -89,6 +95,7 @@ class AppStoreServerNotification implements ServerNotificationContract
         return $this->notification->getAutoRenewProductId();
     }
 
+    #[Override]
     public function getProvider(): string
     {
         return self::PROVIDER_APP_STORE;

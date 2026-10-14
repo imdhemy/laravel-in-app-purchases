@@ -11,6 +11,8 @@ use Imdhemy\Purchases\ServerNotifications\AppStoreV2ServerNotification;
 
 /**
  * @method AppStoreServerNotification|AppStoreV2ServerNotification getServerNotification()
+ *
+ * @psalm-api
  */
 class DidChangeRenewalPref extends PurchaseEvent
 {

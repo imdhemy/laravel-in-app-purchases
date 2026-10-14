@@ -11,6 +11,8 @@ use Imdhemy\Purchases\Contracts\ServerNotificationContract;
 /**
  * @deprecated Use \Imdhemy\Purchases\Events\EventFactory instead
  * @see \Imdhemy\Purchases\Events\EventFactory
+ *
+ * @psalm-api
  */
 class EventFactory
 {

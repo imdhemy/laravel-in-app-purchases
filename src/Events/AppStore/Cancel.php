@@ -9,6 +9,8 @@ use Imdhemy\Purchases\ServerNotifications\AppStoreServerNotification;
 
 /**
  * @method AppStoreServerNotification getServerNotification()
+ *
+ * @psalm-api
  */
 class Cancel extends PurchaseEvent
 {

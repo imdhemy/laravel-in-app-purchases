@@ -14,6 +14,8 @@ use ReflectionClass;
 /**
  * @deprecated Use \Imdhemy\Purchases\Events\EventFactory instead
  * @see \Imdhemy\Purchases\Events\EventFactory
+ *
+ * @psalm-api
  */
 class EventFactory
 {

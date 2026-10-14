@@ -10,6 +10,7 @@ use Imdhemy\Purchases\Contracts\EventFactory as EventFactoryContract;
 use Imdhemy\Purchases\Contracts\PurchaseEventContract as PurchaseEvent;
 use Imdhemy\Purchases\Contracts\ServerNotificationContract as ServerNotification;
 use LogicException;
+use Override;
 use ReflectionClass;
 
 /**
@@ -23,6 +24,7 @@ class EventFactory implements EventFactoryContract
         'app_store' => 'Imdhemy\Purchases\Events\AppStore',
     ];
 
+    #[Override]
     public function create(ServerNotification $notification): PurchaseEvent
     {
         $provider = $notification->getProvider();

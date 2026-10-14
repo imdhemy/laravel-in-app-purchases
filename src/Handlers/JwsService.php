@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Imdhemy\AppStore\Jws\JsonWebSignature;
 use Imdhemy\AppStore\Jws\JwsParser;
 use Imdhemy\AppStore\Jws\JwsVerifier;
+use Override;
 
 class JwsService implements JwsServiceInterface
 {
@@ -29,6 +30,7 @@ class JwsService implements JwsServiceInterface
     /**
      * Verify the JWS.
      */
+    #[Override]
     public function verify(): bool
     {
         return $this->jwsVerifier->verify($this->jws());
@@ -46,6 +48,7 @@ class JwsService implements JwsServiceInterface
     /**
      * Parses the string into a JWS.
      */
+    #[Override]
     public function parse(): JsonWebSignature
     {
         return $this->jws();

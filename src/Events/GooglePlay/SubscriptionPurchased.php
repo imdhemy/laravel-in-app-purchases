@@ -9,6 +9,8 @@ use Imdhemy\Purchases\ServerNotifications\GoogleServerNotification;
 
 /**
  * @method GoogleServerNotification getServerNotification()
+ *
+ * @psalm-api
  */
 class SubscriptionPurchased extends PurchaseEvent
 {

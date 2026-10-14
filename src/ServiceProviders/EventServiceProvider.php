@@ -6,6 +6,7 @@ namespace Imdhemy\Purchases\ServiceProviders;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as BaseEventServiceProvider;
+use Override;
 
 /**
  * Event Service Provider
@@ -22,6 +23,7 @@ class EventServiceProvider extends BaseEventServiceProvider
         $this->listen = $eventListeners;
     }
 
+    #[Override]
     protected function configureEmailVerification(): void
     {
     }
