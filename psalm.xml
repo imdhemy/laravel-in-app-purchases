@@ -20,9 +20,7 @@
     </projectFiles>
 
     <plugins>
-        <pluginClass class="Psalm\LaravelPlugin\Plugin">
-            <configDirectory name="config"/>
-        </pluginClass>
+        <pluginClass class="Psalm\LaravelPlugin\Plugin"/>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
     </plugins>
 
