@@ -64,7 +64,7 @@
     "sort-packages": true,
     "allow-plugins": {},
     "platform": {
-      "php": "8.4"
+      "php": "8.4.26"
     }
   }
 }
