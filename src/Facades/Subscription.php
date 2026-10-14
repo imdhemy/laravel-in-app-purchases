@@ -6,6 +6,7 @@ namespace Imdhemy\Purchases\Facades;
 
 use GuzzleHttp\ClientInterface;
 use Illuminate\Support\Facades\Facade;
+use Override;
 
 /**
  * @method static \Imdhemy\Purchases\Subscription googlePlay(?ClientInterface $client = null)
@@ -18,6 +19,7 @@ class Subscription extends Facade
     /**
      * @return string
      */
+    #[Override]
     protected static function getFacadeAccessor()
     {
         return 'subscription';

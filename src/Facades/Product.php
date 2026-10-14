@@ -6,6 +6,7 @@ namespace Imdhemy\Purchases\Facades;
 
 use GuzzleHttp\ClientInterface;
 use Illuminate\Support\Facades\Facade;
+use Override;
 
 /**
  * @method static \Imdhemy\Purchases\Product googlePlay(?ClientInterface $client = null)
@@ -18,6 +19,7 @@ class Product extends Facade
     /**
      * @return string
      */
+    #[Override]
     protected static function getFacadeAccessor()
     {
         return 'product';

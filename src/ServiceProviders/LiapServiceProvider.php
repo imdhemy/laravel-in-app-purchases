@@ -25,6 +25,7 @@ use Imdhemy\Purchases\Product;
 use Imdhemy\Purchases\Subscription;
 use Lcobucci\JWT\Decoder;
 use Lcobucci\JWT\Encoding\JoseEncoder;
+use Override;
 
 /**
  * Laravel Iap service provider.
@@ -95,6 +96,7 @@ class LiapServiceProvider extends ServiceProvider
     /**
      * Register any application services.
      */
+    #[Override]
     public function register(): void
     {
         $this->registerConfig();

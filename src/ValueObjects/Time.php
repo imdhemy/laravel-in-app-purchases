@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use DateTime;
 use Imdhemy\AppStore\ValueObjects\Time as AppStoreTime;
 use Imdhemy\GooglePlay\ValueObjects\Time as GoogleTime;
+use Override;
 use Stringable;
 
 /**
@@ -97,6 +98,7 @@ final class Time implements Stringable
         return $this->toCarbon()->toDateTime();
     }
 
+    #[Override]
     public function __toString(): string
     {
         return (string)$this->toCarbon();

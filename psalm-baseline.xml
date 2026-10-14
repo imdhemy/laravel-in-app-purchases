@@ -6,11 +6,17 @@
     </RedundantCast>
   </file>
   <file src="src/Console/RequestTestNotificationCommand.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[RequestTestNotificationCommand]]></code>
+    </ClassMustBeFinal>
     <RedundantCast>
       <code><![CDATA[(array)config('liap')]]></code>
     </RedundantCast>
   </file>
   <file src="src/Console/UrlGenerator.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[UrlGenerator]]></code>
+    </ClassMustBeFinal>
     <PossiblyUnusedMethod>
       <code><![CDATA[__construct]]></code>
     </PossiblyUnusedMethod>
@@ -21,6 +27,9 @@
     </DeprecatedClass>
   </file>
   <file src="src/Events/EventFactory.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[EventFactory]]></code>
+    </ClassMustBeFinal>
     <DeprecatedClass>
       <code><![CDATA[SubscriptionNotification::class]]></code>
     </DeprecatedClass>
@@ -30,17 +39,33 @@
       <code><![CDATA[SubscriptionNotification::class]]></code>
     </DeprecatedClass>
   </file>
+  <file src="src/Exceptions/InvalidNotificationTypeException.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[InvalidNotificationTypeException]]></code>
+    </ClassMustBeFinal>
+  </file>
   <file src="src/Handlers/AbstractNotificationHandler.php">
     <RedundantCast>
       <code><![CDATA[(bool)config('liap.routing.signed', false)]]></code>
     </RedundantCast>
   </file>
+  <file src="src/Handlers/AppStoreNotificationHandler.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[AppStoreNotificationHandler]]></code>
+    </ClassMustBeFinal>
+  </file>
   <file src="src/Handlers/AppStoreV2NotificationHandler.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[AppStoreV2NotificationHandler]]></code>
+    </ClassMustBeFinal>
     <PossiblyUnusedMethod>
       <code><![CDATA[__construct]]></code>
     </PossiblyUnusedMethod>
   </file>
   <file src="src/Handlers/GooglePlayNotificationHandler.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[GooglePlayNotificationHandler]]></code>
+    </ClassMustBeFinal>
     <DeprecatedClass>
       <code><![CDATA[DeveloperNotification::parse($data)]]></code>
       <code><![CDATA[DeveloperNotification::parse($data)]]></code>
@@ -50,15 +75,28 @@
       <code><![CDATA[$developerNotification->getPayload()]]></code>
     </DeprecatedInterface>
   </file>
+  <file src="src/Handlers/HandlerFactory.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[HandlerFactory]]></code>
+    </ClassMustBeFinal>
+  </file>
   <file src="src/Handlers/HandlerHelpers.php">
     <PossiblyUnusedMethod>
       <code><![CDATA[__construct]]></code>
     </PossiblyUnusedMethod>
   </file>
   <file src="src/Handlers/JwsService.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[JwsService]]></code>
+    </ClassMustBeFinal>
     <PossiblyUnusedMethod>
       <code><![CDATA[__construct]]></code>
     </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Http/Controllers/ServerNotificationController.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[ServerNotificationController]]></code>
+    </ClassMustBeFinal>
   </file>
   <file src="src/Product.php">
     <DeprecatedClass>
@@ -79,7 +117,20 @@
       <code><![CDATA[(string)config('liap.google_play_package_name')]]></code>
     </RedundantCast>
   </file>
+  <file src="src/ServerNotifications/AppStoreServerNotification.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[AppStoreServerNotification]]></code>
+    </ClassMustBeFinal>
+  </file>
+  <file src="src/ServerNotifications/AppStoreV2ServerNotification.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[AppStoreV2ServerNotification]]></code>
+    </ClassMustBeFinal>
+  </file>
   <file src="src/ServerNotifications/GoogleServerNotification.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[GoogleServerNotification]]></code>
+    </ClassMustBeFinal>
     <DeprecatedClass>
       <code><![CDATA[DeveloperNotification]]></code>
       <code><![CDATA[DeveloperNotification]]></code>
@@ -89,14 +140,25 @@
     </DeprecatedInterface>
   </file>
   <file src="src/ServiceProviders/EventServiceProvider.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[EventServiceProvider]]></code>
+    </ClassMustBeFinal>
     <RedundantCast>
       <code><![CDATA[(array)config(LiapServiceProvider::CONFIG_KEY.'.eventListeners')]]></code>
     </RedundantCast>
   </file>
   <file src="src/ServiceProviders/LiapServiceProvider.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[LiapServiceProvider]]></code>
+    </ClassMustBeFinal>
     <RedundantCast>
       <code><![CDATA[(array)config(self::CONFIG_KEY.'.routing')]]></code>
     </RedundantCast>
+  </file>
+  <file src="src/Services/AppStoreTestNotificationServiceBuilder.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[AppStoreTestNotificationServiceBuilder]]></code>
+    </ClassMustBeFinal>
   </file>
   <file src="src/Subscription.php">
     <DeprecatedClass>
@@ -118,7 +180,20 @@
       <code><![CDATA[(string)config('liap.google_play_package_name')]]></code>
     </RedundantCast>
   </file>
+  <file src="src/Subscriptions/AppStoreSubscription.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[AppStoreSubscription]]></code>
+    </ClassMustBeFinal>
+  </file>
+  <file src="src/Subscriptions/AppleSubscription.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[AppleSubscription]]></code>
+    </ClassMustBeFinal>
+  </file>
   <file src="src/Subscriptions/GoogleSubscription.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[GoogleSubscription]]></code>
+    </ClassMustBeFinal>
     <DeprecatedClass>
       <code><![CDATA[DeveloperNotification]]></code>
       <code><![CDATA[SubscriptionNotification::class]]></code>

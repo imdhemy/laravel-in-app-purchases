@@ -9,6 +9,7 @@ use Imdhemy\AppStore\ServerNotifications\V2DecodedPayload;
 use Imdhemy\Purchases\Domain\Event\AppStoreNotificationReceivedEvent;
 use Imdhemy\Purchases\Domain\Model\AppStore\AppStoreNotificationPayload;
 use Imdhemy\Purchases\ServerNotifications\AppStoreV2ServerNotification;
+use Override;
 
 /**
  * Class AppStoreV2NotificationHandler
@@ -28,6 +29,7 @@ class AppStoreV2NotificationHandler extends AbstractNotificationHandler
     /**
      * @psalm-suppress MissingReturnType - @todo: fix missing return type
      */
+    #[Override]
     protected function handle()
     {
         $decodedPayload = V2DecodedPayload::fromJws($this->jwsService->parse());
@@ -54,6 +56,7 @@ class AppStoreV2NotificationHandler extends AbstractNotificationHandler
         event($event);
     }
 
+    #[Override]
     protected function isAuthorized(): bool
     {
         return parent::isAuthorized() && $this->jwsService->verify();
@@ -62,6 +65,7 @@ class AppStoreV2NotificationHandler extends AbstractNotificationHandler
     /**
      * @return string[][]
      */
+    #[Override]
     protected function rules(): array
     {
         return [

@@ -10,6 +10,7 @@ use Illuminate\Queue\SerializesModels;
 use Imdhemy\Purchases\Contracts\PurchaseEventContract;
 use Imdhemy\Purchases\Contracts\ServerNotificationContract;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
+use Override;
 
 /**
  * @psalm-api
@@ -29,6 +30,7 @@ abstract class PurchaseEvent implements PurchaseEventContract
         $this->serverNotification = $serverNotification;
     }
 
+    #[Override]
     public function getServerNotification(): ServerNotificationContract
     {
         return $this->serverNotification;
