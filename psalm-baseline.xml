@@ -11,12 +11,24 @@
     </RedundantCast>
   </file>
   <file src="src/Console/RequestTestNotificationCommand.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[RequestTestNotificationCommand]]></code>
+    </ClassMustBeFinal>
     <RedundantCast>
       <code><![CDATA[(array)config('liap')]]></code>
       <code><![CDATA[(bool)$this->option('sandbox')]]></code>
     </RedundantCast>
   </file>
   <file src="src/Console/UrlGenerator.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[UrlGenerator]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function generate(string $provider): string]]></code>
+      <code><![CDATA[public function hasValidSignature(Request $request): bool]]></code>
+      <code><![CDATA[public function signedUrl(string $provider): string]]></code>
+      <code><![CDATA[public function unsignedUrl(string $provider): string]]></code>
+    </MissingOverrideAttribute>
     <PossiblyUnusedMethod>
       <code><![CDATA[__construct]]></code>
     </PossiblyUnusedMethod>
@@ -77,121 +89,196 @@
     </PossiblyUnusedProperty>
   </file>
   <file src="src/Events/AppStore/Cancel.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[Cancel]]></code>
+    </ClassMustBeFinal>
     <UnusedClass>
       <code><![CDATA[Cancel]]></code>
     </UnusedClass>
   </file>
   <file src="src/Events/AppStore/ConsumptionRequest.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[ConsumptionRequest]]></code>
+    </ClassMustBeFinal>
     <UnusedClass>
       <code><![CDATA[ConsumptionRequest]]></code>
     </UnusedClass>
   </file>
   <file src="src/Events/AppStore/DidChangeRenewalPref.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[DidChangeRenewalPref]]></code>
+    </ClassMustBeFinal>
     <UnusedClass>
       <code><![CDATA[DidChangeRenewalPref]]></code>
     </UnusedClass>
   </file>
   <file src="src/Events/AppStore/DidChangeRenewalStatus.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[DidChangeRenewalStatus]]></code>
+    </ClassMustBeFinal>
     <UnusedClass>
       <code><![CDATA[DidChangeRenewalStatus]]></code>
     </UnusedClass>
   </file>
   <file src="src/Events/AppStore/DidFailToRenew.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[DidFailToRenew]]></code>
+    </ClassMustBeFinal>
     <UnusedClass>
       <code><![CDATA[DidFailToRenew]]></code>
     </UnusedClass>
   </file>
   <file src="src/Events/AppStore/DidRecover.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[DidRecover]]></code>
+    </ClassMustBeFinal>
     <UnusedClass>
       <code><![CDATA[DidRecover]]></code>
     </UnusedClass>
   </file>
   <file src="src/Events/AppStore/DidRenew.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[DidRenew]]></code>
+    </ClassMustBeFinal>
     <UnusedClass>
       <code><![CDATA[DidRenew]]></code>
     </UnusedClass>
   </file>
   <file src="src/Events/AppStore/EventFactory.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[EventFactory]]></code>
+    </ClassMustBeFinal>
     <UnusedClass>
       <code><![CDATA[EventFactory]]></code>
     </UnusedClass>
   </file>
   <file src="src/Events/AppStore/Expired.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[Expired]]></code>
+    </ClassMustBeFinal>
     <UnusedClass>
       <code><![CDATA[Expired]]></code>
     </UnusedClass>
   </file>
   <file src="src/Events/AppStore/GracePeriodExpired.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[GracePeriodExpired]]></code>
+    </ClassMustBeFinal>
     <UnusedClass>
       <code><![CDATA[GracePeriodExpired]]></code>
     </UnusedClass>
   </file>
   <file src="src/Events/AppStore/InitialBuy.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[InitialBuy]]></code>
+    </ClassMustBeFinal>
     <UnusedClass>
       <code><![CDATA[InitialBuy]]></code>
     </UnusedClass>
   </file>
   <file src="src/Events/AppStore/InteractiveRenewal.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[InteractiveRenewal]]></code>
+    </ClassMustBeFinal>
     <UnusedClass>
       <code><![CDATA[InteractiveRenewal]]></code>
     </UnusedClass>
   </file>
   <file src="src/Events/AppStore/OfferRedeemed.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[OfferRedeemed]]></code>
+    </ClassMustBeFinal>
     <UnusedClass>
       <code><![CDATA[OfferRedeemed]]></code>
     </UnusedClass>
   </file>
   <file src="src/Events/AppStore/OneTimeCharge.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[OneTimeCharge]]></code>
+    </ClassMustBeFinal>
     <UnusedClass>
       <code><![CDATA[OneTimeCharge]]></code>
     </UnusedClass>
   </file>
   <file src="src/Events/AppStore/PriceIncrease.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[PriceIncrease]]></code>
+    </ClassMustBeFinal>
     <UnusedClass>
       <code><![CDATA[PriceIncrease]]></code>
     </UnusedClass>
   </file>
   <file src="src/Events/AppStore/PriceIncreaseConsent.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[PriceIncreaseConsent]]></code>
+    </ClassMustBeFinal>
     <UnusedClass>
       <code><![CDATA[PriceIncreaseConsent]]></code>
     </UnusedClass>
   </file>
   <file src="src/Events/AppStore/Refund.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[Refund]]></code>
+    </ClassMustBeFinal>
     <UnusedClass>
       <code><![CDATA[Refund]]></code>
     </UnusedClass>
   </file>
   <file src="src/Events/AppStore/RefundDeclined.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[RefundDeclined]]></code>
+    </ClassMustBeFinal>
     <UnusedClass>
       <code><![CDATA[RefundDeclined]]></code>
     </UnusedClass>
   </file>
   <file src="src/Events/AppStore/Renewal.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[Renewal]]></code>
+    </ClassMustBeFinal>
     <UnusedClass>
       <code><![CDATA[Renewal]]></code>
     </UnusedClass>
   </file>
   <file src="src/Events/AppStore/RenewalExtended.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[RenewalExtended]]></code>
+    </ClassMustBeFinal>
     <UnusedClass>
       <code><![CDATA[RenewalExtended]]></code>
     </UnusedClass>
   </file>
   <file src="src/Events/AppStore/Revoke.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[Revoke]]></code>
+    </ClassMustBeFinal>
     <UnusedClass>
       <code><![CDATA[Revoke]]></code>
     </UnusedClass>
   </file>
   <file src="src/Events/AppStore/Subscribed.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[Subscribed]]></code>
+    </ClassMustBeFinal>
     <UnusedClass>
       <code><![CDATA[Subscribed]]></code>
     </UnusedClass>
   </file>
   <file src="src/Events/EventFactory.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[EventFactory]]></code>
+    </ClassMustBeFinal>
     <DeprecatedClass>
       <code><![CDATA[SubscriptionNotification::class]]></code>
     </DeprecatedClass>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function create(ServerNotification $notification): PurchaseEvent]]></code>
+    </MissingOverrideAttribute>
   </file>
   <file src="src/Events/GooglePlay/EventFactory.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[EventFactory]]></code>
+    </ClassMustBeFinal>
     <DeprecatedClass>
       <code><![CDATA[SubscriptionNotification::class]]></code>
     </DeprecatedClass>
@@ -200,92 +287,176 @@
     </UnusedClass>
   </file>
   <file src="src/Events/GooglePlay/SubscriptionCanceled.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[SubscriptionCanceled]]></code>
+    </ClassMustBeFinal>
     <UnusedClass>
       <code><![CDATA[SubscriptionCanceled]]></code>
     </UnusedClass>
   </file>
   <file src="src/Events/GooglePlay/SubscriptionDeferred.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[SubscriptionDeferred]]></code>
+    </ClassMustBeFinal>
     <UnusedClass>
       <code><![CDATA[SubscriptionDeferred]]></code>
     </UnusedClass>
   </file>
   <file src="src/Events/GooglePlay/SubscriptionExpired.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[SubscriptionExpired]]></code>
+    </ClassMustBeFinal>
     <UnusedClass>
       <code><![CDATA[SubscriptionExpired]]></code>
     </UnusedClass>
   </file>
   <file src="src/Events/GooglePlay/SubscriptionInGracePeriod.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[SubscriptionInGracePeriod]]></code>
+    </ClassMustBeFinal>
     <UnusedClass>
       <code><![CDATA[SubscriptionInGracePeriod]]></code>
     </UnusedClass>
   </file>
   <file src="src/Events/GooglePlay/SubscriptionOnHold.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[SubscriptionOnHold]]></code>
+    </ClassMustBeFinal>
     <UnusedClass>
       <code><![CDATA[SubscriptionOnHold]]></code>
     </UnusedClass>
   </file>
   <file src="src/Events/GooglePlay/SubscriptionPauseScheduleChanged.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[SubscriptionPauseScheduleChanged]]></code>
+    </ClassMustBeFinal>
     <UnusedClass>
       <code><![CDATA[SubscriptionPauseScheduleChanged]]></code>
     </UnusedClass>
   </file>
   <file src="src/Events/GooglePlay/SubscriptionPaused.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[SubscriptionPaused]]></code>
+    </ClassMustBeFinal>
     <UnusedClass>
       <code><![CDATA[SubscriptionPaused]]></code>
     </UnusedClass>
   </file>
   <file src="src/Events/GooglePlay/SubscriptionPriceChangeConfirmed.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[SubscriptionPriceChangeConfirmed]]></code>
+    </ClassMustBeFinal>
     <UnusedClass>
       <code><![CDATA[SubscriptionPriceChangeConfirmed]]></code>
     </UnusedClass>
   </file>
   <file src="src/Events/GooglePlay/SubscriptionPurchased.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[SubscriptionPurchased]]></code>
+    </ClassMustBeFinal>
     <UnusedClass>
       <code><![CDATA[SubscriptionPurchased]]></code>
     </UnusedClass>
   </file>
   <file src="src/Events/GooglePlay/SubscriptionRecovered.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[SubscriptionRecovered]]></code>
+    </ClassMustBeFinal>
     <UnusedClass>
       <code><![CDATA[SubscriptionRecovered]]></code>
     </UnusedClass>
   </file>
   <file src="src/Events/GooglePlay/SubscriptionRenewed.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[SubscriptionRenewed]]></code>
+    </ClassMustBeFinal>
     <UnusedClass>
       <code><![CDATA[SubscriptionRenewed]]></code>
     </UnusedClass>
   </file>
   <file src="src/Events/GooglePlay/SubscriptionRestarted.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[SubscriptionRestarted]]></code>
+    </ClassMustBeFinal>
     <UnusedClass>
       <code><![CDATA[SubscriptionRestarted]]></code>
     </UnusedClass>
   </file>
   <file src="src/Events/GooglePlay/SubscriptionRevoked.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[SubscriptionRevoked]]></code>
+    </ClassMustBeFinal>
     <UnusedClass>
       <code><![CDATA[SubscriptionRevoked]]></code>
     </UnusedClass>
   </file>
   <file src="src/Events/PurchaseEvent.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function getServerNotification(): ServerNotificationContract]]></code>
+    </MissingOverrideAttribute>
     <PossiblyUnusedMethod>
       <code><![CDATA[getSubscriptionId]]></code>
       <code><![CDATA[getSubscriptionIdentifier]]></code>
     </PossiblyUnusedMethod>
   </file>
+  <file src="src/Exceptions/InvalidNotificationTypeException.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[InvalidNotificationTypeException]]></code>
+    </ClassMustBeFinal>
+  </file>
   <file src="src/Facades/Product.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[Product]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected static function getFacadeAccessor()]]></code>
+    </MissingOverrideAttribute>
     <UnusedClass>
       <code><![CDATA[Product]]></code>
     </UnusedClass>
   </file>
+  <file src="src/Facades/Subscription.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[Subscription]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected static function getFacadeAccessor()]]></code>
+    </MissingOverrideAttribute>
+  </file>
   <file src="src/Handlers/AbstractNotificationHandler.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function execute()]]></code>
+    </MissingOverrideAttribute>
     <RedundantCast>
       <code><![CDATA[(bool)config('liap.routing.signed', false)]]></code>
     </RedundantCast>
   </file>
+  <file src="src/Handlers/AppStoreNotificationHandler.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[AppStoreNotificationHandler]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function handle()]]></code>
+      <code><![CDATA[protected function rules(): array]]></code>
+    </MissingOverrideAttribute>
+  </file>
   <file src="src/Handlers/AppStoreV2NotificationHandler.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[AppStoreV2NotificationHandler]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function handle()]]></code>
+      <code><![CDATA[protected function isAuthorized(): bool]]></code>
+      <code><![CDATA[protected function rules(): array]]></code>
+    </MissingOverrideAttribute>
     <PossiblyUnusedMethod>
       <code><![CDATA[__construct]]></code>
     </PossiblyUnusedMethod>
   </file>
   <file src="src/Handlers/GooglePlayNotificationHandler.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[GooglePlayNotificationHandler]]></code>
+    </ClassMustBeFinal>
     <DeprecatedClass>
       <code><![CDATA[DeveloperNotification::parse($data)]]></code>
       <code><![CDATA[DeveloperNotification::parse($data)]]></code>
@@ -294,23 +465,51 @@
       <code><![CDATA[$developerNotification->getPayload()]]></code>
       <code><![CDATA[$developerNotification->getPayload()]]></code>
     </DeprecatedInterface>
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function handle()]]></code>
+      <code><![CDATA[protected function rules(): array]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="src/Handlers/HandlerFactory.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[HandlerFactory]]></code>
+    </ClassMustBeFinal>
   </file>
   <file src="src/Handlers/HandlerHelpers.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function getEventFactory(): EventFactory]]></code>
+      <code><![CDATA[public function getRequest(): Request]]></code>
+      <code><![CDATA[public function getUrlGenerator(): UrlGenerator]]></code>
+      <code><![CDATA[public function getValidator(): Factory]]></code>
+    </MissingOverrideAttribute>
     <PossiblyUnusedMethod>
       <code><![CDATA[__construct]]></code>
     </PossiblyUnusedMethod>
   </file>
   <file src="src/Handlers/JwsService.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[JwsService]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function parse(): JsonWebSignature]]></code>
+      <code><![CDATA[public function verify(): bool]]></code>
+    </MissingOverrideAttribute>
     <PossiblyUnusedMethod>
       <code><![CDATA[__construct]]></code>
     </PossiblyUnusedMethod>
   </file>
   <file src="src/Http/Controllers/ServerNotificationController.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[ServerNotificationController]]></code>
+    </ClassMustBeFinal>
     <PossiblyUnusedParam>
       <code><![CDATA[$request]]></code>
     </PossiblyUnusedParam>
   </file>
   <file src="src/Product.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[Product]]></code>
+    </ClassMustBeFinal>
     <DeprecatedClass>
       <code><![CDATA[$this->createProduct()->get()]]></code>
       <code><![CDATA[GooglePlayClientFactory::SCOPE_ANDROID_PUBLISHER]]></code>
@@ -342,7 +541,37 @@
       <code><![CDATA[(string)config('liap.google_play_package_name')]]></code>
     </RedundantCast>
   </file>
+  <file src="src/ServerNotifications/AppStoreServerNotification.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[AppStoreServerNotification]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function getBundle(): string]]></code>
+      <code><![CDATA[public function getPayload(): array]]></code>
+      <code><![CDATA[public function getProvider(): string]]></code>
+      <code><![CDATA[public function getSubscription(?ClientInterface $client = null): SubscriptionContract]]></code>
+      <code><![CDATA[public function getType(): string]]></code>
+      <code><![CDATA[public function isTest(): bool]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="src/ServerNotifications/AppStoreV2ServerNotification.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[AppStoreV2ServerNotification]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function getBundle(): string]]></code>
+      <code><![CDATA[public function getPayload(): array]]></code>
+      <code><![CDATA[public function getProvider(): string]]></code>
+      <code><![CDATA[public function getSubscription(?ClientInterface $client = null): SubscriptionContract]]></code>
+      <code><![CDATA[public function getSubtype(): string]]></code>
+      <code><![CDATA[public function getType(): string]]></code>
+      <code><![CDATA[public function isTest(): bool]]></code>
+    </MissingOverrideAttribute>
+  </file>
   <file src="src/ServerNotifications/GoogleServerNotification.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[GoogleServerNotification]]></code>
+    </ClassMustBeFinal>
     <DeprecatedClass>
       <code><![CDATA[DeveloperNotification]]></code>
       <code><![CDATA[DeveloperNotification]]></code>
@@ -350,23 +579,49 @@
     <DeprecatedInterface>
       <code><![CDATA[$this->notification->getPayload()]]></code>
     </DeprecatedInterface>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function getBundle(): string]]></code>
+      <code><![CDATA[public function getPayload(): array]]></code>
+      <code><![CDATA[public function getProvider(): string]]></code>
+      <code><![CDATA[public function getSubscription(?ClientInterface $client = null): SubscriptionContract]]></code>
+      <code><![CDATA[public function getType(): string]]></code>
+      <code><![CDATA[public function isTest(): bool]]></code>
+    </MissingOverrideAttribute>
   </file>
   <file src="src/ServiceProviders/EventServiceProvider.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[EventServiceProvider]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function configureEmailVerification(): void]]></code>
+    </MissingOverrideAttribute>
     <RedundantCast>
       <code><![CDATA[(array)config(LiapServiceProvider::CONFIG_KEY.'.eventListeners')]]></code>
     </RedundantCast>
   </file>
   <file src="src/ServiceProviders/LiapServiceProvider.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[LiapServiceProvider]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function register(): void]]></code>
+    </MissingOverrideAttribute>
     <RedundantCast>
       <code><![CDATA[(array)config(self::CONFIG_KEY.'.routing')]]></code>
     </RedundantCast>
   </file>
   <file src="src/Services/AppStoreTestNotificationServiceBuilder.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[AppStoreTestNotificationServiceBuilder]]></code>
+    </ClassMustBeFinal>
     <PossiblyFalseArgument>
       <code><![CDATA[file_get_contents($config['appstore_private_key'])]]></code>
     </PossiblyFalseArgument>
   </file>
   <file src="src/Subscription.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[Subscription]]></code>
+    </ClassMustBeFinal>
     <DeprecatedClass>
       <code><![CDATA[$this->createSubscription()->get()]]></code>
       <code><![CDATA[?SubscriptionPurchase]]></code>
@@ -398,7 +653,34 @@
       <code><![CDATA[(string)config('liap.google_play_package_name')]]></code>
     </RedundantCast>
   </file>
+  <file src="src/Subscriptions/AppStoreSubscription.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[AppStoreSubscription]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function getExpiryTime(): Time]]></code>
+      <code><![CDATA[public function getItemId(): string]]></code>
+      <code><![CDATA[public function getProvider(): string]]></code>
+      <code><![CDATA[public function getProviderRepresentation(): LatestReceiptInfo]]></code>
+      <code><![CDATA[public function getUniqueIdentifier(): string]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="src/Subscriptions/AppleSubscription.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[AppleSubscription]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function getExpiryTime(): Time]]></code>
+      <code><![CDATA[public function getItemId(): string]]></code>
+      <code><![CDATA[public function getProvider(): string]]></code>
+      <code><![CDATA[public function getProviderRepresentation(): V2DecodedPayload]]></code>
+      <code><![CDATA[public function getUniqueIdentifier(): string]]></code>
+    </MissingOverrideAttribute>
+  </file>
   <file src="src/Subscriptions/GoogleSubscription.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[GoogleSubscription]]></code>
+    </ClassMustBeFinal>
     <DeprecatedClass>
       <code><![CDATA[DeveloperNotification]]></code>
       <code><![CDATA[SubscriptionNotification::class]]></code>
@@ -409,11 +691,21 @@
     <DeprecatedInterface>
       <code><![CDATA[$rtdNotification->getPayload()]]></code>
     </DeprecatedInterface>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function getExpiryTime(): Time]]></code>
+      <code><![CDATA[public function getItemId(): string]]></code>
+      <code><![CDATA[public function getProvider(): string]]></code>
+      <code><![CDATA[public function getProviderRepresentation(): SubscriptionPurchase]]></code>
+      <code><![CDATA[public function getUniqueIdentifier(): string]]></code>
+    </MissingOverrideAttribute>
   </file>
   <file src="src/ValueObjects/Time.php">
     <DeprecatedMethod>
       <code><![CDATA[getCarbon]]></code>
     </DeprecatedMethod>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function __toString(): string]]></code>
+    </MissingOverrideAttribute>
     <PossiblyUnusedMethod>
       <code><![CDATA[fromDateTime]]></code>
       <code><![CDATA[getCarbon]]></code>
