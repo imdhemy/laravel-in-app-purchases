@@ -12,6 +12,7 @@ use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\Facades\Subscription;
 use Imdhemy\Purchases\Subscriptions\GoogleSubscription;
 use Imdhemy\Purchases\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class GoogleSubscriptionTest extends TestCase
 {
@@ -45,7 +46,8 @@ class GoogleSubscriptionTest extends TestCase
     /**
      * @test
      */
-    public function test_constructor()
+    #[Test]
+    public function constructor()
     {
         $this->assertInstanceOf(
             SubscriptionContract::class,
@@ -56,7 +58,8 @@ class GoogleSubscriptionTest extends TestCase
     /**
      * @test
      */
-    public function test_get_item_id()
+    #[Test]
+    public function get_item_id()
     {
         $this->assertEquals('month_premium', $this->googleSubscription->getItemId());
     }

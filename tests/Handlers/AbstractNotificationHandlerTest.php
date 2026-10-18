@@ -13,14 +13,14 @@ use Imdhemy\Purchases\Events\EventFactory;
 use Imdhemy\Purchases\Handlers\AbstractNotificationHandler;
 use Imdhemy\Purchases\Handlers\HandlerHelpers;
 use Imdhemy\Purchases\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class AbstractNotificationHandlerTest extends TestCase
 {
     /**
-     * @test
-     *
      * @throws AuthorizationException|ValidationException
      */
+    #[Test]
     public function it_should_not_authorize_unsigned_urls()
     {
         $this->expectException(AuthorizationException::class);
@@ -32,18 +32,20 @@ class AbstractNotificationHandlerTest extends TestCase
         $urlGenerator = $this->app->make(UrlGenerator::class);
         $eventFactory = new EventFactory();
 
-        $stub = $this->getMockBuilder(AbstractNotificationHandler::class)
-            ->setConstructorArgs([new HandlerHelpers($request, $validatorFactory, $urlGenerator, $eventFactory)])
-            ->getMockForAbstractClass();
+        $helpers = new HandlerHelpers($request, $validatorFactory, $urlGenerator, $eventFactory);
+        $stub = new class($helpers) extends AbstractNotificationHandler {
+            protected function handle(): void
+            {
+            }
+        };
 
         $stub->execute();
     }
 
     /**
-     * @test
-     *
      * @throws AuthorizationException|ValidationException
      */
+    #[Test]
     public function it_should_authorized_a_signed_url_with_provider()
     {
         $this->expectNotToPerformAssertions();
@@ -75,9 +77,12 @@ class AbstractNotificationHandlerTest extends TestCase
         $validatorFactory = $this->app->make(Factory::class);
         $eventFactory = new EventFactory();
 
-        $stub = $this->getMockBuilder(AbstractNotificationHandler::class)
-            ->setConstructorArgs([new HandlerHelpers($request, $validatorFactory, $urlGenerator, $eventFactory)])
-            ->getMockForAbstractClass();
+        $helpers = new HandlerHelpers($request, $validatorFactory, $urlGenerator, $eventFactory);
+        $stub = new class($helpers) extends AbstractNotificationHandler {
+            protected function handle(): void
+            {
+            }
+        };
 
         $stub->execute();
     }

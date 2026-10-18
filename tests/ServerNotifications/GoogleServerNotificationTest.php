@@ -12,6 +12,7 @@ use Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\ServerNotifications\GoogleServerNotification;
 use Imdhemy\Purchases\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class GoogleServerNotificationTest extends TestCase
 {
@@ -27,9 +28,7 @@ class GoogleServerNotificationTest extends TestCase
         $this->googleServerNotification = new GoogleServerNotification($this->developerNotification);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function get_type(): void
     {
         $this->assertEquals(
@@ -39,10 +38,9 @@ class GoogleServerNotificationTest extends TestCase
     }
 
     /**
-     * @test
-     *
      * @throws GuzzleException
      */
+    #[Test]
     public function get_subscription(): void
     {
         $googleClient = ClientFactory::mock(new Response(200, [], '[]'));
@@ -52,25 +50,19 @@ class GoogleServerNotificationTest extends TestCase
         $this->assertEquals(SubscriptionContract::PROVIDER_GOOGLE_PLAY, $subscription->getProvider());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function get_bundle(): void
     {
         $this->assertEquals('com.twigano.fashion', $this->googleServerNotification->getBundle());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function get_payload(): void
     {
         $this->assertEquals($this->developerNotification->toArray(), $this->googleServerNotification->getPayload());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function get_provider(): void
     {
         $this->assertEquals('google_play', $this->googleServerNotification->getProvider());

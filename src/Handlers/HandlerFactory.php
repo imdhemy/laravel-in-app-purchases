@@ -33,7 +33,11 @@ class HandlerFactory
      */
     public function create(): NotificationHandlerContract
     {
-        $provider = (string)$this->request->get('provider');
+        $provider = $this->request->query('provider');
+
+        if (! is_string($provider)) {
+            throw new RuntimeException('Invalid provider: expected a string.');
+        }
 
         if ('app-store' === $provider && $this->request->has('signedPayload')) {
             $provider = 'app-store-v2';

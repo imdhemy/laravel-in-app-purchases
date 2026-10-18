@@ -15,6 +15,7 @@ use Imdhemy\GooglePlay\ValueObjects\EmptyResponse;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\Facades\Subscription;
 use Imdhemy\Purchases\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class SubscriptionTest extends TestCase
 {
@@ -36,11 +37,12 @@ class SubscriptionTest extends TestCase
     }
 
     /**
-     * @test
-     *
      * @throws GuzzleException|InvalidReceiptException
+     *
+     * @test
      */
-    public function test_facade_can_get_a_google_play_subscription()
+    #[Test]
+    public function facade_can_get_a_google_play_subscription()
     {
         $client = GoogleClientFactory::mock(new Response(200, [], '[]'));
         $subscription = Subscription::googlePlay($client)
@@ -56,11 +58,12 @@ class SubscriptionTest extends TestCase
     }
 
     /**
-     * @test
-     *
      * @throws GuzzleException
+     *
+     * @test
      */
-    public function test_facade_can_acknowledge_a_google_play_subscription()
+    #[Test]
+    public function facade_can_acknowledge_a_google_play_subscription()
     {
         $client = GoogleClientFactory::mock(new Response());
 
@@ -73,11 +76,12 @@ class SubscriptionTest extends TestCase
     }
 
     /**
-     * @test
-     *
      * @throws GuzzleException|InvalidReceiptException
+     *
+     * @test
      */
-    public function test_it_can_send_verify_receipt_request_to_app_store()
+    #[Test]
+    public function it_can_send_verify_receipt_request_to_app_store()
     {
         $receipt = json_decode(file_get_contents($this->fixturesDir('iOS-receipt.json')), true);
         $receiptData = $receipt['transactionReceipt'];
@@ -91,11 +95,12 @@ class SubscriptionTest extends TestCase
     }
 
     /**
-     * @test
-     *
      * @throws GuzzleException|InvalidReceiptException
+     *
+     * @test
      */
-    public function test_it_handles_the_21007_error_from_the_app_store()
+    #[Test]
+    public function it_handles_the_21007_error_from_the_app_store()
     {
         $receipt = json_decode(file_get_contents($this->fixturesDir('iOS-receipt.json')), true);
         $receiptData = $receipt['transactionReceipt'];
@@ -114,7 +119,7 @@ class SubscriptionTest extends TestCase
         $this->assertTrue($response->getStatus()->isValid());
     }
 
-    /** @test */
+    #[Test]
     public function cancel_google_subscription(): void
     {
         $this->expectNotToPerformAssertions();

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Event;
 use Imdhemy\Purchases\Domain\Event\GooglePlayNotificationReceivedEvent;
 use Imdhemy\Purchases\Events\GooglePlay\SubscriptionRecovered;
 use Imdhemy\Purchases\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 final class HandleGoogleNotificationFeatureTest extends TestCase
 {
@@ -19,7 +20,7 @@ final class HandleGoogleNotificationFeatureTest extends TestCase
         Event::fake();
     }
 
-    /** @test */
+    #[Test]
     public function it_dispatches_server_notification_test(): void
     {
         $data = [
@@ -39,7 +40,7 @@ final class HandleGoogleNotificationFeatureTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_logs_test_notification(): void
     {
         $data = [
@@ -59,7 +60,7 @@ final class HandleGoogleNotificationFeatureTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_logs_the_weird__zn_nk_weird_token(): void
     {
         $data = json_decode(

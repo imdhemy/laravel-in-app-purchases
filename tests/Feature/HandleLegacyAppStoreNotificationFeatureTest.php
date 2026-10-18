@@ -7,6 +7,7 @@ namespace Imdhemy\Purchases\Tests\Feature;
 use Illuminate\Support\Facades\Event;
 use Imdhemy\Purchases\Events\AppStore\DidChangeRenewalStatus;
 use Imdhemy\Purchases\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 final class HandleLegacyAppStoreNotificationFeatureTest extends TestCase
 {
@@ -18,7 +19,7 @@ final class HandleLegacyAppStoreNotificationFeatureTest extends TestCase
         Event::fake();
     }
 
-    /** @test */
+    #[Test]
     public function handle_app_store_server_notifications(): void
     {
         $data = json_decode(

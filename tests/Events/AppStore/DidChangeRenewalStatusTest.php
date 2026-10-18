@@ -10,12 +10,11 @@ use Imdhemy\Purchases\Events\AppStore\DidChangeRenewalStatus;
 use Imdhemy\Purchases\ServerNotifications\AppStoreServerNotification;
 use Imdhemy\Purchases\ServerNotifications\AppStoreV2ServerNotification;
 use Imdhemy\Purchases\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class DidChangeRenewalStatusTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function v1_is_auto_renewal(): void
     {
         $payload = ServerNotification::fromArray([
@@ -30,9 +29,7 @@ class DidChangeRenewalStatusTest extends TestCase
         $this->assertTrue($actual);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function v2_is_auto_renewal(): void
     {
         $signedRenewalInfo = $this->sign(['autoRenewStatus' => 1])->toString();
@@ -50,9 +47,7 @@ class DidChangeRenewalStatusTest extends TestCase
         $this->assertTrue($actual);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function v1_get_auto_renew_status_change_date(): void
     {
         $payload = ServerNotification::fromArray([
@@ -67,9 +62,7 @@ class DidChangeRenewalStatusTest extends TestCase
         $this->assertEquals('1580000000000', $actual->toCarbon()->getTimestampMs());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function v2_does_not_provide_auto_renew_status_change_data(): void
     {
         $signedRenewalInfo = $this->sign([])->toString();

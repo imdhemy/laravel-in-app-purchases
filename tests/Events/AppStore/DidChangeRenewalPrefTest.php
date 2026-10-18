@@ -10,12 +10,11 @@ use Imdhemy\Purchases\Events\AppStore\DidChangeRenewalPref;
 use Imdhemy\Purchases\ServerNotifications\AppStoreServerNotification;
 use Imdhemy\Purchases\ServerNotifications\AppStoreV2ServerNotification;
 use Imdhemy\Purchases\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class DidChangeRenewalPrefTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function v1_get_auto_renew_product_id(): void
     {
         $payload = ServerNotification::fromArray([
@@ -30,9 +29,7 @@ class DidChangeRenewalPrefTest extends TestCase
         $this->assertEquals('com.example.product', $actual);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function v2_get_aut_renew_product_id(): void
     {
         $decodedPayload = V2DecodedPayload::fromArray([

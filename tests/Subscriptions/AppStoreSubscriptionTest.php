@@ -10,6 +10,7 @@ use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\Subscriptions\AppStoreSubscription;
 use Imdhemy\Purchases\Tests\TestCase;
 use Imdhemy\Purchases\ValueObjects\Time;
+use PHPUnit\Framework\Attributes\Test;
 
 class AppStoreSubscriptionTest extends TestCase
 {
@@ -38,7 +39,8 @@ class AppStoreSubscriptionTest extends TestCase
     /**
      * @test
      */
-    public function test_constructor()
+    #[Test]
+    public function constructor()
     {
         $this->assertInstanceOf(SubscriptionContract::class, $this->appStoreSubscription);
     }
@@ -46,7 +48,8 @@ class AppStoreSubscriptionTest extends TestCase
     /**
      * @test
      */
-    public function test_get_expiration_date()
+    #[Test]
+    public function get_expiration_date()
     {
         $this->assertInstanceOf(Time::class, $this->appStoreSubscription->getExpiryTime());
     }
@@ -54,7 +57,8 @@ class AppStoreSubscriptionTest extends TestCase
     /**
      * @test
      */
-    public function test_get_item_id()
+    #[Test]
+    public function get_item_id()
     {
         $this->assertEquals('month_premium', $this->appStoreSubscription->getItemId());
     }

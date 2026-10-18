@@ -6,6 +6,7 @@ namespace Imdhemy\Purchases\Tests\Console;
 
 use Illuminate\Support\Facades\File;
 use Imdhemy\Purchases\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 final class LiapConfigPublishCommandTest extends TestCase
 {
@@ -24,9 +25,7 @@ final class LiapConfigPublishCommandTest extends TestCase
         }
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function publish_config_file(): void
     {
         $this->artisan('liap:config:publish')->assertSuccessful();
@@ -35,9 +34,7 @@ final class LiapConfigPublishCommandTest extends TestCase
         $this->assertSame($this->config, file_get_contents($this->configFilePath));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_fail_if_config_is_published(): void
     {
         $this->artisan('liap:config:publish');
@@ -45,9 +42,7 @@ final class LiapConfigPublishCommandTest extends TestCase
         $this->artisan('liap:config:publish')->assertFailed();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function publishing_config_file_can_be_forced(): void
     {
         $this->artisan('liap:config:publish');
