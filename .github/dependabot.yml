@@ -8,4 +8,16 @@ updates:
       - dependency-type: "direct"
     labels:
       - "🧱 Dependencies"
-    versioning-strategy: auto
+    versioning-strategy: increase
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    labels:
+      - "🧱 Dependencies"
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    labels:
+      - "🧱 Dependencies"
