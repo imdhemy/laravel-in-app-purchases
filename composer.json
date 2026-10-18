@@ -21,11 +21,11 @@
     "ext-json": "*",
     "ext-openssl": "*",
     "imdhemy/appstore-iap": "^1.9",
-    "imdhemy/google-play-billing": "^1.5",
+    "imdhemy/google-play-billing": "^1.14",
     "laravel/framework": "^13.30"
   },
   "require-dev": {
-    "friendsofphp/php-cs-fixer": "^3.14",
+    "friendsofphp/php-cs-fixer": "^3.95",
     "orchestra/testbench": "^11.0",
     "phpunit/phpunit": "^12.5.8",
     "psalm/plugin-laravel": "^3.17",
