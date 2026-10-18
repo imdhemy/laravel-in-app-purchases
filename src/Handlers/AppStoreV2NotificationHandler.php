@@ -32,7 +32,7 @@ class AppStoreV2NotificationHandler extends AbstractNotificationHandler
     {
         $decodedPayload = V2DecodedPayload::fromJws($this->jwsService->parse());
         $serverNotification = AppStoreV2ServerNotification::fromDecodedPayload($decodedPayload);
-        $signedPayload = (string)$this->request->get('signedPayload');
+        $signedPayload = (string)$this->request->input('signedPayload');
         $appStoreNotificationPayload = new AppStoreNotificationPayload($signedPayload);
 
         if ($serverNotification->isTest()) {
