@@ -8,10 +8,12 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\UrlGenerator as IlluminateUrlGenerator;
 use Imdhemy\Purchases\Console\UrlGenerator;
 use Imdhemy\Purchases\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Depends;
+use PHPUnit\Framework\Attributes\Test;
 
 final class UrlGeneratorTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function create_signed_url(): string
     {
         $internalGenerator = $this->createMock(IlluminateUrlGenerator::class);
@@ -25,17 +27,14 @@ final class UrlGeneratorTest extends TestCase
         return $sut->signedUrl('my-provider');
     }
 
-    /**
-     * @test
-     *
-     * @depends create_signed_url
-     */
+    #[Depends('create_signed_url')]
+    #[Test]
     public function signed_url_contains_the_provider_query(string $url): void
     {
         $this->assertStringContainsString('provider=my-provider', $url);
     }
 
-    /** @test */
+    #[Test]
     public function validate_secure_url(): void
     {
         $internalGenerator = $this->app->make(IlluminateUrlGenerator::class);
@@ -53,7 +52,7 @@ final class UrlGeneratorTest extends TestCase
         $this->assertTrue($sut->hasValidSignature($request));
     }
 
-    /** @test */
+    #[Test]
     public function create_unsigned_url(): void
     {
         $internalGenerator = $this->createMock(IlluminateUrlGenerator::class);
@@ -64,7 +63,7 @@ final class UrlGeneratorTest extends TestCase
         $sut->unsignedUrl('my-provider');
     }
 
-    /** @test */
+    #[Test]
     public function has_valid_signature_delegates_call_to_laravel_9_implementation(): void
     {
         $internalGenerator = $this->createMock(IlluminateUrlGenerator::class);

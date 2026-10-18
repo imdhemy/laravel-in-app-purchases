@@ -36,18 +36,17 @@ use Imdhemy\Purchases\Events\GooglePlay\SubscriptionRenewed;
 use Imdhemy\Purchases\Events\GooglePlay\SubscriptionRestarted;
 use Imdhemy\Purchases\Events\GooglePlay\SubscriptionRevoked;
 use Imdhemy\Purchases\Tests\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 
 class EventFactoryTest extends TestCase
 {
-    /**
-     * @test
-     *
-     * @dataProvider googlePlayEventsProvider
-     * @dataProvider appStoreEventsProvider
-     */
+    #[DataProvider('googlePlayEventsProvider')]
+    #[DataProvider('appStoreEventsProvider')]
+    #[Test]
     public function create(string $provider, string $type, string $expectedEvent): void
     {
-        $serverNotification = $this->createMock(ServerNotification::class);
+        $serverNotification = $this->createStub(ServerNotification::class);
         $serverNotification->method('getProvider')->willReturn($provider);
         $serverNotification->method('getType')->willReturn($type);
 

@@ -7,6 +7,7 @@ namespace Imdhemy\Purchases\Tests\ServerNotifications;
 use Imdhemy\AppStore\ServerNotifications\V2DecodedPayload;
 use Imdhemy\Purchases\ServerNotifications\AppStoreV2ServerNotification;
 use Imdhemy\Purchases\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class AppStoreV2ServerNotificationTest extends TestCase
 {
@@ -31,17 +32,13 @@ class AppStoreV2ServerNotificationTest extends TestCase
         $this->sut = AppStoreV2ServerNotification::fromDecodedPayload($this->payload);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function get_type(): void
     {
         $this->assertEquals(V2DecodedPayload::TYPE_SUBSCRIBED, $this->sut->getType());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function get_subscription(): void
     {
         $this->assertSame(
@@ -50,41 +47,31 @@ class AppStoreV2ServerNotificationTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function is_test(): void
     {
         $this->assertFalse($this->sut->isTest());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function get_bundle(): void
     {
         $this->assertEquals('com.example.app', $this->sut->getBundle());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function get_payload(): void
     {
         $this->assertSame($this->payload->toArray(), $this->sut->getPayload());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function get_subtype(): void
     {
         $this->assertEquals(V2DecodedPayload::SUBTYPE_INITIAL_BUY, $this->sut->getSubtype());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function get_provider(): void
     {
         $this->assertEquals('app_store', $this->sut->getProvider());

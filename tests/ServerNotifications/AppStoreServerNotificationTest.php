@@ -10,6 +10,7 @@ use Imdhemy\Purchases\ServerNotifications\AppStoreServerNotification;
 use Imdhemy\Purchases\Tests\TestCase;
 use Imdhemy\Purchases\ValueObjects\Time;
 use JsonException;
+use PHPUnit\Framework\Attributes\Test;
 
 class AppStoreServerNotificationTest extends TestCase
 {
@@ -30,9 +31,7 @@ class AppStoreServerNotificationTest extends TestCase
         $this->appStoreServerNotification = new AppStoreServerNotification($serverNotification);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function get_notification_type(): void
     {
         $this->assertEquals(
@@ -41,9 +40,7 @@ class AppStoreServerNotificationTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function get_subscription(): void
     {
         $subscription = $this->appStoreServerNotification->getSubscription();
@@ -51,9 +48,7 @@ class AppStoreServerNotificationTest extends TestCase
         $this->assertEquals(SubscriptionContract::PROVIDER_APP_STORE, $subscription->getProvider());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function get_change_renewal_status_data(): void
     {
         $isAutoRenewal = $this->appStoreServerNotification->isAutoRenewal();
@@ -63,9 +58,7 @@ class AppStoreServerNotificationTest extends TestCase
         $this->assertInstanceOf(Time::class, $changeDate);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function get_bundle(): void
     {
         $this->assertEquals(
@@ -74,9 +67,7 @@ class AppStoreServerNotificationTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function get_payload(): void
     {
         $this->assertEquals(
@@ -88,14 +79,13 @@ class AppStoreServerNotificationTest extends TestCase
     /**
      * @test
      */
-    public function test_get_auto_renew_product_id()
+    #[Test]
+    public function get_auto_renew_product_id()
     {
         $this->assertNotNull($this->appStoreServerNotification->getAutoRenewProductId());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function get_provider(): void
     {
         $this->assertEquals('app_store', $this->appStoreServerNotification->getProvider());

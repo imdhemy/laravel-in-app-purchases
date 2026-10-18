@@ -10,6 +10,7 @@ use Imdhemy\Purchases\Domain\Event\AppStoreNotificationReceivedEvent;
 use Imdhemy\Purchases\Events\AppStore\Subscribed;
 use Imdhemy\Purchases\Tests\Doubles\JwsVerifier as FakeJwsVerifier;
 use Imdhemy\Purchases\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 final class HandleAppStoreNotificationFeatureTest extends TestCase
 {
@@ -22,7 +23,7 @@ final class HandleAppStoreNotificationFeatureTest extends TestCase
         Event::fake();
     }
 
-    /** @test */
+    #[Test]
     public function it_dispatches_server_notification_event(): void
     {
         $data = ['signedPayload' => $this->faker->appStoreNotification()->toString()];
@@ -38,7 +39,7 @@ final class HandleAppStoreNotificationFeatureTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_logs_test_notification(): void
     {
         $data = ['signedPayload' => $this->faker->appStoreTestNotification()->toString()];
@@ -47,6 +48,22 @@ final class HandleAppStoreNotificationFeatureTest extends TestCase
 
         $response->assertStatus(200);
         $this->assertLogsContain('AppStoreV2NotificationHandler: Test notification received');
+        Event::assertDispatched(
+            AppStoreNotificationReceivedEvent::class,
+            static fn (AppStoreNotificationReceivedEvent $event,
+            ) => $event->payload->signedPayload === $data['signedPayload']
+        );
+    }
+
+    #[Test]
+    public function it_dispatches_server_notification_event_from_json(): void
+    {
+        $data = ['signedPayload' => $this->faker->appStoreNotification()->toString()];
+
+        $response = $this->postJson('/liap/notifications?provider=app-store', $data);
+
+        $response->assertStatus(200);
+        Event::assertDispatched(Subscribed::class);
         Event::assertDispatched(
             AppStoreNotificationReceivedEvent::class,
             static fn (AppStoreNotificationReceivedEvent $event,

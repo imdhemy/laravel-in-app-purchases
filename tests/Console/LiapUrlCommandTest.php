@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Testing\PendingCommand;
 use Imdhemy\Purchases\Contracts\UrlGenerator as UrlGeneratorContract;
 use Imdhemy\Purchases\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 final class LiapUrlCommandTest extends TestCase
 {
@@ -23,7 +24,7 @@ final class LiapUrlCommandTest extends TestCase
         $this->urlGenerator = $urlGenerator;
     }
 
-    /** @test */
+    #[Test]
     public function generate_a_signed_url(): void
     {
         config()->set('liap.routing.signed', true);
@@ -38,7 +39,7 @@ final class LiapUrlCommandTest extends TestCase
             ->assertSuccessful();
     }
 
-    /** @test */
+    #[Test]
     public function generate_singed_url_for_all_providers(): void
     {
         config()->set('liap.routing.signed', true);
@@ -48,7 +49,7 @@ final class LiapUrlCommandTest extends TestCase
             ->assertSuccessful();
     }
 
-    /** @test */
+    #[Test]
     public function it_should_sign_urls_only_if_config_is_enabled(): void
     {
         config()->set('liap.routing.signed', false);

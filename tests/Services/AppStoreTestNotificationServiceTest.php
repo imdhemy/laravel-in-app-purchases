@@ -11,19 +11,19 @@ use Imdhemy\AppStore\Jws\JwsGenerator;
 use Imdhemy\AppStore\ServerNotifications\TestNotificationService;
 use Imdhemy\Purchases\Services\AppStoreTestNotificationService;
 use Imdhemy\Purchases\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class AppStoreTestNotificationServiceTest extends TestCase
 {
     /**
-     * @test
-     *
      * @throws GuzzleException
      */
+    #[Test]
     public function request(): void
     {
         $history = [];
         $client = ClientFactory::mock(new Response(), $history);
-        $service = new TestNotificationService($client, $this->createMock(JwsGenerator::class));
+        $service = new TestNotificationService($client, $this->createStub(JwsGenerator::class));
 
         $sut = new AppStoreTestNotificationService($service);
 

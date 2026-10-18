@@ -15,6 +15,7 @@ use Imdhemy\GooglePlay\Products\ProductPurchase;
 use Imdhemy\GooglePlay\ValueObjects\EmptyResponse;
 use Imdhemy\Purchases\Facades\Product;
 use Imdhemy\Purchases\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class ProductTest extends TestCase
 {
@@ -36,11 +37,12 @@ class ProductTest extends TestCase
     }
 
     /**
-     * @test
-     *
      * @throws GuzzleException
+     *
+     * @test
      */
-    public function test_facade_can_get_google_play_product()
+    #[Test]
+    public function facade_can_get_google_play_product()
     {
         $client = ClientFactory::mock(new Response(200, [], '[]'));
         $productPurchase = Product::googlePlay($client)->id($this->itemId)->token($this->token)->get();
@@ -48,11 +50,12 @@ class ProductTest extends TestCase
     }
 
     /**
-     * @test
-     *
      * @throws GuzzleException
+     *
+     * @test
      */
-    public function test_facade_can_acknowledge_google_play_product()
+    #[Test]
+    public function facade_can_acknowledge_google_play_product()
     {
         $client = ClientFactory::mock(new Response(200, [], '[]'));
         $response = Product::googlePlay($client)->id($this->itemId)->token($this->token)->acknowledge();
@@ -61,11 +64,12 @@ class ProductTest extends TestCase
     }
 
     /**
-     * @test
-     *
      * @throws GuzzleException|InvalidReceiptException
+     *
+     * @test
      */
-    public function test_facade_can_verify_product_receipt()
+    #[Test]
+    public function facade_can_verify_product_receipt()
     {
         $productReceipt = json_decode(file_get_contents($this->fixturesDir('product-receipt.json')), true);
         $receiptData = $productReceipt['transactionReceipt'];
@@ -79,7 +83,7 @@ class ProductTest extends TestCase
         $this->assertEquals($status, $receiptResponse->getStatus()->getValue());
     }
 
-    /** @test */
+    #[Test]
     public function facade_can_consume_google_play_product(): void
     {
         $history = [];
