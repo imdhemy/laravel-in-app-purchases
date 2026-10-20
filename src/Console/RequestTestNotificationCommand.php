@@ -32,7 +32,7 @@ class RequestTestNotificationCommand extends Command
     {
         try {
             $config = (array)config('liap');
-            $config['sandbox'] = (bool)$this->option('sandbox');
+            $config['sandbox'] = $this->option('sandbox');
             $testService = $this->testBuilder->of($config)->build();
 
             $this->info(

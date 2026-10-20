@@ -7,6 +7,7 @@ namespace Imdhemy\Purchases\Handlers;
 use Illuminate\Support\Facades\Log;
 use Imdhemy\AppStore\ServerNotifications\ServerNotification;
 use Imdhemy\Purchases\ServerNotifications\AppStoreServerNotification;
+use Override;
 
 /**
  * App Store server notification handler.
@@ -19,6 +20,7 @@ class AppStoreNotificationHandler extends AbstractNotificationHandler
     /**
      * @psalm-suppress MissingReturnType - @todo: fix missing return type
      */
+    #[Override]
     protected function handle()
     {
         $attributes = $this->request->all();
@@ -36,6 +38,7 @@ class AppStoreNotificationHandler extends AbstractNotificationHandler
     /**
      * @return string[][]
      */
+    #[Override]
     protected function rules(): array
     {
         return [

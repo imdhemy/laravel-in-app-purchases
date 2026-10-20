@@ -13,6 +13,8 @@ use Imdhemy\Purchases\ValueObjects\Time;
 
 /**
  * @method AppStoreServerNotification|AppStoreV2ServerNotification getServerNotification()
+ *
+ * @psalm-api
  */
 class DidChangeRenewalStatus extends PurchaseEvent
 {

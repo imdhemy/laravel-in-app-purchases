@@ -33,7 +33,7 @@ final class LiapConfigPublishCommand extends Command
 
     private function shouldForce(): bool
     {
-        return (bool)$this->option('force');
+        return $this->option('force');
     }
 
     private function publishConfig(bool $force = false): int

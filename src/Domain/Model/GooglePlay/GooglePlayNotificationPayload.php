@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Imdhemy\Purchases\Domain\Model\GooglePlay;
 
+/**
+ * @psalm-api
+ */
 final readonly class GooglePlayNotificationPayload
 {
     public function __construct(public Message $message)

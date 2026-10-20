@@ -11,6 +11,7 @@ use Illuminate\Validation\ValidationException;
 use Imdhemy\Purchases\Contracts\EventFactory;
 use Imdhemy\Purchases\Contracts\NotificationHandlerContract;
 use Imdhemy\Purchases\Contracts\UrlGenerator;
+use Override;
 
 abstract class AbstractNotificationHandler implements NotificationHandlerContract
 {
@@ -35,6 +36,7 @@ abstract class AbstractNotificationHandler implements NotificationHandlerContrac
      *
      * @psalm-suppress MissingReturnType - @todo: fix missing return type
      */
+    #[Override]
     public function execute()
     {
         $this->authorize();

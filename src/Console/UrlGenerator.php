@@ -7,6 +7,7 @@ namespace Imdhemy\Purchases\Console;
 use Illuminate\Http\Request;
 use Illuminate\Routing\UrlGenerator as LaravelUrlGenerator;
 use Imdhemy\Purchases\Contracts\UrlGenerator as UrlGeneratorContract;
+use Override;
 
 /**
  * A helper class to generate a signed URL to the server notification handler.
@@ -20,6 +21,7 @@ class UrlGenerator implements UrlGeneratorContract
         $this->urlGenerator = $urlGenerator;
     }
 
+    #[Override]
     public function signedUrl(string $provider): string
     {
         $singedUrl = $this->urlGenerator->signedRoute('liap.serverNotifications');
@@ -27,6 +29,7 @@ class UrlGenerator implements UrlGeneratorContract
         return sprintf('%s&provider=%s', $singedUrl, $provider);
     }
 
+    #[Override]
     public function unsignedUrl(string $provider): string
     {
         $url = $this->urlGenerator->route('liap.serverNotifications');
@@ -34,11 +37,13 @@ class UrlGenerator implements UrlGeneratorContract
         return sprintf('%s?provider=%s', $url, $provider);
     }
 
+    #[Override]
     public function generate(string $provider): string
     {
         return $this->signedUrl($provider);
     }
 
+    #[Override]
     public function hasValidSignature(Request $request): bool
     {
         return $this->urlGenerator->hasValidSignature($request, true, ['provider']);

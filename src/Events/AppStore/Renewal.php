@@ -12,6 +12,8 @@ use Imdhemy\Purchases\ServerNotifications\AppStoreServerNotification;
  * @see        DidRecover
  *
  * @method AppStoreServerNotification getServerNotification()
+ *
+ * @psalm-api
  */
 class Renewal extends PurchaseEvent
 {

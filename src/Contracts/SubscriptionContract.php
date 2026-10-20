@@ -11,6 +11,8 @@ use Imdhemy\Purchases\ValueObjects\Time;
 
 /**
  * Interface SubscriptionContract.
+ *
+ * @psalm-api
  */
 interface SubscriptionContract
 {

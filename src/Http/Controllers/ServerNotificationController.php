@@ -22,7 +22,7 @@ class ServerNotificationController extends Controller
      *
      * @throws Exception
      */
-    public function __invoke(HandlerFactory $handlerFactory, Request $request)
+    public function __invoke(HandlerFactory $handlerFactory, Request $_request)
     {
         $handler = $handlerFactory->create();
 
