@@ -6,12 +6,14 @@ namespace Imdhemy\Purchases\ServiceProviders;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as BaseEventServiceProvider;
+use Override;
 
 /**
- * Event Service Provider
- * Binds the events of the subscription life-cycle to the configured event handlers.
+ * Registers application listeners configured through liap.eventListeners.
+ *
+ * @internal package infrastructure; not part of the public API
  */
-class EventServiceProvider extends BaseEventServiceProvider
+final class EventServiceProvider extends BaseEventServiceProvider
 {
     public function __construct(Application $app)
     {
@@ -22,6 +24,7 @@ class EventServiceProvider extends BaseEventServiceProvider
         $this->listen = $eventListeners;
     }
 
+    #[Override]
     protected function configureEmailVerification(): void
     {
     }
