@@ -25,11 +25,17 @@ use Imdhemy\Purchases\Product;
 use Imdhemy\Purchases\Subscription;
 use Lcobucci\JWT\Decoder;
 use Lcobucci\JWT\Encoding\JoseEncoder;
+use Override;
 
 /**
- * Laravel Iap service provider.
+ * Package discovery entry point for registering LIAP services with Laravel.
+ *
+ * Registers service bindings, configuration, and event listeners, and boots
+ * the package routes, console commands, and configuration publishing.
+ *
+ * @internal package infrastructure; not part of the public API
  */
-class LiapServiceProvider extends ServiceProvider
+final class LiapServiceProvider extends ServiceProvider
 {
     public const string CONFIG_KEY = 'liap';
 
@@ -92,9 +98,7 @@ class LiapServiceProvider extends ServiceProvider
         }
     }
 
-    /**
-     * Register any application services.
-     */
+    #[Override]
     public function register(): void
     {
         $this->registerConfig();
@@ -127,13 +131,9 @@ class LiapServiceProvider extends ServiceProvider
      */
     private function bindFacades(): void
     {
-        $this->app->bind('product', function () {
-            return new Product();
-        });
+        $this->app->bind('product', fn () => new Product());
 
-        $this->app->bind('subscription', function () {
-            return new Subscription();
-        });
+        $this->app->bind('subscription', fn () => new Subscription());
     }
 
     /**
