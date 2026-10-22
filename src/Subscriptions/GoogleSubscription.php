@@ -14,7 +14,6 @@ use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\Exceptions\InvalidNotificationTypeException;
 use Imdhemy\Purchases\Facades\Subscription;
 use Imdhemy\Purchases\ValueObjects\Time;
-use Override;
 
 class GoogleSubscription implements SubscriptionContract
 {
@@ -63,7 +62,6 @@ class GoogleSubscription implements SubscriptionContract
         );
     }
 
-    #[Override]
     public function getExpiresAt(): DateTimeImmutable
     {
         $time = $this->subscription->getExpiryTime();

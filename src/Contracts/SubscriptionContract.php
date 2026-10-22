@@ -12,14 +12,14 @@ use Imdhemy\Purchases\ValueObjects\Time;
 
 /**
  * @api A unified view of a customer's product subscription across billing providers.
+ *
+ * @method DateTimeImmutable getExpiresAt()
  */
 interface SubscriptionContract
 {
     // List of providers
     public const string PROVIDER_APP_STORE = 'app_store';
     public const string PROVIDER_GOOGLE_PLAY = 'google_play';
-
-    public function getExpiresAt(): DateTimeImmutable;
 
     /**
      * @deprecated Use {@see self::getExpiresAt()} instead. Will be removed in the next major release.

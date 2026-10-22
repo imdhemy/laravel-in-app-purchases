@@ -8,7 +8,6 @@ use DateTimeImmutable;
 use Imdhemy\AppStore\ServerNotifications\V2DecodedPayload;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\ValueObjects\Time;
-use Override;
 
 /**
  * Class AppleSubscription
@@ -31,7 +30,6 @@ class AppleSubscription implements SubscriptionContract
         return new self($payload);
     }
 
-    #[Override]
     public function getExpiresAt(): DateTimeImmutable
     {
         $time = $this->payload->getTransactionInfo()->getExpiresDate();

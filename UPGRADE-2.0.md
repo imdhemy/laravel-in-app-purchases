@@ -33,7 +33,7 @@ The `Time` class and its accessors are deprecated and will be removed in the nex
 major release. They remain available during the deprecation period.
 
 - Replace subscription `getExpiryTime()` with `getExpiresAt(): DateTimeImmutable`,
-  also added to `SubscriptionContract`.
+  available on all built-in subscription adapters.
 - Replace notification and renewal-status event `getAutoRenewStatusChangeDate()`
   with `getAutoRenewStatusChangedAt(): ?DateTimeImmutable`.
 - Replace direct use of `Imdhemy\Purchases\ValueObjects\Time` with `DateTimeImmutable`.

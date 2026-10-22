@@ -8,7 +8,6 @@ use DateTimeImmutable;
 use Imdhemy\AppStore\ValueObjects\LatestReceiptInfo;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\ValueObjects\Time;
-use Override;
 
 class AppStoreSubscription implements SubscriptionContract
 {
@@ -22,7 +21,6 @@ class AppStoreSubscription implements SubscriptionContract
         $this->receipt = $receipt;
     }
 
-    #[Override]
     public function getExpiresAt(): DateTimeImmutable
     {
         $time = $this->receipt->getExpiresDate();
