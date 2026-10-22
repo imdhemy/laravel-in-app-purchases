@@ -52,11 +52,6 @@
     <DeprecatedClass>
       <code><![CDATA[mixed|SubscriptionPurchase|ReceiptResponse|V2DecodedPayload]]></code>
     </DeprecatedClass>
-    <PossiblyUnusedMethod>
-      <code><![CDATA[getExpiryTime]]></code>
-      <code><![CDATA[getProvider]]></code>
-      <code><![CDATA[getProviderRepresentation]]></code>
-    </PossiblyUnusedMethod>
   </file>
   <file src="src/Contracts/UrlGenerator.php">
     <PossiblyUnusedMethod>

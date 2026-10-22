@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Imdhemy\Purchases\Subscriptions;
 
+use DateTimeImmutable;
 use Imdhemy\AppStore\ValueObjects\LatestReceiptInfo;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\ValueObjects\Time;
+use Override;
 
 class AppStoreSubscription implements SubscriptionContract
 {
@@ -20,6 +22,20 @@ class AppStoreSubscription implements SubscriptionContract
         $this->receipt = $receipt;
     }
 
+    #[Override]
+    public function getExpiresAt(): DateTimeImmutable
+    {
+        $time = $this->receipt->getExpiresDate();
+        assert(! is_null($time));
+
+        return DateTimeImmutable::createFromInterface($time->toCarbon());
+    }
+
+    /**
+     * @deprecated Use {@see self::getExpiresAt()} instead. Will be removed in the next major release.
+     *
+     * @psalm-suppress DeprecatedClass Retained for backward compatibility until the next major release.
+     */
     public function getExpiryTime(): Time
     {
         $expiryTime = $this->receipt->getExpiresDate();

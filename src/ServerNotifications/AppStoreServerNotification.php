@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Imdhemy\Purchases\ServerNotifications;
 
+use DateTimeImmutable;
 use GuzzleHttp\ClientInterface;
 use Imdhemy\AppStore\ServerNotifications\ServerNotification;
 use Imdhemy\AppStore\ValueObjects\LatestReceiptInfo;
@@ -61,6 +62,18 @@ class AppStoreServerNotification implements ServerNotificationContract
         return true === $this->notification->getAutoRenewStatus();
     }
 
+    public function getAutoRenewStatusChangedAt(): ?DateTimeImmutable
+    {
+        $time = $this->notification->getAutoRenewStatusChangeDate();
+
+        return null === $time ? null : DateTimeImmutable::createFromInterface($time->toCarbon());
+    }
+
+    /**
+     * @deprecated Use {@see self::getAutoRenewStatusChangedAt()} instead. Will be removed in the next major release.
+     *
+     * @psalm-suppress DeprecatedClass Retained for backward compatibility until the next major release.
+     */
     public function getAutoRenewStatusChangeDate(): ?Time
     {
         $time = $this->notification->getAutoRenewStatusChangeDate();

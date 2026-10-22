@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Imdhemy\Purchases\Subscriptions;
 
+use DateTimeImmutable;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
@@ -13,6 +14,7 @@ use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\Exceptions\InvalidNotificationTypeException;
 use Imdhemy\Purchases\Facades\Subscription;
 use Imdhemy\Purchases\ValueObjects\Time;
+use Override;
 
 class GoogleSubscription implements SubscriptionContract
 {
@@ -43,7 +45,7 @@ class GoogleSubscription implements SubscriptionContract
 
         // Make sure the notification is a subscription notification
         if (! $notification instanceof SubscriptionNotification) {
-            throw InvalidNotificationTypeException::create(SubscriptionNotification::class, get_class($notification));
+            throw InvalidNotificationTypeException::create(SubscriptionNotification::class, $notification::class);
         }
 
         $packageName = $rtdNotification->getPackageName();
@@ -61,6 +63,20 @@ class GoogleSubscription implements SubscriptionContract
         );
     }
 
+    #[Override]
+    public function getExpiresAt(): DateTimeImmutable
+    {
+        $time = $this->subscription->getExpiryTime();
+        assert(! is_null($time));
+
+        return DateTimeImmutable::createFromInterface($time->carbon);
+    }
+
+    /**
+     * @deprecated     Use {@see self::getExpiresAt()} instead. Will be removed in the next major release.
+     *
+     * @psalm-suppress DeprecatedClass Retained for backward compatibility until the next major release.
+     */
     public function getExpiryTime(): Time
     {
         $time = $this->subscription->getExpiryTime();

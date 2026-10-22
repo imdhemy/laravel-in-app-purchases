@@ -13,6 +13,9 @@ use Stringable;
 /**
  * Class Time
  * A smart value object for time.
+ *
+ * @deprecated Use DateTimeImmutable and the replacement date accessors instead.
+ * Will be removed in the next major release.
  */
 final class Time implements Stringable
 {
