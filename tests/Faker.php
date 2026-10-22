@@ -35,6 +35,34 @@ class Faker
     }
 
     /**
+     * Generates receipt attributes with the required Apple fields.
+     */
+    public function appStoreReceipt(array $data = []): array
+    {
+        return array_merge([
+            'original_transaction_id' => $this->faker->numerify('1###############'),
+            'transaction_id' => $this->faker->numerify('1###############'),
+            'product_id' => 'month_premium',
+            'quantity' => 1,
+        ], $data);
+    }
+
+    /**
+     * Generates a legacy App Store notification with optional overrides.
+     */
+    public function legacyAppStoreNotification(array $data = []): array
+    {
+        return array_merge([
+            'notification_type' => 'DID_CHANGE_RENEWAL_STATUS',
+            'bid' => 'com.example.app',
+            'unified_receipt' => [
+                'status' => 0,
+                'latest_receipt_info' => [$this->appStoreReceipt()],
+            ],
+        ], $data);
+    }
+
+    /**
      * Generates a Google subscription notification with the given data.
      */
     public function googleSubscriptionNotification(array $data = []): string
@@ -95,7 +123,7 @@ class Faker
 
         $fakeSignKey = InMemory::plainText($this->generateECPrivateKey());
 
-        return (new JwtFacade())->issue($alg, $fakeSignKey, static function (Builder $builder) use ($data, $x5c) {
+        return new JwtFacade()->issue($alg, $fakeSignKey, static function (Builder $builder) use ($data, $x5c) {
             $builder = $builder->withHeader('x5c', $x5c);
 
             foreach ($data as $key => $value) {
@@ -128,7 +156,7 @@ class Faker
 
         $fakeSignKey = InMemory::plainText($this->generateECPrivateKey());
 
-        return (new JwtFacade())->issue($alg, $fakeSignKey, static function (Builder $builder) use ($data, $x5c) {
+        return new JwtFacade()->issue($alg, $fakeSignKey, static function (Builder $builder) use ($data, $x5c) {
             $builder = $builder->withHeader('x5c', $x5c);
 
             foreach ($data as $key => $value) {

@@ -1,18 +1,39 @@
 # Upgrade From 1.x to 2.0
 
-## Medium Impact Changes
+## Events
 
-### Events
+### Event Factories
 
-In case you are overriding the default handlers, you should update the event factory class.
+**Likelihood Of Impact: Medium**
 
-- The handlers now use a single event factory to create events. The `EventFactory` class which
-  implements `\Imdhemy\Purchases\Contracts\EventFactory` is responsible for creating events.
-    * The `Imdhemy\Purchases\Events\AppStore\EventFactory` class has been removed.
-      Use `Imdhemy\Purchases\Events\EventFactory` instead.
-    * The `Imdhemy\Purchases\Events\GooglePlay\EventFactory` class has been removed.
-      Use `Imdhemy\Purchases\Events\EventFactory` instead.
+If you override the default handlers, update them to use
+`Imdhemy\Purchases\Events\EventFactory`, which implements
+`Imdhemy\Purchases\Contracts\EventFactory`.
 
-### Validation Rules
+The following provider-specific factories have been removed:
 
-The rule class `\Imdhemy\Purchases\Http\Rules\ValidReceipt` has been removed.
+- `Imdhemy\Purchases\Events\AppStore\EventFactory`
+- `Imdhemy\Purchases\Events\GooglePlay\EventFactory`
+
+## Validation
+
+### Receipt Validation Rule
+
+**Likelihood Of Impact: Medium**
+
+The `Imdhemy\Purchases\Http\Rules\ValidReceipt` rule has been removed.
+
+## Dates
+
+### Time Value Object
+
+**Likelihood Of Impact: Medium**
+
+The `Time` class and its accessors are deprecated and will be removed in the next
+major release. They remain available during the deprecation period.
+
+- Replace subscription `getExpiryTime()` with `getExpiresAt(): DateTimeImmutable`,
+  available on all built-in subscription adapters.
+- Replace notification and renewal-status event `getAutoRenewStatusChangeDate()`
+  with `getAutoRenewStatusChangedAt(): ?DateTimeImmutable`.
+- Replace direct use of `Imdhemy\Purchases\ValueObjects\Time` with `DateTimeImmutable`.

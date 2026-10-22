@@ -4,62 +4,39 @@ declare(strict_types=1);
 
 namespace Imdhemy\Purchases\Tests\Subscriptions;
 
-use Faker\Factory;
+use DateTimeImmutable;
 use Imdhemy\AppStore\ValueObjects\LatestReceiptInfo;
-use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\Subscriptions\AppStoreSubscription;
 use Imdhemy\Purchases\Tests\TestCase;
 use Imdhemy\Purchases\ValueObjects\Time;
 use PHPUnit\Framework\Attributes\Test;
 
-class AppStoreSubscriptionTest extends TestCase
+final class AppStoreSubscriptionTest extends TestCase
 {
-    /**
-     * @var AppStoreSubscription
-     */
-    private $appStoreSubscription;
-
-    protected function setUp(): void
+    #[Test]
+    public function it_exposes_subscription_details_from_a_receipt(): void
     {
-        parent::setUp();
-
-        $faker = Factory::create();
-
-        $receipt = LatestReceiptInfo::fromArray([
-            'original_transaction_id' => $faker->uuid(),
+        $payload = LatestReceiptInfo::fromArray($this->faker->appStoreReceipt([
             'product_id' => 'month_premium',
-            'quantity' => 1,
-            'transaction_id' => $faker->uuid(),
-            'expires_date_ms' => time() * 1000,
-        ]);
+            'original_transaction_id' => '1000000123456789',
+            'expires_date_ms' => '1580000000123',
+        ]));
+        $subscription = new AppStoreSubscription($payload);
+        $expectedExpiry = new DateTimeImmutable('@1580000000.123');
+        $expectedLegacyExpiry = new Time(1580000000123);
 
-        $this->appStoreSubscription = new AppStoreSubscription($receipt);
-    }
+        $itemId = $subscription->getItemId();
+        $identifier = $subscription->getUniqueIdentifier();
+        $provider = $subscription->getProvider();
+        $expiresAt = $subscription->getExpiresAt();
+        $expiryTime = $subscription->getExpiryTime();
+        $representation = $subscription->getProviderRepresentation();
 
-    /**
-     * @test
-     */
-    #[Test]
-    public function constructor()
-    {
-        $this->assertInstanceOf(SubscriptionContract::class, $this->appStoreSubscription);
-    }
-
-    /**
-     * @test
-     */
-    #[Test]
-    public function get_expiration_date()
-    {
-        $this->assertInstanceOf(Time::class, $this->appStoreSubscription->getExpiryTime());
-    }
-
-    /**
-     * @test
-     */
-    #[Test]
-    public function get_item_id()
-    {
-        $this->assertEquals('month_premium', $this->appStoreSubscription->getItemId());
+        $this->assertSame('month_premium', $itemId);
+        $this->assertSame('1000000123456789', $identifier);
+        $this->assertSame('app_store', $provider);
+        $this->assertEquals($expectedExpiry, $expiresAt);
+        $this->assertEquals($expectedLegacyExpiry, $expiryTime);
+        $this->assertSame($payload, $representation);
     }
 }

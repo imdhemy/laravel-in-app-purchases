@@ -4,63 +4,31 @@ declare(strict_types=1);
 
 namespace Imdhemy\Purchases\Tests\Subscriptions;
 
-use GuzzleHttp\Exception\GuzzleException;
-use GuzzleHttp\Psr7\Response;
-use Imdhemy\GooglePlay\ClientFactory;
-use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
-use Imdhemy\Purchases\Contracts\SubscriptionContract;
-use Imdhemy\Purchases\Facades\Subscription;
+use DateTimeImmutable;
+use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
 use Imdhemy\Purchases\Subscriptions\GoogleSubscription;
 use Imdhemy\Purchases\Tests\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
-class GoogleSubscriptionTest extends TestCase
+final class GoogleSubscriptionTest extends TestCase
 {
-    /**
-     * @var GoogleSubscription
-     */
-    private $googleSubscription;
-
-    /**
-     * @throws GuzzleException
-     */
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $data = 'eyJ2ZXJzaW9uIjoiMS4wIiwicGFja2FnZU5hbWUiOiJjb20udHdpZ2Fuby5mYXNoaW9uIiwiZXZlbnRUaW1lTWlsbGlzIjoiMTYwNDAwMjg0MjMzMiIsInN1YnNjcmlwdGlvbk5vdGlmaWNhdGlvbiI6eyJ2ZXJzaW9uIjoiMS4wIiwibm90aWZpY2F0aW9uVHlwZSI6MTMsInB1cmNoYXNlVG9rZW4iOiJuYWRpZmJwZWtmZmRjYmNvZGdwa2NrYWMuQU8tSjFPekxnU0ZQSWFESmVKTVF4dnZIYnBMeTlLZ3dYbHVyQjk1UlBINHFZdGYxSmdzV1B3NHV4bmlkYUlmeGJreXVpTDVOZ3ZudVU3TEpvNzIzeHpfVVRhUEZXc0YyZEEiLCJzdWJzY3JpcHRpb25JZCI6Im1vbnRoX3ByZW1pdW0ifX0=';
-        $developerNotification = DeveloperNotification::parse($data);
-        $subscriptionNotification = $developerNotification->getPayload();
-        $packageName = $developerNotification->getPackageName();
-        $subscriptionPurchase = Subscription::googlePlay(ClientFactory::mock(new Response(200, [], '[]')))
-            ->packageName($packageName)
-            ->token($subscriptionNotification->getPurchaseToken())
-            ->id($subscriptionNotification->getSubscriptionId())
-            ->get();
-        $this->googleSubscription = new GoogleSubscription(
-            $subscriptionPurchase,
-            $subscriptionNotification->getSubscriptionId(),
-            $subscriptionNotification->getPurchaseToken()
-        );
-    }
-
-    /**
-     * @test
-     */
     #[Test]
-    public function constructor()
+    public function it_exposes_subscription_details_from_a_google_purchase(): void
     {
-        $this->assertInstanceOf(
-            SubscriptionContract::class,
-            $this->googleSubscription
-        );
-    }
+        $payload = new SubscriptionPurchase(['expiryTimeMillis' => '1580000000123']);
+        $subscription = new GoogleSubscription($payload, 'month_premium', 'purchase-token');
+        $expectedExpiry = new DateTimeImmutable('@1580000000.123');
 
-    /**
-     * @test
-     */
-    #[Test]
-    public function get_item_id()
-    {
-        $this->assertEquals('month_premium', $this->googleSubscription->getItemId());
+        $itemId = $subscription->getItemId();
+        $identifier = $subscription->getUniqueIdentifier();
+        $provider = $subscription->getProvider();
+        $expiresAt = $subscription->getExpiresAt();
+        $representation = $subscription->getProviderRepresentation();
+
+        $this->assertSame('month_premium', $itemId);
+        $this->assertSame('purchase-token', $identifier);
+        $this->assertSame('google_play', $provider);
+        $this->assertEquals($expectedExpiry, $expiresAt);
+        $this->assertSame($payload, $representation);
     }
 }

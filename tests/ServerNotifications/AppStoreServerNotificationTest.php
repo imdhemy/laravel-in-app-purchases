@@ -4,90 +4,88 @@ declare(strict_types=1);
 
 namespace Imdhemy\Purchases\Tests\ServerNotifications;
 
+use DateTimeImmutable;
 use Imdhemy\AppStore\ServerNotifications\ServerNotification;
-use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\ServerNotifications\AppStoreServerNotification;
 use Imdhemy\Purchases\Tests\TestCase;
 use Imdhemy\Purchases\ValueObjects\Time;
-use JsonException;
 use PHPUnit\Framework\Attributes\Test;
 
-class AppStoreServerNotificationTest extends TestCase
+final class AppStoreServerNotificationTest extends TestCase
 {
-    private AppStoreServerNotification $appStoreServerNotification;
-
-    private array $serverNotificationBody;
-
-    /**
-     * @throws JsonException
-     */
-    protected function setUp(): void
+    #[Test]
+    public function it_exposes_details_from_a_legacy_notification(): void
     {
-        parent::setUp();
-        $path = $this->fixturesDir('appstore-server-notification.json');
-        $this->serverNotificationBody = json_decode(file_get_contents($path), true, 512, JSON_THROW_ON_ERROR);
+        $payload = $this->faker->legacyAppStoreNotification([
+            'notification_type' => ServerNotification::DID_CHANGE_RENEWAL_STATUS,
+            'bid' => 'com.example.app',
+            'auto_renew_product_id' => 'month_premium',
+            'auto_renew_status' => 'true',
+            'auto_renew_status_change_date_ms' => '1580000000123',
+            'unified_receipt' => [
+                'status' => 0,
+                'latest_receipt_info' => [
+                    $this->faker->appStoreReceipt(['product_id' => 'month_premium']),
+                    $this->faker->appStoreReceipt(['product_id' => 'year_premium']),
+                ],
+            ],
+        ]);
+        $notification = new AppStoreServerNotification(ServerNotification::fromArray($payload));
+        $expectedDate = new DateTimeImmutable('@1580000000.123');
 
-        $serverNotification = ServerNotification::fromArray($this->serverNotificationBody);
-        $this->appStoreServerNotification = new AppStoreServerNotification($serverNotification);
+        $type = $notification->getType();
+        $subscription = $notification->getSubscription();
+        $isTest = $notification->isTest();
+        $isAutoRenewal = $notification->isAutoRenewal();
+        $changedAt = $notification->getAutoRenewStatusChangedAt();
+        $bundle = $notification->getBundle();
+        $actualPayload = $notification->getPayload();
+        $productId = $notification->getAutoRenewProductId();
+        $provider = $notification->getProvider();
+
+        $this->assertSame(ServerNotification::DID_CHANGE_RENEWAL_STATUS, $type);
+        $this->assertSame('month_premium', $subscription->getItemId());
+        $this->assertSame('app_store', $subscription->getProvider());
+        $this->assertFalse($isTest);
+        $this->assertTrue($isAutoRenewal);
+        $this->assertEquals($expectedDate, $changedAt);
+        $this->assertSame('com.example.app', $bundle);
+        $this->assertSame($payload, $actualPayload);
+        $this->assertSame('month_premium', $productId);
+        $this->assertSame('app_store', $provider);
     }
 
     #[Test]
-    public function get_notification_type(): void
+    public function disabled_auto_renewal(): void
     {
-        $this->assertEquals(
-            ServerNotification::DID_CHANGE_RENEWAL_STATUS,
-            $this->appStoreServerNotification->getType()
-        );
+        $payload = $this->faker->legacyAppStoreNotification(['auto_renew_status' => 'false']);
+        $notification = new AppStoreServerNotification(ServerNotification::fromArray($payload));
+
+        $actual = $notification->isAutoRenewal();
+
+        $this->assertFalse($actual);
     }
 
     #[Test]
-    public function get_subscription(): void
+    public function missing_change_date_returns_null(): void
     {
-        $subscription = $this->appStoreServerNotification->getSubscription();
+        $payload = $this->faker->legacyAppStoreNotification(['auto_renew_status_change_date_ms' => null]);
+        $notification = new AppStoreServerNotification(ServerNotification::fromArray($payload));
 
-        $this->assertEquals(SubscriptionContract::PROVIDER_APP_STORE, $subscription->getProvider());
+        $actual = $notification->getAutoRenewStatusChangedAt();
+
+        $this->assertNull($actual);
     }
 
     #[Test]
-    public function get_change_renewal_status_data(): void
+    public function get_auto_renew_status_change_date(): void
     {
-        $isAutoRenewal = $this->appStoreServerNotification->isAutoRenewal();
-        $changeDate = $this->appStoreServerNotification->getAutoRenewStatusChangeDate();
+        $payload = $this->faker->legacyAppStoreNotification(['auto_renew_status_change_date_ms' => '1580000000123']);
+        $notification = new AppStoreServerNotification(ServerNotification::fromArray($payload));
+        $expected = new Time(1580000000123);
 
-        $this->assertFalse($isAutoRenewal);
-        $this->assertInstanceOf(Time::class, $changeDate);
-    }
+        $actual = $notification->getAutoRenewStatusChangeDate();
 
-    #[Test]
-    public function get_bundle(): void
-    {
-        $this->assertEquals(
-            'com.twigano.fashion',
-            $this->appStoreServerNotification->getBundle()
-        );
-    }
-
-    #[Test]
-    public function get_payload(): void
-    {
-        $this->assertEquals(
-            $this->serverNotificationBody,
-            $this->appStoreServerNotification->getPayload()
-        );
-    }
-
-    /**
-     * @test
-     */
-    #[Test]
-    public function get_auto_renew_product_id()
-    {
-        $this->assertNotNull($this->appStoreServerNotification->getAutoRenewProductId());
-    }
-
-    #[Test]
-    public function get_provider(): void
-    {
-        $this->assertEquals('app_store', $this->appStoreServerNotification->getProvider());
+        $this->assertEquals($expected, $actual);
     }
 }

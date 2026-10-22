@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace Imdhemy\Purchases\Contracts;
 
+use DateTimeImmutable;
 use Imdhemy\AppStore\Receipts\ReceiptResponse;
 use Imdhemy\AppStore\ServerNotifications\V2DecodedPayload;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
 use Imdhemy\Purchases\ValueObjects\Time;
 
 /**
- * Interface SubscriptionContract.
+ * @api A unified view of a customer's product subscription across billing providers.
+ *
+ * @method DateTimeImmutable getExpiresAt()
  */
 interface SubscriptionContract
 {
@@ -18,6 +21,11 @@ interface SubscriptionContract
     public const string PROVIDER_APP_STORE = 'app_store';
     public const string PROVIDER_GOOGLE_PLAY = 'google_play';
 
+    /**
+     * @deprecated Use {@see self::getExpiresAt()} instead. Will be removed in the next major release.
+     *
+     * @psalm-suppress DeprecatedClass Retained for backward compatibility until the next major release.
+     */
     public function getExpiryTime(): Time;
 
     public function getItemId(): string;

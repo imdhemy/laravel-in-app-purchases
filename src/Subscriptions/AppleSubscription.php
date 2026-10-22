@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Imdhemy\Purchases\Subscriptions;
 
+use DateTimeImmutable;
 use Imdhemy\AppStore\ServerNotifications\V2DecodedPayload;
 use Imdhemy\Purchases\Contracts\SubscriptionContract;
 use Imdhemy\Purchases\ValueObjects\Time;
@@ -29,6 +30,22 @@ class AppleSubscription implements SubscriptionContract
         return new self($payload);
     }
 
+    /**
+     * @api
+     */
+    public function getExpiresAt(): DateTimeImmutable
+    {
+        $time = $this->payload->getTransactionInfo()->getExpiresDate();
+        assert(! is_null($time));
+
+        return DateTimeImmutable::createFromInterface($time->toCarbon());
+    }
+
+    /**
+     * @deprecated Use {@see self::getExpiresAt()} instead. Will be removed in the next major release.
+     *
+     * @psalm-suppress DeprecatedClass Retained for backward compatibility until the next major release.
+     */
     public function getExpiryTime(): Time
     {
         $time = $this->payload->getTransactionInfo()->getExpiresDate();
