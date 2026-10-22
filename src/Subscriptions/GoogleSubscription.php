@@ -62,6 +62,9 @@ class GoogleSubscription implements SubscriptionContract
         );
     }
 
+    /**
+     * @api
+     */
     public function getExpiresAt(): DateTimeImmutable
     {
         $time = $this->subscription->getExpiryTime();

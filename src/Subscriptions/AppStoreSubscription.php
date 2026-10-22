@@ -21,6 +21,9 @@ class AppStoreSubscription implements SubscriptionContract
         $this->receipt = $receipt;
     }
 
+    /**
+     * @api
+     */
     public function getExpiresAt(): DateTimeImmutable
     {
         $time = $this->receipt->getExpiresDate();

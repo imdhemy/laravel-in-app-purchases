@@ -30,6 +30,9 @@ class AppleSubscription implements SubscriptionContract
         return new self($payload);
     }
 
+    /**
+     * @api
+     */
     public function getExpiresAt(): DateTimeImmutable
     {
         $time = $this->payload->getTransactionInfo()->getExpiresDate();
