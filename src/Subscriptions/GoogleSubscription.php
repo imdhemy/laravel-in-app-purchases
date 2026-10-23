@@ -49,6 +49,7 @@ class GoogleSubscription implements SubscriptionContract
 
         $packageName = $rtdNotification->getPackageName();
 
+        /** @psalm-suppress DeprecatedMethod Retained for compatibility until legacy notification migration. */
         $subscriptionPurchase = Subscription::googlePlay($client)
             ->packageName($packageName)
             ->id($notification->getSubscriptionId())

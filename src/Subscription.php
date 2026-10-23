@@ -181,6 +181,7 @@ class Subscription
     public function toStd(): SubscriptionContract
     {
         if ($this->isGoogle) {
+            /** @psalm-suppress DeprecatedMethod Retained for compatibility until legacy subscription migration. */
             $response = $this->get();
 
             return new GoogleSubscription($response, $this->itemId, $this->token);
@@ -192,6 +193,9 @@ class Subscription
     }
 
     /**
+     * @deprecated use the provider-specific subscription facade instead
+     * @see GooglePlay\Purchase\Subscription::get()
+     *
      * @throws GuzzleException
      */
     public function get(): SubscriptionPurchase
