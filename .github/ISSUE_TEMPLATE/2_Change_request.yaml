@@ -1,0 +1,34 @@
+name: Change request
+description: Propose a feature, improvement, documentation change, or maintenance task.
+labels: ["needs triage"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Be concise and factual. Describe the problem and expected outcome without repeating context.
+        Include relevant code and errors as text. Distinguish observed results from assumptions,
+        and state which checks were actually run. Make the issue understandable without access
+        to prior conversations. Redact credentials, purchase tokens, and personal data.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or motivation
+      description: What is missing or difficult today, and why does it need to change?
+    validations:
+      required: true
+
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Requested outcome
+      description: Describe the behavior or result you want. An implementation plan is not required.
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Examples or references
+      description: If useful, include a usage example, authoritative documentation, or related issues.
