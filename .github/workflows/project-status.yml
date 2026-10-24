@@ -1,0 +1,41 @@
+name: Sync LIAP project status
+
+on:
+  issues:
+    types: [opened, reopened, assigned, closed]
+  pull_request_target:
+    types: [opened, edited, reopened, ready_for_review, converted_to_draft, closed]
+  workflow_dispatch:
+  schedule:
+    - cron: "17,47 * * * *"
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Require project credentials
+        env:
+          LIAP_PROJECT_TOKEN: ${{ secrets.LIAP_PROJECT_TOKEN }}
+        run: |
+          if [ -z "$LIAP_PROJECT_TOKEN" ]; then
+            echo "::error::Set the LIAP_PROJECT_TOKEN Actions secret with access to user project imdhemy/2 and the three package repositories."
+            exit 1
+          fi
+
+      - name: Check out trusted default-branch automation
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
+
+      - name: Apply project status rules
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
+        with:
+          github-token: ${{ secrets.LIAP_PROJECT_TOKEN }}
+          script: |
+            const sync = require('./.github/scripts/project-status.cjs');
+            await sync({ github, context, core });
