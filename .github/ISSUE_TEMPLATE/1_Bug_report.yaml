@@ -1,44 +1,47 @@
-name: 🐛 Bug Report
-description: ⚠️ Report a bug to help us improve Liap.
-labels: [ Bug ]
+name: Bug report
+description: Report behavior that does not work as expected.
+labels: ["needs triage"]
 
 body:
-  - type: dropdown
-    id: affected-versions
+  - type: markdown
     attributes:
-      label: Liap version affected
-      options:
-        - 1.x
-        - 0.x
+      value: |
+        Be concise and factual. Describe the problem and expected outcome without repeating context.
+        Include relevant code and errors as text. Distinguish observed results from assumptions,
+        and state which checks were actually run. Make the issue understandable without access
+        to prior conversations. Redact credentials, purchase tokens, and personal data.
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: |
+        Include the installed LIAP, PHP, and Laravel versions. Add the provider and sandbox
+        or production environment when relevant.
     validations:
       required: true
+
   - type: textarea
-    id: description
+    id: behavior
     attributes:
-      label: Description
-      description: A clear and concise description of the problem
+      label: Current and expected behavior
+      description: Describe what happens and what you expected instead. Include the exact error when relevant.
     validations:
       required: true
+
   - type: textarea
-    id: how-to-reproduce
+    id: reproduction
     attributes:
       label: How to reproduce
       description: |
-        ⚠️  This is the most important part of the report ⚠️
-        Without a way to easily reproduce your issue, there is little chance we will be able to help you and work on a fix.
-        Please, take the time to show us some code and/or config that is needed for others to reproduce the problem easily.
+        Include the smallest relevant code or redacted payload and the steps or command
+        needed to reproduce the problem. If you cannot provide or verify a reproduction,
+        explain what you tried and what remains unverified.
     validations:
       required: true
+
   - type: textarea
-    id: possible-solution
+    id: context
     attributes:
-      label: Possible Solution
-      description: |
-        Optional: only if you have suggestions on a fix/reason for the bug
-        Don't hesitate to create a pull request with your solution, it helps get faster feedback.
-  - type: textarea
-    id: additional-context
-    attributes:
-      label: Additional Context
-      description: |
-        Optional: any other context about the problem: log  messages, screenshots, etc.
+      label: Supporting evidence
+      description: If useful, include relevant logs, verified investigation, or links to documentation and related issues.

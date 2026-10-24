@@ -1,11 +1,14 @@
 | Q       | A                                                        |
 |---------|----------------------------------------------------------|
-| Tickets | Fix #... <!-- prefix each issue number with "Fix #", --> |
+| Tickets | Closes #<!-- issue number; use Refs #123 for related work --> |
 | License | MIT                                                      |
 
 <!--
-Replace this notice with a short README for your feature/bugfix.
-This will help reviewers and should be a good start for the documentation.
+Explain the problem and resulting behavior.
+Simple changes usually need 1–3 sentences.
+Include approach, compatibility, or migration details only when relevant.
 
-Always add tests and ensure they pass.
+Write for a human reviewer, whether drafting manually or with AI.
+Describe the final change. Omit working history, repeated summaries,
+and file-by-file narration. Do not claim checks you have not run.
 -->
