@@ -7,17 +7,19 @@ updates:
     allow:
       - dependency-type: "direct"
     labels:
-      - "🧱 Dependencies"
+      - "dependencies"
     versioning-strategy: increase
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "monthly"
     labels:
-      - "🧱 Dependencies"
+      - "dependencies"
+      - "ci"
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
-      interval: "monthly"
+      interval: "yearly"
     labels:
-      - "🧱 Dependencies"
+      - "dependencies"
+      - "ci"
