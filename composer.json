@@ -22,7 +22,7 @@
     "ext-openssl": "*",
     "imdhemy/appstore-iap": "^1.9",
     "imdhemy/google-play-billing": "^1.14",
-    "laravel/framework": "^13.30"
+    "laravel/framework": "^13.38"
   },
   "require-dev": {
     "friendsofphp/php-cs-fixer": "^3.95",
