@@ -6,6 +6,7 @@ namespace Imdhemy\Purchases\GooglePlay\Purchase;
 
 use Illuminate\Container\Attributes\Config;
 use Imdhemy\GooglePlay\Domain\Purchase\Entity\SubscriptionPurchase;
+use Imdhemy\GooglePlay\Domain\Purchase\Subscription\RevocationContext;
 use Imdhemy\GooglePlay\Domain\Purchase\SubscriptionService;
 use Imdhemy\GooglePlay\Infrastructure\Http\ClientFactory;
 use Imdhemy\GooglePlay\Infrastructure\Transformer\Normalizer;
@@ -53,6 +54,26 @@ final class Subscription
 
     public function get(): SubscriptionPurchase
     {
+        [$packageName, $token] = $this->requireTarget();
+
+        return $this->service()->get($packageName, $token);
+    }
+
+    /**
+     * Revokes the subscription purchase and refunds it as described by the revocation context.
+     */
+    public function revoke(RevocationContext $revocationContext): void
+    {
+        [$packageName, $token] = $this->requireTarget();
+
+        $this->service()->revoke($packageName, $token, $revocationContext);
+    }
+
+    /**
+     * @return array{non-empty-string, non-empty-string}
+     */
+    private function requireTarget(): array
+    {
         if (null === $this->token || '' === $this->token) {
             throw new LogicException('A purchase token is required.');
         }
@@ -61,12 +82,15 @@ final class Subscription
             throw new LogicException('An application package name is required.');
         }
 
-        $service = new SubscriptionService(
+        return [$this->packageName, $this->token];
+    }
+
+    private function service(): SubscriptionService
+    {
+        return new SubscriptionService(
             $this->client ?? ClientFactory::create(),
             Normalizer::create(),
             Serializer::create(),
         );
-
-        return $service->get($this->packageName, $this->token);
     }
 }

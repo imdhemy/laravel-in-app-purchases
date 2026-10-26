@@ -9,9 +9,11 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Response;
+use Imdhemy\GooglePlay\Domain\Purchase\Subscription\RevocationContext;
 use Imdhemy\Purchases\GooglePlay\Purchase\Subscription;
 use Imdhemy\Purchases\Tests\TestCase;
 use LogicException;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -40,6 +42,60 @@ final class SubscriptionTest extends TestCase
             'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/com.example.override/purchases/subscriptionsv2/tokens/purchase-token',
             (string)$history[0]['request']->getUri(),
         );
+    }
+
+    #[Test]
+    #[DataProvider('provide_revocation_contexts')]
+    public function it_revokes_a_subscription_with_the_supplied_values(
+        RevocationContext $revocationContext,
+        string $expectedBody,
+    ): void {
+        $history = [];
+        $client = $this->client(new Response(200, [], '{}'), $history);
+        $subscription = new Subscription('com.example.default')
+            ->client($client)->packageName('com.example.override')->token('purchase-token');
+
+        $subscription->revoke($revocationContext);
+
+        $this->assertCount(1, $history);
+        $this->assertSame('POST', $history[0]['request']->getMethod());
+        $this->assertSame(
+            'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/com.example.override/purchases/subscriptionsv2/tokens/purchase-token:revoke',
+            (string)$history[0]['request']->getUri(),
+        );
+        $this->assertJsonStringEqualsJsonString($expectedBody, (string)$history[0]['request']->getBody());
+    }
+
+    public static function provide_revocation_contexts(): iterable
+    {
+        yield 'full refund' => [RevocationContext::forFullRefund(), '{"revocationContext":{"fullRefund":{}}}'];
+        yield 'prorated refund' => [RevocationContext::forProratedRefund(), '{"revocationContext":{"proratedRefund":{}}}'];
+        yield 'item-based refund' => [
+            RevocationContext::forItemBasedRefund('premium_monthly'),
+            '{"revocationContext":{"itemBasedRefund":{"productId":"premium_monthly"}}}',
+        ];
+    }
+
+    #[Test]
+    public function it_requires_a_token_before_revoking(): void
+    {
+        $subscription = new Subscription('com.example.app');
+
+        $this->expectException(LogicException::class);
+        $this->expectExceptionMessage('A purchase token is required.');
+
+        $subscription->revoke(RevocationContext::forFullRefund());
+    }
+
+    #[Test]
+    public function it_requires_a_package_name_before_revoking(): void
+    {
+        $subscription = new Subscription()->token('token');
+
+        $this->expectException(LogicException::class);
+        $this->expectExceptionMessage('An application package name is required.');
+
+        $subscription->revoke(RevocationContext::forFullRefund());
     }
 
     #[Test]
