@@ -1,6 +1,6 @@
 # Subscription purchases
 
-The Google Play `Subscription` facade provides access to customer subscription purchases using your application's configuration. It currently supports retrieving a purchase through `purchases.subscriptionsv2.get`.
+The Google Play `Subscription` facade provides access to customer subscription purchases using your application's configuration. It currently supports retrieving a purchase through `purchases.subscriptionsv2.get` and revoking one through `purchases.subscriptionsv2.revoke`.
 
 ## Configuring your application
 
@@ -47,6 +47,25 @@ foreach ($purchase->lineItems as $lineItem) {
 Explore the returned model's typed public API using your IDE's completion or your coding agent, based on the installed `imdhemy/google-play-billing` version. See [Google's SubscriptionPurchaseV2 reference](https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.subscriptionsv2) for field meanings and restrictions.
 
 Successful retrieval alone does not establish entitlement. Use the subscription state and relevant line items to decide access for your application.
+
+## Revoking a subscription purchase
+
+Call `revoke()` with a revocation context to end the customer's access immediately and refund the purchase. The same token and package name rules apply as for `get()`:
+
+```php
+use Imdhemy\GooglePlay\Domain\Purchase\Subscription\RevocationContext;
+use Imdhemy\Purchases\GooglePlay\Purchase\Facade\Subscription;
+
+Subscription::token($purchaseToken)->revoke(RevocationContext::forFullRefund());
+```
+
+The revocation context comes from `imdhemy/google-play-billing` and selects the refund type:
+
+- `RevocationContext::forFullRefund()` refunds the full amount of the most recent payment.
+- `RevocationContext::forProratedRefund()` refunds the unused time of the current billing period.
+- `RevocationContext::forItemBasedRefund($productId)` refunds one item of a subscription with several line items. Pass the subscription product ID of that item.
+
+The method returns nothing. See [Google's revoke reference](https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.subscriptionsv2/revoke) for which refund types each subscription supports.
 
 ## Selecting another application
 

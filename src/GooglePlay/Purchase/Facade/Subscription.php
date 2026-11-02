@@ -6,6 +6,7 @@ namespace Imdhemy\Purchases\GooglePlay\Purchase\Facade;
 
 use Illuminate\Support\Facades\Facade;
 use Imdhemy\GooglePlay\Domain\Purchase\Entity\SubscriptionPurchase;
+use Imdhemy\GooglePlay\Domain\Purchase\Subscription\RevocationContext;
 use Imdhemy\Purchases\GooglePlay\Purchase\Subscription as SubscriptionService;
 use Override;
 use Psr\Http\Client\ClientInterface;
@@ -19,6 +20,7 @@ use Psr\Http\Client\ClientInterface;
  * @method static SubscriptionService  packageName(string $packageName)
  * @method static SubscriptionService  token(string $token)
  * @method static SubscriptionPurchase get()
+ * @method static void                 revoke(RevocationContext $revocationContext)
  */
 final class Subscription extends Facade
 {
