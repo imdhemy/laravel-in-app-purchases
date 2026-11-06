@@ -10,8 +10,10 @@ use Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification;
 use Imdhemy\Purchases\Domain\Event\GooglePlayNotificationReceivedEvent;
 use Imdhemy\Purchases\Domain\Model\GooglePlay\GooglePlayNotificationPayload;
 use Imdhemy\Purchases\Domain\Model\GooglePlay\Message;
+use Imdhemy\Purchases\GooglePlay\Notification\PushTokenVerifier;
 use Imdhemy\Purchases\ServerNotifications\GoogleServerNotification;
 use JsonException;
+use Override;
 
 /**
  * Google Play notification handler.
@@ -73,6 +75,23 @@ class GooglePlayNotificationHandler extends AbstractNotificationHandler
             $event = new GooglePlayNotificationReceivedEvent($googlePlayNotificationPayload);
             event($event);
         }
+    }
+
+    #[Override]
+    protected function isAuthorized(): bool
+    {
+        return parent::isAuthorized() && $this->hasValidPushToken();
+    }
+
+    private function hasValidPushToken(): bool
+    {
+        if (! config('liap.google_play_push_authentication.enabled', false)) {
+            return true;
+        }
+
+        $token = $this->request->bearerToken();
+
+        return null !== $token && app(PushTokenVerifier::class)->verify($token);
     }
 
     private function isParsable(string $data): bool

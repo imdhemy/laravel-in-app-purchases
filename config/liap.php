@@ -34,6 +34,24 @@ return [
 
     /*
      |--------------------------------------------------------------------------
+     | Google Play Push Authentication
+     |--------------------------------------------------------------------------
+     |
+     | When enabled, Google Play notification requests must carry the token that
+     | Pub/Sub attaches to authenticated push subscriptions. The audience and
+     | service account email must match the subscription and are required.
+     |
+     | @see https://cloud.google.com/pubsub/docs/authenticate-push-subscriptions
+     |
+     */
+    'google_play_push_authentication' => [
+        'enabled' => env('GOOGLE_PLAY_PUSH_AUTHENTICATION', false),
+        'audience' => env('GOOGLE_PLAY_PUSH_AUDIENCE'),
+        'service_account_email' => env('GOOGLE_PLAY_PUSH_SERVICE_ACCOUNT_EMAIL'),
+    ],
+
+    /*
+     |--------------------------------------------------------------------------
      | App Store Password
      |--------------------------------------------------------------------------
      |
