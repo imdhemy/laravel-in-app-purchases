@@ -61,18 +61,15 @@ class GooglePlayNotificationHandler extends AbstractNotificationHandler
         if ($developerNotification->isTestNotification()) {
             $version = $developerNotification->getPayload()->getVersion();
             Log::info(sprintf('Google Play Test Notification, version: %s', $version));
-
-            $event = new GooglePlayNotificationReceivedEvent($googlePlayNotificationPayload);
-            event($event);
         }
 
         if ($developerNotification->getPayload() instanceof SubscriptionNotification) {
             $legacyEvent = $this->eventFactory->create($googleNotification);
             event($legacyEvent);
-
-            $event = new GooglePlayNotificationReceivedEvent($googlePlayNotificationPayload);
-            event($event);
         }
+
+        $event = new GooglePlayNotificationReceivedEvent($googlePlayNotificationPayload);
+        event($event);
     }
 
     private function isParsable(string $data): bool

@@ -85,6 +85,50 @@ class Faker
     }
 
     /**
+     * Generates a Google one-time product notification with the given data.
+     */
+    public function googleOneTimeProductNotification(array $data = []): string
+    {
+        $oneTimeProductNotification = array_merge([
+            'version' => '1.0',
+            'notificationType' => 1,
+            'purchaseToken' => 'some-purchase-token',
+            'sku' => 'some-sku',
+        ], $data);
+
+        $data = [
+            'version' => '1.0',
+            'packageName' => 'com.some.thing',
+            'eventTimeMillis' => (string)time(),
+            'oneTimeProductNotification' => $oneTimeProductNotification,
+        ];
+
+        return $this->base64Encode($data);
+    }
+
+    /**
+     * Generates a Google voided purchase notification with the given data.
+     */
+    public function googleVoidedPurchaseNotification(array $data = []): string
+    {
+        $voidedPurchaseNotification = array_merge([
+            'purchaseToken' => 'some-purchase-token',
+            'orderId' => 'GS.0000-0000-0000',
+            'productType' => 2,
+            'refundType' => 1,
+        ], $data);
+
+        $data = [
+            'version' => '1.0',
+            'packageName' => 'com.some.thing',
+            'eventTimeMillis' => (string)time(),
+            'voidedPurchaseNotification' => $voidedPurchaseNotification,
+        ];
+
+        return $this->base64Encode($data);
+    }
+
+    /**
      * Generates a Google test notification with the given data.
      */
     public function googleTestNotification(array $data = []): string

@@ -68,8 +68,9 @@ The `Domain` directory therefore describes part of the notification API, not a c
 
 The two models currently coexist. App Store V2 test notifications emit only the notification-received event;
 other V2 notifications emit a lifecycle event followed by the notification-received event. Google Play
-subscription notifications emit both, while its test notifications and messages that fail the handler's
-parsability check emit the notification-received event. The legacy App Store handler emits lifecycle events only.
+subscription notifications emit both. Every other Google Play message emits only the notification-received event:
+one-time product, voided purchase, and test notifications, and messages that fail the handler's parsability check.
+The legacy App Store handler emits lifecycle events only.
 Consumers must not assume every incoming request emits both event models.
 
 ## Boundaries and compatibility
