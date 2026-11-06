@@ -51,7 +51,8 @@ Results are provider-library response objects; `Subscription::toStd()` adapts su
 2. `HandlerFactory` selects a handler from the request's `provider` query parameter. An App Store request with
    `signedPayload` selects the V2 handler.
 3. `AbstractNotificationHandler` runs authorization, request validation, and provider-specific handling.
-   The App Store V2 handler also verifies the signed payload through `JwsService`.
+   The App Store V2 handler also verifies the signed payload through `JwsService`, and the Google Play handler
+   can verify the Pub/Sub push token through `GooglePlay\Notification\PushTokenVerifier`.
 4. The handler constructs notification or payload objects and dispatches Laravel events. Lifecycle events are
    selected by `Events\EventFactory` from the provider and notification type.
 5. Application listeners react to those events and apply application-specific behavior.
@@ -89,8 +90,9 @@ need compatibility review; their presence alone does not define a supported exte
 - **Configuration:** the provider merges package defaults with application configuration. Routing options control
   the route prefix, middleware, and optional Laravel URL signature checks. `EventServiceProvider` reads
   `liap.eventListeners` to register listeners.
-- **Authorization and verification:** Laravel URL signature checks and App Store V2 payload verification are
-  separate checks. The former is configurable; the latter runs in the V2 handler's authorization step.
+- **Authorization and verification:** Laravel URL signature checks, App Store V2 payload verification, and Google
+  Play push token verification are separate checks. URL signatures and push tokens are configurable; V2 payload
+  verification always runs. Provider-specific checks run in the handler's authorization step.
 - **Failures:** authorization, validation, parsing, and provider-operation exceptions can propagate to Laravel or
   the caller. A lifecycle `FallbackEvent` handles an unmapped event type; it is not a general error handler.
 
